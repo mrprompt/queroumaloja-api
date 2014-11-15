@@ -1,0 +1,676 @@
+/********************/
+/* Custom LESS File */
+/********************/
+
+/* Color declaration */
+
+@white:			#ffffff;
+@light-grey:	#f9f9f9;
+@grey:			#eeeeee;
+@dark-grey:		#aaaaaa;
+@black:			#555555;
+@dark-black:	#333333;
+@red: 			#f75353;
+@dark-red: 		#ed4747;
+@green:			#51d466;
+@dark-green:	#42c557;
+@lblue: 		#32c8de;
+@dark-lblue:	#2bbdd2;
+@blue:			#609cec;
+@dark-blue:		#528fe2;
+@orange:		#f78153;
+@dark-orange:	#eb6c3a;
+@yellow:		#fcd419;
+@dark-yellow:	#e9c51b;
+@purple:		#cb79e6;
+@dark-purple:	#b75bd6;
+@rose:			#ff61e7;
+@dark-rose:		#f245d8;
+@brown: 		#d08166;
+@dark-brown:	#bf6748;
+
+/* Basic */
+
+@default-text: 	#666666;
+@default-heading:	#777777;
+@link-color:	#777777;
+@link-hcolor:	#555555;
+
+/* Progress bar */
+
+@progress-bar-height: 12px;
+
+/* Labels */
+
+@label-padding:3px 6px;
+@label-font-size:12px;
+@label-font-weight:normal;
+
+/*  Social Media Color */
+
+@facebook:	#1e78ae;
+@twitter:	#1ba1e2;
+@google-plus:	#f22d0c;
+@linkedin:	#2d93cf;
+@pinterest:	#dd1617;
+
+
+/***********/
+/* General */
+/***********/
+
+body{
+	color:@default-text;
+}
+
+h1,h2,h3,h4,h5,h6{
+	color:@default-heading;
+}
+
+a{
+	color:@link-color;
+}
+
+a:hover{
+	color:@link-hcolor;
+}
+
+/**********************/
+/* Text color classes */
+/**********************/
+
+.white{
+	color:@white !important;
+}
+
+.grey{
+	color:@grey !important;
+}
+
+.black{
+	color:@black !important;
+}
+
+.red{
+	color:@red !important;
+}
+
+.green{
+	color:@green !important;
+}
+
+.lblue{
+	color:@lblue !important;
+}
+
+.blue{
+	color:@blue !important;
+}
+
+.orange{
+	color:@orange !important;
+}
+
+.yellow{
+	color:@yellow !important;
+}
+
+.purple{
+	color:@purple !important;
+}
+
+.rose{
+	color:@rose !important;
+}
+
+.brown{
+	color:@brown !important;
+}
+
+/****************************/
+/* Background color classes */
+/****************************/
+
+.br-white{
+	background-color:@white !important;
+}
+
+.br-grey{
+	background-color:@grey !important;
+}
+
+.br-black{
+	background-color:@black !important;
+}
+
+.br-red{
+	background-color:@red !important;
+}
+
+.br-green{
+	background-color:@green !important;
+}
+
+.br-lblue{
+	background-color:@lblue !important;
+}
+
+.br-blue{
+	background-color:@blue !important;
+}
+
+.br-orange{
+	background-color:@orange !important;
+}
+
+.br-yellow{
+	background-color:@yellow !important;
+}
+
+.br-purple{
+	background-color:@purple !important;
+}
+
+.br-rose{
+	background-color:@rose !important;
+}
+
+.br-brown{
+	background-color:@brown !important;
+}
+
+/************************/
+/* Button color classes */
+/************************/
+
+.btn.btn-default{
+	background: @light-grey;
+	color: @black;
+	border:1px solid @dark-grey;
+}
+
+.btn.btn-default:hover{
+	background: @grey;
+}
+
+.btn.btn-black{
+	color: @white;
+	background: @black;
+	border:1px solid @dark-black;
+}
+
+.btn.btn-black:hover{
+	background: @dark-black;
+}
+
+.btn.btn-danger{
+	background: @red;
+	border:1px solid @dark-red;
+}
+
+.btn.btn-danger:hover{
+	background: @dark-red;
+}
+
+.btn.btn-success{
+	background: @green;
+	border:1px solid @dark-green;
+}
+
+.btn.btn-success:hover{
+	background: @dark-green;
+}
+
+.btn.btn-info{
+	background: @lblue;
+	border:1px solid @dark-lblue;
+}
+
+.btn.btn-info:hover{
+	background: @dark-lblue;
+}
+
+.btn.btn-primary{
+	background: @blue;
+	border:1px solid @dark-blue;
+}
+
+.btn.btn-primary:hover{
+	background: @dark-blue;
+}
+
+.btn.btn-warning{
+	background: @orange;
+	border:1px solid @dark-orange;
+}
+
+.btn.btn-warning:hover{
+	background: @dark-orange;
+}
+
+.btn.btn-yellow{
+	background:@yellow;
+	color:@white;
+	border:1px solid @dark-yellow;
+}
+
+.btn.btn-yellow:hover{
+	background:@dark-yellow;
+}
+
+.btn.btn-purple{
+	background: @purple;
+	color: @white;
+	border:1px solid @dark-purple;
+}
+
+.btn.btn-purple:hover{
+	background: @dark-purple;
+}
+
+.btn.btn-rose{
+	background:@rose;
+	color:@white;
+	border:1px solid @dark-rose;
+}
+
+.btn.btn-rose:hover{
+	background:@dark-rose;
+}
+
+.btn.btn-brown{
+	background: @brown;
+	color: @white;
+	border:1px solid @dark-brown;
+}
+
+.btn.btn-brown:hover{
+	background: @dark-brown;
+}
+
+/*********/
+/* Label */
+/*********/
+
+.label{
+	padding:@label-padding;
+	font-size:@label-font-size;
+	font-weight:@label-font-weight;
+}
+
+.label.label-default{
+	color:@dark-grey;
+	background:@grey;
+}
+
+.label.label-black{
+	background:@black;
+}
+
+.label.label-danger{
+	background:@red;
+}
+
+.label.label-success{
+	background:@green;
+}
+
+.label.label-info{
+	background:@lblue;
+}
+
+.label.label-primary{
+	background:@blue;
+}
+
+.label.label-warning{
+	background:@orange;
+}
+
+.label.label-yellow{
+	background:@yellow;
+}
+
+.label.label-purple{
+	background:@purple;
+}
+
+.label.label-rose{
+	background:@rose;
+}
+
+.label.label-brown{
+	background:@brown;
+}
+
+/**************/
+/* Badge */
+/**************/
+
+.badge.badge-default{
+	color:@dark-grey;
+	background:@grey;
+}
+
+.badge.badge-black{
+	background:@black;
+}
+
+.badge.badge-danger{
+	background:@red;
+}
+
+.badge.badge-success{
+	background:@green;
+}
+
+.badge.badge-info{
+	background:@lblue;
+}
+
+.badge.badge-primary{
+	background:@blue;
+}
+
+.badge.badge-warning{
+	background:@orange;
+}
+
+.badge.badge-yellow{
+	background:@yellow;
+}
+
+.badge.badge-purple{
+	background:@purple;
+}
+
+.badge.badge-rose{
+	background:@rose;
+}
+
+.badge.badge-brown{
+	background:@brown;
+}
+
+/**************/
+/* Pagination */
+/**************/
+
+.pagination{
+	li{
+		a{
+			color:@link-color;
+			&:hover{
+				background-color: @red;
+				border-color: @red;
+				color: @white;
+			}
+		}
+	}
+	li.active{
+		a{
+			background-color: @red;
+			border-color: @red;
+			&:hover{
+				background-color: @red;
+				border-color: @red;
+			}
+			&:focus{
+				background-color: @red;
+				border-color: @red;
+			}
+		}
+		span{
+			background-color: @red;
+			border-color: @red;
+			&:hover{
+				background-color: @red;
+				border-color: @red;
+			}
+			&:focus{
+				background-color: @red;
+				border-color: @red;
+			}
+		}		
+	}
+}
+
+/*********/
+/* Pager */
+/*********/
+
+.pager{
+	li{
+		a{
+			background-color:@red;
+			color:@white;
+			border:1px solid @dark-red;
+			&:hover{
+				background:@dark-red;
+			}
+		}
+	}
+}
+
+/*************/
+/* Nav Tabs  */
+/*************/
+
+.nav-tabs{
+	li{
+		a{
+			&:hover{
+				background:@red;
+				color:@white;
+				border-color:@red;
+			}
+		}
+	}
+	li.active{
+		a{
+			background-color: @red;
+			border-color: @red;
+			color : @white;
+			&:hover{
+				background-color: @red;
+				border-color:@red;
+				color:@white;
+			}
+		}
+	}
+}
+
+/*************/
+/* Nav Pills */
+/*************/
+
+.nav-pills{
+	li{
+		a{	
+			background:@light-grey;
+			border:1px solid @grey;
+			&:hover{
+				background:@red;
+				color:@white;
+				border-color:@red;
+			}
+		}
+	}
+	li.active{
+		a{
+			background-color: @red;
+			border-color: @red;
+			color : @white;
+			&:hover{
+				background-color: @dark-red;
+			}
+		}
+	}
+}
+
+/****************/
+/* Progress bar */
+/****************/
+
+.progress{
+	height:@progress-bar-height;
+}
+
+.progress-bar-danger{
+	background:@red;
+}
+
+.progress-bar-success{
+	background:@green;
+}
+
+.progress-bar-info{
+	background:@lblue;
+}
+
+.progress-bar-primary{
+	background:@blue;
+}
+
+.progress-bar-warning{
+	background:@orange;
+}
+
+/****************/
+/* Social */
+/****************/
+
+.social a.facebook i{
+	background:@facebook;
+}
+
+.social a.twitter i{
+	background:@twitter;
+}
+
+.social a.google-plus i{
+	background:@google-plus;
+}
+
+.social a.linkedin i{
+	background:@linkedin;
+}
+
+.social a.pinterest i{
+	background:@pinterest;
+}
+
+.social a:hover i{
+   background:@dark-black;
+}
+
+/****************/
+/* Page CSS */
+/****************/
+
+/* Navigation Menu */
+
+.header {
+	.navbar-default {
+		.navbar-nav {
+			li {
+				a {
+					color: @link-color;
+					&hover{
+						color: @link-hcolor;
+					}
+				}
+				ul.dropdown-md a.btn {
+					color: @white;
+				}
+			}
+			.open {
+				a, a:hover, a:focus, a:active{
+					color: @link-color;
+				}
+			}
+		}
+	}
+}
+
+/****************/
+/* Drop Down Menu */
+/****************/
+
+.dropdown-menu { border-top: 3px solid @red !important; }
+.dropdown-menu:before {	border-bottom-color: @red !important; }
+
+/*
+ * Cart drop down link color
+ */
+ 
+.btn-cart-md,.btn-cart-sm{
+	a.cart-link {
+		color: @link-color; 
+		&:hover{
+			color: @link-hcolor;
+		}
+	}
+	.cart-dropdown{
+		border-top: 3px solid @red !important;
+	}
+}
+
+.btn-cart-sm .cart-dropdown:before,
+.btn-cart-md .cart-dropdown:before { border-bottom-color: @red !important; }
+
+/****************/
+/* flex-slider  */
+/****************/
+
+.testimonial .flex-control-paging li a.flex-active{ background: @red; }
+
+/****************/
+/* Recipe Page */
+/****************/
+
+.inner-page .recipe  .recipe-item  ul li i { color: @green; }
+
+/****************/
+/* Single Item Page */
+/****************/
+
+.inner-page .single-item  ul li i { color: @green; }
+
+/****************/
+/* Shopping Item */
+/****************/
+
+.inner-page{
+	.shopping{
+		.shopping-item{
+			span.item-price {
+				color: @red; 
+			}
+			&:hover {
+				border-color: @red; 
+			}
+		}
+	}
+}
+
+/****************/
+/* Blog Page */
+/****************/
+
+.inner-page .blog .blog-post .entry hr { border-top: 4px solid @red; }
+.inner-page .blog .sidebar-widget ul li i { color: @red; }
+
+/****************/
+/* General Page */
+/****************/
+
+.inner-page .general .nav-tabs>li.active>a { background: @red; border-color: @red; }
+.inner-page .general .nav-tabs>li>a:hover { border-right: 1px solid @red; }
+.inner-page .general .tab-content ul li i { color: @lblue; }
+
+/****************/
+/* Scroll to top */
+/****************/
+
+.totop a i{ background: @red; }

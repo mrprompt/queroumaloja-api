@@ -1,0 +1,51 @@
+extends ../layout.jade
+
+block conteudo
+  //
+     start: Container
+  .container(ng-controller='Servicos', ng-init='get()')
+      //
+         start: Wrapper
+      #wrapper
+        //
+           start: Container
+        .container
+          //
+             start: Hero Unit - Main hero unit for a primary marketing message or call to action
+          .hero-unit
+            h2
+              | Serviços
+            h3
+              | Serviços prestados
+          //
+             end: Hero Unit
+          hr
+          //
+             start: Theme Features
+          div(class='row-fluid', ng-init='get()')
+              div(class='span2')
+                  b {{ servico.name }}
+
+              div(class='span10')
+                  div(class='title')
+                      h1 {{ servico.name }}
+
+                  p {{ servico.description }}
+                  p {{ servico.price }}
+          //
+             end: Theme Features
+          hr
+
+          //
+             start: Call To Action
+          .row-fluid
+            .span12
+              .call-to-action
+                .row-fluid
+                  .span12
+                    a.btn.btn-cta.btn-large.btn-danger(href='/contato') Vamos lá
+                    h3 Faça parte!
+                    h4
+                      | Entre agora mesmo em contato e faça seu orçamento!
+          //
+             end: Call To Action

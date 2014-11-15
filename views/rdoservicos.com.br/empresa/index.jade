@@ -1,0 +1,76 @@
+extends ../layout.jade
+
+block conteudo
+  //
+     ======== @Region: #highlighted ========
+  #highlighted
+    .container
+      .header
+        h2.page-title
+          span Empresa
+          small muito mais do que prestação de serviços
+  //
+     ======== @Region: #content ========
+  #content
+    .container
+      //
+         About
+      .row
+        .col-md-8
+          //
+             About company
+          .block
+            h3#company.block-title
+              | A Empresa
+            span
+              | !{site.descricao}
+
+          if equipe.length
+            //
+               The team
+            .block.margin-top-large
+              h3#team.block-title
+                span Nossa Equipe
+              .row
+                .col-sm-6
+                  .row
+                    ul.thumbnails.list-unstyled.team
+                      each funcionario in equipe
+                        li.col-xs-6
+                          img.img-polaroid(src='#{funcionario.imagem.url}', alt='#{funcionario.nome}')
+                          h4
+                            a._popover(data-content='#{funcionario.cargo}', data-original-title='#{funcionario.nome}') #{funcionario.nome}
+        //
+           sidebar
+        .col-md-4.sidebar.sidebar-right
+          .inner
+            if atuacao.lenth
+              .block
+                h3.block-title.sub-title
+                  span Atuação
+                ul.nav.nav-list.secondary-nav
+                  each atuacao in atuacao
+                    li
+                      a(href='/servicos')
+                        i.fa.fa-chevron-right &nbsp;
+                        | #{atuacao.titulo}
+
+            if empregos.length
+              .block
+                h3.block-title.sub-title
+                  span Trabalhe conosco
+                  span.label.label-warning.pull-right Estamos contratando!
+                ul.nav.nav-list.secondary-nav
+                  each emprego in empregos
+                    li
+                      a(href='/oportunidades/#{emprego._id}')
+                        i.fa.fa-chevron-right &nbsp;
+                        | #{emprego.titulo}
+
+            .block.mdrs
+              a.btn.btn-block.btn-info(href='/curriculos')
+                i.fa.fa-download &nbsp;
+                | Envie seu currículo
+              a.btn.btn-block.btn-success(href='/contato')
+                i.fa.fa-envelope-o &nbsp;
+                | Entre em contato

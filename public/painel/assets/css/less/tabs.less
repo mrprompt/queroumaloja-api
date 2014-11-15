@@ -1,0 +1,41 @@
+/* Tabs
+=================================================================== */
+.tab-menu.nav-tabs {
+
+    margin-top: -48px;
+    border-bottom: none;
+
+    & > li {
+        float: right;
+        margin-bottom: -1px;
+
+        & > a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            line-height: 16px;
+            margin-left: -3px;
+            border-top: 1px solid #f1f1f1;
+            border-left: 1px solid #f1f1f1;
+            border-right: 1px solid #f1f1f1;
+            .border-radius;
+        }
+
+        & > a:hover {
+            border-color: #f1f1f1;
+        }
+    }
+
+    & > .active {
+	
+        & > a {
+            color: #555555;
+            cursor: default;
+            background-color: #fff;
+            border-left: 1px solid #f1f1f1;
+        }
+
+        & > a:hover {
+            background-color: #fafafa;
+        }
+    }
+}

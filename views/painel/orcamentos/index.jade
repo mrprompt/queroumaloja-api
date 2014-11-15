@@ -1,0 +1,54 @@
+.col-lg-12(ng-init='load()')
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-money
+        span.break
+        | Orçamentos
+
+    .box-content
+      .block
+          div(class='alert alert-{{ status.type }}', ng-show='status')
+              button(type='button', class='close', data-dismiss='alert') &times;
+              | {{ status.message}}
+
+          div(class='alert alert-warning', ng-show='orcamentos.length == 0')
+              | Você não possui nenhum orcamento cadastrado
+
+          table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='orcamentos.length')
+              thead
+                  tr
+                      td.col-md-3 Solicitante
+                      td.col-md-3 Email
+                      td.col-md-2 Serviço
+                      td.col-md-1 Data
+                      td.col-md-1
+
+              tbody(ng-show='orcamentos.length')
+                  tr(ng-repeat='orcamento in orcamentos | pagination: curPage * pageSize | limitTo: pageSize')
+                      td
+                          a(href="#/orcamentos/{{ orcamento._id }}")
+                              | {{ orcamento.solicitante }}
+                      td
+                          a(href="mailto:{{ orcamento.email }}")
+                              | {{ orcamento.email }}
+                      td {{ orcamento.servico.titulo }}
+                      td {{ orcamento.cadastro | date: 'd/MMM/yyyy' }}
+                      td
+                          a(href='#/orcamentos/editar/{{ orcamento._id }}', class='btn btn-mini btn-success')
+                              span.fa.fa-edit &nbsp;
+                          button(class='btn btn-mini btn-danger', ng-click='delete(orcamento._id)')
+                              span.fa.fa-trash-o &nbsp;
+
+      .block.text-center(ng-show='orcamentos.length')
+        ul.pagination.pagination-centered.inline.unstyled
+          li
+            a.btn.btn-link(ng-disabled='curPage === 0', ng-click='curPage = curPage - 1')
+              | Voltar
+          li
+            span
+              | Página {{ curPage + 1 }} de {{ paginas() }}
+          li
+            a.btn.btn-link(ng-disabled='curPage >= orcamentos.length / pageSize - 1', ng-click='curPage = curPage + 1')
+              | Avançar
+

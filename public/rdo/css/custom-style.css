@@ -1,0 +1,127 @@
+/*/////////////////////////////////////////////////////////////////////
+ //
+ // Custom theme code styles
+ // Written by Themelize.me (http://themelize.me)
+ //
+ // This is an empty starter template for overriding styles
+ // set by Bootstrap & the theme
+ //
+ // ----------------------------------------------------
+ //
+ // Remove unused code for better performances
+ //
+ // ----------------------------------------------------
+ //
+ // @see - Usefuls tools online for editing
+ // 1. http://charliepark.org/bootstrap_buttons/ - Button style generator
+ // 2. http://www.colorzilla.com/gradient-editor/ - CSS3 gradient maker
+ //
+ // @note
+ // To ensure custom styles are picked up
+ // wrap definitions in body tag
+ // ie.
+ // body .navbar-inner {
+ //   background: #ff0000;
+ // }
+ //
+ /////////////////////////////////////////////////////////////////////*/
+/*
+ * --------------------------------------------------
+ * 1. General Elements
+ *--------------------------------------------------
+ */
+#navigation {
+  /* 1. Navigation wrapper */
+}
+#highlighted {
+  /* 2. Highlighted (below header) wrapper */
+}
+#content {
+  /* 3. Content wrapper */
+}
+#content-below {
+  /* 4. Content Below wrapper */
+}
+#footer {
+  /* 5. Footer wrapper */
+}
+/*
+ * --------------------------------------------------
+ * 2. Colours
+ *--------------------------------------------------
+ */
+/*
+ * --------------------------------------------------
+ * 3. Responsiveness/media queries
+ *--------------------------------------------------
+ */
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+@media (min-width: 768px) {
+  /* Small devices (tablets, 768px and up) */
+}
+@media (min-width: 992px) {
+  /* Medium devices (desktops, 992px and up) */
+  .scope {
+    min-height: 600px;
+  }
+}
+@media (min-width: 1200px) {
+  /* Large devices (large desktops, 1200px and up) */
+}
+/* Navbar collapse */
+/*
+ * --------------------------------------------------
+ * 4. Misc
+ * Other stuff
+ *--------------------------------------------------
+ */
+
+a.navbar-brand {
+
+}
+a.navbar-brand img {
+    max-height: 50px;
+}
+
+.slide img.fadeInDownBig {
+    min-height: 350px !important;
+    max-height: 400px !important;
+}
+
+.columns {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+}
+
+.project {
+    min-height: 235px;
+}
+.project img {
+    border-style: none;
+}
+
+#myModal {
+  max-width: 660px !important;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 180px !important;
+  max-height: 600px !important;
+  height: 180px;
+  top: 25%;
+}
+#myModal .modal-header {
+  height: 40px !important;
+}
+#myModal .modal-body {
+  padding: 10px;
+  margin: 5px;
+}
+#myModal .modal-footer {
+  height: 60px !important;
+  background-color: #f2f2f2;
+}

@@ -1,0 +1,53 @@
+.col-lg-12(ng-init='load()')
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-bullhorn
+        span.break
+        | Área de atuação
+      .box-icon
+        a.btn-plus(href='#/atuacao/adicionar')
+          i.fa.fa-plus
+
+    .box-content
+      div(class='alert alert-{{ status.type }}', ng-show='status')
+          button(type='button', class='close', data-dismiss='alert') &times;
+          | {{ status.message}}
+
+      div(class='alert alert-warning', ng-show='atuacoes.length == 0')
+          | Você não possui nenhuma área de atuação, cadastre uma &nbsp;
+          a(href='#/atuacao/adicionar') aqui
+
+      table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='atuacoes.length')
+        thead
+          tr
+            th Título
+            th Data de Cadastro
+            th Descrição
+            th.col-md-1 Ações
+        tbody
+          tr(ng-repeat='atuacao in atuacoes | pagination: curPage * pageSize | limitTo: pageSize')
+            td {{ atuacao.titulo }}
+            td.center {{ atuacao.cadastro | date: 'dd/MM/yyyy HH:mm' }}
+            td.center {{ atuacao.descricao }}
+            td.center
+              //
+                a.btn.btn-success(href='#/atuacao/{{ atuacao._id }}')
+                  i.fa.fa-search-plus
+              a.btn.btn-info(href='#/atuacao/editar/{{ atuacao._id }}')
+                i.fa.fa-edit
+              a.btn.btn-danger(ng-click='delete(atuacao._id)')
+                i.fa.fa-trash-o
+
+      .block.text-center(ng-show='atuacoes.length')
+        ul.pagination.pagination-centered.inline.unstyled
+          li
+            a.btn.btn-link(ng-disabled='curPage === 0', ng-click='curPage = curPage - 1')
+              | Voltar
+          li
+            span
+              | Página {{ curPage + 1 }} de {{ paginas() }}
+          li
+            a.btn.btn-link(ng-disabled='curPage >= atuacoes.length / pageSize - 1', ng-click='curPage = curPage + 1')
+              | Avançar
+// /col

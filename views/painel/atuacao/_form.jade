@@ -1,0 +1,64 @@
+.form-group(ng-class="{ 'has-error' : atuacaoForm.titulo.$invalid && !atuacaoForm.titulo.$pristine }")
+    label(class='control-label') Título
+    div(class='controls')
+        input(type='text', class='form-control', ng-model='atuacao.titulo', name='titulo', required)
+        p(ng-show='atuacaoForm.titulo.$invalid && !atuacaoForm.titulo.$pristine', class='help-block') Título muito curto ou inválido
+
+.form-group.hidden-xs(ng-class="{ 'has-error' : atuacaoForm.descricao.$invalid && !atuacaoForm.descricao.$pristine }", ng-init='editor()')
+  label.control-label Descrição
+  .btn-toolbar(data-role='editor-toolbar', data-target='.editor')
+    .btn-group
+      a.btn.dropdown-toggle(data-toggle='dropdown', title='Font Size')
+        i.fa.fa-text-height
+        b.caret
+      ul.dropdown-menu
+        li
+          a(data-edit='fontSize 5')
+            font(size='5') Grande
+        li
+          a(data-edit='fontSize 3')
+            font(size='3') Normal
+        li
+          a(data-edit='fontSize 1')
+            font(size='1') Pequena
+    .btn-group
+      a.btn(data-edit='bold', title='Bold (Ctrl/Cmd+B)')
+        i.fa.fa-bold
+      a.btn(data-edit='italic', title='Italic (Ctrl/Cmd+I)')
+        i.fa.fa-italic
+      a.btn(data-edit='strikethrough', title='Strikethrough')
+        i.fa.fa-strikethrough
+      a.btn(data-edit='underline', title='Underline (Ctrl/Cmd+U)')
+        i.fa.fa-underline
+    .btn-group
+      a.btn(data-edit='insertunorderedlist', title='Bullet list')
+        i.fa.fa-list-ul
+      a.btn(data-edit='insertorderedlist', title='Number list')
+        i.fa.fa-list-ol
+      a.btn(data-edit='outdent', title='Reduce indent (Shift+Tab)')
+        i.fa.fa-outdent
+      a.btn(data-edit='indent', title='Indent (Tab)')
+        i.fa.fa-indent
+    .btn-group
+      a.btn(data-edit='justifyleft', title='Align Left (Ctrl/Cmd+L)')
+        i.fa.fa-align-left
+      a.btn(data-edit='justifycenter', title='Center (Ctrl/Cmd+E)')
+        i.fa.fa-align-center
+      a.btn(data-edit='justifyright', title='Align Right (Ctrl/Cmd+R)')
+        i.fa.fa-align-right
+      a.btn(data-edit='justifyfull', title='Justify (Ctrl/Cmd+J)')
+        i.fa.fa-align-justify
+    .btn-group
+      .btn-group
+        a.btn(data-edit='undo', title='Undo (Ctrl/Cmd+Z)')
+          i.fa.fa-undo
+        a.btn(data-edit='redo', title='Redo (Ctrl/Cmd+Y)')
+          i.fa.fa-repeat
+
+.editor(ng-model='atuacao.descricao', name='descricao',contentEditable)
+p(ng-show='atuacaoForm.descricao.$invalid && !atuacaoForm.descricao.$pristine', class='help-block') Descricao muito curta
+
+.control-group
+    div(class='controls')
+        button(type='submit', class='btn btn-primary', ng-disabled='atuacaoForm.$invalid') Salvar
+        a(href='#/atuacao', class='btn') voltar

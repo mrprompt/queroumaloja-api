@@ -1,0 +1,323 @@
+/* Widgets Area
+=================================================================== */
+a#widgets-area-button {
+	color: #fff;
+	position: absolute;
+	top: 4px;
+	right: 1px;
+	padding: 5px 10px;
+	font-size: 16px;
+	text-shadow: none;
+	text-decoration: none;
+	cursor: pointer;
+	z-index: 1000;
+}
+
+.jqstooltip {
+	.box-sizing(content-box);
+}
+
+#widgets-area {
+	padding: 0px;
+	display: none;
+	color: #aaa;
+	text-shadow: 0px 1px 0px #fff;
+	overflow: hidden;
+	width: 17%;
+	margin-left: 5px;
+	margin-right: -5px;
+	
+	hr {
+		height: 0px;
+		background: none;
+		border-top: 1px solid darken(@bodyBackground, 3%);
+		border-bottom: 1px solid lighten(@bodyBackground, 2%);
+		margin: 5px 0;
+	}
+	
+	.tab-menu.nav-tabs {
+	    margin-top: 0px;
+	    border-bottom: none;
+
+	    & > li {
+	        float: left;
+	        border-bottom: none;
+
+	        & > a {
+	            margin-left: -2px;
+	            border: none;
+				border-left: 1px solid lighten(@bodyBackground, 2%);
+	            border-right: 1px solid darken(@bodyBackground, 3%);
+				color: #aaa;
+	        }
+	
+			&:first-child > a {
+				border-left: none !important;
+			}
+			
+			&:last-child > a {
+				border-right: none !important;
+			}
+
+	        & > a:hover {
+				color: #666;
+				background: none;
+	            border-left: 1px solid lighten(@bodyBackground, 2%);
+				border-right: 1px solid darken(@bodyBackground, 3%);
+	        }
+	    }
+
+	    & > .active {
+
+	        & > a {
+	            color: #666;
+	            background: none;
+	            border-left: 1px solid lighten(@bodyBackground, 2%);
+	        }
+			
+			&:first-child > a {
+				border-left: none !important;
+			}
+			
+			&:last-child > a {
+				border-right: none !important;
+			}
+
+	        & > a:hover {
+	            background: none;
+	        }
+	    }
+	}
+	
+}
+
+#cpu-usage {
+	width:180px; height:140px;
+    margin: 0 auto !important;
+}
+
+.bar-stat {
+	position: relative;
+	
+	.title {
+		font-size: 12px;
+		display: block;
+	}
+	
+	.value {
+		font-size: 17px;
+		font-weight: 600;
+	}
+	
+	.chart {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}
+
+ul.users-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid darken(@bodyBackground, 3%);
+	border-bottom: 1px solid lighten(@bodyBackground, 2%);
+	
+	li {
+		border-top: 1px solid lighten(@bodyBackground, 2%);
+		border-bottom: 1px solid darken(@bodyBackground, 3%);
+		padding: 5px 0px;
+		
+		a {
+			text-decoration: none;
+			
+			&:hover {}
+			
+			span {
+				display: inline-block;
+			}	
+				
+			.status {
+				position: relative;
+				height: 6px;
+				width: 6px;
+				.border-radius(50em);
+				margin: 4px 8px 2px 8px;
+				.gradient(lighten(@grey,5%), @grey);
+				border-color: darken(@grey,5%);
+				.box-shadow(0px 0px 1px @grey);
+				
+				&:before,
+				&:after {
+					position: absolute;
+					top: -4px;
+					left: -4px;
+					z-index: -1;
+					content: '';
+					width: 100%;
+					height: 100%;
+					background: darken(@bodyBackground, 4%);
+					.border-radius(50em);
+					padding: 4px;
+					.box-sizing(content-box);
+				}
+				
+				&:before {
+					.box-shadow-double(inset 0px 1px 1px rgba(0,0,0,.3), 0px 1px 0px #fff);
+				}
+				
+				&:after {
+					.box-shadow(inset 0px 0px 1px rgba(0,0,0,.1));
+				}
+					
+			}
+			
+			.status.active {
+				.gradient(lighten(@green,5%), @green);
+				border-color: darken(@green,5%);
+				.box-shadow(0px 0px 1px @green);
+			}
+			
+			.status.busy {
+				.gradient(lighten(@lightOrange,5%), @lightOrange);
+				border-color: darken(@lightOrange,5%);
+				.box-shadow(0px 0px 1px @lightOrange);
+			}
+			
+			.status.disable {
+				.gradient(lighten(@red,5%), @red);
+				border-color: darken(@red,5%);
+				.box-shadow(0px 0px 1px @red);
+			}
+			
+			.avatar {
+				position: relative;
+				width: 40px;
+				height: 40px;
+				padding: 3px;
+				.gradient(lighten(@bodyBackground,2%), @bodyBackground);
+				.border-radius(50em);
+				border: 1px solid darken(@bodyBackground,4%);
+				.box-sizing(content-box);
+				
+				img {
+					width: 100%;
+				}
+				
+				&:after {
+					content: '';
+					width: 40px;
+					height: 40px;
+					position: absolute;
+					top: 3px;
+					left: 3px;
+					.border-radius(50em);
+					.box-shadow-double(inset 0px 1px 1px rgba(0,0,0,.5), 0px 1px 0px #fff);
+					.box-sizing(content-box);
+				}
+				
+			}
+			
+			.name {
+				font-size: 12px;
+				font-weight: 600;
+			}
+					
+		}
+	}	
+}
+
+ul.messages-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid darken(@bodyBackground, 3%);
+	border-bottom: 1px solid lighten(@bodyBackground, 2%);
+	
+	li {
+		position: relative;
+		border-top: 1px solid lighten(@bodyBackground, 2%);
+		border-bottom: 1px solid darken(@bodyBackground, 3%);
+		padding: 5px 0px;
+		font-size: 12px;
+		
+		a {
+			text-decoration: none;
+			
+			&:hover {}
+			
+			span {
+				display: block;
+			}	
+			
+			.avatar {
+				position: relative;
+				width: 40px;
+				height: 40px;
+				padding: 3px;
+				.gradient(lighten(@bodyBackground,2%), @bodyBackground);
+				.border-radius(50em);
+				border: 1px solid darken(@bodyBackground,4%);
+				float: left;
+				margin-right: 10px;
+				.box-sizing(content-box);
+				
+				img {
+					width: 100%;
+				}
+				
+				&:after {
+					content: '';
+					width: 40px;
+					height: 40px;
+					position: absolute;
+					top: 3px;
+					left: 3px;
+					.border-radius(50em);
+					.box-shadow-double(inset 0px 1px 1px rgba(0,0,0,.5), 0px 1px 0px #fff);
+				}
+				
+			}
+			
+			.name {
+				font-weight: 600;
+			}
+			
+			.date {
+				position: absolute;
+				top: 5px;
+				right: 0px;
+			}
+			
+				
+		}
+	}	
+}
+
+ul.progress-bars {
+	
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid darken(@bodyBackground, 3%);
+	border-bottom: 1px solid lighten(@bodyBackground, 2%);
+	
+	li {
+		position: relative;
+		border-top: 1px solid lighten(@bodyBackground, 2%);
+		border-bottom: 1px solid darken(@bodyBackground, 3%);
+		padding: 5px 0px;
+		
+		.title {
+			font-size: 12px;
+		}
+		
+		.percent {
+			position: absolute;
+			right: 0px;
+			font-weight: 600;
+		}
+	
+	}	
+	
+}

@@ -1,0 +1,113 @@
+/* Vertical Bar Chart
+=================================================================== */
+.verticalChart {
+	
+    .singleBar {
+        width: 8%;
+        display:block;
+        margin:0 1% 0% 1%;
+        float: left;
+
+        .bar {
+            position: relative;
+            height: 200px;
+            background: #f9f9f9;
+            overflow: hidden;
+            .border-radius(4px);
+
+            .value {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                background: @red;
+                color: #fff;
+                .border-radius(4px);
+
+                span {
+                    position: absolute;
+                    font-size: 12px;
+                    bottom: 0;
+                    width: 100%;
+                    height: 20px;
+                    color: #fff;
+                    text-shadow: 0px -1px 0px @red, 0px 1px 0px @red, 1px 0px 0px @red, -1px 0px 0px @red, -1px -1px 0px @red,-1px 1px 0px @red, 1px 1px 0px @red, 1px -1px 0px @red;
+                    display: none;
+                    text-align: center;
+                }
+            }
+        }
+
+        .title {
+            margin-top: 5px;
+            text-align: center;
+        }
+    }
+}
+
+/* Browsers Stats
+=================================================================== */
+.browserStat.big {
+	display:inline-block;
+	width: 49%;
+	text-align: center;
+	margin-bottom: 20px;
+	padding: 0px;
+}
+
+.browserStat {
+	display:inline-block;
+	width: 32%;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	
+	span {
+		display:block;
+		text-align: center;
+		margin-top: 10px;
+	}	
+}
+
+/* Sparkline stats
+=================================================================== */
+.sparkLineStats {
+	position: relative; 
+	margin-bottom: -4px;
+	
+	ul {
+		margin:0 0 0 -40px;
+		list-style: none;
+		
+		li {
+			margin-bottom: 0; 
+			line-height: 32px; 
+			padding-top:3px; 
+			font-size: 12px;
+			
+			div {
+				float:left;
+				margin-right: 20px;
+			}
+			
+			.number {
+				font-size: 17px;
+				font-weight: 700; 
+				padding:0px 0px 0px 2px; 
+				color: @orange;
+			}
+			
+			span:first-child {
+				margin-right: 5px;
+			}
+			
+			h4 {
+				position: relative;
+				border-bottom: 1px solid #c4c4c4; 
+				padding-bottom: 0px; 
+				margin-bottom: 10px; 
+				line-height: 37px;
+				.box-shadow(0 1px 0px rgba(255, 255, 255, 1));
+			}
+		}
+	}
+}

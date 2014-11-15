@@ -1,0 +1,20 @@
+extends ../layout.jade
+
+block conteudo
+    .container(ng-controller='Inicio')
+        .starter-template(ng-init='load()')
+            p.lead
+              img(src='/projetocultural/images/logo.png')
+              br
+              h1.text-center Em construção
+            p.lead
+                span.glyphicon.glyphicon-home
+                    | Rua José Maria da Luz, 573, Fundos, 55 - Bairro José Mendes - Florianópolis - SC
+                br
+                span.glyphicon.glyphicon-phone
+                    | (48) 3304-8752
+                br
+                a(href='mailto:contato@projetocultural.esp.br')
+                    span.glyphicon.glyphicon-envelope
+                        | contato@projetocultural.esp.br
+                br

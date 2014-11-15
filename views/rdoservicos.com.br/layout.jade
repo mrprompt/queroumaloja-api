@@ -1,0 +1,154 @@
+doctype
+html(lang='pt', ng-app='app')
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(charset='utf-8')
+
+        title RDO Serviços Especializados
+
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='description', content='/RDO Serviços Especializados')
+        meta(name='author', content='Thiago Paes (mrprompt@gmail.com)')
+
+        link(href='/plugins/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+        link(href='/plugins/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+        link(href='/plugins/animate/animate.min.css', rel='stylesheet')
+        link(href='/plugins/flexslider/flexslider.css', rel='stylesheet')
+        link(href='/rdo/css/theme-style.css', rel='stylesheet')
+        link(href='/rdo/css/custom-style.css', rel='stylesheet')
+        link#colour-scheme(href='/rdo/css/colour-blue.css', rel='stylesheet')
+        //if lt IE 9
+          script(src='/plugins/html5shiv/dist/html5shiv.js')
+          script(src='/plugins/respond/respond.min.js')
+
+        link(rel='shortcut icon', href='/rdo/img/icons/favicon.png')
+        link(rel='apple-touch-icon-precomposed', sizes='144x144', href='/painel/assets/ico/apple-touch-icon-144-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', sizes='114x114', href='/painel/assets/ico/apple-touch-icon-114-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', sizes='72x72', href='/painel/assets/ico/apple-touch-icon-72-precomposed.png')
+        link(rel='apple-touch-icon-precomposed', sizes='57x57', href='/painel/assets/ico/apple-touch-icon-57-precomposed.png')
+        link(href='http://fonts.googleapis.com/css?family=Monda:400,700', rel='stylesheet', type='text/css')
+    //
+     ======== @Region: body ========
+    body.has-navbar-fixed-top.page-index
+        //
+           ======== @Region: #navigation ========
+        #navigation.wrapper
+          #top.navbar.navbar-fixed-top
+            .navbar-inner
+              .inner
+                .container
+                  .navbar-header
+                    button.navbar-toggle.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                      span.sr-only Toggle navigation
+                      span.icon-bar
+                      span.icon-bar
+                      span.icon-bar
+
+                    a.navbar-brand(href='/', title='Início')
+                      h1
+                        img(src='/rdo/img/logo_p.png', alt='/RDO Serviços Especializados')
+                      span um novo conceito em prestação de serviços
+
+                  .collapse.navbar-collapse
+                    ul#main-menu.nav.navbar-right
+                        li(role='menuitem')
+                          a(href='/empresa', tabindex='-1') Empresa
+
+                        li(role='menuitem')
+                          a(href='/servicos', tabindex='-1') Nossos Serviços
+
+                        li(role='menuitem')
+                          a(href='/oportunidades', tabindex='-1') Oportunidades
+
+                        li
+                          a(href='/orcamento') Orçamento
+
+                        li
+                          a(href='/contato') Contato
+                  //
+                    /.nav-collapse
+
+        //
+          CONTENT
+        //
+           ======== @Region: #main ========
+        block conteudo
+
+        //
+           FOOTER
+        //
+           ======== @Region: #footer ========
+        footer#footer
+          .inner
+            .container
+              .row
+                .col-md-10.col.contact-block
+                  h3
+                    | Entre em contato
+                  address
+                    p
+                      strong #{site.nome}
+                    
+                    each telefone in site.telefones
+                      p
+                        abbr(title='Phone') T
+                        | : #{telefone}
+
+                    each email in site.emails
+                      p
+                        abbr(title='Email') E
+                        | : #{email}
+
+                    each endereco in site.enderecos
+                      p
+                        abbr(title='Address') E
+                        | : #{endereco}
+
+                .col-md-2.col.social-media
+                  h3
+                    | Siga-nos
+                  a(href='https://www.facebook.com/pages/RDO-Serviços-Especializados')
+                    i.fa.fa-facebook
+                    | Facebook
+                  a(href='https://www.linkedin.com')
+                    i.fa.fa-linkedin
+                    | LinkedIn
+                  a(href='https://plus.google.com/u/0/118185355987214970997/about')
+                    i.fa.fa-google-plus
+                    | Google +
+              .row
+                .subfooter
+                  .col-sm-12
+                    p
+                      a(href='http://www.rdoservicos.com.br') rdoservicos.com.br &nbsp;
+                      | | Copyright 2014 ©
+
+        //
+          Scripts
+        script(src='/plugins/angular-file-upload/dist/angular-file-upload-shim.min.js')
+        script(src='/plugins/angularjs/angular.min.js')
+        script(src='/plugins/angularjs/i18n/angular-locale_pt-br.js')
+        script(src='/plugins/angularjs/angular-resource.min.js')
+        script(src='/plugins/angularjs/angular-route.min.js')
+        script(src='/plugins/angularjs/angular-sanitize.min.js')
+        script(src='/plugins/angular-input-masks/releases/masks.min.js')
+        script(src='/plugins/angular-file-upload/dist/angular-file-upload.min.js')
+        script(src='/plugins/jquery/jquery.js')
+        script(src='/plugins/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/plugins/localidades/cidades-estados-1.2-utf8.js')
+        script(src='/plugins/flexslider/jquery.flexslider-min.js')
+
+        //
+          Application
+        script(src='/rdo/js/app.js')
+        script(src='/rdo/js/services.js')
+        script(src='/rdo/js/filters.js')
+        script(src='/rdo/js/directives.js')
+        script(src='/rdo/js/controllers/inicio.js')
+        script(src='/rdo/js/controllers/contato.js')
+        script(src='/rdo/js/controllers/curriculos.js')
+        script(src='/rdo/js/controllers/orcamento.js')
+
+        //
+          Third customization
+        script(src='/rdo/js/script.js', defer)

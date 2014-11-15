@@ -1,0 +1,107 @@
+/* Buttons
+=================================================================== */
+.btn {
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	
+	i {
+		margin-top: 2px;
+	}
+	
+}
+
+.btn-primary {
+	color: #ffffff;
+  	.gradient(@blue, darken(@blue,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@blue,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@blue,12%);
+		}
+}
+
+.btn-warning {
+	color: #ffffff;
+  	.gradient(@lightOrange, darken(@lightOrange,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@lightOrange,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@lightOrange,12%);
+		}
+}
+
+.btn-danger {
+	color: #ffffff;
+  	.gradient(@red, darken(@red,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@red,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@red,12%);
+		}
+}
+
+.btn-success {
+	color: #ffffff;
+  	.gradient(@darkGreen, darken(@darkGreen,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@darkGreen,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@darkGreen,12%);
+		}
+}
+
+
+.btn-info {
+	color: #ffffff;
+  	.gradient(@lightBlue, darken(@lightBlue,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@lightBlue,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@lightBlue,12%);
+		}
+}
+
+.btn-inverse {
+	color: #ffffff;
+  	.gradient(@inverse, darken(@inverse,10%));
+	
+		&:hover,
+		&.disabled,
+		&[disabled] {
+	  		background-color: darken(@inverse,10%);
+		}
+	
+		&:active,
+		&.active {
+	  		background-color: darken(@inverse,12%);
+		}
+}

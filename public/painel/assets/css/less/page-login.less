@@ -1,0 +1,98 @@
+/* Page: Login Box
+=================================================================== */
+.login-box {
+    width: 400px;
+    margin: 100px auto;
+    background: rgb(245,245,245);
+    background: -moz-linear-gradient(top,  rgba(245,245,245,1) 0%, rgba(255,255,255,1) 19%, rgba(255,255,255,1) 77%, rgba(245,245,245,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(245,245,245,1)), color-stop(19%,rgba(255,255,255,1)), color-stop(77%,rgba(255,255,255,1)), color-stop(100%,rgba(245,245,245,1)));
+    background: -webkit-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(255,255,255,1) 19%,rgba(255,255,255,1) 77%,rgba(245,245,245,1) 100%);
+    background: -o-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(255,255,255,1) 19%,rgba(255,255,255,1) 77%,rgba(245,245,245,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(255,255,255,1) 19%,rgba(255,255,255,1) 77%,rgba(245,245,245,1) 100%);
+    background: linear-gradient(to bottom,  rgba(245,245,245,1) 0%,rgba(255,255,255,1) 19%,rgba(255,255,255,1) 77%,rgba(245,245,245,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#f5f5f5',GradientType=0 );
+    color: #000;
+    overflow: hidden;
+    .border-radius(2px);
+    .box-shadow(0px 0px 0px 5px rgba(0,0,0,0.15));
+	
+	h2 {
+        color: #646464;
+        margin-left: 30px;
+        font-family: monaco;
+        font-weight: normal;
+    }
+
+    h3 {
+        color: #646464;
+        margin-left: 30px;
+        font-family: monaco;
+        font-weight: normal;
+    }
+
+	p {
+        margin: 10px 30px;
+        font-weight: normal;
+    }
+
+	.input-group {
+		width: 90% !important;
+		margin: 0 auto;
+	}
+
+	input[type="text"],
+	input[type="password"] {
+	    border: 1px solid #ccc !important;
+	    color: #aaa;
+	    border-left: none !important;
+	    .box-shadow;
+	}
+
+    .icons {
+        text-align: right;
+        margin: 20px 15px;
+
+        i {
+            text-align: right;
+            opacity: .2;
+            filter: alpha(opacity=20);
+            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+            margin: 0px 5px;
+			
+			&:hover {
+	            opacity: .8;
+	            filter: alpha(opacity=80);
+	            -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	        }
+        }
+    }
+
+    .remember {
+        margin-top: 20px;
+        margin-left: 20px;
+        float: left;
+    }
+
+    .button-login {
+        margin-top: 20px;
+        margin-right: 20px;
+        float: right;
+    }
+
+    .input-wrap {
+        background: #fff;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0px;
+        border-left: 3px solid #fff;
+    }
+
+    .input-wrap-focus {
+        background: #fcfcfc;
+        width: 100%;
+        text-align: center;
+        padding: 15px 0px;
+        border-left: 3px solid #646464;
+    }
+
+}

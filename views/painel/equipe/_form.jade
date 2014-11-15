@@ -1,0 +1,34 @@
+.row
+    .col-sm-6
+        div(class='form-group', ng-class="{ 'has-error' : equipeForm.nome.$invalid && !equipeForm.nome.$pristine }")
+            label(class='control-label') Nome
+            div(class='controls')
+                input(type='text', class='form-control', ng-model='membro.nome', ng-minlength=5, name='nome', required)
+                p(ng-show='equipeForm.nome.$invalid && !equipeForm.nome.$pristine', class='help-block') Nome muito curto ou inválido
+
+        div(class='form-group', ng-class="{ 'has-error' : equipeForm.email.$invalid && !equipeForm.email.$pristine }")
+            label(class='control-label') E-mail
+            div(class='controls')
+                input(type='email', class='form-control', ng-model='membro.email', name='email', required)
+                p(ng-show='equipeForm.email.$invalid && !equipeForm.email.$pristine', class='help-block') E-mail inválido
+
+    .col-sm-6
+        div(class='form-group', ng-class="{ 'has-error' : equipeForm.cargo.$invalid && !equipeForm.cargo.$pristine }")
+            label(class='control-label') Cargo
+            div(class='controls')
+                input(type='text', class='form-control', ng-model='membro.cargo', name='cargo', required)
+                p(ng-show='equipeForm.cargo.$invalid && !equipeForm.cargo.$pristine', class='help-block') Cargo muito curto ou inválido
+
+        div(class='form-group', ng-class="{ 'has-error' : equipeForm.imagem.$invalid && !equipeForm.imagem.$pristine }", ng-hide='slide.imagem.url')
+            label(class='control-label') Imagem
+            div(class='controls')
+                input(type='file', class='form-control', ng-file-select="onFileSelect($files)", required, ng-disabled='equipeForm.$invalid', accept="image/*")
+                input(type='hidden', ng-model='membro.imagem', name='imagem')
+                p(ng-show='equipeForm.imagem.$invalid && !equipeForm.imagem.$pristine', class='help-block') Imagem é inválida
+
+.row
+    .col-sm-12
+        div(class='control-group')
+            div(class='controls')
+                button(type='submit', class='btn btn-primary', ng-disabled='equipeForm.$invalid') Salvar
+                a(href='#/equipe', class='btn') voltar

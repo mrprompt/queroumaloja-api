@@ -1,0 +1,52 @@
+.col-lg-12(ng-init='load()')
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-briefcase
+        span.break
+        | Clientes
+      .box-icon
+        a.btn-plus(href='#/clientes/adicionar')
+          i.fa.fa-plus
+
+    .box-content
+      div(class='alert alert-{{ status.type }}', ng-show='status')
+          button(type='button', class='close', data-dismiss='alert') &times;
+          | {{ status.message}}
+
+      div(class='alert alert-warning', ng-show='clientes.length == 0')
+          | Você não possui nenhum cliente cadastrado, cadastre um &nbsp;
+          a(href='#/clientes/adicionar') aqui
+
+      table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='clientes.length')
+          thead
+              tr
+                  td.col-md-3 Nome
+                  td.col-md-3 Descrição
+                  td.col-md-4 Atuação
+                  td.col-md-1
+
+          tbody
+              tr(ng-repeat='cliente in clientes | pagination: curPage * pageSize | limitTo: pageSize')
+                  td
+                    a(href="{{ cliente.url}}", target="_blank") {{ cliente.nome }}
+                  td {{ cliente.descricao }}
+                  td {{ cliente.atuacao }}
+                  td
+                      a(href='#/clientes/editar/{{ cliente._id }}', class='btn btn-mini btn-success')
+                          span.fa.fa-edit &nbsp;
+                      button(class='btn btn-mini btn-danger', ng-click='delete(cliente._id)')
+                          span.fa.fa-trash-o &nbsp;
+
+      .block.text-center(ng-show='clientes.length')
+        ul.pagination.pagination-centered.inline.unstyled
+          li
+            a.btn.btn-link(ng-disabled='curPage === 0', ng-click='curPage = curPage - 1')
+              | Voltar
+          li
+            span
+              | Página {{ curPage + 1 }} de {{ paginas() }}
+          li
+            a.btn.btn-link(ng-disabled='curPage >= clientes.length / pageSize - 1', ng-click='curPage = curPage + 1')
+              | Avançar
+

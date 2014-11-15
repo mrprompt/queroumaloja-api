@@ -1,0 +1,9 @@
+/* CSS for Internet Explorer */
+
+.inner-page .booking .carousel .carousel-control {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+
+.inner-page .blog .blog-post .entry hr {
+	text-align: left;
+}

@@ -1,0 +1,106 @@
+/* Notifications & Labels
+=================================================================== */
+.notification {
+	position: absolute;
+	top: -12px;
+	right: -12px;
+	line-height: 16px;
+	height: 16px;
+	padding: 6px 10px;
+	color: white !important;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+	border-width: 1px;
+	border-style: solid;
+  	.border-radius(50em);
+	.box-sizing(content-box);
+}
+
+.notification.small {
+	padding: 2px 7px;
+	color: white !important;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+	border-width: 1px;
+	border-style: solid;
+  	.border-radius(50em);
+}
+
+.notification.small.blue,
+.notification.blue {
+	border-color: darken(@blue, 10%);
+	.gradient(lighten(@blue, 10%),@blue);
+}
+
+.notification.small.yellow,
+.notification.yellow {
+	border-color: darken(@yellow, 10%);
+	.gradient(lighten(@yellow, 10%),@yellow);
+}
+
+.notification.small.red,
+.notification.red {
+	border-color: darken(@red, 10%);
+	.gradient(lighten(@red, 10%),@red);
+}
+
+.notification.small.green,
+.notification.green {
+	border-color: darken(@darkGreen, 10%);
+	.gradient(lighten(@darkGreen, 10%),@darkGreen);
+}
+
+.notification.small.orange,
+.notification.orange {
+	border-color: darken(@lightOrange, 10%);
+	.gradient(lighten(@lightOrange, 10%),@lightOrange);
+}
+
+.notification.small.red,
+.notification.red {
+	border-color: darken(@red, 10%);
+	.gradient(lighten(@red, 10%),@red);
+}
+
+.label,
+.badge {
+  	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	padding: 3px 6px;
+}
+
+.label {
+	.border-radius(4px);
+}
+
+.label-important,
+.badge-important,
+.label-important[href],
+.badge-important[href] {
+  	border-color: darken(@red, 10%);
+	.gradient(lighten(@red, 10%),@red);
+}
+
+.label-warning,
+.badge-warning,
+.label-warning[href],
+.badge-warning[href] {
+  	border-color: darken(@lightOrange, 10%);
+	.gradient(lighten(@lightOrange, 10%),@lightOrange);
+}
+
+.label-success,
+.badge-success,
+.label-success[href],
+.badge-success[href] {
+  	border-color: darken(@darkGreen, 10%);
+	.gradient(lighten(@darkGreen, 10%),@darkGreen);
+}
+
+.label-info,
+.badge-info,
+.label-info[href],
+.badge-info[href] {
+  	border-color: darken(@lightBlue, 10%);
+	.gradient(lighten(@lightBlue, 10%),@lightBlue);
+}

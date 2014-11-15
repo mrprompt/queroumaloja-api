@@ -1,0 +1,19 @@
+.col-lg-12
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-group
+        span.break
+        | Usuários
+      .box-icon
+        a.btn-plus(href='#/usuarios/adicionar')
+          i.fa.fa-plus
+
+    .box-content
+        .block
+          div(class='alert alert-{{ status.type }}', ng-show='status')
+            button(type='button', class='close', data-dismiss='alert') &times;
+            | {{ status.message }}
+
+          form(ng-init='localidades()', ng-submit='add()', class='form-vertical', name='curriculoForm', novalidate)
+            include _form.jade

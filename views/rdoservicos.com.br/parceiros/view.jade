@@ -1,0 +1,23 @@
+extends ../layout.jade
+
+block conteudo
+  //
+     ======== @Region: #highlighted ========
+  #highlighted
+    .container
+      .header
+        h2.page-title
+          span #{parceiro.nome}
+          small Detalhes do parceiro
+  //
+     ======== @Region: #content ========
+  #content
+    .container
+      .block.customers
+          .row
+            .col-sm-12
+              img(ng-src='#{parceiro.imagem.url}', class='img-polaroid')
+             .block(ng-bind-html="parceiro.atuacao")
+              p !{parceiro.url}
+
+              a.btn.btn-link(href='/parceiros') Voltar

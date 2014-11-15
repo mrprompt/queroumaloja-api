@@ -1,0 +1,58 @@
+.col-lg-12(ng-init='load()')
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-suitcase
+        span.break
+        | Vagas de Empregos
+      .box-icon
+        a.btn-plus(href='#/empregos/adicionar')
+          i.fa.fa-plus
+
+    .box-content
+      .block
+          div(class='alert alert-{{ status.type }}', ng-show='status')
+              button(type='button', class='close', data-dismiss='alert') &times;
+              | {{ status.message}}
+
+          div(class='alert alert-warning', ng-show='empregos.length == 0')
+              | Você não possui nenhum emprego cadastrado, cadastre um &nbsp;
+              a(href='#/empregos/adicionar') aqui
+
+          table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='empregos.length')
+              thead
+                  tr
+                      td.col-md-8 Nome
+                      td.col-md-1 Salário
+                      td.col-md-1 Cadastro
+                      td.col-md-1 Opções
+
+              tbody(ng-show='empregos.length')
+                  tr(ng-repeat='emprego in empregos | pagination: curPage * pageSize | limitTo: pageSize')
+                      td {{ emprego.titulo }}
+                      td {{ emprego.salario }}
+                      td {{ emprego.cadastro | date: 'd/MMM/yyyy' }}
+                      td
+                        a(href='#/empregos/editar/{{ emprego._id }}', class='btn btn-small btn-success')
+                            span.fa.fa-edit &nbsp;
+                        button(class='btn btn-small btn-danger', ng-click='delete(emprego._id)')
+                            span.fa.fa-trash-o &nbsp;
+
+              tfoot
+                  tr
+                      td(colspan='5', class='text-right')
+                          a(href='#/empregos/adicionar', class='btn btn-primary btn-small')
+                              span.fa.fa-plus &nbsp;
+
+      .block.text-center(ng-show='empregos.length')
+        ul.pagination.pagination-centered.inline.unstyled
+          li
+            a.btn.btn-link(ng-disabled='curPage === 0', ng-click='curPage = curPage - 1')
+              | Voltar
+          li
+            span
+              | Página {{ curPage + 1 }} de {{ paginas() }}
+          li
+            a.btn.btn-link(ng-disabled='curPage >= empregos.length / pageSize - 1', ng-click='curPage = curPage + 1')
+              | Avançar
+

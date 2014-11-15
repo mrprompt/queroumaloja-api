@@ -1,0 +1,41 @@
+extends ../layout.jade
+
+block conteudo
+  //
+   Banner Start
+  .banner.padd
+    .container
+      //
+         Image
+      img.img-responsive(src='/librinke/img/crown.png', alt='')
+
+      //
+         Heading
+      h2.white Calçados Escolares
+
+      ol.breadcrumb
+        li
+          a(href='/') início
+        li.active
+          | calçados
+
+      .clearfix
+  //
+     Banner End
+
+  //
+     Inner Content   
+  .inner-page
+    .shopping
+      .container
+        .shopping-content
+          .row
+            each calcado in calcados
+              if calcado.imagem
+                .col-md-3.col-sm-6
+                  .shopping-item
+                    a(href='/calcados/#{calcado._id}')
+                      img.img-responsive(src='#{calcado.imagem.url}', alt='')
+                    h4.pull-left
+                      a(href='/calcados/#{calcado._id}') #{calcado.titulo}
+                    .clearfix

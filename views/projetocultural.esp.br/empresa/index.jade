@@ -1,0 +1,79 @@
+extends ../layout.jade
+
+block conteudo
+    .container(ng-controller='Empresa')
+      //
+         Inner Content
+      .inner-page.padd(ng-init='load()')
+        //
+           About company
+        .about-company.padd
+          .container
+            .row
+              .col-md-6
+                //
+                   About Compnay Item
+                .about-company-item
+                  //
+                     About Company Image
+                  img.img-responsive(src='projetocultural/images/logo.png', alt='')
+              .col-md-6
+                //
+                   About Compnay Item
+                .about-company-item
+                  //
+                     Heading
+                  h3
+                    | Sobre a &nbsp;
+                    span.lblue Projeto Cultural
+                  //
+                     Paragraph
+                  p
+                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut alio consequat.
+                  br
+                  //
+                    / Line break
+                  .row
+                    .col-md-6.col-sm-6.col-xs-6
+                      //
+                         About company inner items
+                      .about-company-inner
+                        //
+                           Paragraph with icon
+                        span.company-feature
+                          i.fa.fa-building-o.br-red
+                          b.red 10
+                          | Locations
+                    .col-md-6.col-sm-6.col-xs-6
+                      //
+                         About company inner items
+                      .about-company-inner
+                        //
+                           Paragraph with icon
+                        span.company-feature
+                          i.fa.fa-trophy.br-lblue
+                          b.lblue 10
+                          | Awards
+                    .clearfix.visible-xs
+                    .col-md-6.col-sm-6.col-xs-6
+                      //
+                         About company inner items
+                      .about-company-inner
+                        //
+                           Paragraph with icon
+                        span.company-feature
+                          i.fa.fa-users.br-green
+                          b.green 15
+                          | Chefs
+                    .col-md-6.col-sm-6.col-xs-6
+                      //
+                         About company inner items
+                      .about-company-inner
+                        //
+                           Paragraph with icon
+                        span.company-feature
+                          i.fa.fa-shopping-cart.br-purple
+                          b.purple 50
+                          | Dishes.
+      //
+         / Inner Page Content End

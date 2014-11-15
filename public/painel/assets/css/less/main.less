@@ -1,0 +1,213 @@
+/* Basic
+=================================================================== */
+.no-space [class*="span"] {
+    margin-left: 0;
+}
+
+.noMarginLeft {
+	margin-left: 0px !important;
+}
+
+body {
+	background: @bodyBackground;
+	color: @mainColor;
+	border: none;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+}
+
+a {
+	color: @darkGrey;
+}
+
+b, strong {
+	font-weight: 600;
+}
+
+hr {
+	height: 2px;
+	border: none;
+	background: -moz-linear-gradient(left,  rgba(249,249,249,0.25) 0%, rgba(249,249,249,1) 50%, rgba(249,249,249,0.25) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(249,249,249,0.25)), color-stop(50%,rgba(249,249,249,1)), color-stop(100%,rgba(249,249,249,0.25))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(249,249,249,0.25) 0%,rgba(249,249,249,1) 50%,rgba(249,249,249,0.25) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(249,249,249,0.25) 0%,rgba(249,249,249,1) 50%,rgba(249,249,249,0.25) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(249,249,249,0.25) 0%,rgba(249,249,249,1) 50%,rgba(249,249,249,0.25) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(249,249,249,0.25) 0%,rgba(249,249,249,1) 50%,rgba(249,249,249,0.25) 100%); /* W3C */
+}
+
+h1 { font-family: 'Open Sans', sans-serif; font-size: 32px; line-height: 32px; font-weight: 300; }
+h2 { font-family: 'Open Sans', sans-serif; font-size: 16px; line-height: 16px; font-weight: 300; }
+h3 { font-family: 'Open Sans', sans-serif; font-size: 15px; line-height: 15px; }
+h4 { font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 14px; }
+h5 { font-family: 'Open Sans', sans-serif; font-size: 13px; line-height: 13px; }
+h6 { font-family: 'Open Sans', sans-serif; font-size: 12px; line-height: 12px; }
+
+.dark {
+	background: #fdfdfd;
+	text-shadow: 0px 1px 1px #fff !important;
+	padding: 20px;
+	top: -20px;
+	margin-bottom: -40px;
+	right: -6px;
+	position: relative;
+	border-left: 2px solid @borderGrey;
+	.border-radius(0px 3px 3px 0px);
+	min-height: 100%;
+	overflow: hidden;		
+}
+
+#content {
+	background: #ffffff;
+	filter: none;
+	min-height: 100%;
+	padding: 20px 20px;
+	.border-radius(0px 5px 5px 5px);
+	border: 2px solid @borderGrey;
+	position: relative;
+	
+	&.full-radius {
+		.border-radius(5px);
+		margin-right: -6px;
+		margin-left: 0px;
+	}	
+}
+
+.well {
+	border: 1px solid #ddd;
+	background-color: #f6f6f6;
+	.box-shadow;
+	.border-radius(2px);
+}
+
+.box,
+.widget {
+	margin: 20px 0px;
+}
+
+.widget {
+	
+	h2 {
+		padding: 10px 10px 0px 10px;
+		font-size: 18px !important;
+		line-height: 18px !important;
+		margin-bottom: -5px;
+		text-shadow: 0px 1px 0px #fff;
+		
+		.glyphicons, .social, .filetypes {
+			padding-left: 30px;
+			
+			&:before {
+				margin-top: -12px;
+				font-size: 20px !important;
+				line-height: 20px !important;
+				color: @mainColor;
+			}
+			
+		}
+	}
+}
+
+.box-header {
+	height: 38px;
+	font-size: 16px;
+	line-height: 16px;
+  	border: 1px solid #f1f1f1;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+  	padding: 10px;
+	.gradient(rgba(255,255,255,1) 0%, rgba(244,244,244,1) 100%); 
+	.box-shadow;
+  	.border-radius(5px 5px 0px 0px);
+	overflow: hidden;
+	
+	h2 {
+		float:left;
+		margin-top: 0px;
+		text-shadow: 0px 1px 0px #fff;
+		
+		i {
+			margin: 0px 3px 0px 4px;
+			opacity: .8;
+			filter: alpha(opacity=80);
+			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+		}
+		
+	}
+
+	.break {
+		border-left: 1px solid #EDEDED; /* rgba(0,0,0,.05); */
+		border-right: 1px solid #FEFEFE; /* rgba(255,255,255,.95); */
+		margin: -12px 10px -10px 10px;
+		padding: 12px 0px 10px 0px;
+
+	}
+
+	.box-icon {
+		float:right;
+		margin-top: 1px;
+		
+		i {
+			.transition(all 0.1s ease-in-out);
+			opacity: .8;
+			filter: alpha(opacity=80);
+			-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+			
+			&:hover {
+				opacity: 1;
+				filter: alpha(opacity=100);
+				-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+			}
+		}
+		
+		a {
+			margin: 0px 5px;
+		}
+		
+	}
+
+}
+
+.box-content {
+	position: relative;
+	z-index: 50;
+  	margin-top: -1px;
+	padding: 10px;
+  	border: 1px solid #f1f1f1;
+	background: #fff;
+  	.border-radius(0px 0px 5px 5px);
+
+	&:before {
+	    content:"";
+	    width:96%;
+	    height:3px;
+	    position:absolute;
+	    bottom:-4px;
+	    left:2%;
+	    background:#fcfcfc;
+	    border:1px solid #f1f1f1;
+		border-top:none;
+		.border-radius(0px 0px 5px 5px);
+	}
+
+	&:after {
+	    content:"";
+	    width:92%;
+	    height:3px;
+	    position:absolute;
+	    bottom:-6px;
+	    left:4%;
+		background:#f9f9f9;
+	    border:1px solid #f1f1f1;
+		.border-radius(0px 0px 5px 5px);
+	}
+		
+}
+
+/* Typography - Blockquote
+=================================================================== */	
+blockquote {
+	background: url(../img/quote.png) no-repeat 0px 10px;
+	font-style: italic;
+	border-left: none;
+	padding: 0 0 0 30px;
+}

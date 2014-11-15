@@ -1,0 +1,104 @@
+.row
+    .col-sm-6
+        .form-group.hidden-xs(ng-class="{ 'has-error' : empresaForm.descricao.$invalid && !empresaForm.descricao.$pristine }", ng-init='editor()')
+          label.control-label Descrição
+          .btn-toolbar(data-role='editor-toolbar', data-target='.editor')
+            .btn-group
+              a.btn.dropdown-toggle(data-toggle='dropdown', title='Font Size')
+                i.fa.fa-text-height
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(data-edit='fontSize 5')
+                    font(size='5') Grande
+                li
+                  a(data-edit='fontSize 3')
+                    font(size='3') Normal
+                li
+                  a(data-edit='fontSize 1')
+                    font(size='1') Pequena
+            .btn-group
+              a.btn(data-edit='bold', title='Bold (Ctrl/Cmd+B)')
+                i.fa.fa-bold
+              a.btn(data-edit='italic', title='Italic (Ctrl/Cmd+I)')
+                i.fa.fa-italic
+              a.btn(data-edit='strikethrough', title='Strikethrough')
+                i.fa.fa-strikethrough
+              a.btn(data-edit='underline', title='Underline (Ctrl/Cmd+U)')
+                i.fa.fa-underline
+            .btn-group
+              a.btn(data-edit='insertunorderedlist', title='Bullet list')
+                i.fa.fa-list-ul
+              a.btn(data-edit='insertorderedlist', title='Number list')
+                i.fa.fa-list-ol
+              a.btn(data-edit='outdent', title='Reduce indent (Shift+Tab)')
+                i.fa.fa-outdent
+              a.btn(data-edit='indent', title='Indent (Tab)')
+                i.fa.fa-indent
+            .btn-group
+              a.btn(data-edit='justifyleft', title='Align Left (Ctrl/Cmd+L)')
+                i.fa.fa-align-left
+              a.btn(data-edit='justifycenter', title='Center (Ctrl/Cmd+E)')
+                i.fa.fa-align-center
+              a.btn(data-edit='justifyright', title='Align Right (Ctrl/Cmd+R)')
+                i.fa.fa-align-right
+              a.btn(data-edit='justifyfull', title='Justify (Ctrl/Cmd+J)')
+                i.fa.fa-align-justify
+            .btn-group
+              .btn-group
+                a.btn(data-edit='undo', title='Undo (Ctrl/Cmd+Z)')
+                  i.fa.fa-undo
+                a.btn(data-edit='redo', title='Redo (Ctrl/Cmd+Y)')
+                  i.fa.fa-repeat
+
+        .editor(ng-model='empresa.descricao', name='descricao', contentEditable)
+        p(ng-show='empresaForm.descricao.$invalid && !empresaForm.descricao.$pristine', class='help-block') Descricao muito curta
+
+    .col-sm-6
+      div(class='form-group', ng-class="{ 'has-error' : empresaForm.endereco.$invalid && !empresaForm.endereco.$pristine }")
+        label(class='control-label') Endereco
+        
+        .input-append
+          input.form-control(type='text', ng-model='endereco', name='endereco', required)
+          button.btn.btn-default(type='button', ng-click='adicionaEndereco(endereco)')
+            | +
+        
+        p(ng-show='empresaForm.endereco.$invalid && !empresaForm.endereco.$pristine', class='help-block') Endereço muito curto ou inválido
+        
+        p(ng-repeat='endereco in empresa.enderecos')
+          button.btn.btn-mini.btn-link(type='button', ng-click='removeEndereco($index)') x
+          | &nbsp; {{ endereco }}
+
+      div(class='form-group', ng-class="{ 'has-error' : empresaForm.email.$invalid && !empresaForm.email.$pristine }")
+        label(class='control-label') E-mail de contato
+        
+        .input-append
+          input.form-control(type='email', ng-model='email', name='email', required)
+          button.btn.btn-default(type='button', ng-click='adicionaEmail(email)')
+            | +
+        
+        p(ng-show='empresaForm.email.$invalid && !empresaForm.email.$pristine', class='help-block') E-mail muito curto ou inválido
+        
+        p(ng-repeat='email in empresa.emails')
+          button.btn.btn-mini.btn-link(type='button', ng-click='removeEmail($index)') x
+          | &nbsp; {{ email }}
+
+      div(class='form-group', ng-class="{ 'has-error' : empresaForm.telefone.$invalid && !empresaForm.telefone.$pristine }")
+        label(class='control-label') Telefone
+        
+        .input-append
+          input.form-control(type='text', ng-model='telefone', name='telefone', required)
+          button.btn.btn-default(type='button', ng-click='adicionaTelefone(telefone)')
+            | +
+        
+        p(ng-show='empresaForm.telefone.$invalid && !empresaForm.telefone.$pristine', class='help-block') telefone muito curto ou inválido
+        
+        p(ng-repeat='telefone in empresa.telefones')
+          button.btn.btn-mini.btn-link(type='button', ng-click='removeTelefone($index)') x
+          | &nbsp; {{ telefone }}
+          
+.row
+    .col-sm-12
+        div(class='control-group')
+            div(class='controls')
+                button(type='submit', class='btn btn-primary', ng-disabled='empresaForm.$invalid') Salvar

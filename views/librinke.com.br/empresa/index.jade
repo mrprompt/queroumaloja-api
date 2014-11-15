@@ -1,0 +1,85 @@
+extends ../layout.jade
+
+block conteudo
+  //
+     Banner Start
+  .banner.padd
+    .container
+      //
+         Image
+      img.img-responsive(src='librinke/img/crown.png', alt='')
+      //
+         Heading
+      h2.white 
+        | Librinke Distribuidora de Materiais Didáticos
+      ol.breadcrumb
+        li
+          a(href='/') Início
+        li.active A Librinke
+      .clearfix
+  //
+     Banner End
+  //
+     Inner Content
+  .inner-page
+    //
+       About company
+    .about-company
+      .container
+        .row
+          .col-md-6
+            //
+              About Compnay Item
+            .about-company-item
+              //
+                About Company Image
+              img.img-responsive.img-thumbnail(src='librinke/img/logo.png', alt='') 
+          .col-md-6
+            //
+              About Compnay Item
+            .about-company-item
+              //
+                 Paragraph
+              !{site.descricao}
+    //
+     Showcase Start
+    .showcase
+      .container
+        .row
+          if uniformes
+            if uniformes.length
+              - var uniforme = uniformes[0]
+              .col-md-6.col-sm-6
+                //
+                   Showcase section item
+                .showcase-item
+                  if uniforme.imagem
+                    //
+                       Image
+                    img.img-responsive(src='#{uniforme.imagem.url}', alt='foto do uniforme')
+                  //
+                     Heading
+                  h3
+                    a(href='/uniformes') Uniformes Escolares
+                  .clearfix
+
+          if livros
+            if livros.length
+              - var livro = livros[0]
+              .col-md-6.col-sm-6
+                //
+                   Showcase section item
+                .showcase-item
+                  if livro.imagem
+                    //
+                       Image
+                    img.img-responsive(src='#{livro.imagem.url}', alt='foto do livro')
+                  //
+                     Heading
+                  h3
+                    a(href='/livros') Livros Didáticos
+                  .clearfix
+    //
+       Showcase End
+  //
+     / Inner Page Content End

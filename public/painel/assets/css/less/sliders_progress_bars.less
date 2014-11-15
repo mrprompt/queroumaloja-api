@@ -1,0 +1,242 @@
+/* UI - Sliders & Progress
+=================================================================== */
+.progressBarOverlay.Slim {
+	height: 8px;
+	padding: 5px !important;
+}
+
+.ui-slider-handle {
+	display: inline-block;
+	border: none !important;
+	.border-radius(50em);
+	height: 16px !important;
+	width: 16px !important;	
+	position: absolute !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll #f4f4f4 !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll, -webkit-linear-gradient(top , #F4F4F4 0%, #F7F7F7 100%) !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll, -moz-linear-gradient(top , #F4F4F4 0%, #F7F7F7 100%) !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll, -o-linear-gradient(top , #F4F4F4 0%, #F7F7F7 100%) !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll, -ms-linear-gradient(top , #F4F4F4 0%, #F7F7F7 100%) !important;
+	background: url("../img/slider_r8.png") no-repeat center center scroll, linear-gradient(top , #F4F4F4 0%, #F7F7F7 100%) !important;
+	margin-top: 3px !important;
+	outline: none !important;
+	.box-shadow-double(0px 1px 3px rgba(0,0,0,0.4), inset 0 1px 0 #FFFFFF);
+}
+
+.slider {
+	.gradient(rgba(252,252,252,1) 0%, rgba(250,250,250,1) 100%);
+	border-top: 1px solid #dededc;
+	border-bottom: 1px solid @borderGrey;
+	border-left: none;
+	border-right: none;
+	height: 16px;
+	.border-radius(50em);
+	.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,.4));
+	position: relative;
+	margin: 4px 0px;
+	
+	&:before {
+		content:"";
+		width: 100%;
+		z-index: -1;
+		.gradient(rgba(235,234,232,1) 1%, rgba(255,255,255,1) 100%);
+		border-top: 1px solid #dededc;
+		border-bottom: 1px solid @borderGrey;
+		border-left: none;
+		border-right: none;
+		height: 12px;
+		padding: 6px !important;
+		.border-radius(50em);
+		.box-shadow(inset 0px 5px 6px rgba(0,0,0,0.05));
+		position: absolute;
+		margin: -6px 0 0 -6px;
+		.box-sizing(content-box);
+	}
+	
+	.ui-slider-range {
+		.border-radius(50em);
+		position: absolute;
+		.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,.4));
+		.box-sizing(content-box);
+	}
+	
+}
+
+.sliderVertical {
+	.gradient(rgba(235,234,232,1) 1%, rgba(255,255,255,1) 100%);
+	border-top: 1px solid #dededc;
+	border-bottom: 1px solid @borderGrey;
+	border-left: none;
+	border-right: none;
+	top: auto;
+	bottom: auto;
+	padding: 15px 5px !important;
+	.border-radius(50em);
+	.box-shadow(inset 0px 5px 6px rgba(0,0,0,0.05));
+	position: relative;
+	float: left;
+    height: 100px;
+    margin-right: 40px;
+    width: 5px;
+	.box-sizing(content-box);
+	
+	.ui-slider-range {
+		height: 100%;
+		width: 100%;
+		top: auto;
+		bottom: auto;
+		.border-radius(50em);
+		.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,0.4));
+		.box-sizing(content-box);				
+	}
+	
+	.ui-slider-handle {
+		margin: 0px 0px -10px 4px !important;
+	}
+
+	.ui-slider-range-max {
+		top: 0;
+	}
+
+	.ui-slider-range-min {
+		bottom: 0;
+	}
+
+}
+
+.sliderBlue .ui-slider-range, .progressBlue .ui-progressbar-value {
+	.gradient(@blue,darken(@blue,12%));
+}
+
+.sliderGreen .ui-slider-range, .progressGreen .ui-progressbar-value {
+	.gradient(@green,darken(@green,12%));
+}
+
+.sliderDarkGreen .ui-slider-range, .progressDarkGreen .ui-progressbar-value {
+	.gradient(@darkGreen,darken(@darkGreen,12%));
+}
+
+.sliderPink .ui-slider-range, .progressPink .ui-progressbar-value {
+	.gradient(@pink,darken(@pink,12%));
+}
+
+.sliderOrange .ui-slider-range, .progressOrange .ui-progressbar-value {
+	.gradient(@orange,darken(@orange,12%));
+}
+
+.sliderLightOrange .ui-slider-range, .progressLightOrange .ui-progressbar-value {
+	.gradient(@lightOrange,darken(@lightOrange,12%));
+}
+
+.sliderRed .ui-slider-range, .progressRed .ui-progressbar-value {
+	.gradient(@red,darken(@red,12%));
+}
+
+.sliderYellow .ui-slider-range, .progressYellow .ui-progressbar-value {
+	.gradient(@yellow,darken(@yellow,12%));
+}
+
+.progress {
+	.gradient(rgba(252,252,252,1) 0%, rgba(250,250,250,1) 100%); 
+	border-top: 1px solid #dededc;
+	border-bottom: 1px solid @borderGrey;
+	border-left: none;
+	border-right: none;
+	height: 14px;
+	.border-radius(50em);
+	.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,0.4));
+	position: relative;
+	margin-top: -2px;
+	color: transparent;
+	
+	&.wrapped {
+		margin-top: 4px;
+		overflow:visible;
+		
+		&:before {
+			content:"";
+			width: 100%;
+			.gradient(rgba(235,234,232,1) 1%, rgba(255,255,255,1) 100%);
+			border-top: 1px solid #dededc;
+			border-bottom: 1px solid @borderGrey;
+			border-left: none;
+			border-right: none;
+			height: 10px;
+			padding: 6px !important;
+			.border-radius(50em);
+			.box-shadow(inset 0px 5px 6px rgba(0,0,0,0.05));
+			position: absolute;
+			margin: -6px 0 0 -6px;
+			.box-sizing(content-box);
+			z-index: -1;
+		}
+		
+	}
+	
+	.ui-progressbar-value {
+		border-color: transparent;
+		height: 100%;
+		top: 1px;
+		position: absolute;
+		left: 1px;
+		.border-radius(50em);
+		z-index: 0;
+		border: none;
+		.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,0.4));		
+	}	
+	
+}
+
+.progressBarValue {
+	
+	span {
+		font-size: 12px;
+	}
+	
+	span.progressCustomValueVal {
+		font-size: 18px; 
+		font-weight: 700; 
+		padding:0 5px; 
+		color: @orange;
+	}
+	
+}
+
+.progressSlim {
+	.gradient(rgba(252,252,252,1) 0%, rgba(250,250,250,1) 100%);
+	border-top: 1px solid #dededc;
+	border-bottom: 1px solid @borderGrey;
+	border-left: none;
+	border-right: none;
+	height: 10px;
+	.border-radius(50em);
+	.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,0.4));
+	position: relative;
+	margin-top: -2px;
+	
+	.ui-progressbar-value {
+		border-color: transparent;
+		height: 100%;
+		top: 0px;
+		position: absolute;
+		left: 0px;
+		.border-radius(50em);
+		.box-shadow-double(0 1px 0 #ffffff, inset 0px 1px 1px rgba(0,0,0,0.4));
+	}
+}
+
+.tasks .progressSlim {
+	overflow: hidden;
+	border: none !important;
+	height: 8px;
+	.box-shadow;
+	margin-top: 0px;
+	
+	.ui-progressbar-value {
+		overflow: hidden;
+		margin: 0px;
+		border: none !important;
+		.border-radius(50em);
+	}
+	
+}

@@ -1,0 +1,91 @@
+extends ../layout.jade
+
+block conteudo
+    .container(ng-controller='Contato')
+      .inner-page.padd(ng-init='load()')
+        //
+           Contact Us Start
+        .contactus
+          .container
+            .row
+              .col-md-8
+                //
+                   Contact Us content
+                .row
+                  .col-md-6.col-sm-6
+                    //
+                       Contact content details
+                    .contact-details
+                      //
+                         Heading
+                      h4 Onde estamos
+                      p
+                          span.glyphicon.glyphicon-home
+                              | &nbsp; Rua José Maria da Luz, 573, Fundos, 55 - Bairro José Mendes - Florianópolis - SC
+                          br
+                      .clearfix
+                  .col-md-6.col-sm-6
+                    //
+                       Contact content details
+                    .contact-details
+                      //
+                         Heading
+                      h4 Outros Contatos
+                      //
+                         Contact Number / Icon
+                      i.fa.fa-phone.br-green
+                      span +55 48 3304-8752
+                      .clearfix
+                      //
+                         Email / Icon
+                      i.fa.fa-envelope-o.br-lblue
+                      span
+                        a(href='mailto:contato@projetocultural.esp.br') contato@projetocultural.esp.br
+                      .clearfix
+                //
+                  / Inner row end
+                //
+                   Contact form
+                .contact-form
+                  //
+                     Heading
+                  h3 Fale Conosco
+                  //
+                     Form
+                  div(class='alert alert-{{ status.type }}', ng-show='status')
+                      button(type='button', class='close', data-dismiss='alert') &times;
+                      | {{ status.message}}
+
+                  form(ng-submit='add()', name='formContato', novalidate)
+                    .form-group(ng-class="{ 'has-error' : formContato.nome.$invalid && !formContato.nome.$pristine }")
+                      //
+                         Form input
+                      input.form-control(type='text', placeholder='Nome', ng-model='contato.nome', required)
+                      p(ng-show='formContato.nome.$invalid && !formContato.nome.$pristine', class='help-block') Informe seu nome
+
+                    .form-group(ng-class="{ 'has-error' : formContato.email.$invalid && !formContato.email.$pristine }")
+                      //
+                         Form input
+                      input.form-control(type='email', placeholder='Email', ng-model='contato.email', required)
+                      p(ng-show='formContato.email.$invalid && !formContato.email.$pristine', class='help-block') E-mail inválido
+
+                    .form-group(ng-class="{ 'has-error' : formContato.telefone.$invalid && !formContato.telefone.$pristine }")
+                      input.form-control(type='telefone', placeholder='Telefone de contato', name='telefone', ng-model='contato.telefone', required, ui-br-phone-number)
+                      p(ng-show='formContato.telefone.$invalid && !formContato.telefone.$pristine', class='help-block') Informe um telefone válido
+
+                    .form-group(ng-class="{ 'has-error' : formContato.mensagem.$invalid && !formContato.mensagem.$pristine }")
+                      //
+                         Form text area
+                      textarea.form-control(rows='3', placeholder='Mensagem...', ng-model='contato.mensagem', required, ng-minlength=5)
+                      p(ng-show='formContato.mensagem.$invalid && !formContato.mensagem.$pristine', class='help-block') Mensagem muito curta ou inválida
+
+                    //
+                       Form button
+                    button.btn.btn-danger.btn-sm(type='submit',  ng-disabled='formContato.$invalid') Enviar
+                    button.btn.btn-default.btn-sm(type='reset') Limpar
+                //
+                  / Contact form end
+        //
+           Contact Us End
+      //
+         / Inner Page Content End

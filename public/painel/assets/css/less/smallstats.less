@@ -1,0 +1,76 @@
+/* Small Stats
+=================================================================== */
+.stats-date .range {
+	font-size: 20px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+
+.stats {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	margin-bottom: 20px;
+	
+	.stat {
+	    width: 24%;
+	    margin: 0% 1% 0% 0%;
+	    float: left;
+	
+	    .right {
+	        float: right;
+	        width: 40%;
+	        text-align: center;
+	
+	        .percent {
+	            text-align: center;
+	            font-size: 12px;
+				margin-top: 5px;
+	        }
+	
+	        .arrow {
+				margin-top: 4px;
+	            text-align: center;
+	        }
+	    }
+	
+	    .left {
+	        float: left;
+	        text-align: right;
+	        width: 60%;
+	
+	        .number {
+	            font-size: 22px;
+	            font-weight: 300;
+	        }
+	
+	        .title {
+	            font-size: 12px;
+	
+				.color {
+	                background: #000;
+	                width: 30px;
+	                height: 12px;
+	                margin: 0px 5px -2px 0px;
+	                display: inline-block;
+	                .border-radius(2px);
+	            }
+	
+	            .color.green {
+	                background: @green;
+	            }
+	            
+	            .color.red {
+	                background: @red;
+	            }
+	
+	            .color.yellow {
+	                background: @yellow;
+	            }
+	
+	            .color.blue {
+	                background: @lightBlue;
+	            }
+	        }
+	    }
+	}
+}
