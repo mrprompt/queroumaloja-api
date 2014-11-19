@@ -152,11 +152,14 @@ html(lang='pt', ng-app='app')
                     | Rua 7 de Setembro, 220 - Centro 
                     |  - São José dos Pinhais - Paraná - Brasil
                   .clearfix
-                  //
-                     Contact Number / Icon
-                  i.fa.fa-phone.br-green.pull-right
-                  span +55 41 3081-0560
-                  .clearfix
+
+                  each telefone in site.telefones
+                    //
+                       Contact Number / Icon
+                    i.fa.fa-phone.br-green.pull-right
+                    span #{telefone}
+                    .clearfix
+
                   //
                      Email / Icon
                   i.fa.fa-envelope-o.br-lblue.pull-right
