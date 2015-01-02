@@ -7,9 +7,6 @@ exports.routes = {
     aviso: require('../models/aviso'),
     avisos: require('../models/aviso'),
 
-    calcado: require('../models/calcado'),
-    calcados: require('../models/calcado'),
-
     cliente: require('../models/cliente'),
     clientes: require('../models/cliente'),
 

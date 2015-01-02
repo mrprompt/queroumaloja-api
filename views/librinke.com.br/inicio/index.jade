@@ -23,37 +23,10 @@ block conteudo
                   //
                      Showcase section item
                   .showcase-item
-                    //
-                      Image
                     img.img-responsive(src='#{uniforme.imagem.url}', alt='foto ilustrativa')
-                    //
-                       Heading
                     h3
                       a(href='/uniformes') Uniformes Escolares
-                    //
-                       Paragraph
-                    p
-                      | Uniformes escolares para todas as idades.
-                    .clearfix
-
-            if calcados
-              if calcados.length
-                - var calcado = calcados[  Math.floor((Math.random() * calcados.length))  ]
-                .col-md-6.col-sm-6
-                  //
-                     Showcase section item
-                  .showcase-item
-                    //
-                      Image
-                    img.img-responsive(src='#{calcado.imagem.url}', alt='foto ilustrativa')
-                    //
-                       Heading
-                    h3
-                      a(href='/calcados') Calçados Escolares
-                    //
-                       Paragraph
-                    p
-                      | Tênis para o dia-a-dia e educação física.
+                    p Uniformes escolares para todas as idades.
                     .clearfix
       //
          Showcase End
@@ -70,19 +43,12 @@ block conteudo
                   //
                      Showcase section item
                   .showcase-item
-                    //
-                       Image
                     img.img-responsive(src='#{livro.imagem.url}', alt='foto ilustrativa')
-                    //
-                       Heading
                     h3
                       a(href='/livros') Livros Didáticos
-                    //
-                       Paragraph
-                    p
-                      | Coleções completas de livros didáticos.
+                    p Coleções completas de livros didáticos.
                     .clearfix
-        
+
             if parques
               if parques.length
                 - var parque = parques[ Math.floor((Math.random() * parques.length)) ]
@@ -126,106 +92,83 @@ block conteudo
                Border
             .border
 
-          
-          if livros.length
-            .row
-              each livro in livros.slice(0, 4)
-                .col-md-3.col-sm-6
-                  .dishes-item-container
-                    //
-                       Image Frame
-                    .img-frame
+          if livros
+            if livros.length
+              .row
+                each livro in livros.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
                       //
-                         Image
-                      img.img-responsive(src='#{livro.imagem.url}', alt='Capa ilustrativa')
-                      //
-                         Block for on hover effect to image
-                      .img-frame-hover
+                         Image Frame
+                      .img-frame
                         //
-                           Hover Icon
-                        a(href='/livros/#{livro._id}')
-                          i.fa.fa-heart
-                    //
-                       Dish Details
-                    .dish-details
-                      //
-                         Heading
-                      h3 #{livro.titulo}
-          
-          if uniformes.length
-            .row
-              each uniforme in uniformes.slice(0, 4)
-                .col-md-3.col-sm-6
-                  .dishes-item-container
-                    //
-                       Image Frame
-                    .img-frame
-                      //
-                         Image
-                      img.img-responsive(src='#{uniforme.imagem.url}', alt='Foto ilustrativa')
-                      //
-                         Block for on hover effect to image
-                      .img-frame-hover
+                           Image
+                        img.img-responsive(src='#{livro.imagem.url}', alt='Capa ilustrativa')
                         //
-                           Hover Icon
-                        a(href='/uniformes/#{uniforme._id}')
-                          i.fa.fa-heart
-                    //
-                       Dish Details
-                    .dish-details
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/livros/#{livro._id}')
+                            i.fa.fa-heart
                       //
-                         Heading
-                      h3 #{uniforme.titulo}
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{livro.titulo}
 
-          if calcados.length 
-            .row
-              each calcado in calcados.slice(0, 4)
-                .col-md-3.col-sm-6
-                  .dishes-item-container
-                    //
-                       Image Frame
-                    .img-frame
+          if uniformes
+            if uniformes.length
+              .row
+                each uniforme in uniformes.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
                       //
-                         Image
-                      img.img-responsive(src='#{calcado.imagem.url}', alt='Foto ilustrativa')
-                      //
-                         Block for on hover effect to image
-                      .img-frame-hover
+                         Image Frame
+                      .img-frame
                         //
-                           Hover Icon
-                        a(href='/calcados/#{calcado._id}')
-                          i.fa.fa-heart
-                    //
-                       Dish Details
-                    .dish-details
+                           Image
+                        img.img-responsive(src='#{uniforme.imagem.url}', alt='Foto ilustrativa')
+                        //
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/uniformes/#{uniforme._id}')
+                            i.fa.fa-heart
                       //
-                         Heading
-                      h3 #{calcado.titulo}
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{uniforme.titulo}
 
-          if parques.length
-            .row
-              each parque in parques.slice(0, 4)
-                .col-md-3.col-sm-6
-                  .dishes-item-container
-                    //
-                       Image Frame
-                    .img-frame
+          if parques
+            if parques.length
+              .row
+                each parque in parques.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
                       //
-                         Image
-                      img.img-responsive(src='#{parque.imagem.url}', alt='Foto ilustrativa')
-                      //
-                         Block for on hover effect to image
-                      .img-frame-hover
+                         Image Frame
+                      .img-frame
                         //
-                           Hover Icon
-                        a(href='/parques/#{parque._id}')
-                          i.fa.fa-heart
-                    //
-                       Dish Details
-                    .dish-details
+                           Image
+                        img.img-responsive(src='#{parque.imagem.url}', alt='Foto ilustrativa')
+                        //
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/parques/#{parque._id}')
+                            i.fa.fa-heart
                       //
-                         Heading
-                      h3 #{parque.titulo}
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{parque.titulo}
 
       //
          Dishes End
