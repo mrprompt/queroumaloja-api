@@ -3,19 +3,22 @@
 var async = require('async');
 var routes = require('../index').routes;
 var conteudos = {};
+var LIMITE = 4;
 
 exports.index = function (req, res) {
     conteudos.site = req.site;
 
     async.parallel([
         function (callback) {
-            routes.uniforme.Uniforme.find({
-                site: req.site._id
-            })
-                .sort({
-                    cadastro: -1
-                })
-                .exec(function (err, uniformes) {
+            routes.uniforme.Uniforme.findRandom(
+                {
+                    site: req.site._id
+                },
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, uniformes) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -23,16 +26,19 @@ exports.index = function (req, res) {
 
                         callback(null, uniformes);
                     }
-                });
+                }
+            );
         },
         function (callback) {
-            routes.parque.Parque.find({
-                site: req.site._id
-            })
-                .sort({
-                    cadastro: -1
-                })
-                .exec(function (err, parques) {
+            routes.parque.Parque.findRandom(
+                {
+                    site: req.site._id
+                },
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, parques) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -40,16 +46,19 @@ exports.index = function (req, res) {
 
                         callback(null, parques);
                     }
-                });
+                }
+            );
         },
         function (callback) {
-            routes.livro.Livro.find({
-                site: req.site._id
-            })
-                .sort({
-                    cadastro: -1
-                })
-                .exec(function (err, livros) {
+            routes.livro.Livro.find(
+                {
+                    site: req.site._id
+                },
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, livros) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -57,7 +66,8 @@ exports.index = function (req, res) {
 
                         callback(null, livros);
                     }
-                });
+                }
+            );
         }
     ], function (err, results) {
         if (err) {

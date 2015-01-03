@@ -2,6 +2,7 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var LivroSchema = new Schema({
@@ -35,8 +36,10 @@ var LivroSchema = new Schema({
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
-    },
+    }
 });
+
+LivroSchema.plugin(random);
 
 var Livro = mongoose.model('Livro', LivroSchema);
 

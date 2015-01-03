@@ -2,6 +2,7 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var ParqueSchema = new Schema({
@@ -21,8 +22,10 @@ var ParqueSchema = new Schema({
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
-    },
+    }
 });
+
+ParqueSchema.plugin(random);
 
 var Parque = mongoose.model('Parque', ParqueSchema);
 

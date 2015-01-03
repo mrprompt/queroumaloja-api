@@ -2,6 +2,7 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var UniformeSchema = new Schema({
@@ -23,6 +24,8 @@ var UniformeSchema = new Schema({
         ref: 'Site'
     }
 });
+
+UniformeSchema.plugin(random);
 
 var Uniforme = mongoose.model('Uniforme', UniformeSchema);
 

@@ -12,66 +12,6 @@ block conteudo
        Main Content
     .main-content
       //
-         Showcase Start
-      .showcase
-        .container
-          .row
-            if uniformes
-              if uniformes.length
-                - var uniforme = uniformes[ Math.floor((Math.random() * uniformes.length)) ]
-                .col-md-6.col-sm-6
-                  //
-                     Showcase section item
-                  .showcase-item
-                    img.img-responsive(src='#{uniforme.imagem.url}', alt='foto ilustrativa')
-                    h3
-                      a(href='/uniformes') Uniformes Escolares
-                    p Uniformes escolares para todas as idades.
-                    .clearfix
-      //
-         Showcase End
-
-      //
-         Showcase Start
-      .showcase
-        .container
-          .row
-            if livros
-              if livros.length
-                - var livro = livros[ Math.floor((Math.random() * livros.length)) ]
-                .col-md-6.col-sm-6
-                  //
-                     Showcase section item
-                  .showcase-item
-                    img.img-responsive(src='#{livro.imagem.url}', alt='foto ilustrativa')
-                    h3
-                      a(href='/livros') Livros Didáticos
-                    p Coleções completas de livros didáticos.
-                    .clearfix
-
-            if parques
-              if parques.length
-                - var parque = parques[ Math.floor((Math.random() * parques.length)) ]
-                .col-md-6.col-sm-6
-                  //
-                     Showcase section item
-                  .showcase-item
-                    //
-                       Image
-                    img.img-responsive(src='#{parque.imagem.url}', alt='foto ilustrativa')
-                    //
-                       Heading
-                    h3
-                      a(href='/parques') Parques Infantis
-                    //
-                       Paragraph
-                    p
-                      | Parques infantis em madeira e ferro.
-                    .clearfix
-      //
-         Showcase End
-
-      //
          Dishes Start
       .dishes.padd
         .container
