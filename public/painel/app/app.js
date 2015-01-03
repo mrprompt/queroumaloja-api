@@ -11,7 +11,6 @@ angular
         'painel.services',
         'painel.directives',
         'painel.controllers.inicio',
-        'painel.controllers.calcados',
         'painel.controllers.clientes',
         'painel.controllers.servicos',
         'painel.controllers.atuacao',
@@ -217,19 +216,6 @@ angular
             .when('/aviso/editar/:id', {
                 templateUrl: '/painel/template/aviso/edit',
                 controller: 'Aviso'
-            })
-
-        .when('/calcados', {
-            templateUrl: '/painel/template/calcados/index',
-            controller: 'Calcados'
-        })
-            .when('/calcados/adicionar', {
-                templateUrl: '/painel/template/calcados/add',
-                controller: 'Calcados'
-            })
-            .when('/calcados/editar/:id', {
-                templateUrl: '/painel/template/calcados/edit',
-                controller: 'Calcados'
             })
 
         .when('/parques', {
