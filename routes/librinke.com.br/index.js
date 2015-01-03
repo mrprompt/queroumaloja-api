@@ -1,81 +1,75 @@
 'use strict';
 
-var path = require('path');
-var request = require('request');
-var fs = require('fs');
-var routes = require('../index').routes;
 var async = require('async');
+var routes = require('../index').routes;
+var conteudos = {};
 
-var buscaUniformes = function(req, res) {
-    var uniforme = routes.uniforme.Uniforme;
+exports.index = function (req, res) {
+    conteudos.site = req.site;
 
-    uniforme
-        .find({
-            site: req.site._id
-        })
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, uniformes) {
-            if (err) {
-                console.log(err);
-            } else {
-                req.uniformes = uniformes;
-            }
-        });
-};
+    async.parallel([
+        function (callback) {
+            routes.uniforme.Uniforme.find({
+                site: req.site._id
+            })
+                .sort({
+                    cadastro: -1
+                })
+                .exec(function (err, uniformes) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.uniformes = uniformes;
 
-var buscaParques = function(req, res) {
-    var parque = routes.parque.Parque;
+                        callback(null, uniformes);
+                    }
+                });
+        },
+        function (callback) {
+            routes.parque.Parque.find({
+                site: req.site._id
+            })
+                .sort({
+                    cadastro: -1
+                })
+                .exec(function (err, parques) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.parques = parques;
 
-    parque
-        .find({
-            site: req.site._id
-        })
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, parques) {
-            if (err) {
-                console.log(err);
-            } else {
-                next.parques = parques;
+                        callback(null, parques);
+                    }
+                });
+        },
+        function (callback) {
+            routes.livro.Livro.find({
+                site: req.site._id
+            })
+                .sort({
+                    cadastro: -1
+                })
+                .exec(function (err, livros) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.livros = livros;
 
-                return next;
-            }
-        });
-};
+                        callback(null, livros);
+                    }
+                });
+        }
+    ], function (err, results) {
+        if (err) {
+            console.log(err);
 
-var buscaLivros = function(req, res) {
-    var livro = routes.livro.Livro;
+            return res.send(400);
+        }
 
-    livro
-        .find({
-            site: req.site._id
-        })
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, livros) {
-            if (err) {
-                console.log(err);
-            } else {
-                next.livros = livros;
+        if (results == null || results[0] == null) {
+            return res.send(400);
+        }
 
-                return next;
-            }
-        });
-};
-
-exports.index = function(req, res) {
-    var dominio = req.site.dominio;
-    var conteudos = {
-        site: req.site
-    };
-
-    buscaUniformes(req, res);
-
-    console.log(req.uniformes);
-
-    res.render(dominio + '/inicio/index', conteudos);
+        return res.render('librinke.com.br/inicio/index', conteudos)
+    });
 };

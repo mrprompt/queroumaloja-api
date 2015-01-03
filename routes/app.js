@@ -12,13 +12,13 @@ exports.index = function(req, res) {
         if (existe) {
             var route = require(__dirname + '/' + modulo);
 
-            route.index(req, res);
+            return route.index(req, res);
         } else {
             var conteudos = {
                 site: req.site
             };
 
-            res.render(dominio + '/inicio/index', conteudos);
+            return res.render(dominio + '/inicio/index', conteudos);
         }
     });
 };
