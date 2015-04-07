@@ -8,14 +8,6 @@ exports.index = function(req, res) {
     siteModel.findOne({
         dominio: dominio
     }, function(err, site) {
-        if (err) {
-            return res.status(500).send('Ocorreu um erro carregando site');
-        }
-
-        if (null == site) {
-            return res.status(404).send('Site não encontrado');
-        }
-
         res.render('painel/layout', {
             site: site,
             usuario: req.user
@@ -24,8 +16,6 @@ exports.index = function(req, res) {
 };
 
 exports.template = function(req, res) {
-    var dominio = req.headers.host.substr( (req.headers.host.indexOf('.') + 1) ).replace(/.[0-9]{2,4}$/, '');
-    var modulo = req.params.modulo;
     var diretorio = req.params.diretorio;
     var name = req.params.name;
 

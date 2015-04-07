@@ -2,6 +2,7 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var ParceiroSchema = new Schema({
@@ -26,6 +27,8 @@ var ParceiroSchema = new Schema({
         ref: 'Site'
     }
 });
+
+ParceiroSchema.plugin(random);
 
 var Parceiro = mongoose.model('Parceiro', ParceiroSchema);
 

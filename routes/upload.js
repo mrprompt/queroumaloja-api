@@ -6,7 +6,6 @@ var cloudinary = require('cloudinary').v2;
 
 exports.index = function(req, res, next) {
     var file = req.files.file;
-    var data = req.body;
     var dominio = req.site.dominio;
 
     cloudinary.config({
