@@ -1,5 +1,8 @@
 #!/bin/env node
-
+/**
+ * @author Thiago Paes <mrprompt@gmail.com>
+ * @type {*|exports|module.exports}
+ */
 var express = require('express');
 var os = require('os');
 var path = require('path');
@@ -11,7 +14,6 @@ var siteModel = require('./models/site').Site;
 var app = require('./routes/app');
 var panel = require('./routes/painel');
 var api = require('./routes/api');
-var upload = require('./routes/upload');
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -91,7 +93,7 @@ var Publiciti = function() {
      *  Set up server IP address and port # using env variables/defaults.
      */
     self.setupVariables = function() {
-        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
+        self.ipaddress = process.env.OPENSHIFT_NODEJS_IP || "0.0.0.0";
         self.port = process.env.OPENSHIFT_NODEJS_PORT || 8081;
         self.env = process.env.APPLICATION_ENV || 'production';
     };
@@ -135,7 +137,7 @@ var Publiciti = function() {
      */
     self.createRoutes = function() {
         // upload
-        self.app.post('/upload', getSite, upload.index);
+        self.app.post('/upload', getSite, api.upload);
 
         // panel module
         self.app.get('/painel', ensureAuthenticated, panel.index);
@@ -156,9 +158,9 @@ var Publiciti = function() {
         // api module
         self.app.get('/api/:modulo', getSite, api.list);
         self.app.get('/api/:modulo/:id', getSite, api.get);
-        self.app.post('/api/:modulo', getSite, api.create);
-        self.app.put('/api/:modulo/:id', getSite, api.update);
-        self.app.delete('/api/:modulo/:id', getSite, api.delete);
+        self.app.post('/api/:modulo', ensureAuthenticated, getSite, api.create);
+        self.app.put('/api/:modulo/:id', ensureAuthenticated, getSite, api.update);
+        self.app.delete('/api/:modulo/:id', ensureAuthenticated, getSite, api.delete);
 
         // app module
         self.app.get('/', getSite, app.index);

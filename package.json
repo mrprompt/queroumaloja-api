@@ -17,7 +17,7 @@
   "homepage": "http://grupo-publiciti.rhcloud.com",
   "repository": {
     "type": "git",
-    "url": "sssh://545e7855e0b8cd0e8500017c@grupo-publiciti.rhcloud.com/~/git/grupo.git/"
+    "url": "ssh://545e7855e0b8cd0e8500017c@grupo-publiciti.rhcloud.com/~/git/grupo.git/"
   },
   "engines": {
     "node": ">= 0.6.0",

@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var connection_string = 'mongodb://localhost/empresas';
+var connection_string = 'mongodb://localhost/grupo';
 
 // if OPENSHIFT env variables are present, use the available connection info:
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
