@@ -66,7 +66,7 @@ function getSite(req, res, next) {
         dominio: dominio
     }, function(err, site) {
         if (err) {
-            return res.status(500).send('Ocorreu um erro carregando site');
+            return res.status(500).send('Ocorreu um erro carregando site: ' + err);
         }
 
         if (null == site) {

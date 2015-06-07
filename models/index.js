@@ -18,10 +18,10 @@ var db = mongoose.connect(connection_string);
 var connection = mongoose.connection;
 
 connection.on('error', function(err) {
-    console.info('Erro durante a conexão com o banco de dados');
+    console.info('Erro durante a conexão com o banco de dados: ' + err);
 });
 
-connection.on('connected', function(str) {
+connection.on('connected', function() {
     console.info('Conectado em: ' + connection_string);
 });
 
