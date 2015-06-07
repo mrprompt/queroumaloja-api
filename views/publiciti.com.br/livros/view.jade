@@ -1,0 +1,93 @@
+extends ../layout.jade
+
+block conteudo
+  //
+   Banner Start
+  .banner.padd
+    .container
+      //
+         Image
+      img.img-responsive(src='/librinke/img/crown.png', alt='')
+      //
+         Heading
+      h2.white Livros
+      ol.breadcrumb
+        li
+          a(href='/') Início
+        li
+          a(href='/livros') Livros
+        li.active 
+          | #{livro.titulo}
+      .clearfix
+  //
+     Banner End
+  //
+     Inner Content
+  .inner-page.padd
+    //
+       Single Item Start
+    .single-item
+      .container
+        //
+           Shopping single item contents
+        .single-item-content
+          .row
+            .col-md-4.col-sm-5
+              //
+                 Product image
+              img.img-responsive.img-thumbnail(src="#{livro.imagem.url}", alt='')
+            .col-md-8.col-sm-7
+              //
+                 Heading
+              h3
+                | #{livro.titulo}
+              .row
+                .col-md-7.col-sm-12
+                  //
+                     Single item details
+                  .item-details
+                    //
+                       Paragraph
+                    div.text-justify
+                      | !{livro.descricao}
+                    //
+                       Heading
+                    h5 Detalhes
+                    //
+                       Recipe ingredients
+                    ul.list-unstyled
+                      li
+                        i.fa.fa-check
+                        | Código
+                        span.pull-right
+                          | #{livro.codigo}
+                        .clearfix
+                      li
+                        i.fa.fa-check
+                        | Categoria
+                        span.pull-right
+                          | #{livro.categoria}
+                        .clearfix
+                .col-md-5.col-sm-12
+                  //
+                     Form inside table wrapper
+                  .table-responsive
+                    //
+                       Ordering form
+                    form(role='form')
+                      //
+                         Table
+                      table.table.table-bordered
+                        tr
+                          td Valor Unitário
+                          td R$ não especificado
+                    //
+                      / Table End
+                  //
+                    / Table responsive class end
+              //
+                / Inner row end
+    //
+       Single Item End
+  //
+     / Inner Page Content End

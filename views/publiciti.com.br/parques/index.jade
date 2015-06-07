@@ -1,0 +1,26 @@
+extends ../layout.jade
+
+block conteudo
+  .banner.padd
+    .container
+      img.img-responsive(src='/librinke/img/crown.png', alt='')
+      h2.white Parques Infantis
+      ol.breadcrumb
+        li
+          a(href='/') Início
+        li.active parques
+      .clearfix
+  .inner-page
+    .shopping
+      .container
+        .shopping-content
+          .row
+            each parque in parques
+              if parque.imagem
+                .col-md-3.col-sm-6
+                  .shopping-item
+                    a(href='/parques/#{parque._id}')
+                      img.img-responsive(src='#{parque.imagem.url}', alt='')
+                    h4.pull-left
+                      a(href='/parques/#{parque._id}') #{parque.titulo}
+                    .clearfix
