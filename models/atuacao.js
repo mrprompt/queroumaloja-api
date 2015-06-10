@@ -2,6 +2,7 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random      = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var AtuacaoSchema = new Schema({
@@ -24,6 +25,9 @@ var AtuacaoSchema = new Schema({
 }, {
     collection: 'atuacoes'
 });
+
+AtuacaoSchema.plugin(random);
+
 
 var Atuacao = mongoose.model('Atuacao', AtuacaoSchema);
 

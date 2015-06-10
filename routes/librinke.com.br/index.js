@@ -83,6 +83,6 @@ exports.index = function (req, res) {
             return res.send(400);
         }
 
-        return res.render('librinke.com.br/inicio/index', conteudos)
+        return res.render(dominio + '/inicio/index', conteudos)
     });
 };

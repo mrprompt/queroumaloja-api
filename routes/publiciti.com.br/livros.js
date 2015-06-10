@@ -1,22 +1,20 @@
 'use strict';
 
-var path = require('path');
-var request = require('request');
-var fs = require('fs');
 var routes = require('../index').routes;
 
-exports.index = function (req, res) {
+exports.index = function(req, res) {
     var dominio = req.site.dominio;
-    var livro = routes.livro.Livro;
+    var livro = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
 
     livro
         .find({
-            site: req.site._id
+            site: req.site._id,
+            tipo: 'Livros'
         })
-        .exec(function (err, linhas) {
+        .exec(function(err, linhas) {
             if (err) {
                 console.log(err);
             } else {
@@ -27,9 +25,9 @@ exports.index = function (req, res) {
         });
 };
 
-exports.get = function (req, res) {
+exports.get = function(req, res) {
     var dominio = req.site.dominio;
-    var livro = routes.livro.Livro;
+    var livro = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
@@ -39,7 +37,7 @@ exports.get = function (req, res) {
             site: req.site._id,
             _id: req.params.id
         })
-        .exec(function (err, linhas) {
+        .exec(function(err, linhas) {
             if (err) {
                 console.log(err);
             } else {

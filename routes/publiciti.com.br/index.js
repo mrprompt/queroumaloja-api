@@ -10,9 +10,10 @@ exports.index = function (req, res) {
 
     async.parallel([
         function (callback) {
-            routes.uniforme.Uniforme.findRandom(
+            routes.produto.Produto.findRandom(
                 {
-                    site: req.site._id
+                    site: req.site._id,
+                    tipo: 'Uniformes'
                 },
                 {},
                 {
@@ -30,9 +31,10 @@ exports.index = function (req, res) {
             );
         },
         function (callback) {
-            routes.parque.Parque.findRandom(
+            routes.produto.Produto.findRandom(
                 {
-                    site: req.site._id
+                    site: req.site._id,
+                    tipo: 'Parques'
                 },
                 {},
                 {
@@ -50,9 +52,10 @@ exports.index = function (req, res) {
             );
         },
         function (callback) {
-            routes.livro.Livro.find(
+            routes.produto.Produto.find(
                 {
-                    site: req.site._id
+                    site: req.site._id,
+                    tipo: 'Livros'
                 },
                 {},
                 {

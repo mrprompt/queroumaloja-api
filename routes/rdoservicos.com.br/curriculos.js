@@ -10,12 +10,14 @@ exports.index = function (req, res) {
 
     async.parallel([
         function (callback) {
-            routes.servico.Servico.find(
+            routes.equipe.Equipe.find(
                 {
                     site: req.site._id
                 },
                 {},
-                {},
+                {
+                    limit: LIMITE
+                },
                 function (err, equipe) {
                     if (err) {
                         console.log(err);
@@ -93,6 +95,6 @@ exports.index = function (req, res) {
             return res.send(400);
         }
 
-        return res.render(req.site.dominio + '/servicos/index', conteudos);
+        return res.render(req.site.dominio + '/curriculos/index', conteudos);
     });
 };
