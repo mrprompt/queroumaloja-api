@@ -95,6 +95,9 @@ html(lang='pt', ng-app='painel')
           i.fa.fa-bars
         // end: Main Menu
 
+        -if(message)
+        div#note #{message}
+
         // start: Content
         #content.col-sm-11
           .row(ng-view)

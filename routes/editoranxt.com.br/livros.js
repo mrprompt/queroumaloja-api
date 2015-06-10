@@ -1,44 +1,74 @@
 'use strict';
 
-var path = require('path');
-var request = require('request');
-var fs = require('fs');
+var async = require('async');
 var routes = require('../index').routes;
+var conteudos = {};
+var LIMITE = 4;
 
 exports.index = function(req, res) {
 	var dominio = req.site.dominio;
-	var livro = routes.livro.Livro;
-	var uniforme = routes.uniforme.Uniforme;
 	var conteudos = {
 		site: req.site
 	};
 
-	livro
-		.find({
-			site: req.site._id
-		})
-		.exec(function(err, linhas) {
-			if (err) {
-				console.log(err);
-			} else {
-				conteudos.livros = linhas;
+	conteudos.site = req.site;
 
-				uniforme
-					.find({
-						site: req.site._id
-					})
-					.exec(function(err, linhas) {
+	async.parallel([
+			function (callback) {
+				routes.produto.Produto.findRandom({
+						site: req.site._id,
+						tipo: 'Uniformes'
+					},
+					{},
+					{
+						limit: LIMITE
+					},
+					function (err, linhas) {
 						if (err) {
 							console.log(err);
 						} else {
-							conteudos.uniformes = linhas;
+							conteudos.parceiros = linhas;
 
-							res.render(dominio + '/livros/index', {
-								site: req.site,
-								conteudo: JSON.stringify(conteudos)
-							});
+							callback(null, linhas);
 						}
-					});
+					}
+				);
+			},
+			function (callback) {
+				routes.produto.Produto.findRandom({
+						site: req.site._id,
+						tipo: 'Livros'
+					},
+					{},
+					{
+						limit: LIMITE
+					},
+					function (err, linhas) {
+						if (err) {
+							console.log(err);
+						} else {
+							conteudos.livros = linhas;
+
+							callback(null, linhas);
+						}
+					}
+				);
 			}
+		],
+		function (err, results) {
+			if (err) {
+				console.log(err);
+
+				return res.send(400);
+			}
+
+			if (results == null || results[0] == null) {
+				return res.send(400);
+			}
+
+			return res.render(dominio + '/livros/index', {
+				site: req.site,
+				conteudo: JSON.stringify(conteudos)
+			});
 		});
 };

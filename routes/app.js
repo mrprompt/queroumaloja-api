@@ -1,8 +1,7 @@
 'use strict';
 
-var fs = require('fs');
-var request = require('request');
-var routes = require('./index').routes;
+var fs      = require('fs');
+var routes  = require('./index').routes;
 
 exports.index = function(req, res) {
     var dominio = req.site.dominio;
@@ -26,7 +25,7 @@ exports.index = function(req, res) {
 exports.list = function(req, res) {
     var host = req.headers.host;
     var dominio = req.site.dominio;
-    var modulo = req.route.params.modulo;
+    var modulo = req.params.modulo;
     var modelo = dominio + '/' + modulo + '.js';
     var conteudos = {
         site: req.site
@@ -41,18 +40,6 @@ exports.list = function(req, res) {
             var route = require(__dirname + '/' + modelo);
 
             route.index(req, res);
-        } else {
-            var api = 'http://' + host + '/api/' + modulo;
-
-            request(api, function(error, response, body) {
-                if (!error) {
-                    conteudos.itens = body;
-
-                    res.render(dominio + '/' + modulo + '/index', conteudos);
-                } else {
-                    return res.status(404);
-                }
-            });
         }
     });
 };
@@ -60,9 +47,9 @@ exports.list = function(req, res) {
 exports.get = function(req, res) {
     var host = req.headers.host;
     var dominio = req.site.dominio;
-    var modulo = req.route.params.modulo;
+    var modulo = req.params.modulo;
     var modelo = dominio + '/' + modulo + '.js';
-    var id = req.route.params.id;
+    var id = req.params.id;
     var api = 'http://' + host + '/api/' + modulo + '/' + id;
     var conteudos = {
         site: req.site
@@ -81,16 +68,6 @@ exports.get = function(req, res) {
             var route = require(__dirname + '/' + modelo);
 
             route.get(req, res);
-        } else {
-            request(api, function(error, response, body) {
-                if (!error) {
-                    conteudos.item = body;
-
-                    res.render(dominio + '/' + modulo + '/view', conteudos);
-                } else {
-                    return res.status(404);
-                }
-            });
         }
     });
 };

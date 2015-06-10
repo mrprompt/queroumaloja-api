@@ -89,7 +89,7 @@ angular
 
                 $scope.upload = $upload
                     .upload({
-                        url: '/upload',
+                        url: '/api/upload',
                         file: file
                     })
                     .progress(function(evt) {

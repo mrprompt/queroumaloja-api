@@ -1,16 +1,36 @@
 'use strict';
 
-var connection = require('./index');
-var site = require('./site');
-var random = require('mongoose-simple-random');
-var mongoose = connection.mongoose;
-var Schema = mongoose.Schema;
-var ParqueSchema = new Schema({
+var connection  = require('./index');
+var site        = require('./site');
+var random      = require('mongoose-simple-random');
+var mongoose    = connection.mongoose;
+var Schema      = mongoose.Schema;
+var ProdutoSchema = new Schema({
+    codigo: {
+        type: String,
+        default: ''
+    },
     titulo: {
         type: String
     },
     descricao: {
         type: String
+    },
+    tipo: {
+        type: String,
+        default: ''
+    },
+    valor: {
+        type: Number,
+        default: 0.00
+    },
+    categoria: {
+        type: String,
+        default: ''
+    },
+    ativo: {
+        type: Boolean,
+        default: true
     },
     imagem: {
         type: Object
@@ -25,14 +45,14 @@ var ParqueSchema = new Schema({
     }
 });
 
-ParqueSchema.plugin(random);
+ProdutoSchema.plugin(random);
 
-var Parque = mongoose.model('Parque', ParqueSchema);
+var Produto = mongoose.model('Produto', ProdutoSchema);
 
-exports.Parque = Parque;
+exports.Produto = Produto;
 
 exports.list = function(req, res) {
-    Parque
+    Produto
         .find({
             site: req.site._id
         })
@@ -48,7 +68,7 @@ exports.list = function(req, res) {
 exports.get = function(req, res) {
     var id = req.params.id;
 
-    Parque
+    Produto
         .findOne({
             _id: id,
             site: req.site._id
@@ -71,31 +91,37 @@ exports.create = function(req, res) {
         cadastro: data.cadastro,
         imagem: JSON.parse(data.imagem),
         site: req.site._id,
+        codigo: data.codigo,
+        editora: data.editora,
+        categoria: data.categoria
     };
 
-    var parque = new Parque(dados);
-    parque.save(function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
-    });
+    var Produto = new Produto(dados);
+        Produto.save(function(err, data) {
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(data);
+            }
+        });
 };
 
 exports.update = function(req, res) {
-    var id = req.params.id;
-    var data = req.body;
-    var dados = {
+    var id      = req.params.id;
+    var data    = req.body;
+    var dados   = {
         titulo: data.titulo,
         descricao: data.descricao,
+        codigo: data.codigo,
+        editora: data.editora,
+        categoria: data.categoria
     };
 
     if (data.imagem) {
         dados.imagem = JSON.parse(data.imagem);
     }
 
-    Parque.update({
+    Produto.update({
         _id: id,
         site: req.site._id
     }, dados, function(err, data) {
@@ -110,7 +136,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
     var id = req.params.id;
 
-    Parque.remove({
+    Produto.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {

@@ -1,9 +1,6 @@
 'use strict';
 
 var async = require('async');
-var path = require('path');
-var request = require('request');
-var fs = require('fs');
 var routes = require('../index').routes;
 var conteudos = {};
 var LIMITE = 4;
@@ -37,8 +34,9 @@ exports.index = function(req, res) {
             );
         },
         function (callback) {
-            routes.livro.Livro.findRandom({
-                    site: req.site._id
+            routes.produto.Produto.findRandom({
+                    site: req.site._id,
+                    tipo: 'Livros'
                 },
                 {},
                 {

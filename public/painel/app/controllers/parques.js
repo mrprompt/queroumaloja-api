@@ -90,7 +90,7 @@ angular
                 var file = $files[i];
 
                 $scope.upload = $upload.upload({
-                    url: '/upload',
+                    url: '/api/upload',
                     data: {
                         myObj: $scope.parque
                     },

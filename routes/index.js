@@ -23,20 +23,13 @@ exports.routes = {
     equipes: require('../models/equipe'),
 
     index: require('../models/inicio'),
-
     inicio: require('../models/inicio'),
-
-    livros: require('../models/livro'),
-    livro: require('../models/livro'),
 
     orcamentos: require('../models/orcamento'),
     orcamento: require('../models/orcamento'),
 
     parceiros: require('../models/parceiro'),
     parceiro: require('../models/parceiro'),
-
-    parques: require('../models/parque'),
-    parque: require('../models/parque'),
 
     servicos: require('../models/servico'),
     servico: require('../models/servico'),
@@ -47,6 +40,6 @@ exports.routes = {
     slides: require('../models/slide'),
     slide: require('../models/slide'),
 
-    uniformes: require('../models/uniforme'),
-    uniforme: require('../models/uniforme'),
+    produtos: require('../models/produto'),
+    produto: require('../models/produto'),
 };
