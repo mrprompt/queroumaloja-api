@@ -1,12 +1,10 @@
 'use strict';
 
-var fs      = require('fs');
-var routes  = require('./index').routes;
+var fs = require('fs');
 
 exports.index = function(req, res) {
     var dominio = req.site.dominio;
     var modulo = dominio + '/index.js';
-
     var route = require(__dirname + '/' + modulo);
 
     return route.index(req, res);
@@ -16,21 +14,17 @@ exports.list = function(req, res) {
     var host = req.headers.host;
     var dominio = req.site.dominio;
     var modulo = req.params.modulo;
-    var modelo = dominio + '/' + modulo + '.js';
-    var conteudos = {
-        site: req.site
-    }
+    var modelo = __dirname + '/' + dominio + '/' + modulo + '.js';
+    console.log(modelo);
 
-    if (modulo == 'undefined' || modulo == undefined) {
-        return res.status(100);
-    }
+    fs.exists(modelo, function(exists) {
+        if (exists) {
+            var route = require(modelo);
 
-    fs.exists(__dirname + '/' + modelo, function(existe) {
-        if (existe) {
-            var route = require(__dirname + '/' + modelo);
-
-            route.index(req, res);
+            return route.index(req, res);
         }
+
+        res.status(404).send('"' + modulo + '" não encontrado.');
     });
 };
 
@@ -39,25 +33,14 @@ exports.get = function(req, res) {
     var dominio = req.site.dominio;
     var modulo = req.params.modulo;
     var modelo = dominio + '/' + modulo + '.js';
-    var id = req.params.id;
-    var api = 'http://' + host + '/api/' + modulo + '/' + id;
-    var conteudos = {
-        site: req.site
-    }
 
-    if (modulo == 'undefined' || modulo == undefined) {
-        return res.status(100);
-    }
+    fs.exists(modelo, function(exists) {
+        if (exists) {
+            var route = require(modelo);
 
-    if (id == 'undefined' || id == undefined) {
-        return res.status(100);
-    }
-
-    fs.exists(__dirname + '/' + modelo, function(existe) {
-        if (existe) {
-            var route = require(__dirname + '/' + modelo);
-
-            route.get(req, res);
+            return route.get(req, res);
         }
+
+        res.status(404).send('"' + modulo + '" não encontrado.');
     });
 };

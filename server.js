@@ -113,10 +113,7 @@ var Publiciti = function () {
             dominio: dominio
         }, function (err, site) {
             if (err) {
-
                 res.status(500).send('Ocorreu um erro carregando site: ' + err);
-
-                return next(err, null);
             }
 
             if (null == site) {
@@ -127,7 +124,7 @@ var Publiciti = function () {
 
             req.site = site;
 
-            return next(null, req);
+            next(err, site);
         });
     }
 
