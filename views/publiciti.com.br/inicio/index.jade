@@ -54,11 +54,7 @@ block conteudo
         // Block heading five
         .block-heading-five
             h3
-                | A Cool
-                span.color &amp;
-                |  Brand New Heading Style. Only For Buyers Of
-                span.color Brave
-                | . Buy It Now.
+                | Bem vindo ao site da Publiciti
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         hr
@@ -70,11 +66,11 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-red
-                            a(href='#')
+                            a(href='/brinquedos')
                                 img.img-responsive(src='/publiciti/img/flat-icons/10.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='#') Consequatr
+                            a(href='/brinquedos') Brinquedos
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .bor.bg-red
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -85,11 +81,11 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-lblue
-                            a(href='#')
+                            a(href='/livros')
                                 img.img-responsive(src='/publiciti/img/flat-icons/3.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='#') Doloribues
+                            a(href='/livros') Livros
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .bor.bg-lblue
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -100,11 +96,11 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-green
-                            a(href='#')
+                            a(href='/materiais-esportivos')
                                 img.img-responsive(src='/publiciti/img/flat-icons/17.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='#') Perferends
+                            a(href='/materiais-esportivos') Materiais Esportivos
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .bor.bg-green
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -115,11 +111,11 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-blue
-                            a(href='#')
+                            a(href='/parques')
                                 img.img-responsive(src='/publiciti/img/flat-icons/20.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='#') Repellat
+                            a(href='/parques') Parques
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .bor.bg-blue
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -132,7 +128,7 @@ block conteudo
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         .block-heading-two
             h3
-                span Recent Images
+                span Produtos Recentes
         // Owl carousel block starts
         // Owl navigation
         .owl-nav
@@ -143,94 +139,20 @@ block conteudo
                 i.fa.fa-chevron-right
         // Change values of data-items, data-auto-play, data-pagination & data-single-item  based on your needs
         .owl-carousel(data-items='4', data-auto-play='true', data-pagination='false', data-single-item='false')
-            // Carousel item
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/1.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/1.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/2.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/2.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/3.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/3.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/4.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/4.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/5.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/5.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/6.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/6.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/7.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/7.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
-            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-            .owl-content
-                a.lightbox(href='/publiciti/img/gallery/small/8.jpg')
-                    img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/8.jpg', alt='')
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                h4
-                    a(href='#') Some heading here now
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                p Ad vegan excepteur butcher vice lomo. Leggings occaecat raw denim aesthetic.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                a.btn.btn-color.btn-xs(href='#') Read more
+            each livro in livros
+                // Carousel item
+                .owl-content
+                    a.lightbox(href='/livro/#{livro._id}')
+                        img.img-responsive.img-thumbnail(src='#{livro.imagem.url}', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    h4
+                        a(href='#') #{livro.titulo}
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    p !{livro.descricao}
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    a.btn.btn-color.btn-xs(href='/livro/#{livro._id}') Ver mais
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+
         // Owl carousel block ends
     | &#x9;&#x9;&#x9;&#x9;
     | &#x9;&#x9;&#x9;&#x9;

@@ -15,8 +15,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var usuarioModel = require('./models/usuario').Usuario;
 var siteModel = require('./models/site').Site;
 var app = require('./routes/app');
-var panel = require('./routes/painel');
+var panel = require('./routes/grupo-publiciti.rhcloud.com/index');
 var api = require('./routes/api');
+var fs = require('fs');
+var ini = require('ini').parse(fs.readFileSync('./config/config.ini', 'utf-8'));
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -111,16 +113,21 @@ var Publiciti = function () {
             dominio: dominio
         }, function (err, site) {
             if (err) {
-                return res.status(500).send('Ocorreu um erro carregando site: ' + err);
+
+                res.status(500).send('Ocorreu um erro carregando site: ' + err);
+
+                return next(err, null);
             }
 
             if (null == site) {
-                return res.redirect('/painel/login');
+                site = {
+                    dominio: ini.global.domain
+                };
             }
 
             req.site = site;
 
-            return next();
+            return next(null, req);
         });
     }
 
@@ -134,7 +141,7 @@ var Publiciti = function () {
      */
     self.ensureAuthenticated = function (req, res, next) {
         if (req.isAuthenticated()) {
-            return next();
+            return next(null, res);
         }
 
         res.redirect('/painel/login');

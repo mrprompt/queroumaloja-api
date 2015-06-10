@@ -83,6 +83,6 @@ exports.index = function (req, res) {
             return res.send(400);
         }
 
-        return res.render('publiciti.com.br/inicio/index', conteudos)
+        return res.render(req.site.dominio + '/inicio/index', conteudos)
     });
 };

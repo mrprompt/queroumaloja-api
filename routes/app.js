@@ -7,19 +7,9 @@ exports.index = function(req, res) {
     var dominio = req.site.dominio;
     var modulo = dominio + '/index.js';
 
-    fs.exists(__dirname + '/' + modulo, function(existe) {
-        if (existe) {
-            var route = require(__dirname + '/' + modulo);
+    var route = require(__dirname + '/' + modulo);
 
-            return route.index(req, res);
-        } else {
-            var conteudos = {
-                site: req.site
-            };
-
-            return res.render(dominio + '/inicio/index', conteudos);
-        }
-    });
+    return route.index(req, res);
 };
 
 exports.list = function(req, res) {
