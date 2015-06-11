@@ -20,26 +20,26 @@ exports.list = function(req, res) {
         if (exists) {
             var route = require(modelo);
 
-            return route.index(req, res);
+            route.index(req, res);
+        } else {
+            res.status(404).send('"' + modulo + '" não encontrado.');
         }
-
-        res.status(404).send('"' + modulo + '" não encontrado.');
     });
 };
 
 exports.get = function(req, res) {
     var dominio = req.site.dominio;
     var modulo = req.params.modulo;
-    var modelo = dominio + '/' + modulo + '.js';
+    var modelo = __dirname + '/' + dominio + '/' + modulo + '.js';
 
     fs.exists(modelo, function(exists) {
         if (exists) {
             var route = require(modelo);
 
-            return route.get(req, res);
+            route.get(req, res);
+        } else {
+            res.status(404).send('"' + modulo + '" não encontrado');
         }
-
-        res.status(404).send('"' + modulo + '" não encontrado.');
     });
 };
 

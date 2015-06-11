@@ -61,13 +61,13 @@
         p(ng-show='produtoForm.descricao.$invalid && !produtoForm.descricao.$pristine', class='help-block') Descricao muito curta
 
     .col-sm-6
-        div(class='form-group', ng-class="{ 'has-error' : produtoForm.editora.$invalid && !produtoForm.editora.$pristine }")
-            label(class='control-label') editora
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.tipo.$invalid && !produtoForm.tipo.$pristine }")
+            label(class='control-label') tipo
             div(class='controls')
-                select(class='form-control', ng-model='produto.editora', name='editora', required)
-                  each editora in ['NXT Challenger', 'Globo', 'Ciranda Cultural', 'Sonopress']
-                    option= editora
-                p(ng-show='produtoForm.editora.$invalid && !produtoForm.editora.$pristine', class='help-block') Selecione a editora do produto
+                select(class='form-control', ng-model='produto.tipo', name='tipo', required)
+                  each tipo in ['Brinquedos', 'Livros', 'Materiais Esportivos', 'Parques', 'Outros']
+                    option= tipo
+                p(ng-show='produtoForm.tipo.$invalid && !produtoForm.tipo.$pristine', class='help-block') Selecione a tipo do produto
 
         div(class='form-group', ng-class="{ 'has-error' : produtoForm.categoria.$invalid && !produtoForm.categoria.$pristine }")
             label(class='control-label') categoria
