@@ -2,16 +2,18 @@
 
 var connection = require('./index');
 var site = require('./site');
+var random = require('mongoose-simple-random');
 var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
-var AtuacaoSchema = new Schema({
+var ParqueSchema = new Schema({
     titulo: {
-        type: String,
-        default: ''
+        type: String
     },
     descricao: {
-        type: String,
-        default: ''
+        type: String
+    },
+    imagem: {
+        type: Object
     },
     cadastro: {
         type: Date,
@@ -21,16 +23,16 @@ var AtuacaoSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}, {
-    collection: 'atuacoes'
 });
 
-var Atuacao = mongoose.model('Atuacao', AtuacaoSchema);
+ParqueSchema.plugin(random);
 
-exports.Atuacao = Atuacao;
+var Parque = mongoose.model('Parque', ParqueSchema);
+
+exports.Parque = Parque;
 
 exports.list = function(req, res) {
-    Atuacao
+    Parque
         .find({
             site: req.site._id
         })
@@ -46,7 +48,7 @@ exports.list = function(req, res) {
 exports.get = function(req, res) {
     var id = req.params.id;
 
-    Atuacao
+    Parque
         .findOne({
             _id: id,
             site: req.site._id
@@ -62,15 +64,17 @@ exports.get = function(req, res) {
 
 exports.create = function(req, res) {
     var data = req.body;
+
     var dados = {
         titulo: data.titulo,
         descricao: data.descricao,
-        cadastro: (new Date()),
-        site: req.site._id
+        cadastro: data.cadastro,
+        imagem: JSON.parse(data.imagem),
+        site: req.site._id,
     };
 
-    var atuacao = new Atuacao(dados);
-    atuacao.save(function(err, data) {
+    var parque = new Parque(dados);
+    parque.save(function(err, data) {
         if (err) {
             res.json(err);
         } else {
@@ -85,12 +89,15 @@ exports.update = function(req, res) {
     var dados = {
         titulo: data.titulo,
         descricao: data.descricao,
-        site: req.site._id
     };
 
-    Atuacao.update({
+    if (data.imagem) {
+        dados.imagem = JSON.parse(data.imagem);
+    }
+
+    Parque.update({
         _id: id,
-        site: dados.site
+        site: req.site._id
     }, dados, function(err, data) {
         if (err) {
             res.json(err);
@@ -103,7 +110,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
     var id = req.params.id;
 
-    Atuacao.remove({
+    Parque.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {

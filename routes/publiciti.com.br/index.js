@@ -3,10 +3,11 @@
 var async = require('async');
 var routes = require('../index').routes;
 var conteudos = {};
-var LIMITE = 4;
+var LIMITE = 24;
 
 exports.index = function (req, res) {
     conteudos.site = req.site;
+    conteudos.novidades = [];
 
     async.parallel([
         function (callback) {
@@ -24,6 +25,10 @@ exports.index = function (req, res) {
                         console.log(err);
                     } else {
                         conteudos.uniformes = uniformes;
+
+                        uniformes.forEach(function(uniforme) {
+                            conteudos.novidades.push(uniforme);
+                        });
 
                         callback(null, uniformes);
                     }
@@ -46,6 +51,10 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.parques = parques;
 
+                        parques.forEach(function(parque) {
+                            conteudos.novidades.push(parque);
+                        });
+
                         callback(null, parques);
                     }
                 }
@@ -66,6 +75,10 @@ exports.index = function (req, res) {
                         console.log(err);
                     } else {
                         conteudos.livros = livros;
+
+                        livros.forEach(function(livro) {
+                            conteudos.novidades.push(livros);
+                        });
 
                         callback(null, livros);
                     }

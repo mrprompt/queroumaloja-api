@@ -1,9 +1,7 @@
 'use strict';
 
-var connection  = require('./index');
-var site        = require('./site');
 var random      = require('mongoose-simple-random');
-var mongoose    = connection.mongoose;
+var mongoose    = require('./index').mongoose;
 var Schema      = mongoose.Schema;
 var ProdutoSchema = new Schema({
     codigo: {
