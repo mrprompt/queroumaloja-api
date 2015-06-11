@@ -21,7 +21,7 @@ exports.get = function(req, res) {
     var route = eval('routes.' + modulo);
 
     if (route == undefined) {
-        return res.status(404).send('Módulo não encontrado');
+        return res.status(404).send('Módulo não encontrado: ', route);
     }
 
     (route).get(req, res);

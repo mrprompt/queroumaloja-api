@@ -1,12 +1,12 @@
 .row
     .col-sm-6
-        div(class='form-group', ng-class="{ 'has-error' : livroForm.titulo.$invalid && !livroForm.titulo.$pristine }")
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.titulo.$invalid && !produtoForm.titulo.$pristine }")
             label(class='control-label') Título
             div(class='controls')
-                input(type='text', class='form-control', ng-model='livro.titulo', name='titulo', required)
-                p(ng-show='livroForm.titulo.$invalid && !livroForm.titulo.$pristine', class='help-block') Título muito curto ou inválido
+                input(type='text', class='form-control', ng-model='produto.titulo', name='titulo', required)
+                p(ng-show='produtoForm.titulo.$invalid && !produtoForm.titulo.$pristine', class='help-block') Título muito curto ou inválido
 
-        .form-group.hidden-xs(ng-class="{ 'has-error' : livroForm.descricao.$invalid && !livroForm.descricao.$pristine }", ng-init='editor()')
+        .form-group.hidden-xs(ng-class="{ 'has-error' : produtoForm.descricao.$invalid && !produtoForm.descricao.$pristine }", ng-init='editor()')
           label.control-label Descrição
           .btn-toolbar(data-role='editor-toolbar', data-target='.editor')
             .btn-group
@@ -57,41 +57,41 @@
                 a.btn(data-edit='redo', title='Redo (Ctrl/Cmd+Y)')
                   i.fa.fa-repeat
 
-        .editor(ng-model='livro.descricao', name='descricao',contentEditable)
-        p(ng-show='livroForm.descricao.$invalid && !livroForm.descricao.$pristine', class='help-block') Descricao muito curta
+        .editor(ng-model='produto.descricao', name='descricao',contentEditable)
+        p(ng-show='produtoForm.descricao.$invalid && !produtoForm.descricao.$pristine', class='help-block') Descricao muito curta
 
     .col-sm-6
-        div(class='form-group', ng-class="{ 'has-error' : livroForm.editora.$invalid && !livroForm.editora.$pristine }")
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.editora.$invalid && !produtoForm.editora.$pristine }")
             label(class='control-label') editora
             div(class='controls')
-                select(class='form-control', ng-model='livro.editora', name='editora', required)
+                select(class='form-control', ng-model='produto.editora', name='editora', required)
                   each editora in ['NXT Challenger', 'Globo', 'Ciranda Cultural', 'Sonopress']
                     option= editora
-                p(ng-show='livroForm.editora.$invalid && !livroForm.editora.$pristine', class='help-block') Selecione a editora do livro
+                p(ng-show='produtoForm.editora.$invalid && !produtoForm.editora.$pristine', class='help-block') Selecione a editora do produto
 
-        div(class='form-group', ng-class="{ 'has-error' : livroForm.categoria.$invalid && !livroForm.categoria.$pristine }")
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.categoria.$invalid && !produtoForm.categoria.$pristine }")
             label(class='control-label') categoria
             div(class='controls')
-                select(class='form-control', ng-model='livro.categoria', name='categoria', required)
-                  each categoria in ['Artes', 'Didático', 'DVDs', 'Filosofia', 'Infantil', 'Literatura Geral', 'Livros e Coleções', 'Pedagógicos', 'Psicologia', 'Religioso', 'Trabalhos Manuais']
+                select(class='form-control', ng-model='produto.categoria', name='categoria', required)
+                  each categoria in ['Artes', 'Didático', 'DVDs', 'Filosofia', 'Infantil', 'Literatura Geral', 'produtos e Coleções', 'Pedagógicos', 'Psicologia', 'Religioso', 'Trabalhos Manuais']
                     option= categoria
-                p(ng-show='livroForm.categoria.$invalid && !livroForm.categoria.$pristine', class='help-block') Selecione a categoria do livro
+                p(ng-show='produtoForm.categoria.$invalid && !produtoForm.categoria.$pristine', class='help-block') Selecione a categoria do produto
 
-        div(class='form-group', ng-class="{ 'has-error' : livroForm.codigo.$invalid && !livroForm.codigo.$pristine }")
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.codigo.$invalid && !produtoForm.codigo.$pristine }")
             label(class='control-label') Código
             div(class='controls')
-                input(type='text', class='form-control', ng-model='livro.codigo', name='codigo', required)
-                p(ng-show='livroForm.codigo.$invalid && !livroForm.codigo.$pristine', class='help-block') Código inválido
+                input(type='text', class='form-control', ng-model='produto.codigo', name='codigo', required)
+                p(ng-show='produtoForm.codigo.$invalid && !produtoForm.codigo.$pristine', class='help-block') Código inválido
 
-        div(class='form-group', ng-class="{ 'has-error' : livroForm.imagem.$invalid && !livroForm.imagem.$pristine }", ng-hide='livro.imagem.url')
+        div(class='form-group', ng-class="{ 'has-error' : produtoForm.imagem.$invalid && !produtoForm.imagem.$pristine }", ng-hide='produto.imagem.url')
             label(class='control-label') Imagem
             div(class='controls')
-                input(type='file', class='form-control', ng-file-select="onFileSelect($files)", required, ng-disabled='livroForm.$invalid', accept="image/*")
-                input(type='hidden', ng-model='livro.imagem', name='imagem')
-                p(ng-show='livroForm.imagem.$invalid && !livroForm.imagem.$pristine', class='help-block') Imagem é inválida
+                input(type='file', class='form-control', ng-file-select="onFileSelect($files)", required, ng-disabled='produtoForm.$invalid', accept="image/*")
+                input(type='hidden', ng-model='produto.imagem', name='imagem')
+                p(ng-show='produtoForm.imagem.$invalid && !produtoForm.imagem.$pristine', class='help-block') Imagem é inválida
 .row
     .col-sm-12
         div(class='control-group')
             div(class='controls')
-                button(type='submit', class='btn btn-primary', ng-disabled='livroForm.$invalid') Salvar
-                a(href='#/livros', class='btn') voltar
+                button(type='submit', class='btn btn-primary', ng-disabled='produtoForm.$invalid') Salvar
+                a(href='#/produtos', class='btn') voltar

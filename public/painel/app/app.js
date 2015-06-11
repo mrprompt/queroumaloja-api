@@ -20,12 +20,10 @@ angular
         'painel.controllers.equipe',
         'painel.controllers.slides',
         'painel.controllers.orcamentos',
-        'painel.controllers.livros',
-        'painel.controllers.uniformes',
+        'painel.controllers.produtos',
         'painel.controllers.contato',
         'painel.controllers.empresa',
         'painel.controllers.aviso',
-        'painel.controllers.parques',
     ])
 
 .config(['$routeProvider', '$locationProvider',
@@ -153,30 +151,17 @@ angular
                 controller: 'Slides'
             })
 
-        .when('/livros', {
-            templateUrl: '/painel/template/livros/index',
-            controller: 'Livros'
+        .when('/produtos', {
+            templateUrl: '/painel/template/produtos/index',
+            controller: 'Produtos'
         })
-            .when('/livros/adicionar', {
-                templateUrl: '/painel/template/livros/add',
-                controller: 'Livros'
+            .when('/produtos/adicionar', {
+                templateUrl: '/painel/template/produtos/add',
+                controller: 'Produtos'
             })
-            .when('/livros/editar/:id', {
-                templateUrl: '/painel/template/livros/edit',
-                controller: 'Livros'
-            })
-
-        .when('/uniformes', {
-            templateUrl: '/painel/template/uniformes/index',
-            controller: 'Uniformes'
-        })
-            .when('/uniformes/adicionar', {
-                templateUrl: '/painel/template/uniformes/add',
-                controller: 'Uniformes'
-            })
-            .when('/uniformes/editar/:id', {
-                templateUrl: '/painel/template/uniformes/edit',
-                controller: 'Uniformes'
+            .when('/produtos/editar/:id', {
+                templateUrl: '/painel/template/produtos/edit',
+                controller: 'Produtos'
             })
 
         .when('/contato', {
@@ -216,19 +201,6 @@ angular
             .when('/aviso/editar/:id', {
                 templateUrl: '/painel/template/aviso/edit',
                 controller: 'Aviso'
-            })
-
-        .when('/parques', {
-            templateUrl: '/painel/template/parques/index',
-            controller: 'Parques'
-        })
-            .when('/parques/adicionar', {
-                templateUrl: '/painel/template/parques/add',
-                controller: 'Parques'
-            })
-            .when('/parques/editar/:id', {
-                templateUrl: '/painel/template/parques/edit',
-                controller: 'Parques'
             })
 
         .when('/empresa', {

@@ -2,14 +2,14 @@
 
 /* Controllers */
 angular
-    .module('painel.controllers.parques', ['angularFileUpload'])
+    .module('painel.controllers.produtos', ['angularFileUpload'])
 
-.controller('Parques', ['$scope', '$routeParams', '$location', 'api', '$route', '$upload',
+.controller('Produtos', ['$scope', '$routeParams', '$location', 'api', '$route', '$upload',
     function($scope, $routeParams, $location, api, $route, $upload) {
         $scope.activetab = $location.path();
         $scope.curPage = 0;
         $scope.pageSize = 10;
-        $scope.parques = [];
+        $scope.produtos = [];
 
         activeMenu();
 
@@ -19,44 +19,42 @@ angular
         };
 
         $scope.paginas = function() {
-            return Math.ceil($scope.parques.length / $scope.pageSize);
+            return Math.ceil($scope.produtos.length / $scope.pageSize);
         };
 
         $scope.load = function() {
-            api.get('parques').then(function(data) {
-                $scope.parques = (data.data);
+            api.get('produtos').then(function(data) {
+                $scope.produtos = (data.data);
             });
         };
 
         $scope.add = function() {
-            api.post('parques', $scope.parque).then(function(data, status) {
+            api.post('produtos', $scope.produto).then(function(data, status) {
                 $scope.status = {
                     type: 'success',
-                    message: 'parques inserido com sucesso!'
+                    message: 'produto inserido com sucesso!'
                 }
 
-                $scope.parque = '';
-                $scope.parquesForm.$setPristine();
-                $location.path('/parques');
-                $scope.load();
+                $scope.produto = '';
+                $scope.produtoForm.$setPristine();
             });
         };
 
         $scope.delete = function(id) {
-            if (confirm('Você deseja realmente apagar o parques?\nEste procedimento é irreversível!')) {
-                api.delete('parques/' + id).then(function(data) {
+            if (confirm('Você deseja realmente apagar o produto?\nEste procedimento é irreversível!')) {
+                api.delete('produtos/' + id).then(function(data) {
                     if (data.status == 200) {
                         $scope.status = {
                             type: 'success',
-                            message: 'parques removido com sucesso!'
+                            message: 'produto removido com sucesso!'
                         }
 
-                        $location.path('/parques');
+                        $location.path('/produtos');
                         $scope.load();
                     } else {
                         $scope.status = {
                             type: 'danger',
-                            message: 'Erro removendo parques, tente novamente mais tarde'
+                            message: 'Erro removendo produto, tente novamente mais tarde'
                         }
                     }
                 });
@@ -64,24 +62,24 @@ angular
         };
 
         $scope.edit = function() {
-            api.put('parques/' + $routeParams.id, $scope.parques)
+            api.put('produtos/' + $routeParams.id, $scope.produto)
                 .success(function(data) {
                     $scope.status = {
                         type: 'success',
-                        message: 'parques atualizado com sucesso!'
+                        message: 'produto atualizado com sucesso!'
                     }
                 })
                 .error(function() {
                     $scope.status = {
                         type: 'danger',
-                        message: 'Ocorreu um erro atualizando os dados do parques, tente novamente mais tarde'
+                        message: 'Ocorreu um erro atualizando os dados do produto, tente novamente mais tarde'
                     }
                 });
         };
 
         $scope.get = function() {
-            api.get('parques/' + $routeParams.id).then(function(data) {
-                $scope.parque = (data.data);
+            api.get('produtos/' + $routeParams.id).then(function(data) {
+                $scope.produto = (data.data);
             });
         };
 
@@ -92,7 +90,7 @@ angular
                 $scope.upload = $upload.upload({
                     url: '/api/upload',
                     data: {
-                        myObj: $scope.parque
+                        myObj: $scope.produto
                     },
                     file: file, // or list of files ($files) for html5 only
                 }).progress(function(evt) {
@@ -117,10 +115,7 @@ angular
                         message: 'Imagem enviada com sucesso, você pode salvar agora'
                     }
 
-                    $scope.parque.imagem = JSON.stringify(data);
-                    $scope.add();
-                    $location.path('/parques');
-                    $scope.load();
+                    $scope.produto.imagem = JSON.stringify(data);
                 });
             }
         }

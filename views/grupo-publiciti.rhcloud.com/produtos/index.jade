@@ -4,9 +4,9 @@
       h2
         i.fa.fa-book
         span.break
-        | Livros
+        | produtos
       .box-icon
-        a.btn-plus(href='#/livros/adicionar')
+        a.btn-plus(href='#/produtos/adicionar')
           i.fa.fa-plus
 
     .box-content
@@ -14,11 +14,11 @@
             button(type='button', class='close', data-dismiss='alert') &times;
             | {{ status.message}}
 
-        div(class='alert alert-warning', ng-show='livros.length == 0')
-            | Você não possui nenhum livro cadastrado, cadastre um &nbsp;
-            a(href='#/livros/adicionar') aqui
+        div(class='alert alert-warning', ng-show='produtos.length == 0')
+            | Você não possui nenhum produto cadastrado, cadastre um &nbsp;
+            a(href='#/produtos/adicionar') aqui
 
-        table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='livros.length')
+        table.table.table-striped.table-bordered.bootstrap-datatable.datatable(ng-show='produtos.length')
           thead
             tr
                 td Título
@@ -27,25 +27,25 @@
                 td editora
                 td.col-md-1
 
-          tbody(ng-show='livros.length')
-            tr(ng-repeat='livro in livros | pagination: curPage * pageSize | limitTo: pageSize')
-              td {{ livro.titulo }}
-              td {{ livro.codigo }}
-              td {{ livro.categoria }}
-              td {{ livro.editora }}
+          tbody(ng-show='produtos.length')
+            tr(ng-repeat='produto in produtos | pagination: curPage * pageSize | limitTo: pageSize')
+              td {{ produto.titulo }}
+              td {{ produto.codigo }}
+              td {{ produto.categoria }}
+              td {{ produto.editora }}
               td
-                a(href='#/livros/editar/{{ livro._id }}', class='btn btn-mini btn-success')
+                a(href='#/produtos/editar/{{ produto._id }}', class='btn btn-mini btn-success')
                   span.fa.fa-edit
-                button(class='btn btn-mini btn-danger', ng-click='delete(livro._id)')
+                button(class='btn btn-mini btn-danger', ng-click='delete(produto._id)')
                   span.fa.fa-trash-o
 
           tfoot
             tr
               td(colspan='5', class='text-right')
-                a(href='#/livros/adicionar', class='btn btn-primary btn-mini')
+                a(href='#/produtos/adicionar', class='btn btn-primary btn-mini')
                   span.fa.fa-plus &nbsp;
 
-      .block.text-center(ng-show='livros.length')
+      .block.text-center(ng-show='produtos.length')
         ul.pagination.pagination-centered.inline.unstyled
           li
             a.btn.btn-link(ng-disabled='curPage === 0', ng-click='curPage = curPage - 1')
