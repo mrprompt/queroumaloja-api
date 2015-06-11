@@ -28,7 +28,7 @@ exports.index = function (req, res) {
             );
         },
         function (callback) {
-            routes.atuacao.Atuacao.findRandom(
+            routes.atuacao.Atuacao.find(
                 {
                     site: req.site._id
                 },
