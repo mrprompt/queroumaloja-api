@@ -20,7 +20,7 @@ exports.index = function(req, res) {
             } else {
                 conteudos.uniformes = linhas;
 
-                res.render(dominio + '/uniformes/index', conteudos);
+                res.render(dominio + '/produtos/index', conteudos);
             }
         });
 };
@@ -43,7 +43,7 @@ exports.get = function(req, res) {
             } else {
                 conteudos.uniforme = linhas;
 
-                res.render(dominio + '/uniformes/view', conteudos);
+                res.render(dominio + '/produtos/view', conteudos);
             }
         });
 };

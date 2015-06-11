@@ -20,7 +20,7 @@ exports.index = function(req, res) {
             } else {
                 conteudos.livros = linhas;
 
-                res.render(dominio + '/livros/index', conteudos);
+                res.render(dominio + '/produtos/index', conteudos);
             }
         });
 };
@@ -43,7 +43,7 @@ exports.get = function(req, res) {
             } else {
                 conteudos.livro = linhas;
 
-                res.render(dominio + '/livros/view', conteudos);
+                res.render(dominio + '/produtos/view', conteudos);
             }
         });
 };

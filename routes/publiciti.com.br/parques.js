@@ -20,7 +20,7 @@ exports.index = function(req, res) {
             } else {
                 conteudos.parques = linhas;
 
-                res.render(dominio + '/parques/index', conteudos);
+                res.render(dominio + '/produtos/index', conteudos);
             }
         });
 };
@@ -43,7 +43,7 @@ exports.get = function(req, res) {
             } else {
                 conteudos.parque = linhas;
 
-                res.render(dominio + '/parques/view', conteudos);
+                res.render(dominio + '/produtos/view', conteudos);
             }
         });
 };
