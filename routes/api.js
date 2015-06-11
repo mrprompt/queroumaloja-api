@@ -2,7 +2,7 @@
 
 var routes = require('./index').routes;
 var fs = require('fs');
-var ini = require('ini').parse(fs.readFileSync('config/config.ini', 'utf-8'));
+var ini = require('ini').parse(fs.readFileSync(__dirname + '/../config/config.ini', 'utf-8'));
 var cloudinary = require('cloudinary').v2;
 
 exports.list = function(req, res) {
@@ -25,7 +25,7 @@ exports.get = function(req, res) {
     }
 
     (route).get(req, res);
-}
+};
 
 exports.create = function(req, res) {
     var modulo = req.params.modulo;
@@ -47,7 +47,7 @@ exports.update = function(req, res) {
     }
 
     (route).update(req, res);
-}
+};
 
 exports.delete = function(req, res) {
     var modulo = req.params.modulo;
@@ -58,7 +58,7 @@ exports.delete = function(req, res) {
     }
 
     (route).delete(req, res);
-}
+};
 
 exports.upload = function (req, res, next) {
     var file = req.files.file;

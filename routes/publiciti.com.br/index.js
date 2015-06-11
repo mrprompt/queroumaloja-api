@@ -24,8 +24,6 @@ exports.index = function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.uniformes = uniformes;
-
                         uniformes.forEach(function(uniforme) {
                             conteudos.novidades.push(uniforme);
                         });
@@ -49,8 +47,6 @@ exports.index = function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.parques = parques;
-
                         parques.forEach(function(parque) {
                             conteudos.novidades.push(parque);
                         });
@@ -74,8 +70,6 @@ exports.index = function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.livros = livros;
-
                         livros.forEach(function(livro) {
                             conteudos.novidades.push(livros);
                         });
@@ -89,12 +83,13 @@ exports.index = function (req, res) {
         if (err) {
             console.log(err);
 
-            return res.send(400);
+            return res.status(500).send('Ocorreu um erro inesperado.');
         }
 
-        if (results == null || results[0] == null) {
-            return res.send(400);
-        }
+        // randomizando o array final
+        conteudos.novidades.sort(function() {
+            return 0.5 - Math.random()
+        });
 
         return res.render(req.site.dominio + '/inicio/index', conteudos)
     });

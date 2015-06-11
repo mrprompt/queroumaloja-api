@@ -3,12 +3,10 @@ html(lang='pt', ng-app='painel')
   head
     // start: Meta
     meta(charset='utf-8')
-    title=site.nome
-      | &nbsp; - Painel de Controle
+    title Painel de Controle
     meta(name='description', content='Painel de Controle')
     meta(name='author', content='Thiago Paes')
     meta(name='keyword', content='painel, controle, gerenciador,conteúdo')
-    meta(name='site_id', content='#{site._id}')
     // end: Meta
 
     // start: Mobile Specific
@@ -46,30 +44,14 @@ html(lang='pt', ng-app='painel')
             span.icon-bar
             span.icon-bar
           a.navbar-brand(href='/painel')
-            span= site.nome
-             | &nbsp;- Painel de Controle
+            span
+             | Painel de Controle
           // start: Header Menu
           .nav-no-collapse.header-nav
             ul.nav.pull-right
               li
                 a.btn(href='/')
                   i.halflings.home.white
-              // start: User Dropdown
-              li.dropdown
-                a.btn.dropdown-toggle(data-toggle='dropdown')
-                  i.halflings.user.white
-                  span= usuario.email
-                  span.caret
-                ul.dropdown-menu
-                  li
-                    a(href='#/empresa')
-                      i.halflings.user.white
-                      |  Perfil
-                  li
-                    a(href='/logout')
-                      i.halflings.off.white
-                      |  Sair
-              // end: User Dropdown
           // end: Header Menu
     // start: Header
     .container
@@ -91,12 +73,14 @@ html(lang='pt', ng-app='painel')
                     i.fa(class='fa-' + icons[modulo])
                     span.hidden-sm= modulo
 
+              li
+                a(href='/logout')
+                  i.fa.fa-power-off
+                  span.hidden-sm Sair
+
         a#main-menu-toggle.hidden-xs.open
           i.fa.fa-bars
         // end: Main Menu
-
-        -if(message)
-        div#note #{message}
 
         // start: Content
         #content.col-sm-11
@@ -256,11 +240,9 @@ html(lang='pt', ng-app='painel')
       p
         span(style='text-align:left;float:left')
           | &copy; 2014 &nbsp; - &nbsp;
-          span= site.nome
-            | &nbsp;
-          a(href=site.url) &nbsp;
-          span= site.dominio
-          |  by mrprompt
+          span
+            | Painel de Controle
+
     // start: JavaScript
     //if !IE
     script(src='/painel/assets/js/jquery-2.0.3.min.js')
@@ -299,7 +281,6 @@ html(lang='pt', ng-app='painel')
     script(src='/painel/assets/js/jquery.hotkeys.min.js')
     script(src='/painel/assets/js/bootstrap-wysiwyg.min.js')
     script(src='/painel/assets/js/justgage.1.0.1.min.js')
-
     script(src='/painel/assets/js/bootstrap-datepicker.min.js')
     script(src='/painel/assets/js/bootstrap-timepicker.min.js')
     script(src='/painel/assets/js/moment.min.js')

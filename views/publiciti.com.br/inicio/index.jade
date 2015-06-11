@@ -51,13 +51,15 @@ block conteudo
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         br
+
         // Block heading five
-        .block-heading-five
+        .block-heading-five.hidden
             h3
                 | Bem vindo ao site da Publiciti
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         | &#x9;&#x9;&#x9;&#x9;&#x9;
-        hr
+
+        hr.hidden
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         | &#x9;&#x9;&#x9;&#x9;&#x9;
         .img-box-3.text-center
@@ -67,7 +69,7 @@ block conteudo
                     .img-box-3-item
                         .img-box-3-icon.bg-red
                             a(href='#')
-                                img.img-responsive(src='/publiciti/img/flat-icons/10.png', alt='')
+                                img.img-responsive(src='/publiciti/img/flat-icons/20.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
                             a(href='/') Brinquedos
@@ -80,14 +82,29 @@ block conteudo
                 .col-md-3.col-sm-6
                     // Image Box #3 Item
                     .img-box-3-item
-                        .img-box-3-icon.bg-lblue
+                        .img-box-3-icon.bg-blue
                             a(href='/livros')
-                                img.img-responsive(src='/publiciti/img/flat-icons/3.png', alt='')
+                                img.img-responsive(src='/publiciti/img/flat-icons/14.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
                             a(href='/livros') Livros
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        .bor.bg-lblue
+                        .bor.bg-blue
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        p
+                            | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .col-md-3.col-sm-6
+                    // Image Box #3 Item
+                    .img-box-3-item
+                        .img-box-3-icon.bg-orange
+                            a(href='/materiais-esportivos')
+                                img.img-responsive(src='/publiciti/img/flat-icons/22.png', alt='')
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        h4
+                            a(href='/materiais-esportivos') Materiais Esportivos
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        .bor.bg-orange
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         p
                             | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
@@ -96,28 +113,13 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-green
-                            a(href='/materiais-esportivos')
-                                img.img-responsive(src='/publiciti/img/flat-icons/17.png', alt='')
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        h4
-                            a(href='/materiais-esportivos') Materiais Esportivos
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        .bor.bg-green
-                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        p
-                            | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                .col-md-3.col-sm-6
-                    // Image Box #3 Item
-                    .img-box-3-item
-                        .img-box-3-icon.bg-blue
                             a(href='/parques')
-                                img.img-responsive(src='/publiciti/img/flat-icons/20.png', alt='')
+                                img.img-responsive(src='/publiciti/img/flat-icons/19.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
                             a(href='/parques') Parques
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        .bor.bg-blue
+                        .bor.bg-green
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         p
                             | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
@@ -140,21 +142,22 @@ block conteudo
         // Change values of data-items, data-auto-play, data-pagination & data-single-item  based on your needs
         .owl-carousel(data-items='4', data-auto-play='true', data-pagination='false', data-single-item='false')
             each livro in novidades
-                // Carousel item
-                .owl-content
-                    a.lightbox(href='#{livro.imagem.url}')
-                        img.img-responsive.img-thumbnail(src='#{livro.imagem.url}', alt='')
-                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                    h4
-                        a(href='/livro/#{livro._id}') #{livro.titulo}
-                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                    a.btn.btn-color.btn-xs(href='/livro/#{livro._id}') Ver mais
-                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-
+                if livro.imagem
+                    // Carousel item
+                    .owl-content
+                        a.lightbox(href='#{livro.imagem.url}')
+                            img.img-responsive.img-thumbnail(src='#{livro.imagem.url}', alt='')
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        h4
+                            a(href='/livro/#{livro._id}') #{livro.titulo}
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        a.btn.btn-color.btn-xs(href='/livro/#{livro._id}') Ver mais
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
         // Owl carousel block ends
     | &#x9;&#x9;&#x9;&#x9;
     | &#x9;&#x9;&#x9;&#x9;
     br
+
     | &#x9;&#x9;&#x9;&#x9;
     .cta-six
         // Container
@@ -163,15 +166,16 @@ block conteudo
             .cta-six-content
                 .row
                     .col-md-9
-                        h4 Righteous  power and the indignation charmes power unmmelled
+                        h4 Não encontrou algo? Quer mais detalhes?
                     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                     .col-md-3
-                        a.btn.btn-lg(href='#')
-                            i.fa.fa-download
-                            | &nbsp; Download Now
+                        a.btn.btn-lg(href='/contato')
+                            i.fa.fa-at
+                            | &nbsp; Entre em Contato
     | &#x9;&#x9;&#x9;&#x9;
     | &#x9;&#x9;&#x9;&#x9;
     br
+
     | &#x9;&#x9;&#x9;&#x9;
     | &#x9;&#x9;&#x9;&#x9;&#x9;
     | &#x9;&#x9;&#x9;&#x9;

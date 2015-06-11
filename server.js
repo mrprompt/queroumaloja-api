@@ -11,11 +11,10 @@ var methodOverride = require('method-override');
 var os = require('os');
 var path = require('path');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var localStrategy = require('passport-local').Strategy;
 var usuarioModel = require('./models/usuario').Usuario;
 var siteModel = require('./models/site').Site;
 var app = require('./routes/app');
-var panel = require('./routes/grupo-publiciti.rhcloud.com/index');
 var api = require('./routes/api');
 var fs = require('fs');
 var ini = require('ini').parse(fs.readFileSync('./config/config.ini', 'utf-8'));
@@ -30,7 +29,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-passport.use(new LocalStrategy(
+passport.use(new localStrategy(
     function (username, password, done) {
         usuarioModel.findOne({
             email: username,
@@ -42,13 +41,13 @@ passport.use(new LocalStrategy(
                 return done(err);
             }
 
-            if (!user) {
-                return done(null, false, {
-                    message: 'Incorrect username.'
-                });
-            }
+            var conteudo = {};
 
-            console.log('Autenticado: ', user);
+            if (!user) {
+                conteudo.message = 'Invalid username/password';
+
+                return done(null, false, conteudo);
+            }
 
             return done(null, user);
         });
@@ -57,11 +56,8 @@ passport.use(new LocalStrategy(
 
 /**
  *  Define the application.
- *
- * @author  Thiago Paes <mrprompt@gmail.com>
- * @package  publiciti
  */
-var Publiciti = function () {
+var Application = function () {
     //  Scope.
     var self = this;
 
@@ -126,7 +122,7 @@ var Publiciti = function () {
 
             next(err, site);
         });
-    }
+    };
 
     /**
      * Check if the user is authenticated
@@ -141,41 +137,36 @@ var Publiciti = function () {
             return next(null, res);
         }
 
-        res.redirect('/painel/login');
-    }
+        return next();
+    };
 
     /**
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        // panel module
-        self.app.get('/painel', self.ensureAuthenticated, panel.index);
-        self.app.get('/painel/template/:diretorio/:name', panel.template);
-        self.app.get('/painel/login', panel.login);
-        self.app.post('/painel/login', passport.authenticate('local', {
-                failureRedirect: '/painel/login',
+        self.app.get('/', self.getSite, app.index);
+        self.app.get('/logout', app.logout);
+        self.app.get('/login', app.login);
+        self.app.get('/api/:modulo', self.getSite, api.list);
+        self.app.get('/api/:modulo/:id', self.getSite, api.get);
+        self.app.get('/painel', self.ensureAuthenticated, self.getSite, app.panel);
+        self.app.get('/painel/template/:diretorio/:name', app.template);
+        self.app.get('/:modulo', self.getSite, app.list);
+        self.app.get('/:modulo/:id', self.getSite, app.get);
+
+        self.app.post('/api/upload', self.getSite, api.upload);
+        self.app.post('/api/:modulo', self.ensureAuthenticated, self.getSite, api.create);
+        self.app.post('/login', passport.authenticate('local', {
+                failureRedirect: '/login',
                 failureFlash: true
             }),
             function (req, res) {
                 res.redirect('/painel');
             });
-        self.app.get('/painel/logout', function (req, res) {
-            req.logout();
-            res.redirect('/painel/login');
-        });
 
-        // api module
-        self.app.post('/api/upload', self.getSite, api.upload);
-        self.app.get('/api/:modulo', self.getSite, api.list);
-        self.app.get('/api/:modulo/:id', self.getSite, api.get);
-        self.app.post('/api/:modulo', self.ensureAuthenticated, self.getSite, api.create);
         self.app.put('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.update);
-        self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.delete);
 
-        // app module
-        self.app.get('/', self.getSite, app.index);
-        self.app.get('/:modulo', self.getSite, app.list);
-        self.app.get('/:modulo/:id', self.getSite, app.get);
+        self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.delete);
     };
 
     /**
@@ -208,27 +199,21 @@ var Publiciti = function () {
     };
 
     /**
-     *  Initializes the application.
-     */
-    self.initialize = function () {
-        self.setupTerminationHandlers();
-        self.initializeServer();
-    };
-
-    /**
      *  Start the server (starts up the application).
      */
     self.start = function () {
-        //  Start the app on the specific interface (and port).
+        self.setupTerminationHandlers();
+
+        self.initializeServer();
+
         self.app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP, function () {
-            console.log('%s: Node server started on %s:%d ...', Date(Date.now()), process.env.OPENSHIFT_NODEJS_IP, process.env.OPENSHIFT_NODEJS_PORT);
+            console.log('Started on %s:%d', process.env.OPENSHIFT_NODEJS_IP, process.env.OPENSHIFT_NODEJS_PORT);
         });
     };
 };
 
 /**
- *  main():  Main code.
+ *  Start application
  */
-var zapp = new Publiciti();
-zapp.initialize();
-zapp.start();
+var publiciti = new Application();
+    publiciti.start();
