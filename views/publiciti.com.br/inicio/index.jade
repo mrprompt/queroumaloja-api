@@ -83,11 +83,11 @@ block conteudo
                     // Image Box #3 Item
                     .img-box-3-item
                         .img-box-3-icon.bg-blue
-                            a(href='/livros')
+                            a(href='/produtos')
                                 img.img-responsive(src='/publiciti/img/flat-icons/14.png', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='/livros') Livros
+                            a(href='/produtos') produtos
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .bor.bg-blue
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -141,17 +141,17 @@ block conteudo
                 i.fa.fa-chevron-right
         // Change values of data-items, data-auto-play, data-pagination & data-single-item  based on your needs
         .owl-carousel(data-items='4', data-auto-play='true', data-pagination='false', data-single-item='false')
-            each livro in novidades
-                if livro.imagem
+            each produto in novidades
+                if produto.imagem
                     // Carousel item
                     .owl-content
-                        a.lightbox(href='#{livro.imagem.url}')
-                            img.img-responsive.img-thumbnail(src='#{livro.imagem.url}', alt='')
+                        a.lightbox(href='#{produto.imagem.url}')
+                            img.img-responsive.img-thumbnail(src='#{produto.imagem.url}', alt='')
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         h4
-                            a(href='/livros/#{livro._id}') #{livro.titulo}
+                            a(href='/produtos/#{produto._id}') #{produto.titulo}
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                        a.btn.btn-color.btn-xs(href='/livros/#{livro._id}') Ver mais
+                        a.btn.btn-color.btn-xs(href='/produtos/#{produto._id}') Ver mais
                     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
         // Owl carousel block ends
     | &#x9;&#x9;&#x9;&#x9;

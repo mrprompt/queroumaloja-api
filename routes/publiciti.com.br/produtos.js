@@ -4,21 +4,24 @@ var routes = require('../index').routes;
 
 exports.index = function(req, res) {
     var dominio = req.site.dominio;
-    var uniforme = routes.produto.Produto;
+    var produto = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
 
-    uniforme
+    produto
         .find({
             site: req.site._id,
-            tipo: 'Uniformes'
+            tipo: req.query.tipo
+        })
+        .sort({
+            cadastro: -1
         })
         .exec(function(err, linhas) {
             if (err) {
                 console.log(err);
             } else {
-                conteudos.uniformes = linhas;
+                conteudos.produtos = linhas;
 
                 res.render(dominio + '/produtos/index', conteudos);
             }
@@ -27,12 +30,12 @@ exports.index = function(req, res) {
 
 exports.get = function(req, res) {
     var dominio = req.site.dominio;
-    var uniforme = routes.produto.Produto;
+    var produto = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
 
-    uniforme
+    produto
         .findOne({
             site: req.site._id,
             _id: req.params.id
@@ -41,7 +44,7 @@ exports.get = function(req, res) {
             if (err) {
                 console.log(err);
             } else {
-                conteudos.uniforme = linhas;
+                conteudos.produto = linhas;
 
                 res.render(dominio + '/produtos/view', conteudos);
             }

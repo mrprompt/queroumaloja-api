@@ -39,6 +39,9 @@ exports.list = function(req, res) {
         .find({
             site: req.site._id
         })
+        .sort({
+            cadastro: -1
+        })
         .exec(function(err, products) {
             if (err) {
                 console.log(err);

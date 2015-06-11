@@ -23,16 +23,16 @@
             tr
                 td Título
                 td Código
+                td Tipo
                 td Categoria
-                td editora
                 td.col-md-1
 
           tbody(ng-show='produtos.length')
             tr(ng-repeat='produto in produtos | pagination: curPage * pageSize | limitTo: pageSize')
               td {{ produto.titulo }}
               td {{ produto.codigo }}
+              td {{ produto.tipo }}
               td {{ produto.categoria }}
-              td {{ produto.editora }}
               td
                 a(href='#/produtos/editar/{{ produto._id }}', class='btn btn-mini btn-success')
                   span.fa.fa-edit
@@ -41,7 +41,10 @@
 
           tfoot
             tr
-              td(colspan='5', class='text-right')
+              td(colspan='3', class='text-left')
+                b {{ produtos.length }}
+                | &nbsp; produtos cadastrados
+              td(colspan='2', class='text-right')
                 a(href='#/produtos/adicionar', class='btn btn-primary btn-mini')
                   span.fa.fa-plus &nbsp;
 

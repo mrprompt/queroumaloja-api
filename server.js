@@ -158,7 +158,7 @@ var Application = function () {
         self.app.post('/api/:modulo', self.ensureAuthenticated, self.getSite, api.create);
         self.app.post('/login', passport.authenticate('local', {
                 failureRedirect: '/login',
-                failureFlash: true
+                failureFlash: false
             }),
             function (req, res) {
                 res.redirect('/painel');

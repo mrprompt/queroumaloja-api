@@ -1,93 +1,567 @@
 extends ../layout.jade
 
 block conteudo
-  //
-   Banner Start
-  .banner.padd
+    // Page heading two starts
+    .page-heading-two
+        .container
+            h2
+                | #{produto.titulo}
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .breads
+                | Início /
+                a(href='/produtos/#{produto.tipo}') #{produto.tipo}
+                |  /
+                a(href='/produtos/#{produto.tipo}/#{produto.categoria}') #{produto.categoria}
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .clearfix
+    // Page heading two ends
+
     .container
-      //
-         Image
-      img.img-responsive(src='/librinke/img/crown.png', alt='')
-      //
-         Heading
-      h2.white Livros
-      ol.breadcrumb
-        li
-          a(href='/') Início
-        li
-          a(href='/livros') Livros
-        li.active 
-          | #{livro.titulo}
-      .clearfix
-  //
-     Banner End
-  //
-     Inner Content
-  .inner-page.padd
-    //
-       Single Item Start
-    .single-item
-      .container
-        //
-           Shopping single item contents
-        .single-item-content
-          .row
-            .col-md-4.col-sm-5
-              //
-                 Product image
-              img.img-responsive.img-thumbnail(src="#{livro.imagem.url}", alt='')
-            .col-md-8.col-sm-7
-              //
-                 Heading
-              h3
-                | #{livro.titulo}
-              .row
-                .col-md-7.col-sm-12
-                  //
-                     Single item details
-                  .item-details
-                    //
-                       Paragraph
-                    div.text-justify
-                      | !{livro.descricao}
-                    //
-                       Heading
-                    h5 Detalhes
-                    //
-                       Recipe ingredients
-                    ul.list-unstyled
-                      li
-                        i.fa.fa-check
-                        | Código
-                        span.pull-right
-                          | #{livro.codigo}
-                        .clearfix
-                      li
-                        i.fa.fa-check
-                        | Categoria
-                        span.pull-right
-                          | #{livro.categoria}
-                        .clearfix
-                .col-md-5.col-sm-12
-                  //
-                     Form inside table wrapper
-                  .table-responsive
-                    //
-                       Ordering form
-                    form(role='form')
-                      //
-                         Table
-                      table.table.table-bordered
-                        tr
-                          td Valor Unitário
-                          td R$ não especificado
-                    //
-                      / Table End
-                  //
-                    / Table responsive class end
-              //
-                / Inner row end
-    //
-       Single Item End
-  //
-     / Inner Page Content End
+        // Actual content
+        .ecommerce
+            .row
+                .col-md-9.col-sm-8.col-md-push-3.col-sm-push-4
+                    // Shopping items content
+                    .shopping-content
+                        .shopping-single
+                            .row
+                                .col-md-4.col-sm-6
+                                    // Carousel
+                                    //
+                                      Bootstrap carousel usage
+                                      Bootstrap carousel should have id. Below i am using "bs-carousel-X". Where "X" denotes number".
+                                      If a page has more than 1 carousel, then add the new carousel with the id "bs-carousel-1",
+                                      "bs-carousel-2". You also need to update the id in, "carousel indicators" section and
+                                      "carousel control" section.
+                                      Carousel comes with 3 main data attributes which you can customize. They are...
+                                      data-interval - Time delay between item cycle. Default value "5000".
+                                      data-pause - Pause on hover. Default value "pause".
+                                      data-wrap - Continues cycle or stop at the end. Default value "true".
+                                    // Outer layer
+                                    #bs-carousel-1.carousel.slide(data-ride='carousel', data-interval='3000', data-pause='hover', data-wrap='true')
+                                        // Bootstrap indicators. If you don't need indicators, remove the below section
+                                        ol.carousel-indicators
+                                            li.active(data-target='#bs-carousel-1', data-slide-to='0')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            li(data-target='#bs-carousel-1', data-slide-to='1')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            li(data-target='#bs-carousel-1', data-slide-to='2')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            li(data-target='#bs-carousel-1', data-slide-to='3')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            li(data-target='#bs-carousel-1', data-slide-to='4')
+                                        // Slides. You can also add captions
+                                        .carousel-inner
+                                            // Item, First item should have extra class "active"
+                                            .item.active
+                                                // Image
+                                                img(src='#{produto.imagem.url}', alt='')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+
+                                        // Carousel controls (arrows). If you don't need controls, remove the below section
+                                        a.left.carousel-control(href='#bs-carousel-1', role='button', data-slide='prev')
+                                            span.fa.fa-chevron-left
+                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                        a.right.carousel-control(href='#bs-carousel-1', role='button', data-slide='next')
+                                            span.fa.fa-chevron-right
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .col-md-8.col-sm-6
+                                    h4 #{produto.titulo}
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    p
+                                        | !{produto.descricao}
+
+                                    // Product Details
+                                    .table-responsive
+                                        table.table.table-bordered.sitem-table
+                                            tr
+                                                th Name :
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                td #{produto.titulo}
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            tr
+                                                th Preço :
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                td R$ #{produto.valor}
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            tr
+                                                th Entrega :
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                td Sob consulta
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            tr
+                                                th Disponibilidade :
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                td
+                                                    i.fa.fa-check.green
+                                                    |  &nbsp;Em estoque
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    form.form
+                                        // Quantity and add to cart button
+                                        .input-group
+                                            input.form-control(type='text', placeholder='1', value='1')
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            span.input-group-btn
+                                                button.btn.btn-color.go(type='button') Comprar
+                                        // /input-group
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            br
+                            // Description, specs and review
+                            .product-desc
+                                .nav-tabs-one
+                                    ul#myTab.nav.nav-tabs
+                                        // Use uniqe name for "href" in below anchor tags
+                                        li.active
+                                            a(href='#tab1', data-toggle='tab') Description
+                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                        li
+                                            a(href='#tab2', data-toggle='tab') Specs
+                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                        li
+                                            a(href='#tab3', data-toggle='tab') Review (5)
+                                    // Tab Content
+                                    #myTabContent.tab-content
+                                        // Description
+                                        #tab1.tab-pane.fade.in.active
+                                            h5
+                                                | Black Berry Z10
+                                                span.color :-
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            p
+                                                | Nulla facilisi. Sed justo dui, scelerisque ut consectetur vel, eleifend id erat. Morbi auctor adipiscing tempor. Phasellus condimentum rutrum aliquet. Quisque eu consectetur erat. Proin rutrum, erat eget posuere semper,
+                                                em arcu mauris posuere tortor
+                                                | , in commodo enim magna id massa. Suspendisse potenti. Aliquam erat volutpat. Maecenas quis tristique turpis. Nulla facilisi. Duis sed velit at
+                                                a(href='#') magna sollicitudin cursus
+                                                |  ac ultrices magna. Aliquam consequat, purus vitae auctor ullamcorper, sem velit convallis quam, a pharetra justo nunc et mauris. Vivamus diam diam, fermentum sed dapibus eget, egestas sed eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            h5
+                                                | Features
+                                                span.color :-
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            ul.list-2
+                                                li Etiam adipiscing posuere justo, nec iaculis justo dictum non
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                li Cras tincidunt mi non arcu hendrerit eleifend
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                li Aenean ullamcorper justo tincidunt justo aliquet et lobortis diam faucibus
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                li Maecenas hendrerit neque id ante dictum mattis
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                li Vivamus non neque lacus, et cursus tortor
+                                        // Sepcs
+                                        #tab2.tab-pane.fade
+                                            h5
+                                                | Product Specs
+                                                span.color :-
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            table.table.table-bordered.table-hover
+                                                tbody
+                                                    tr
+                                                        td
+                                                            strong Name
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td Black Berry Z10
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Brand
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td Black Berry
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Modal
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td Z10
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Memory
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td 2GB RAM
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Storage
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td 16GB, 32GB, 64GB
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Camera
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td Front VGA, Read 8MP
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Processor
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td BB 1.25GHz Processor
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    tr
+                                                        td
+                                                            strong Battery
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        td 30 Hours Standby
+                                        // Review
+                                        #tab3.tab-pane.fade
+                                            h5
+                                                | Product Reviews
+                                                span.color :-
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            .item-review
+                                                h6 Ravi Kumar - 4/5
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                p
+                                                    | Suspendisse potenti. Morbi ac felis nec mauris imperdiet fermentum. Aenean sodales augue ac lacus hendrerit sed rhoncus erat hendrerit. Vivamus vel ultricies elit. Curabitur lacinia nulla vel tellus elementum non mollis justo aliquam.
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            br
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            h5
+                                                | Write a Review
+                                                span.color
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            form.form-horizontal(role='form')
+                                                .form-group
+                                                    label.col-md-1.control-label(for='inputName') Name
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    .col-md-5
+                                                        input#inputName.form-control(type='text', placeholder='Name')
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                .form-group
+                                                    label.col-md-1.control-label(for='inputEmail1') Email
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    .col-md-5
+                                                        input#inputEmail1.form-control(type='email', placeholder='Email')
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                .form-group
+                                                    label.col-md-1.control-label(for='inputCountry') Rating
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    .col-md-5
+                                                        select#inputCountry.form-control
+                                                            option(selected='') 5
+                                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                            option 4
+                                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                            option 3
+                                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                            option 2
+                                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                            option 1
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                .form-group
+                                                    label.col-md-1.control-label(for='inputAddress') Review
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                    .col-md-5
+                                                        textarea#inputAddress.form-control(rows='3', placeholder='Review')
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                .form-group
+                                                    .col-md-offset-1.col-md-5
+                                                        button.btn.btn-color(type='submit') Send
+                                                        | &nbsp;
+                                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                        button.btn.btn-white(type='reset') Reset
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .col-md-3.col-sm-4.col-md-pull-9.col-sm-pull-8
+                    // Shopping Sidebar
+                    .sidebar
+                        // Heading
+                        h2 Navigation
+                        // Sidebar Menu
+                        ul.navi
+                            li.has_submenu
+                                a(href='#')
+                                    | Smart Phone
+                                    // Icon for dropdown
+                                    span.pull-right.arrow.fa.fa-angle-down
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                ul
+                                    li
+                                        a(href='ecom-items.html') Apple
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Samsung
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Motorola
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Nokia
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li.has_submenu
+                                a(href='#')
+                                    | Laptop
+                                    // Icon for dropdown
+                                    span.pull-right.arrow.fa.fa-angle-down
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                ul
+                                    li
+                                        a(href='ecom-items.html') Lenovo
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Samsung
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Dell
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') HCL
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Apple
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li.has_submenu
+                                a(href='#')
+                                    | Desktop
+                                    // Icon for dropdown
+                                    span.pull-right.arrow.fa.fa-angle-down
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                ul
+                                    li
+                                        a(href='ecom-items.html') Lenovo
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Samsung
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Dell
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') HCL
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Apple
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li.has_submenu
+                                a(href='#')
+                                    | Tablet
+                                    // Icon for dropdown
+                                    span.pull-right.arrow.fa.fa-angle-down
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                ul
+                                    li
+                                        a(href='ecom-items.html') Lenovo
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Samsung
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Dell
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') HCL
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    li
+                                        a(href='ecom-items.html') Apple
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='#') Accessories
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='#') Headphones
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='#') Batteries
+                        // Sidebar Widget
+                        .s-widget
+                            h3
+                                i.fa.fa-fire.color
+                                |  Hot Selling
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='/publiciti/img/ecommerce/items/4.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 HTC Hi-Tech
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                // Price
+                                span.sw-price $49
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='/publiciti/img/ecommerce/items/5.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 Motorola GSD
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star-half-o.yellow
+                                // Price
+                                span.sw-price $99
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='/publiciti/img/ecommerce/items/6.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 Samsung G60
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                // Price
+                                span.sw-price $120
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            br
+            // Recent items Starts
+            .recent-items
+                // Block heading two
+                .block-heading-two
+                    h3
+                        span Recent Items
+                // Owl carousel block starts
+                // Change values of data-items, data-auto-play, data-pagination & data-single-item based on your needs
+                .owl-carousel(data-items='5', data-auto-play='true', data-pagination='true', data-single-item='false')
+                    // Carousel item
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/1.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Motorola G
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/2.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Google Nexus 7
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/3.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Samsung Galaxy
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/4.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Lenovo Phonepad
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/5.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Asus Ideapad
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/6.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Micromax Canvas
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/7.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Sony Xperia Pro
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/8.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Apple iPhone 5S
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/9.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Galaxy Tab 2
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='/publiciti/img/ecommerce/items/10.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Karboon Tab
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                // Owl carousel block ends
+            // Recent items Ends
