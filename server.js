@@ -178,10 +178,9 @@ var Application = function () {
 
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
-        self.app.set('views', __dirname + '/views');
+        self.app.set('views', path.join(__dirname, 'views');
         self.app.set('view engine', 'jade');
 
-        self.app.use(express.static('public'));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({extended: true}));
         self.app.use(methodOverride());
@@ -194,6 +193,7 @@ var Application = function () {
         self.app.use(passport.initialize());
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
+        self.app.use(express.static(path.join(__dirname, 'public')));
 
         self.createRoutes();
     };
