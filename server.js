@@ -181,7 +181,7 @@ var Application = function () {
         self.app.set('views', __dirname + '/views');
         self.app.set('view engine', 'jade');
 
-        self.app.use(express.static(__dirname + '/public'));
+        self.app.use(express.static(path.join(__dirname, 'public')));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({extended: true}));
         self.app.use(methodOverride());
