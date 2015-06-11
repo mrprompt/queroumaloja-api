@@ -178,7 +178,7 @@ var Application = function () {
 
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
-        self.app.set('views', path.join(__dirname, 'views');
+        self.app.set('views', path.join(__dirname, 'views'));
         self.app.set('view engine', 'jade');
 
         self.app.use(bodyParser.json());
