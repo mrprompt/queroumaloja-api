@@ -62,7 +62,7 @@ angular
 
                     $scope.status = {
                         type: 'success',
-                        message: 'Imagem enviada com sucesso, você pode salvar agora'
+                        message: 'Currículo enviado com sucesso, você pode salvar agora'
                     }
 
                     $scope.curriculo.arquivo = JSON.stringify(data);
