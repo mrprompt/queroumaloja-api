@@ -36,21 +36,17 @@ var Contato = mongoose.model('Contato', ContatoSchema);
 
 exports.Contato = Contato;
 
-exports.list = function(req, res) {
+exports.list = function(req, res, callback) {
     Contato
         .find({
             site: req.site._id
         })
-        .exec(function(err, contato) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(contato);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.get = function(req, res) {
+exports.get = function(req, res, callback) {
     var id = req.params.id;
 
     Contato
@@ -58,16 +54,12 @@ exports.get = function(req, res) {
             _id: id,
             site: req.site._id
         })
-        .exec(function(err, contato) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(contato);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, callback) {
     var data = req.body;
 
     var dados = {
@@ -81,41 +73,29 @@ exports.create = function(req, res) {
 
     var contato = new Contato(dados);
     contato.save(function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, callback) {
     var id = req.params.id;
-    var data = req.body;
+    var dados = req.body;
 
     Contato.update({
         _id: id,
         site: req.site._id
-    }, data, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+    }, dados, function(err, data) {
+        callback(err, data);
     });
 };
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, callback) {
     var id = req.params.id;
 
     Contato.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };

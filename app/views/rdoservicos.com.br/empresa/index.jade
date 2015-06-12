@@ -45,16 +45,15 @@ block conteudo
            sidebar
         .col-md-4.sidebar.sidebar-right
           .inner
-            if atuacao.lenth
-              .block
-                h3.block-title.sub-title
-                  span Atuação
-                ul.nav.nav-list.secondary-nav
-                  each atuacao in atuacao
-                    li
-                      a(href='/servicos')
-                        i.fa.fa-chevron-right &nbsp;
-                        | #{atuacao.titulo}
+          .block
+            h3.block-title.sub-title
+              span Atuação
+            ul.nav.nav-list.secondary-nav
+              each atuacao in site.atuacao
+                li
+                  a(href='/servicos')
+                    i.fa.fa-chevron-right &nbsp;
+                    | #{atuacao}
 
             if empregos.length
               .block

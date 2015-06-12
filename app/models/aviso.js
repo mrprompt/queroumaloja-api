@@ -40,7 +40,7 @@ var Aviso = mongoose.model('Aviso', AvisoSchema);
 
 exports.Aviso = Aviso;
 
-exports.list = function(req, res) {
+exports.list = function(req, res, callback) {
     Aviso
         .find({
             site: req.site._id
@@ -48,16 +48,12 @@ exports.list = function(req, res) {
         .sort({
             cadastro: -1
         })
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.get = function(req, res) {
+exports.get = function(req, res, callback) {
     var id = req.params.id;
 
     Aviso
@@ -65,16 +61,12 @@ exports.get = function(req, res) {
             _id: id,
             site: req.site._id
         })
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, callback) {
     var data = req.body;
 
     var dataInicio = data.inicio.split('-');
@@ -94,20 +86,14 @@ exports.create = function(req, res) {
     };
 
     var aviso = new Aviso(dados);
-    aviso.save(function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
-    });
+        aviso.save(function(err, data) {
+            callback(err, data);
+        });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, callback) {
     var id = req.params.id;
-
     var data = req.body;
-
     var dados = {
         titulo: data.titulo,
         conteudo: data.conteudo,
@@ -132,25 +118,17 @@ exports.update = function(req, res) {
         _id: id,
         site: req.site._id
     }, dados, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, callback) {
     var id = req.params.id;
 
     Aviso.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };

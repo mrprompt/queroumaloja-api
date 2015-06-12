@@ -11,32 +11,29 @@ block conteudo
             span Serviços
             small Serviços prestados
     
-    if atuacao.length
-      //
-         ======== @Region: #content ========
-      #content
-        .container
-          .block.services
-            ul.thumbnails.row
-              each row in atuacao
-                li.col-md-3
-                  h3.title
-                    i.glyphicon.glyphicon-wrench.icon-small.icon-inverse-80._icon-circle
-                    | #{row.titulo}
-                  p !{row.descricao}
+    //
+       ======== @Region: #content ========
+    #content
+      .container
+        .block.services
+          ul.thumbnails.row
+            each row in site.atuacao
+              li.col-md-3
+                h3.title
+                  i.glyphicon.glyphicon-wrench.icon-small.icon-inverse-80._icon-circle
+                  | #{row}
 
-            if servicos
-              .secondary.block.margin-top-large
-                .row
-                  .col-sm-12
-                    h3.block-title
-                      span Atividades
+          .secondary.block.margin-top-large
+            .row
+              .col-sm-12
+                h3.block-title
+                  span Atividades
 
-                    ul.list-unstyled.columns
-                      each servico in servicos
-                        li
-                          i.glyphicon.glyphicon-ok.text-info &nbsp;
-                          | #{servico.titulo}
+                ul.list-unstyled.columns
+                  each servico in site.servicos
+                    li
+                      i.glyphicon.glyphicon-ok.text-info &nbsp;
+                      | #{servico}
 
     if parceiros.length
       //

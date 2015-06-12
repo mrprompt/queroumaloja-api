@@ -1,9 +1,6 @@
 'use strict';
 
 exports.routes = {
-    atuacao: require('../models/atuacao'),
-    atuacoes: require('../models/atuacao'),
-
     aviso: require('../models/aviso'),
     avisos: require('../models/aviso'),
 
@@ -27,9 +24,6 @@ exports.routes = {
 
     parceiros: require('../models/parceiro'),
     parceiro: require('../models/parceiro'),
-
-    servicos: require('../models/servico'),
-    servico: require('../models/servico'),
 
     sites: require('../models/site'),
     site: require('../models/site'),

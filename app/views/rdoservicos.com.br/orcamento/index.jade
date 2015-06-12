@@ -46,14 +46,12 @@ block conteudo
                     p(ng-show='orcamentoForm.celular.$invalid && !orcamentoForm.celular.$pristine', class='help-block') Celular inválido
 
                   .form-group
-                    b
-                      | Serviços Desejados
-
+                    b Serviços Desejados
                     .row.form-group(ng-class="{ 'has-error' : curriculoForm.servico.$invalid && !curriculoForm.servico.$pristine }")
-                      each servico in servicos
+                      each servico in site.servicos
                         .col-sm-6
-                          input(type='radio', ng-model='orcamento.servico', name='servico', value='#{servico._id}', placeholder='Portaria', required)
-                          | &nbsp; #{servico.titulo}
+                          input(type='radio', ng-model='orcamento.servico', name='servico', value='#{servico}', required)
+                          | &nbsp; #{servico}
 
                     p(ng-show='curriculoForm.servico.$invalid && !curriculoForm.servico.$pristine', class='help-block') Informe o tipo de serviço
 

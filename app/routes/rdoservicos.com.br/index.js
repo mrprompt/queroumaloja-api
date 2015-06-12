@@ -24,25 +24,7 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.slides = slides;
 
-                        callback(null, slides);
-                    }
-                }
-            );
-        },
-        function (callback) {
-            routes.atuacao.Atuacao.find(
-                {
-                    site: req.site._id
-                },
-                {},
-                {},
-                function (err, atuacoes) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.atuacao = atuacoes;
-
-                        callback(null, atuacoes);
+                        callback();
                     }
                 }
             );
@@ -62,7 +44,7 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.parceiros = parceiros;
 
-                        callback(null, parceiros);
+                        callback();
                     }
                 }
             );
@@ -83,22 +65,12 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.aviso = aviso;
 
-                        callback(null, aviso);
+                        callback();
                     }
                 }
             );
         }
-    ], function (err, results) {
-        if (err) {
-            console.log(err);
-
-            return res.send(400);
-        }
-
-        if (results == null || results[0] == null) {
-            return res.send(400);
-        }
-
+    ], function () {
         return res.render(req.site.dominio + '/inicio/index', conteudos);
     });
 };

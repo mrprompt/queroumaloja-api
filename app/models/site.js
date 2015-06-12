@@ -24,6 +24,12 @@ var SiteSchema = new Schema({
     },
     modulos: {
         type: []
+    },
+    atuacao: {
+        type: []
+    },
+    servicos: {
+        type: []
     }
 });
 
@@ -33,23 +39,18 @@ var Site = mongoose.model('Site', SiteSchema);
 
 exports.Site = Site;
 
-exports.get = function(req, res) {
+exports.get = function(req, res, callback) {
     Site
         .findOne({
             _id: req.site._id
         })
-        .exec(function(err, site) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(site);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, callback) {
     var data = req.body;
-
     var dados = {
         nome: data.nome,
         dominio: data.dominio,
@@ -62,10 +63,6 @@ exports.update = function(req, res) {
     Site.update({
         _id: req.site._id,
     }, dados, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };

@@ -38,17 +38,7 @@ passport.use(new localStrategy(
             password: password
         }, function (err, user) {
             if (err) {
-                console.log('Erro autenticando: ', err);
-
                 return done(err);
-            }
-
-            var conteudo = {};
-
-            if (!user) {
-                conteudo.message = 'Invalid username/password';
-
-                return done(null, false, conteudo);
             }
 
             return done(null, user);
@@ -99,10 +89,6 @@ var Application = function () {
 
     /**
      * Find active site by url
-     *
-     * @param req
-     * @param res
-     * @param next
      */
     self.getSite = function (req, res, next) {
         var dominio = req.headers.host.substr((req.headers.host.indexOf('.') + 1)).replace(/.[0-9]{2,4}$/, '');
@@ -111,35 +97,24 @@ var Application = function () {
             dominio: dominio
         }, function (err, site) {
             if (err) {
-                res.status(500).send('Ocorreu um erro carregando site: ' + err);
-            }
-
-            if (null == site) {
-                site = {
-                    dominio: ini.global.domain
-                };
+                res.status(404).send('Domínio ' + dominio + ' não cadastrado');
             }
 
             req.site = site;
 
-            next(err, site);
+            next();
         });
     };
 
     /**
      * Check if the user is authenticated
-     *
-     * @param req
-     * @param res
-     * @param next
-     * @returns {*}
      */
     self.ensureAuthenticated = function (req, res, next) {
         if (req.isAuthenticated()) {
             return next(null, res);
         }
 
-        return next();
+        next();
     };
 
     /**

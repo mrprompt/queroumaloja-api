@@ -13,7 +13,13 @@ exports.list = function(req, res) {
         return res.status(404).send('Módulo não encontrado');
     }
 
-    (route).list(req, res);
+    (route).list(req, res, function(err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
 };
 
 exports.get = function(req, res) {
@@ -24,7 +30,13 @@ exports.get = function(req, res) {
         return res.status(404).send('Módulo não encontrado: ', route);
     }
 
-    (route).get(req, res);
+    (route).get(req, res, function(err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
 };
 
 exports.create = function(req, res) {
@@ -35,7 +47,13 @@ exports.create = function(req, res) {
         return res.status(404).send('Módulo não encontrado');
     }
 
-    (route).create(req, res);
+    (route).create(req, res, function(err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
 };
 
 exports.update = function(req, res) {
@@ -46,7 +64,13 @@ exports.update = function(req, res) {
         return res.status(404).send('Módulo não encontrado');
     }
 
-    (route).update(req, res);
+    (route).update(req, res, function(err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
 };
 
 exports.delete = function(req, res) {
@@ -57,7 +81,13 @@ exports.delete = function(req, res) {
         return res.status(404).send('Módulo não encontrado');
     }
 
-    (route).delete(req, res);
+    (route).delete(req, res, function(err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
 };
 
 exports.upload = function (req, res) {

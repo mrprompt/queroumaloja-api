@@ -6,8 +6,6 @@ var conteudos = {};
 var LIMITE = 4;
 
 exports.index = function (req, res) {
-    conteudos.site = req.site;
-
     async.parallel([
         function (callback) {
             routes.equipe.Equipe.find(
@@ -24,25 +22,7 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.equipe = equipe;
 
-                        callback(null, equipe);
-                    }
-                }
-            );
-        },
-        function (callback) {
-            routes.atuacao.Atuacao.find(
-                {
-                    site: req.site._id
-                },
-                {},
-                {},
-                function (err, atuacoes) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.atuacao = atuacoes;
-
-                        callback(null, atuacoes);
+                        callback();
                     }
                 }
             );
@@ -62,38 +42,15 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.parceiros = parceiros;
 
-                        callback(null, parceiros);
-                    }
-                }
-            );
-        },
-        function (callback) {
-            routes.servico.Servico.find(
-                {
-                    site: req.site._id
-                }
-            )
-                .exec(function (err, servicos) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.servicos = servicos;
-
-                        callback(null, servicos);
+                        callback();
                     }
                 }
             );
         }
-    ], function (err, results) {
-        if (err) {
-            console.log(err);
+    ], function () {
+        conteudos.site = req.site;
 
-            return res.send(400);
-        }
-
-        if (results == null || results[0] == null) {
-            return res.send(400);
-        }
+        console.log(req.site);
 
         return res.render(req.site.dominio + '/orcamento/index', conteudos);
     });

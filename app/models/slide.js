@@ -35,7 +35,7 @@ var Slide = mongoose.model('Slide', SlideSchema);
 
 exports.Slide = Slide;
 
-exports.list = function(req, res) {
+exports.list = function(req, res, callback) {
     Slide
         .find({
             site: req.site._id
@@ -43,16 +43,12 @@ exports.list = function(req, res) {
         .sort({
             cadastro: -1
         })
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.get = function(req, res) {
+exports.get = function(req, res, callback) {
     var id = req.params.id;
 
     Slide
@@ -60,16 +56,12 @@ exports.get = function(req, res) {
             _id: id,
             site: req.site._id
         })
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, callback) {
     var data = req.body;
 
     var dados = {
@@ -82,16 +74,12 @@ exports.create = function(req, res) {
     };
 
     var slide = new Slide(dados);
-    slide.save(function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
-    });
+        slide.save(function(err, data) {
+            callback(err, data);
+        });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, callback) {
     var id = req.params.id;
     var data = req.body;
 
@@ -109,25 +97,17 @@ exports.update = function(req, res) {
         _id: id,
         site: req.site._id
     }, dados, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, callback) {
     var id = req.params.id;
 
     Slide.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };

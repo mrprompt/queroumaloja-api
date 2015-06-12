@@ -9,7 +9,7 @@ exports.index = function(req, res) {
     var modulo = dominio + '/index.js';
     var route = require(__dirname + '/' + modulo);
 
-    return route.index(req, res);
+    route.index(req, res);
 };
 
 exports.list = function(req, res) {

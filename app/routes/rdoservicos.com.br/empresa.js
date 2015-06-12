@@ -15,34 +15,14 @@ exports.index = function (req, res) {
                     site: req.site._id
                 },
                 {},
-                {
-                    limit: LIMITE
-                },
+                {},
                 function (err, equipe) {
                     if (err) {
                         console.log(err);
                     } else {
                         conteudos.equipe = equipe;
 
-                        callback(null, equipe);
-                    }
-                }
-            );
-        },
-        function (callback) {
-            routes.atuacao.Atuacao.find(
-                {
-                    site: req.site._id
-                },
-                {},
-                {},
-                function (err, atuacoes) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.atuacao = atuacoes;
-
-                        callback(null, atuacoes);
+                        callback();
                     }
                 }
             );
@@ -62,7 +42,7 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.parceiros = parceiros;
 
-                        callback(null, parceiros);
+                        callback();
                     }
                 }
             );
@@ -79,22 +59,12 @@ exports.index = function (req, res) {
                     } else {
                         conteudos.empregos = empregos;
 
-                        callback(null, empregos);
+                        callback();
                     }
                 }
             );
         }
-    ], function (err, results) {
-        if (err) {
-            console.log(err);
-
-            return res.send(400);
-        }
-
-        if (results == null || results[0] == null) {
-            return res.send(400);
-        }
-
+    ], function () {
         return res.render(req.site.dominio + '/empresa/index', conteudos);
     });
 };

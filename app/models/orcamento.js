@@ -69,22 +69,18 @@ var Orcamento = mongoose.model('Orcamento', OrcamentoSchema);
 
 exports.Orcamento = Orcamento;
 
-exports.list = function(req, res) {
+exports.list = function(req, res, callback) {
     Orcamento
         .find({
             site: req.site._id
         })
         .populate('servico')
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.get = function(req, res) {
+exports.get = function(req, res, callback) {
     var id = req.params.id;
 
     Orcamento
@@ -93,16 +89,12 @@ exports.get = function(req, res) {
             site: req.site._id
         })
         .populate('servico')
-        .exec(function(err, products) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(products);
-            }
+        .exec(function(err, data) {
+            callback(err, data);
         });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, callback) {
     var data = req.body;
 
     var dados = {
@@ -124,42 +116,29 @@ exports.create = function(req, res) {
     };
 
     var orcamento = new Orcamento(dados);
-    orcamento.save(function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
-    });
+        orcamento.save(function(err, data) {
+            callback(err, data);
+        });
 };
 
-exports.update = function(req, res) {
+exports.update = function(req, res, callback) {
     var id = req.params.id;
-    var data = req.body;
 
     Orcamento.update({
         _id: id,
         site: req.site._id
-    }, data, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+    }, req.body, function(err, data) {
+        callback(err, data);
     });
 };
 
-exports.delete = function(req, res) {
+exports.delete = function(req, res, callback) {
     var id = req.params.id;
 
     Orcamento.remove({
         _id: id,
         site: req.site._id
     }, function(err, data) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(data);
-        }
+        callback(err, data);
     });
 };

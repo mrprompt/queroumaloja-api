@@ -4,7 +4,7 @@ block conteudo
   if aviso
     #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
       .modal-header.alert(class="alert-#{aviso.tipo}")
-        button.close(type='button', data-dismiss='modal', aria-hidden='true') 
+        button.close(type='button', data-dismiss='modal', aria-hidden='true')
           | ×
         h4 #{aviso.titulo}
       .modal-body
@@ -41,20 +41,19 @@ block conteudo
             .inner
               h3 UM NOVO CONCEITO EM PRESTAÇÃO DE SERVIÇOS
 
-            if atuacao.length
+            if site.atuacao
               //
                Services
               .block.services.margin-top-large
                 h2.block-title
                   span Área de Atuação
                 ul.thumbnails.row
-                  each servico in atuacao
+                  each servico in site.atuacao
                     li.col-sm-3
                       h3.title
                         a(href='/servicos')
                           i.glyphicon.icon-small.icon-inverse-80._icon-circle.glyphicon-wrench
-                          | #{servico.titulo}
-                      div !{servico.descricao}
+                          | #{servico}
 
       if parceiros.length
         //

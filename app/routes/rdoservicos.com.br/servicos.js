@@ -10,42 +10,6 @@ exports.index = function (req, res) {
 
     async.parallel([
         function (callback) {
-            routes.servico.Servico.find(
-                {
-                    site: req.site._id
-                },
-                {},
-                {},
-                function (err, servicos) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.servicos = servicos;
-
-                        callback(null, servicos);
-                    }
-                }
-            );
-        },
-        function (callback) {
-            routes.atuacao.Atuacao.find(
-                {
-                    site: req.site._id
-                },
-                {},
-                {},
-                function (err, atuacoes) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.atuacao = atuacoes;
-
-                        callback(null, atuacoes);
-                    }
-                }
-            );
-        },
-        function (callback) {
             routes.parceiro.Parceiro.findRandom(
                 {
                     site: req.site._id
@@ -55,13 +19,9 @@ exports.index = function (req, res) {
                     limit: LIMITE
                 },
                 function (err, parceiros) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.parceiros = parceiros;
+                    conteudos.parceiros = parceiros;
 
-                        callback(null, parceiros);
-                    }
+                    callback();
                 }
             );
         },
@@ -72,27 +32,13 @@ exports.index = function (req, res) {
                 }
             )
                 .exec(function (err, empregos) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        conteudos.empregos = empregos;
+                    conteudos.empregos = empregos;
 
-                        callback(null, empregos);
-                    }
+                    callback();
                 }
             );
         }
-    ], function (err, results) {
-        if (err) {
-            console.log(err);
-
-            return res.send(400);
-        }
-
-        if (results == null || results[0] == null) {
-            return res.send(400);
-        }
-
-        return res.render(req.site.dominio + '/servicos/index', conteudos);
+    ], function () {
+        return res.render(conteudos.site.dominio + '/servicos/index', conteudos);
     });
 };
