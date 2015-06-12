@@ -3,6 +3,8 @@
  * @author Thiago Paes <mrprompt@gmail.com>
  * @type {*|exports|module.exports}
  */
+process.env.PWD = process.cwd()
+
 var express = require('express');
 var session = require('express-session')
 var paginate = require('express-paginate');
@@ -127,10 +129,6 @@ var Application = function () {
         /**
          * GET requests
          */
-        self.app.get('/*', function(req, res, next){
-            res.setHeader('Last-Modified', (new Date()).toUTCString());
-            next();
-        });
         self.app.get('/', self.getSite, app.index);
         self.app.get('/logout', app.logout);
         self.app.get('/login', app.login);
@@ -195,14 +193,7 @@ var Application = function () {
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
         self.app.use(jumanji);
-        self.app.use('/editoranxt', express.static('public/editoranxt'));
-        self.app.use('/librinke', express.static('public/librinke'));
-        self.app.use('/nxtchallenger', express.static('public/nxtchallenger'));
-        self.app.use('/plugins', express.static('public/plugins'));
-        self.app.use('/projetocultural', express.static('public/projetocultural'));
-        self.app.use('/publiciti', express.static('public/publiciti'));
-        self.app.use('/rdoservicos', express.static('public/rdoservicos'));
-        self.app.use('/rhcloud', express.static('public/rhcloud'));
+        self.app.use(express.static(process.env.PWD + '/public'));
 
         self.createRoutes();
     };
