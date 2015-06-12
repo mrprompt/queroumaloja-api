@@ -5,36 +5,36 @@ block conteudo
   .page-heading-two
     .container
       h2
-        | Smart Phones
-        span Something goes here
+        | #{produtos[0].tipo}
       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
       .breads
-        | Home /
-        a(href='#') Page
+        | Início /
+        a(href='/produtos') Produtos
         |  /
-        a(href='#') Sub Page
+        a(href='/produtos?tipo=#{produtos[0].tipo}') #{produtos[0].tipo}
       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
       .clearfix
   // Page heading two ends
+
   // Shopping Items
   .container
     .ecommerce
       .row
-        .col-md-9.col-sm-8.col-md-push-3.col-sm-push-4
+        .col-md-12
           // Shopping items content
           .shopping-content
             // Block Title
             h4
               i.fa.fa-laptop.color
-              | &nbsp; Phones&nbsp;
-              small Quine Poor Squamo
+              | &nbsp; #{produtos[0].tipo}
+              small &nbsp; #{produtos[0].categoria}
             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
             hr
             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
             .row
               each produto in produtos
                   if produto.imagem
-                      .col-md-4.col-sm-6
+                      .col-md-3
                         // Shopping items
                         .shopping-item
                           // Image
@@ -80,225 +80,30 @@ block conteudo
                 a(href='#') &raquo;
             // Pagination end
         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-        .col-md-3.col-sm-4.col-md-pull-9.col-sm-pull-8
-          // Shopping Sidebar
-          .sidebar
-            // Heading
-            h2 Category
-            // Sidebar Menu
-            ul.list-unstyled.my-list
-              li
-                a(href='#') Phones
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') Accessories
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') Headphones
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') Batteries
-            // Heading
-            h2 Brands
-            // Sidebar Menu
-            ul.list-unstyled.my-list
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;Nokia
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;Apple
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;Black Berry
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;Samsung
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;All
-            // Heading
-            h2 Features
-            // Sidebar Menu
-            ul.list-unstyled.my-list
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;Camera
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;Media Player
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;Internet
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;Dual Sim
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;Micro Sim
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;3G
-            // Heading
-            h2 Price
-            // Sidebar Menu
-            ul.list-unstyled.my-list
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;$10-$49
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;$50-$99
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;$100-$499
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox')
-                |  &nbsp;$500-$999
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                input(type='checkbox', checked='')
-                |  &nbsp;$1000 &le;
+
       // Recent items Starts
       .recent-items
         // Block heading two
         .block-heading-two
           h3
-            span Recent Items
+            span Produtos recentes
         // Owl carousel block starts
         // Change values of data-items, data-auto-play, data-pagination & data-single-item based on your needs
         .owl-carousel(data-items='5', data-auto-play='true', data-pagination='true', data-single-item='false')
-          // Carousel item
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/1.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Motorola G
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/2.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Google Nexus 7
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/3.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Samsung Galaxy
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/4.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Lenovo Phonepad
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/5.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Asus Ideapad
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/6.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Micromax Canvas
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/7.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Sony Xperia Pro
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/8.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Apple iPhone 5S
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/9.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Galaxy Tab 2
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
-          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-          .owl-content
-            .padd-15
-              a(href='#')
-                img.img-responsive(src='/publiciti/img/ecommerce/items/10.png', alt='')
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              h4
-                a(href='#')
-                  | Karboon Tab
-                  span.color.pull-right $25
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              .clearfix
+          each item in novidades
+              if item.imagem
+                  // Carousel item
+                  .owl-content
+                    .padd-15
+                      a(href='#')
+                        img.img-responsive(src='#{item.imagem.url}', alt='')
+                      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                      h4
+                        a(href='#')
+                          | #{item.titulo}
+                          span.color.pull-right R$ #{item.valor}
+                      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                      .clearfix
+                  | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
         // Owl carousel block ends
       // Recent items Ends

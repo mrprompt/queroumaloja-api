@@ -1,13 +1,16 @@
 'use strict';
 
+var async = require('async');
 var routes = require('../index').routes;
+var conteudos = {};
+var LIMITE = 24;
 
 exports.index = function(req, res) {
+    conteudos.site = req.site;
+    conteudos.novidades = [];
+
     var dominio = req.site.dominio;
     var produto = routes.produto.Produto;
-    var conteudos = {
-        site: req.site
-    };
 
     var filter = {
         site: req.site._id
@@ -21,20 +24,65 @@ exports.index = function(req, res) {
         }
     };
 
-    produto
-        .find(filter)
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, linhas) {
-            if (err) {
-                console.log(err);
-            } else {
-                conteudos.produtos = linhas;
+    async.parallel([
+        function (callback) {
+            routes.produto.Produto.findRandom(
+                {
+                    site: req.site._id
+                },
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, uniformes) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        uniformes.forEach(function(uniforme) {
+                            conteudos.novidades.push(uniforme);
+                        });
 
-                res.render(dominio + '/produtos/index', conteudos);
-            }
+                        callback(null, uniformes);
+                    }
+                }
+            );
+        },
+        function (callback) {
+            routes.produto.Produto.find(
+                filter,
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, parques) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.produtos = parques;
+
+                        callback(null, parques);
+                    }
+                }
+            );
+        }
+    ], function (err, results) {
+        if (err) {
+            console.log(err);
+
+            return res.status(500).send('Ocorreu um erro inesperado.');
+        }
+
+        // randomizando o array final
+        conteudos.novidades.sort(function() {
+            return 0.5 - Math.random()
         });
+
+        if (conteudos.produtos.length === 0 || conteudos.produtos === undefined) {
+            conteudos.produtos = conteudos.novidades;
+        }
+
+        return res.render(req.site.dominio + '/produtos/index', conteudos)
+    });
 };
 
 exports.get = function(req, res) {
