@@ -4,7 +4,40 @@ block conteudo
   .scope.inicio(ng-controller='Inicio')
     //
       Slider Start
-    include ../partials/slider
+    .tp-banner-container(ng-init='load()')
+        .tp-banner
+            ul
+                //
+                   SLIDE
+                li(data-transition='fade', data-slotamount='7', data-masterspeed='1500')
+                    //
+                       MAIN IMAGE
+                    img(src='librinke/img/slider/slide2.png', alt='', data-bgfit='cover', data-bgposition='center bottom', data-bgrepeat='no-repeat')
+                    //
+                       LAYERS
+                    //
+                       LAYER NR. 1
+                    .tp-caption.lfl.largeblackbg.br-red(data-x='20', data-y='100', data-speed='1500', data-start='1200', data-easing='Power4.easeOut', data-endspeed='500', data-endeasing='Power4.easeIn', style='z-index: 3;')
+                        | Librinke
+                    //
+                       LAYER NR. 2.0
+                    .tp-caption.lfl.medium_bg_darkblue.br-green(data-x='20', data-y='200', data-speed='1500', data-start='1800', data-easing='Power4.easeOut', data-endspeed='300', data-endeasing='Power4.easeIn', data-captionhidden='off')
+                        | Livros Educacionais
+                    //
+                       LAYER NR. 2.1
+                    .tp-caption.lfl.medium_bg_darkblue.br-lblue(data-x='20', data-y='250', data-speed='1500', data-start='2100', data-easing='Power4.easeOut', data-endspeed='500', data-endeasing='Power4.easeIn', style='z-index: 3;')
+                        | Parques Infantis
+                    //
+                       LAYER NR. 2.2
+                    .tp-caption.lfl.medium_bg_darkblue.br-purple(data-x='20', data-y='300', data-speed='1500', data-start='2400', data-easing='Power4.easeOut', data-endspeed='500', data-endeasing='Power4.easeIn', style='z-index: 3;')
+                        | Calçados Escolares
+                    //
+                       LAYER NR. 2.3
+                    .tp-caption.lfl.medium_bg_darkblue.br-orange(data-x='20', data-y='350', data-speed='1500', data-start='2700', data-easing='Power4.easeOut', data-endspeed='500', data-endeasing='Power4.easeIn', style='z-index: 3;')
+                        | Uniformes Escolares
+            //
+               Banner Timer
+            .tp-bannertimer
     //
        Slider End
 
@@ -49,7 +82,7 @@ block conteudo
                         .img-frame-hover
                           //
                              Hover Icon
-                          a(href='/livros/#{livro._id}')
+                          a(href='/produtos/#{livro._id}')
                             i.fa.fa-heart
                       //
                          Dish Details
@@ -75,7 +108,7 @@ block conteudo
                         .img-frame-hover
                           //
                              Hover Icon
-                          a(href='/uniformes/#{uniforme._id}')
+                          a(href='/produtos/#{uniforme._id}')
                             i.fa.fa-heart
                       //
                          Dish Details
@@ -101,7 +134,7 @@ block conteudo
                         .img-frame-hover
                           //
                              Hover Icon
-                          a(href='/parques/#{parque._id}')
+                          a(href='/produtos/#{parque._id}')
                             i.fa.fa-heart
                       //
                          Dish Details
