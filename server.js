@@ -19,7 +19,9 @@ var siteModel = require(__dirname + '/app/models/site').Site;
 var app = require(__dirname + '/app/routes/app');
 var api = require(__dirname + '/app/routes/api');
 var fs = require('fs');
-var ini = require('ini').parse(fs.readFileSync(__dirname + '/app/config/config.ini', 'utf-8'));
+var ini = require('ini');
+
+global.ini = ini.parse(fs.readFileSync(__dirname + '/app/config/config.ini', 'utf-8'));
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -171,7 +173,7 @@ var Application = function () {
         self.app.use(passport.initialize());
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
-        self.app.use(express.static(path.join(__dirname, 'public')));
+        self.app.use(express.static(__dirname + '/public'));
         self.app.use(paginate.middleware(12, 100));
 
         self.createRoutes();

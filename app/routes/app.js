@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var os = require('os');
-var ini = require('ini').parse(fs.readFileSync(__dirname + '/../config/config.ini', 'utf-8'));
 
 exports.index = function(req, res) {
     var dominio = req.site.dominio;

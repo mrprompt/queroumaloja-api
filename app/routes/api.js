@@ -1,8 +1,6 @@
 'use strict';
 
 var routes = require('./index').routes;
-var fs = require('fs');
-var ini = require('ini').parse(fs.readFileSync(__dirname + '/../config/config.ini', 'utf-8'));
 var cloudinary = require('cloudinary').v2;
 
 exports.list = function(req, res) {
