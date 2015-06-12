@@ -2,13 +2,7 @@
   "name": "grupo-publiciti",
   "version": "0.0.3",
   "description": "Gerenciador de Conteúdo para os sites do grupo Publiciti",
-  "keywords": [
-    "publiciti",
-    "distribuidora",
-    "livros",
-    "materiais",
-    "didáticos"
-  ],
+  "keywords": ["cms", "gerenciador", "conteudo", "api", "ecommerce"],
   "author": {
     "name": "Thiago Paes",
     "email": "mrprompt@gmail.com",

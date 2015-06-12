@@ -189,10 +189,9 @@ var Application = function () {
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
+        self.app.use(express.static('public'));
 
         self.createRoutes();
-
-        self.app.use(express.static(__dirname + '/public'));
     };
 
     /**
