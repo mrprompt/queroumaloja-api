@@ -2,7 +2,13 @@
   "name": "grupo-publiciti",
   "version": "0.0.3",
   "description": "Gerenciador de Conteúdo para os sites do grupo Publiciti",
-  "keywords": ["cms", "gerenciador", "conteudo", "api", "ecommerce"],
+  "keywords": [
+    "cms",
+    "gerenciador",
+    "conteudo",
+    "api",
+    "ecommerce"
+  ],
   "author": {
     "name": "Thiago Paes",
     "email": "mrprompt@gmail.com",
@@ -26,6 +32,7 @@
     "express-session": "^1.11.2",
     "ini": "^1.3.0",
     "jade": "^1.10.0",
+    "jumanji": "^0.1.1",
     "method-override": "^2.3.3",
     "mongoose": "^4.0.5",
     "mongoose-paginate": "^3.1.3",

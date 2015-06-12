@@ -14,6 +14,7 @@ var os = require('os');
 var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
+var jumanji = require('jumanji');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var usuarioModel = require(__dirname + '/src/models/usuario').Usuario;
@@ -184,8 +185,15 @@ var Application = function () {
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
+        self.app.use(jumanji);
         self.app.use(express.static('public'));
-
+        self.app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match");
+            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin");
+            res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+            next();
+        });
         self.createRoutes();
     };
 
