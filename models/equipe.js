@@ -6,16 +6,13 @@ var mongoose = connection.mongoose;
 var Schema = mongoose.Schema;
 var EquipeSchema = new Schema({
     nome: {
-        type: String,
-        default: ''
+        type: String
     },
     cargo: {
-        type: String,
-        default: ''
+        type: String
     },
     email: {
-        type: String,
-        default: ''
+        type: String
     },
     imagem: {
         type: Object
@@ -74,8 +71,7 @@ exports.create = function(req, res) {
         nome: data.nome,
         cargo: data.cargo,
         email: data.email,
-        imagem: JSON.parse(data.imagem),
-        cadastro: data.cadastro,
+        imagem: data.imagem,
         site: req.site._id
     };
 

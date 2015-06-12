@@ -15,6 +15,7 @@ angular
 
         $scope.editor = function() {
             $('.editor').wysiwyg();
+
             $('textarea').autosize();
         };
 
