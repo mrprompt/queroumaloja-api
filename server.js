@@ -176,6 +176,15 @@ var Application = function () {
         self.app.set('views', __dirname + '/src/views');
         self.app.set('view engine', 'jade');
 
+        // first, enable CORS
+        self.app.use(function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match");
+            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin");
+            res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+            next();
+        });
+
         self.app.use(multer({ dest: os.tmpdir() }));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
@@ -187,13 +196,7 @@ var Application = function () {
         self.app.use(paginate.middleware(12, 100));
         self.app.use(jumanji);
         self.app.use(express.static('public'));
-        self.app.use(function(req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match");
-            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin");
-            res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-            next();
-        });
+
         self.createRoutes();
     };
 
