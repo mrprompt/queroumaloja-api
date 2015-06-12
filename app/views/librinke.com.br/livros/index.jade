@@ -1,0 +1,27 @@
+extends ../layout
+
+block conteudo
+  .banner.padd
+    .container
+      img.img-responsive(src='/librinke/img/crown.png', alt='')
+      h2.white Livros Didáticos
+      ol.breadcrumb
+        li
+          a(href='/') Início
+        li.active Livros
+      .clearfix
+  .inner-page.padd
+      .shopping
+        .container
+          .shopping-content
+            .row
+              each livro in livros
+                if livro.imagem
+                  .col-md-3.col-sm-6
+                    .shopping-item
+                      a(href='/livros/#{livro._id}')
+                        img.img-responsive(src='#{livro.imagem.url}', alt='')
+                      h4.pull-left
+                      a(href='/livros/#{livro._id}') #{livro.titulo}
+                      .clearfix
+                      p Categoria: #{livro.categoria}

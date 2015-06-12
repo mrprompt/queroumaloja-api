@@ -1,0 +1,19 @@
+.col-lg-12
+  .box
+    .box-header(data-original-title='')
+      h2
+        i.fa.fa-book
+        span.break
+        | produtos
+      .box-icon
+        a.btn-plus(href='#/produtos/adicionar')
+          i.fa.fa-plus
+
+    .box-content
+        .block
+          div(class='alert alert-{{ status.type }}', ng-show='status')
+            button(type='button', class='close', data-dismiss='alert') &times;
+            | {{ status.message}}
+
+          form(name='produtoForm', ng-submit='add()', class='form-vertical', novalidate)
+            include _form

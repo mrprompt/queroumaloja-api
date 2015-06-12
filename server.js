@@ -12,12 +12,12 @@ var os = require('os');
 var path = require('path');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-var usuarioModel = require('./models/usuario').Usuario;
-var siteModel = require('./models/site').Site;
-var app = require('./routes/app');
-var api = require('./routes/api');
+var usuarioModel = require(__dirname + '/app/models/usuario').Usuario;
+var siteModel = require(__dirname + '/app/models/site').Site;
+var app = require(__dirname + '/app/routes/app');
+var api = require(__dirname + '/app/routes/api');
 var fs = require('fs');
-var ini = require('ini').parse(fs.readFileSync('./config/config.ini', 'utf-8'));
+var ini = require('ini').parse(fs.readFileSync(__dirname + '/app/config/config.ini', 'utf-8'));
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -178,7 +178,7 @@ var Application = function () {
 
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
-        self.app.set('views', path.join(__dirname, 'views'));
+        self.app.set('views', __dirname + '/app/views');
         self.app.set('view engine', 'jade');
 
         self.app.use(multer({ dest: os.tmpdir() }));

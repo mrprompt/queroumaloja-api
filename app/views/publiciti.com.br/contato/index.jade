@@ -1,0 +1,105 @@
+extends ../layout
+
+block conteudo
+  // Page heading two starts
+  .page-heading-two
+    .container
+      h2
+        | Contact Us
+        span Something goes here
+      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      .breads
+        | Home /
+        a(href='#') Page
+        |  /
+        a(href='#') Sub Page
+      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      .clearfix
+
+  // Page heading two ends
+  .container
+    .contact-us-two
+      .row
+        .col-md-5
+          // Contact Form
+          .contact-form
+            h5 Contact Form
+            // Form
+            form.form(role='form')
+              // Form Group
+              .form-group
+                input#name.form-control(type='text', placeholder='Enter Name')
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .form-group
+                input#email.form-control(type='text', placeholder='Enter Email')
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .form-group
+                textarea#comments.form-control(rows='7', placeholder='Enter Message')
+              // Button
+              button.btn.btn-red(type='button') Submit
+              | &nbsp;
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              button.btn.btn-default(type='button') Reset
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          hr
+        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+        .col-md-7
+          // Contact map
+          .contact-map
+            h5 Locate Us
+            // Map Link
+            iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15615.590366449029!2d79.823997513746!3d11.912214884509545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x948a846878ea738c!2sAchariya+Bala+Siksha+Mandir!5e0!3m2!1sen!2sin!4v1402563074325')
+          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+          hr
+      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+      .row.text-center
+        .col-md-3.col-sm-6
+          // Contact Item
+          .contact-item.bg-red
+            // Icon
+            i.fa.fa-phone
+            // Heading
+            h4 Call Us
+            // Paragraph
+            p
+              | Tel : + (383) 893 3933
+              br
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Mob : + 939 393 9393
+        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+        .col-md-3.col-sm-6
+          // Contact Item
+          .contact-item.bg-lblue
+            i.fa.fa-building-o
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            h4 Address
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            p
+              | #97, BTM Layout,
+              br
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Bangalore - 68.
+        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+        .col-md-3.col-sm-6
+          // Contact Item
+          .contact-item.bg-green
+            i.fa.fa-envelope
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            h4 Mail Us
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            p
+              a(href='#') info@mssolution.com
+              br
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              a(href='#') Service@mssolution.com
+        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+        .col-md-3.col-sm-6
+          // Contact Item
+          .contact-item.bg-purple
+            i.fa.fa-calendar-o
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            h4 Business Hours
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            p
+              | Time : 9.30 to 5.30
+              br
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Sunday Holiday

@@ -1,0 +1,112 @@
+extends ../layout
+
+block conteudo
+    div(ng-controller='Inicio')
+      //
+       Banner Start
+      .banner.padd
+        .container
+          //
+             Image
+          img.img-responsive(src='librinke/img/crown.png', alt='')
+          //
+             Heading
+          h2.white Contato
+          ol.breadcrumb
+            li
+              a(href='#/') Início
+            li.active Contato
+          .clearfix
+      //
+         Banner End
+      //
+         Inner Content
+      .inner-page.padd
+        //
+           Contact Us Start
+        .contactus
+          .container
+            .row
+              .col-md-6
+                //
+                   Contact Us content
+                .row
+                  .col-md-6.col-sm-6
+                    //
+                       Contact content details
+                    .contact-details
+                      //
+                         Heading
+                      h4 Onde estamos
+                      //
+                         Address / Icon
+                      i.fa.fa-map-marker.br-red
+                      span
+                        | RUA 7 DE SETEMBRO, 220 - CENTRO
+                        br
+                        | SÃO JOSÉ DOS PINHAIS - PARANÁ
+                      .clearfix
+                  .col-md-6.col-sm-6
+                    //
+                       Contact content details
+                    .contact-details
+                      //
+                         Heading
+                      h4 Outros Contatos
+                      //
+                         Contact Number / Icon
+                      i.fa.fa-phone.br-green
+                      span +55 41 3081-0560
+                      .clearfix
+                      //
+                         Email / Icon
+                      i.fa.fa-envelope-o.br-lblue
+                      span
+                        a(href='#') contato@librinke.com.br
+                      .clearfix
+                //
+                  / Inner row end
+                //
+                   Contact form
+                .contact-form
+                  //
+                     Heading
+                  h3 Fale Conosco
+                  //
+                     Form
+                  div(class='alert alert-{{ status.type }}', ng-show='status')
+                      button(type='button', class='close', data-dismiss='alert') &times;
+                      | {{ status.message}}
+
+                  form(ng-submit='add()', name='formContato', novalidate)
+                    .form-group(ng-class="{ 'has-error' : formContato.nome.$invalid && !formContato.nome.$pristine }")
+                      input.form-control(type='text', placeholder='Nome', ng-model='contato.nome', required)
+                      p(ng-show='formContato.nome.$invalid && !formContato.nome.$pristine', class='help-block') Informe seu nome
+
+                    .form-group(ng-class="{ 'has-error' : formContato.email.$invalid && !formContato.email.$pristine }")
+                      input.form-control(type='email', placeholder='Email', ng-model='contato.email', required)
+                      p(ng-show='formContato.email.$invalid && !formContato.email.$pristine', class='help-block') E-mail inválido
+
+                    .form-group(ng-class="{ 'has-error' : formContato.telefone.$invalid && !formContato.telefone.$pristine }")
+                      input.form-control(type='telefone', placeholder='Telefone de contato', name='telefone', ng-model='contato.telefone', required, ui-br-phone-number)
+                      p(ng-show='formContato.telefone.$invalid && !formContato.telefone.$pristine', class='help-block') Informe um telefone válido
+
+                    .form-group(ng-class="{ 'has-error' : formContato.mensagem.$invalid && !formContato.mensagem.$pristine }")
+                      textarea.form-control(rows='3', placeholder='Mensagem...', ng-model='contato.mensagem', required, ng-minlength=5)
+                      p(ng-show='formContato.mensagem.$invalid && !formContato.mensagem.$pristine', class='help-block') Mensagem muito curta ou inválida
+
+                    button.btn.btn-danger.btn-sm(type='submit',  ng-disabled='formContato.$invalid') Enviar
+                    button.btn.btn-default.btn-sm(type='reset') Limpar
+                //
+                  / Contact form end
+              .col-md-6
+                //
+                   Map holder
+                .map-container
+                  //
+                     Google Map
+                  iframe(src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14400.31001944495!2d-49.2055501!3d-25.5357951!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dcfa07d54ecde1%3A0x23da508b6377b0fb!2sR.+Sete+de+Setembro%2C+220+-+Centro%2C+S%C3%A3o+Jos%C3%A9+dos+Pinhais+-+PR%2C+83005-100!5e0!3m2!1spt-BR!2sbr!4v1411448000877')
+        //
+           Contact Us End
+      //
+         / Inner Page Content End

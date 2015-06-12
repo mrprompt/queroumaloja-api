@@ -1,0 +1,114 @@
+extends ../layout
+
+block conteudo
+  .scope.inicio(ng-controller='Inicio')
+    //
+      Slider Start
+    include ../partials/slider
+    //
+       Slider End
+
+    //
+       Main Content
+    .main-content
+      //
+         Dishes Start
+      .dishes.padd
+        .container
+          //
+             Default Heading
+          .default-heading
+            //
+               Crown image
+            img.img-responsive(src='librinke/img/crown.png', alt='')
+            //
+               Heading
+            h2 Lançamentos
+            //
+               Paragraph
+            p
+              | Nossos mais recentes produtos
+            //
+               Border
+            .border
+
+          if livros
+            if livros.length
+              .row
+                each livro in livros.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
+                      //
+                         Image Frame
+                      .img-frame
+                        //
+                           Image
+                        img.img-responsive(src='#{livro.imagem.url}', alt='Capa ilustrativa')
+                        //
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/livros/#{livro._id}')
+                            i.fa.fa-heart
+                      //
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{livro.titulo}
+
+          if uniformes
+            if uniformes.length
+              .row
+                each uniforme in uniformes.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
+                      //
+                         Image Frame
+                      .img-frame
+                        //
+                           Image
+                        img.img-responsive(src='#{uniforme.imagem.url}', alt='Foto ilustrativa')
+                        //
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/uniformes/#{uniforme._id}')
+                            i.fa.fa-heart
+                      //
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{uniforme.titulo}
+
+          if parques
+            if parques.length
+              .row
+                each parque in parques.slice(0, 4)
+                  .col-md-3.col-sm-6
+                    .dishes-item-container
+                      //
+                         Image Frame
+                      .img-frame
+                        //
+                           Image
+                        img.img-responsive(src='#{parque.imagem.url}', alt='Foto ilustrativa')
+                        //
+                           Block for on hover effect to image
+                        .img-frame-hover
+                          //
+                             Hover Icon
+                          a(href='/parques/#{parque._id}')
+                            i.fa.fa-heart
+                      //
+                         Dish Details
+                      .dish-details
+                        //
+                           Heading
+                        h3 #{parque.titulo}
+
+      //
+         Dishes End

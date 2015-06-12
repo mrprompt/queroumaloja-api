@@ -1,0 +1,73 @@
+extends ../layout
+
+block conteudo
+  if aviso
+    #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-header.alert(class="alert-#{aviso.tipo}")
+        button.close(type='button', data-dismiss='modal', aria-hidden='true') 
+          | ×
+        h4 #{aviso.titulo}
+      .modal-body
+        p !{aviso.conteudo}
+
+  #main(ng-controller='Inicio', ng-init='load()')
+    .scope
+      if slides.length
+        //
+           ======== @Region: #highlighted ========
+        #highlighted.hidden
+            //
+                Flexslider Showshow
+            section.flexslider-wrapper.container
+                .flexslider(data-slidernav='auto', data-transition='slide')
+                    //
+                        The Slides
+                    .slides
+                        each slide in slides
+                          .slide
+                            .row
+                              .col-sm-6
+                                img.animated.fadeInDownBig(src='#{slide.imagem.url}', alt='')
+                              .col-sm-6.caption.animated.fadeInUpBig
+                                h2
+                                  | #{slide.titulo}
+                                span !{slide.descricao}
+
+      //
+        ======== @Region: #content ========
+      #content
+        .container
+          .mission
+            .inner
+              h3 UM NOVO CONCEITO EM PRESTAÇÃO DE SERVIÇOS
+
+            if atuacao.length
+              //
+               Services
+              .block.services.margin-top-large
+                h2.block-title
+                  span Área de Atuação
+                ul.thumbnails.row
+                  each servico in atuacao
+                    li.col-sm-3
+                      h3.title
+                        a(href='/servicos')
+                          i.glyphicon.icon-small.icon-inverse-80._icon-circle.glyphicon-wrench
+                          | #{servico.titulo}
+                      div !{servico.descricao}
+
+      if parceiros.length
+        //
+         ======== @Region: #content-below ========
+        #content-below.wrapper
+          .container
+            .clients.block
+              h3.block-title
+                span Parceiros
+
+              ul.thumbnails.list-unstyled.row
+                each parceiro in parceiros
+                  if parceiro.imagem
+                    li.col-sm-3
+                        a._tooltip(href='/parceiros/#{parceiro._id}', data-placement='top', data-original-title='#{parceiro.nome}', title='#{parceiro.nome}')
+                            img.img-rounded(src='#{parceiro.imagem.url}', alt='#{parceiro.nome} logo')

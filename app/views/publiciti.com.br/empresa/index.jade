@@ -1,0 +1,291 @@
+extends ../layout
+
+block conteudo
+    .container
+        .about-us-two
+            .block-heading-two
+                h3
+                    span Sobre a Publiciti
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .row
+                .col-md-5.col-sm-8
+                    // Carousel
+                    //
+                      Bootstrap carousel usage
+                      Bootstrap carousel should have id. Below i am using "bs-carousel-X". Where "X" denotes number". If a page has more than 1 carousel, then add the new carousel with the id "bs-carousel-1", "bs-carousel-2". You also need to update the id in, "carousel indicators" section and "carousel control" section.
+                      Carousel comes with 3 main data attributes which you can customize. They are...
+                      data-interval - Time delay between item cycle. Default value "5000".
+                      data-pause - Pause on hover. Default value "pause".
+                      data-wrap - Continues cycle or stop at the end. Default value "true".
+                    // Outer layer
+                    #bs-carousel-1.carousel.slide(data-ride='carousel', data-interval='5000', data-pause='hover', data-wrap='true')
+                        // Bootstrap indicators. If you don't need indicators, remove the below section
+                        ol.carousel-indicators
+                            li.active(data-target='#bs-carousel-1', data-slide-to='0')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li(data-target='#bs-carousel-1', data-slide-to='1')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li(data-target='#bs-carousel-1', data-slide-to='2')
+                        // Slides. You can also add captions
+                        .carousel-inner
+                            // Item, First item should have extra class "active"
+                            .item.active
+                                // Image
+                                img(src='/publiciti/img/aboutus/about-office-1.jpg', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .item
+                                img(src='/publiciti/img/aboutus/about-office-2.jpg', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .item
+                                img(src='/publiciti/img/aboutus/about-office-3.jpg', alt='')
+                        // Carousel controls (arrows). If you don't need controls, remove the below section
+                        a.left.carousel-control(href='#bs-carousel-1', role='button', data-slide='prev')
+                            span.fa.fa-chevron-left
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        a.right.carousel-control(href='#bs-carousel-1', role='button', data-slide='next')
+                            span.fa.fa-chevron-right
+                | &#x9;
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .col-md-7.col-sm-12
+                    h4
+                        | Institucional
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    p
+                        !{site.descricao}
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            hr
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .block-heading-two
+                h3
+                    span Our Service
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .icon-box-4
+                .row
+                    .col-md-3.col-sm-6
+                        // Icon Box Four Item
+                        .icon-box-4-item
+                            // Icon
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-cog
+                            // Heading
+                            h4
+                                a(href='#') Web Designing
+                            // Paragraph
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-road
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') Web Developing
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-qrcode
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') Mobile Apps
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-tags
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') UI Designing
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .row
+                    .col-md-3.col-sm-6
+                        // Icon Box Four Item
+                        .icon-box-4-item
+                            // Icon
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-power-off
+                            // Heading
+                            h4
+                                a(href='#') Web Designing
+                            // Paragraph
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-map-marker
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') Web Developing
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-umbrella
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') Mobile Apps
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-3.col-sm-6
+                        .icon-box-4-item
+                            a.icon-box-4-icon.bg-color(href='#')
+                                i.fa.fa-tint
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#') UI Designing
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            p
+                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor consectetur adipisicing elit.
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            hr
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .block-heading-two
+                h3
+                    span Our Team
+            // Team starts
+            .team-two
+                .row
+                    .col-md-6
+                        // Team #2 member
+                        .team-member
+                            // Image
+                            img.img-responsive(src='/publiciti/img/user/1.jpg', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .team-details
+                                span.deg Creative
+                                // Name
+                                h4 Juliet Watson
+                                // Para
+                                p
+                                    | Lorem ipsum dolor sit amet, consectetur ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+                                // Social
+                                .brand-bg
+                                    a.facebook(href='#')
+                                        i.fa.fa-facebook.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.google-plus(href='#')
+                                        i.fa.fa-google-plus.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.twitter(href='#')
+                                        i.fa.fa-twitter.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.linkedin(href='#')
+                                        i.fa.fa-linkedin.circle-3
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .col-md-6
+                        // Team #2 member
+                        .team-member
+                            // Image
+                            img.img-responsive(src='/publiciti/img/user/2.jpg', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .team-details
+                                span.deg Manager
+                                // Name
+                                h4 Juliet Watson
+                                // Para
+                                p
+                                    | Lorem ipsum dolor sit amet, consectetur ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.
+                                // Social
+                                .brand-bg
+                                    a.facebook(href='#')
+                                        i.fa.fa-facebook.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.google-plus(href='#')
+                                        i.fa.fa-google-plus.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.twitter(href='#')
+                                        i.fa.fa-twitter.circle-3
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    a.linkedin(href='#')
+                                        i.fa.fa-linkedin.circle-3
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+            // Team ends
+            hr
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            br
+            // Client Three Starts
+            h4.text-center Our Clients
+            | &#x9;&#x9;
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .client-three
+                #owl-carousel.owl-carousel(data-items='5', data-auto-play='2500', data-pagination='false', data-single-item='false')
+                    // Item
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-1.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-2.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-3.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-4.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-5.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-6.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-2.png', alt='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .c3-item
+                        a(href='#')
+                            img.img-responsive(src='/publiciti/img/clients/c2-3.png', alt='')
+            // client Three Ends
+            br
+            // CTA starts
+            .cta-two
+                // CTA Two Content
+                .cta-two-content
+                    .row
+                        .col-md-8.col-sm-8
+                            // Heading
+                            h4 Dignissimos ducimus qieouseform voluptae denoucsding
+                            // Paragraph
+                            p
+                                | On the other hand, we denounce with righteous  make of the   make of the indignation and dislike men who are so beguiled and demoaralized by the charmes or pleasure take of make charmes or pleasure of the moment.
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                        .col-md-4.col-sm-4.text-center
+                            // CTA Button
+                            a.btn.btn-color.btn-lg
+                                i.fa.fa-download
+                                | &nbsp; Download Now
+            // CTA ends

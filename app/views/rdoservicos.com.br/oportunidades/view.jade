@@ -1,0 +1,37 @@
+extends ../layout
+
+block conteudo
+  - var emprego = JSON.parse(conteudo)
+  .scope(ng-controller='Oportunidades')
+    //
+       ======== @Region: #highlighted ========
+    #highlighted
+      .container
+        .header
+          h2.page-title
+            span Oportunidades
+            small Oportunidades de trabalho
+    //
+       ======== @Region: #content ========
+    #content
+      .container
+        .row
+          .col-sm-12
+            .row
+              | !{emprego.descricao}
+            hr
+            ul.list-unstyled.meta.text-muted
+              li
+                i.glyphicon.glyphicon-calendar
+                span.visible-md-inline.visible-lg-inline &nbsp;Publicado em:&nbsp;
+                | #{emprego.cadastro}
+              li
+                i.glyphicon.glyphicon-calendar
+                span.visible-md-inline.visible-lg-inline &nbsp;Salário R$:&nbsp;
+                | #{emprego.salario}
+              li
+                i.glyphicon.glyphicon-tags
+                span.visible-md-inline.visible-lg-inline &nbsp;Tags:&nbsp;
+                | #{emprego.tags}
+
+            a.btn.btn-link(href='/oportunidades') Voltar
