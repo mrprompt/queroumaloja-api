@@ -50,10 +50,20 @@ var Produto = mongoose.model('Produto', ProdutoSchema);
 exports.Produto = Produto;
 
 exports.list = function(req, res) {
+    var filter = {
+        site: req.site._id
+    };
+
+    if (req.query.tipo) {
+        filter.tipo = req.query.tipo;
+
+        if (req.query.categoria) {
+            filter.categoria = req.query.categoria;
+        }
+    };
+
     Produto
-        .find({
-            site: req.site._id
-        })
+        .find(filter)
         .sort({
             cadastro: -1
         })
@@ -93,8 +103,9 @@ exports.create = function(req, res) {
         imagem: JSON.parse(data.imagem),
         site: req.site._id,
         codigo: data.codigo,
-        editora: data.editora,
-        categoria: data.categoria
+        tipo: data.tipo,
+        categoria: data.categoria,
+        valor: data.valor
     };
 
     var Produto = new Produto(dados);
