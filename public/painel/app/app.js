@@ -12,8 +12,6 @@ angular
         'painel.directives',
         'painel.controllers.inicio',
         'painel.controllers.clientes',
-        'painel.controllers.servicos',
-        'painel.controllers.atuacao',
         'painel.controllers.empregos',
         'painel.controllers.curriculos',
         'painel.controllers.parceiros',
@@ -45,32 +43,6 @@ angular
             .when('/clientes/editar/:id', {
                 templateUrl: '/painel/template/clientes/edit',
                 controller: 'Clientes'
-            })
-
-        .when('/servicos', {
-            templateUrl: '/painel/template/servicos/index',
-            controller: 'Servicos'
-        })
-            .when('/servicos/adicionar', {
-                templateUrl: '/painel/template/servicos/add',
-                controller: 'Servicos'
-            })
-            .when('/servicos/editar/:id', {
-                templateUrl: '/painel/template/servicos/edit',
-                controller: 'Servicos'
-            })
-
-        .when('/atuacao', {
-            templateUrl: '/painel/template/atuacao/index',
-            controller: 'Atuacao'
-        })
-            .when('/atuacao/adicionar', {
-                templateUrl: '/painel/template/atuacao/add',
-                controller: 'Atuacao'
-            })
-            .when('/atuacao/editar/:id', {
-                templateUrl: '/painel/template/atuacao/edit',
-                controller: 'Atuacao'
             })
 
         .when('/empregos', {
@@ -175,19 +147,6 @@ angular
             .when('/contato/editar/:id', {
                 templateUrl: '/painel/template/contato/edit',
                 controller: 'Contato'
-            })
-
-        .when('/usuarios', {
-            templateUrl: '/painel/template/usuarios/index',
-            controller: 'Usuarios'
-        })
-            .when('/usuarios/adicionar', {
-                templateUrl: '/painel/template/usuarios/add',
-                controller: 'Usuarios'
-            })
-            .when('/usuarios/editar/:id', {
-                templateUrl: '/painel/template/usuarios/edit',
-                controller: 'Usuarios'
             })
 
         .when('/aviso', {
