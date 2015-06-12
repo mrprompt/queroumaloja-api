@@ -20,8 +20,8 @@
     "url": "ssh://545e7855e0b8cd0e8500017c@grupo-publiciti.rhcloud.com/~/git/grupo.git/"
   },
   "engines": {
-    "node": ">= 0.6.0",
-    "npm": ">= 1.0.0"
+    "node": "^0.12.4",
+    "npm": ">= 2.10.1"
   },
   "dependencies": {
     "async": "^1.2.1",

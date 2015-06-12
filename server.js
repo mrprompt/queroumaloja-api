@@ -193,8 +193,6 @@ var Application = function () {
         self.createRoutes();
 
         self.app.use(express.static(__dirname + '/public'));
-
-        self.app.disable('etag');
     };
 
     /**
