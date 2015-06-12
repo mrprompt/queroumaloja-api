@@ -135,6 +135,10 @@ var Application = function () {
         self.app.get('/painel/template/:diretorio/:name', app.template);
         self.app.get('/:modulo', self.getSite, app.list);
         self.app.get('/:modulo/:id', self.getSite, app.get);
+        self.app.get('/*', function(req, res, next){
+            res.setHeader('Last-Modified', (new Date()).toUTCString());
+            next();
+        });
 
         /**
          * POST requests
@@ -161,8 +165,7 @@ var Application = function () {
     };
 
     /**
-     *  Initialize the server (express) and create the routes and register
-     *  the handlers.
+     *  Initialize the server (express), create the routes and register the handlers.
      */
     self.initializeServer = function () {
         self.app = express();
@@ -185,12 +188,13 @@ var Application = function () {
         self.app.use(passport.initialize());
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
-        self.app.use(express.static(__dirname + '/public'));
         self.app.use(paginate.middleware(12, 100));
 
-        self.app.disable('etag');
-
         self.createRoutes();
+
+        self.app.use(express.static(__dirname + '/public'));
+
+        self.app.disable('etag');
     };
 
     /**
