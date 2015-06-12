@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var ContatoSchema = new Schema({
@@ -28,6 +29,8 @@ var ContatoSchema = new Schema({
         ref: 'Site'
     }
 });
+
+ContatoSchema.plugin(pagination);
 
 var Contato = mongoose.model('Contato', ContatoSchema);
 

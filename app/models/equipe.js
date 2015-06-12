@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var EquipeSchema = new Schema({
@@ -26,6 +27,8 @@ var EquipeSchema = new Schema({
 }, {
     collection: 'equipe'
 });
+
+EquipeSchema.plugin(pagination);
 
 var Equipe = mongoose.model('Equipe', EquipeSchema);
 

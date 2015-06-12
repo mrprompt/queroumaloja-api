@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var EmpregoSchema = new Schema({
@@ -28,6 +29,8 @@ var EmpregoSchema = new Schema({
         ref: 'Site'
     }
 });
+
+EmpregoSchema.plugin(pagination);
 
 var Emprego = mongoose.model('Emprego', EmpregoSchema);
 

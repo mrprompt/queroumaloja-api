@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var SlideSchema = new Schema({
@@ -27,6 +28,8 @@ var SlideSchema = new Schema({
         ref: 'Site'
     }
 });
+
+SlideSchema.plugin(pagination);
 
 var Slide = mongoose.model('Slide', SlideSchema);
 

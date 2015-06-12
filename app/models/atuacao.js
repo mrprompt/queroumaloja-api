@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var AtuacaoSchema = new Schema({
@@ -22,6 +23,8 @@ var AtuacaoSchema = new Schema({
 }, {
     collection: 'atuacoes'
 });
+
+AtuacaoSchema.plugin(pagination);
 
 var Atuacao = mongoose.model('Atuacao', AtuacaoSchema);
 

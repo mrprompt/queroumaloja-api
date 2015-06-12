@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var AvisoSchema = new Schema({
@@ -32,6 +33,8 @@ var AvisoSchema = new Schema({
         ref: 'Site'
     }
 });
+
+AvisoSchema.plugin(pagination);
 
 var Aviso = mongoose.model('Aviso', AvisoSchema);
 

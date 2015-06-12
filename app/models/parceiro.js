@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var random = require('mongoose-simple-random');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
@@ -27,6 +28,7 @@ var ParceiroSchema = new Schema({
 });
 
 ParceiroSchema.plugin(random);
+ParceiroSchema.plugin(pagination);
 
 var Parceiro = mongoose.model('Parceiro', ParceiroSchema);
 

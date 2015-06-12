@@ -22,9 +22,6 @@ exports.routes = {
     equipe: require('../models/equipe'),
     equipes: require('../models/equipe'),
 
-    index: require('../models/inicio'),
-    inicio: require('../models/inicio'),
-
     orcamentos: require('../models/orcamento'),
     orcamento: require('../models/orcamento'),
 

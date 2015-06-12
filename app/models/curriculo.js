@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var CurriculoSchema = new Schema({
@@ -59,6 +60,8 @@ var CurriculoSchema = new Schema({
         ref: 'Site'
     }
 });
+
+CurriculoSchema.plugin(pagination);
 
 var Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 

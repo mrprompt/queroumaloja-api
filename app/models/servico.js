@@ -1,5 +1,6 @@
 'use strict';
 
+var pagination  = require('mongoose-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var ServicoSchema = new Schema({
@@ -20,6 +21,8 @@ var ServicoSchema = new Schema({
         ref: 'Site'
     }
 });
+
+ServicoSchema.plugin(pagination);
 
 var Servico = mongoose.model('Servico', ServicoSchema);
 
