@@ -94,12 +94,10 @@ exports.get = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var data = req.body;
-
-    var dados = {
+    var data    = req.body;
+    var dados   = {
         titulo: data.titulo,
         descricao: data.descricao,
-        cadastro: data.cadastro,
         imagem: JSON.parse(data.imagem),
         site: req.site._id,
         codigo: data.codigo,
@@ -108,8 +106,8 @@ exports.create = function(req, res) {
         valor: data.valor
     };
 
-    var Produto = new Produto(dados);
-        Produto.save(function(err, data) {
+    var produto = new Produto(dados);
+        produto.save(function(err, data) {
             if (err) {
                 res.json(err);
             } else {
@@ -125,8 +123,9 @@ exports.update = function(req, res) {
         titulo: data.titulo,
         descricao: data.descricao,
         codigo: data.codigo,
-        editora: data.editora,
-        categoria: data.categoria
+        tipo: data.tipo,
+        categoria: data.categoria,
+        valor: data.valor
     };
 
     if (data.imagem) {
