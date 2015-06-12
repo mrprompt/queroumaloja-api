@@ -8,6 +8,7 @@ var session = require('express-session')
 var morgan = require('morgan');
 var multer  = require('multer')
 var methodOverride = require('method-override');
+var bodyParser = require('body-parser')
 var os = require('os');
 var path = require('path');
 var passport = require('passport');
@@ -182,6 +183,8 @@ var Application = function () {
         self.app.set('view engine', 'jade');
 
         self.app.use(multer({ dest: os.tmpdir() }));
+        self.app.use(bodyParser.json());
+        self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(session({
             secret: 'aicaramba',

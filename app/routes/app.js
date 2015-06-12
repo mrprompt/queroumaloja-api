@@ -1,6 +1,7 @@
 'use strict';
 
 var fs = require('fs');
+var os = require('os');
 var ini = require('ini').parse(fs.readFileSync(__dirname + '/../config/config.ini', 'utf-8'));
 
 exports.index = function(req, res) {
@@ -45,7 +46,15 @@ exports.get = function(req, res) {
 
 exports.panel = function(req, res) {
     var conteudo = {
-        site: req.site
+        site: req.site,
+        cpu: {
+            hostname: os.hostname(),
+            type: os.type(),
+            uptime: os.uptime(),
+            memory: os.totalmem(),
+            free: os.freemem(),
+            cpu: os.cpus()
+        }
     };
 
     res.render(ini.global.domain + '/layout', conteudo);

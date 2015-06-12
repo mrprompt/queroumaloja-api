@@ -9,7 +9,7 @@ angular
         $scope.activetab = $location.path();
         $scope.curPage = 0;
         $scope.pageSize = 10;
-        $scope.equipe = [];
+        $scope.membros = [];
 
         activeMenu();
 
@@ -20,7 +20,7 @@ angular
         };
 
         $scope.paginas = function() {
-            return Math.ceil($scope.equipe.length / $scope.pageSize);
+            return Math.ceil($scope.membros.length / $scope.pageSize);
         };
 
         $scope.load = function() {
