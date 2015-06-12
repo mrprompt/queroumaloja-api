@@ -195,7 +195,14 @@ var Application = function () {
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
         self.app.use(jumanji);
-        self.app.use(express.static('public'));
+        self.app.use('/editoranxt', express.static('public/editoranxt'));
+        self.app.use('/librinke', express.static('public/librinke'));
+        self.app.use('/nxtchallenger', express.static('public/nxtchallenger'));
+        self.app.use('/plugins', express.static('public/plugins'));
+        self.app.use('/projetocultural', express.static('public/projetocultural'));
+        self.app.use('/publiciti', express.static('public/publiciti'));
+        self.app.use('/rdoservicos', express.static('public/rdoservicos'));
+        self.app.use('/rhcloud', express.static('public/rhcloud'));
 
         self.createRoutes();
     };
