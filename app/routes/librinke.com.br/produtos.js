@@ -4,35 +4,47 @@ var routes = require('../index').routes;
 
 exports.index = function(req, res) {
     var dominio = req.site.dominio;
-    var parque = routes.produto.Produto;
+    var produto = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
 
-    parque
-        .find({
-            site: req.site._id,
-            tipo: 'Parques'
+    var filter = {
+        site: req.site._id
+    };
+
+    if (req.query.tipo !== undefined) {
+        filter.tipo = req.query.tipo;
+
+        if (req.query.categoria !== undefined) {
+            filter.categoria = req.query.categoria;
+        }
+    };
+
+    produto
+        .find(filter)
+        .sort({
+            cadastro: -1
         })
         .exec(function(err, linhas) {
             if (err) {
                 console.log(err);
             } else {
-                conteudos.parques = linhas;
+                conteudos.produtos = linhas;
 
-                res.render(dominio + '/parques/index', conteudos);
+                res.render(dominio + '/produtos/index', conteudos);
             }
         });
 };
 
 exports.get = function(req, res) {
     var dominio = req.site.dominio;
-    var parque = routes.produto.Produto;
+    var produto = routes.produto.Produto;
     var conteudos = {
         site: req.site
     };
 
-    parque
+    produto
         .findOne({
             site: req.site._id,
             _id: req.params.id
@@ -41,9 +53,9 @@ exports.get = function(req, res) {
             if (err) {
                 console.log(err);
             } else {
-                conteudos.parque = linhas;
+                conteudos.produto = linhas;
 
-                res.render(dominio + '/parques/view', conteudos);
+                res.render(dominio + '/produtos/view', conteudos);
             }
         });
 };

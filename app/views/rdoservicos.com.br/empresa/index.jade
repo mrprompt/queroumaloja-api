@@ -36,10 +36,11 @@ block conteudo
                   .row
                     ul.thumbnails.list-unstyled.team
                       each funcionario in equipe
-                        li.col-xs-6
-                          img.img-polaroid(src='#{funcionario.imagem.url}', alt='#{funcionario.nome}')
-                          h4
-                            a._popover(data-content='#{funcionario.cargo}', data-original-title='#{funcionario.nome}') #{funcionario.nome}
+                        if funcionario.imagem
+                            li.col-xs-6
+                              img.img-polaroid(src='#{funcionario.imagem.url}', alt='#{funcionario.nome}')
+                              h4
+                                a._popover(data-content='#{funcionario.cargo}', data-original-title='#{funcionario.nome}') #{funcionario.nome}
         //
            sidebar
         .col-md-4.sidebar.sidebar-right

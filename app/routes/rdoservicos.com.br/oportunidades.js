@@ -98,3 +98,25 @@ exports.index = function (req, res) {
         return res.render(req.site.dominio + '/oportunidades/index', conteudos);
     });
 };
+
+
+exports.get = function(req, res) {
+    var dominio = req.site.dominio;
+    var conteudos = {
+        site: req.site
+    };
+
+    routes.emprego.Emprego.findOne({
+            site: req.site._id,
+            _id: req.params.id
+        })
+        .exec(function(err, emprego) {
+            if (err) {
+                console.log(err);
+            } else {
+                conteudos.emprego = emprego;
+
+                res.render(dominio + '/oportunidades/view', conteudos);
+            }
+        });
+};
