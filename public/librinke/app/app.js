@@ -10,9 +10,6 @@ angular
         'app.services',
         'app.directives',
         'app.controllers.inicio',
-        'app.controllers.livros',
-        'app.controllers.uniformes',
-        'app.controllers.empresa',
         'app.controllers.contato',
         'ui.utils.masks'
     ]);
