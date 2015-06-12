@@ -1,0 +1,328 @@
+﻿.clearfix() {
+    & {
+        *zoom: 1;
+    }
+
+        &:before,
+        &:after {
+            display: table;
+            line-height: 0;
+            content: "";
+        }
+
+        &:after {
+            clear: both;
+        }
+}
+.preserve3d(@args: 600) {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -moz-perspective: 600;
+    -ms-perspective: 600;
+    -o-perspective: 600;
+    -webkit-perspective: 600;
+    perspective: 600;
+}
+.placeholder-text(@color) {
+    ::-webkit-input-placeholder {
+        color: @color;
+    }
+
+    :-moz-placeholder {
+        color: @color;
+    }
+
+    ::-moz-placeholder {
+        color: @color;
+    }
+
+    :-ms-input-placeholder {
+        color: @color;
+    }
+}
+
+.animation-delay(@value: 0.4s) {
+    -moz-animation-delay: @arguments;
+    -o-animation-delay: @arguments;
+    -webkit-animation-delay: @arguments;
+    -ms-animation-delay: @arguments;
+    animation-delay: @arguments;
+}
+
+.opacity(@opacity: 0.5) {
+    -moz-opacity: @opacity;
+    -khtml-opacity: @opacity;
+    -webkit-opacity: @opacity;
+    opacity: @opacity;
+    @opperc: @opacity * 100;
+    -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(opacity=@{opperc})";
+    filter: ~"alpha(opacity=@{opperc})";
+}
+
+.bgReset() {
+    background-color: transparent;
+    background-image: none;
+    .nutralizeMsFilter;
+}
+
+.bgResetAdvanced() {
+    &, &:hover, &:active {
+        .bgReset;
+    }
+}
+
+.animated (@duration:1s) {
+    -webkit-animation-duration: @arguments;
+    -moz-animation-duration: @arguments;
+    -o-animation-duration: @arguments;
+    animation-duration: @arguments;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.animation(@args,@fill:both) {
+    -moz-animation: @arguments;
+    -o-animation: @arguments;
+    -webkit-animation: @arguments;
+    animation: @arguments;
+   .animation-fill(@fill);
+
+}
+.animation-fill(@args:both){
+     -webkit-animation-fill-mode: @args;
+    -moz-animation-fill-mode: @args;
+    -o-animation-fill-mode: @args;
+    animation-fill-mode: @args;
+}
+
+.transition-nArgs(...) {
+    @value: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
+    .transition(@value);
+}
+
+.quick-reset() {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+}
+
+.border-radius(@args: 2px) {
+    -webkit-border-radius: @arguments;
+    -o-border-radius: @arguments;
+    -moz-border-radius: @arguments;
+    -ms-border-radius: @arguments;
+    border-radius: @arguments;
+}
+
+.quick-reset-with-bg() {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background-color: none;
+    // background-image:none;
+}
+
+.outline-none() {
+    &, &:hover, &:active, &:focus {
+        outline: none;
+    }
+}
+
+
+.border-radius(@size: 5px) {
+    -moz-border-radius: @arguments;
+    -ms-border-radius: @arguments;
+    -webkit-border-radius: @arguments;
+    -o-border-radius: @arguments;
+    border-radius: @arguments;
+}
+
+
+.transition-duration(@duration: 0.4s) {
+    -moz-transition-duration: @arguments;
+    -o-transition-duration: @arguments;
+    -webkit-transition-duration: @arguments;
+    transition-duration: @arguments;
+}
+
+.transform(@args) {
+    -moz-transform: @arguments;
+    -ms-transform: @arguments;
+    -o-transform: @arguments;
+    -webkit-transform: @arguments;
+    transform: @arguments;
+}
+
+.transformOrigin(@args:0 0) {
+    -moz-transform-origin: @arguments;
+    -ms-transform-origin: @arguments;
+    -o-transform-origin: @arguments;
+    -webkit-transform-origin: @arguments;
+    transform-origin: @arguments;
+}
+
+
+.multiBoxShadow(@args: 0 0 3px rgba(0,0,0,.5)) {
+    -o-box-shadow: @arguments;
+    -ms-box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+
+.box-shadow-Nargs(...) {
+    @value: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
+    .multiBoxShadow(@value);
+}
+
+.boxShadowNone() {
+    .multiBoxShadow(none);
+}
+
+.textShadow(@args: 0 1px 1px white) {
+    -o-text-shadow: @arguments;
+    -moz-text-shadow: @arguments;
+    -ms-text-shadow: @arguments;
+    -webkit-text-shadow: @arguments;
+    text-shadow: @arguments;
+}
+
+.insetTextShadow(@shadow-color: white) {
+    .textShadow(0 1px 1px @arguments);
+}
+
+.insetTextShadow-autocolor(@shadow-color: rgb(210,210,210)) {
+    .textShadow(0 1px 1px lighten(@shadow-color,15%));
+}
+
+.textShadowNone() {
+    .textShadow(none)
+}
+
+.animationName(@name) {
+    -webkit-backface-visibility: visible !important;
+    -webkit-animation-name: @arguments;
+    -moz-backface-visibility: visible !important;
+    -moz-animation-name: @arguments;
+    -o-backface-visibility: visible !important;
+    -o-animation-name: @arguments;
+    backface-visibility: visible !important;
+    animation-name: @arguments;
+}
+
+.nutralizeMsFilter() {
+    -ms-filter: "none";
+}
+
+
+
+
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+    background: @color;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, @start), color-stop(1, @stop));
+    background: -ms-linear-gradient(bottom, @start, @stop);
+    background: -moz-linear-gradient(center bottom, @start 0%, @stop 100%);
+    background: -o-linear-gradient(@stop, @start);
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+}
+
+.bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
+    background: @color;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(@start,@start,@start)), color-stop(1, rgb(@stop,@stop,@stop)));
+    background: -ms-linear-gradient(bottom, rgb(@start,@start,@start) 0%, rgb(@stop,@stop,@stop) 100%);
+    background: -moz-linear-gradient(center bottom, rgb(@start,@start,@start) 0%, rgb(@stop,@stop,@stop) 100%);
+    background: -o-linear-gradient(rgb(@stop,@stop,@stop), rgb(@start,@start,@start));
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",rgb(@stop,@stop,@stop),rgb(@start,@start,@start)));
+}
+
+.transition(@args) {
+    -moz-transition: @arguments;
+    -o-transition: @arguments;
+    -webkit-transition: @arguments;
+    transition: @arguments;
+}
+
+.box-sizing(@sizing: border-box) {
+    -ms-box-sizing: @sizing;
+    -moz-box-sizing: @sizing;
+    -webkit-box-sizing: @sizing;
+    box-sizing: @sizing;
+}
+
+.user-select(@argument: none) {
+    -webkit-user-select: @argument;
+    -moz-user-select: @argument;
+    -ms-user-select: @argument;
+    user-select: @argument;
+}
+
+.radial-gradient(@fallback-color,@first-color,@second-color,@position:center top,@size: farthest-side) {
+    background-color: @fallback-color;
+   
+background-image: -ms-radial-gradient(@position, circle @size, @first-color 0%, @second-color 100%);
+
+background-image: -moz-radial-gradient(@position, circle @size, @first-color 0%, @second-color 100%);
+
+background-image: -o-radial-gradient(@position, circle @size, @first-color 0%, @second-color 100%);
+
+background-image: -webkit-gradient(radial, @position, 0, @position, 487, color-stop(0, @first-color), color-stop(1, @second-color));
+
+background-image: -webkit-radial-gradient(@position, circle @size, @first-color 0%, @second-color 100%);
+
+background-image: radial-gradient(circle @size at @position, @first-color 0%, @second-color 100%);
+}
+
+
+.shadow() {
+    position: relative;
+    .multiBoxShadow(~"0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset");
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        z-index: -2;
+    }
+}
+.translateX(@args) {
+    .transform(translateX(@args));
+}
+.translateY(@args) {
+    .transform(translateY(@args));
+}
+.translateZ(@args) {
+    .transform(translateZ(@args));
+}
+.transition-delay(@args: .4s) {
+    -moz-transition-delay: @args;
+    -o-transition-delay: @args;
+    -webkit-transition-delay: @args;
+    -ms-transition-delay: @args;
+    transition-delay: @args;
+}
+.transition-easing(@args) {
+    -moz-transition-timing-function: @args;
+    -o-transition-timing-function: @args;
+    -webkit-transition-timing-function: @args;
+    -ms-transition-timing-function: @args;
+    transition-timing-function: @args;
+}
+.button(@color,@fg-color: #fff) {
+    background-color: @color;
+    color: @fg-color;
+    background-image: none;
+
+    &:hover {
+        background-color: lighten(@color,10%);
+    }
+
+    &:hover, &:active {
+        background-image: none;
+    }
+}

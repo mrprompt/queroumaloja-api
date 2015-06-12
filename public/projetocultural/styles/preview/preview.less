@@ -1,0 +1,137 @@
+﻿@import "variables.less";
+@import "mixin.less";
+
+#theme-btn
+{
+    position: fixed;
+    top: 200px;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: lighten(black,10%);
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    .multiBoxShadow(0 0 3px rgba(0,0,0,.3));
+    z-index: 160;
+
+
+    &:hover, &:active
+    {
+        text-decoration: none;
+    }
+}
+
+
+
+.themes-section
+{
+    position: fixed;
+    top: 240px;
+    left: -500px;
+    width: 200px;
+    z-index: 160;
+    .transition-duration;
+    visibility: hidden;
+    opacity: 0;
+    .multiBoxShadow(0 0 3px rgba(0,0,0,.3));
+    background-color: rgba(255,255,255,0.85);
+
+
+    &.open
+    {
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.themes
+{
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+
+    &.blue
+    {
+        background-color: @peter-river;
+    }
+
+    &.dark-blue
+    {
+        background-color: @wet-asphalt;
+    }
+
+    &.gray
+    {
+        background-color: @concrete;
+    }
+
+    &.green
+    {
+        background-color: @emerald;
+    }
+
+    &.orange
+    {
+        background-color: @carrot;
+    }
+
+    &.purple
+    {
+        background-color: @amethyst;
+    }
+
+    &.red
+    {
+        background-color: @alizarin;
+    }
+
+    &.yellow
+    {
+        background-color: @sun-flower;
+    }
+
+    &.default
+    {
+        background-color: @turquoise;
+    }
+}
+
+
+
+.themes-header
+{
+    color: grey;
+    text-align: center;
+
+    span
+    {
+        font-size: 18px;
+    }
+}
+
+.themes-colors
+{
+    padding: 7px;
+    text-align: center;
+}
+
+
+.box
+{
+    padding: 10px;
+    margin: 5px 0px;
+}
+
+.tooltip-demo 
+{
+    list-style: none;
+
+    li
+    {
+        float: left;
+        margin-right: 20px;
+        margin-bottom:20px;
+    }
+}
