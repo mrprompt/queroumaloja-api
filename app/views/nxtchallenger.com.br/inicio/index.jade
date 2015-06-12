@@ -120,7 +120,7 @@ block conteudo
                   br
                   | - Melhoria contínua nos serviços e produtos ofertados
 
-          if pagina.parceiros
+          if pagina.parceiros.length > 0
             .our-clients
               h5
                 span.section-footer-title Nossos parceiros
@@ -133,31 +133,30 @@ block conteudo
                       a(href='#{parceiro.url}')
                         img(src='#{logo.url}', alt='logo de #{parceiro.nome}')
 
-      if pagina.livros
-        if pagina.livros.length
-          section#products.products(data-type='background', data-speed='1')
-            .color-overlay
-              .container
-                .section-header
-                  h2.white-text Livros
-                  h6.white-text
-                    | Livros com selo NXT Challenger
-                .row.wow.fadeInLeft.animated(data-wow-offset='30', data-wow-duration='1.5s', data-wow-delay='0.15s')
-                  each livro in pagina.livros
-                    if livro.imagem
-                      - var capa = JSON.parse(livro.imagem)
-                      .col-md-3
-                        .item
-                          .item-overlay
-                          .item-content
-                            .item-top-content
-                              .item-top-content-inner
-                                .item-product
-                                  .item-image
-                                    a(href='/livros/#{livro._id}')
-                                      img(src='#{capa.url}', width="230")
-                                  .item-top-title
-                                    h5 #{livro.titulo}
+      if pagina.livros.length > 0
+        section#products.products(data-type='background', data-speed='1')
+          .color-overlay
+            .container
+              .section-header
+                h2.white-text Livros
+                h6.white-text
+                  | Livros com selo NXT Challenger
+              .row.wow.fadeInLeft.animated(data-wow-offset='30', data-wow-duration='1.5s', data-wow-delay='0.15s')
+                each livro in pagina.livros
+                  if livro.imagem
+                    - var capa = JSON.parse(livro.imagem)
+                    .col-md-3
+                      .item
+                        .item-overlay
+                        .item-content
+                          .item-top-content
+                            .item-top-content-inner
+                              .item-product
+                                .item-image
+                                  a(href='/livros/#{livro._id}')
+                                    img(src='#{capa.url}', width="230")
+                                .item-top-title
+                                  h5 #{livro.titulo}
 
       section#contact.contact-us
         .container
