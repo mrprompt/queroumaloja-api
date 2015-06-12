@@ -3,7 +3,8 @@ html(lang='pt', ng-app='painel')
   head
     // start: Meta
     meta(charset='utf-8')
-    title Painel de Controle
+    title
+      | #{site.nome} - Painel de Controle
     meta(name='description', content='Painel de Controle')
     meta(name='author', content='Thiago Paes')
     meta(name='keyword', content='painel, controle, gerenciador,conteúdo')
@@ -45,7 +46,7 @@ html(lang='pt', ng-app='painel')
             span.icon-bar
           a.navbar-brand(href='/painel')
             span
-             | Painel de Controle
+             | #{site.nome} - Painel de Controle
           // start: Header Menu
           .nav-no-collapse.header-nav
             ul.nav.pull-right
@@ -234,11 +235,17 @@ html(lang='pt', ng-app='painel')
     // /container
     .clearfix
     footer
-      p
-        span(style='text-align:left;float:left')
-          | &copy; 2014 &nbsp; - &nbsp;
-          span
-            | Painel de Controle
+        .row
+            .col-md-6.text-left
+                p
+                    span
+                      | &copy; #{new Date().getFullYear()} - #{site.nome}
+            .col-md-6.text-right
+                p
+                    span(style='text-align:right')
+                        span
+                            | Desenvolvido por &nbsp;
+                            a(href="http://www.mrprompt.com.br", target="_blank") mrprompt.com.br
 
     // start: JavaScript
     //if !IE
