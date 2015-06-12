@@ -2,7 +2,7 @@
 .bgi-theme{
 	color:#fff;
 	padding:50px 0px;
-	background:url("../../img/backgrounds/bg-image.jpg") center center;
+	background:url("/publiciti/img/backgrounds/bg-image.jpg") center center;
 	background-size:cover;
 	background-attachment:fixed;
 }

@@ -43,7 +43,7 @@
 /* Real estate form */
 .real-estate .re-big-form{
 	padding: 40px 0;
-	background: #fff url('../../img/backgrounds/heading-back.jpg') center center no-repeat fixed;
+	background: #fff url('/publiciti/img/backgrounds/heading-back.jpg') center center no-repeat fixed;
 }
 .real-estate .re-big-form h2 {
 	display: inline-block;

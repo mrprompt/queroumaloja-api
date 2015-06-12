@@ -23,7 +23,7 @@
 }
 /* Parallax one */
 .parallax-one {
-	background-image: url("../../img/backgrounds/1.jpg");
+	background-image: url("/publiciti/img/backgrounds/1.jpg");
 }
 .parallax-one .p-element h2{
 	font-size: 90px;
@@ -39,7 +39,7 @@
 }
 /* Parallax two */
 .parallax-two {
-	background-image: url("../../img/backgrounds/2.jpg");
+	background-image: url("/publiciti/img/backgrounds/2.jpg");
 }
 .parallax-two .p-element {
 	max-width: 550px;
@@ -106,7 +106,7 @@
 }
 /* Parallax four */
 .parallax-four {
-	background-image: url("../../img/backgrounds/3.jpg");
+	background-image: url("/publiciti/img/backgrounds/3.jpg");
 }
 .parallax-four .p-element h2,
 .parallax-four .p-element p{
@@ -146,7 +146,7 @@
 }
 /* Parallax five */
 .parallax-five {
-	background-image: url("../../img/backgrounds/4.jpg");
+	background-image: url("/publiciti/img/backgrounds/4.jpg");
 }
 .parallax-five .p-element {
 	text-align: center;
@@ -224,7 +224,7 @@
 }
 /* Parallax seven */
 .parallax-seven{
-	background-image: url("../../img/backgrounds/5.jpg");
+	background-image: url("/publiciti/img/backgrounds/5.jpg");
 }
 .parallax-seven .p-element {
 	max-width: 650px;

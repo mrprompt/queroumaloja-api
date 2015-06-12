@@ -429,19 +429,19 @@ blockquote small{
 /* Dividers */
 .divider-1{
 	height:8px;
-	background:url("../../img/dividers/1.png") repeat-x;
+	background:url("/publiciti/img/dividers/1.png") repeat-x;
 	background-size:20px 20px;
 	margin:20px 0px;
 }
 .divider-2{
 	height:7px;
-	background:url("../../img/dividers/2.png") repeat-x;
+	background:url("/publiciti/img/dividers/2.png") repeat-x;
 	background-size:7px 7px;
 	margin:20px 0px;
 }
 .divider-3{
 	height:10px;
-	background:url("../../img/dividers/3.png") repeat-x;
+	background:url("/publiciti/img/dividers/3.png") repeat-x;
 	background-size:10px 10px;
 	margin:20px 0px;
 }
@@ -2067,7 +2067,7 @@ a.brown:focus {
 /* Body Boxed */
 body.boxed {
 	margin: 0px 80px;
-	background: #ffffff url("../../img/body/pattern/1.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/1.png") repeat;
 }
 @media (max-width: 1000px) {
 	body.boxed {
@@ -2086,42 +2086,42 @@ body.boxed .container {
   width: 100%;
 }
 body.boxed.pattern-1 {
-	background: #ffffff url("../../img/body/pattern/1.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/1.png") repeat;
 }
 body.boxed.pattern-2 {
-	background: #ffffff url("../../img/body/pattern/2.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/2.png") repeat;
 }
 body.boxed.pattern-3 {
-	background: #ffffff url("../../img/body/pattern/3.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/3.png") repeat;
 }
 body.boxed.pattern-4 {
-	background: #ffffff url("../../img/body/pattern/4.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/4.png") repeat;
 }
 body.boxed.pattern-5 {
-	background: #ffffff url("../../img/body/pattern/5.png") repeat;
+	background: #ffffff url("/publiciti/img/body/pattern/5.png") repeat;
 }
 body.boxed.img-1 {
-	background: #ffffff url("../../img/body/img/1.jpg") repeat;
+	background: #ffffff url("/publiciti/img/body/img/1.jpg") repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
 body.boxed.img-2 {
-	background: #ffffff url("../../img/body/img/2.jpg") repeat;
+	background: #ffffff url("/publiciti/img/body/img/2.jpg") repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
 body.boxed.img-3 {
-	background: #ffffff url("../../img/body/img/3.jpg") repeat;
+	background: #ffffff url("/publiciti/img/body/img/3.jpg") repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
 body.boxed.img-4 {
-	background: #ffffff url("../../img/body/img/4.jpg") repeat;
+	background: #ffffff url("/publiciti/img/body/img/4.jpg") repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
 body.boxed.img-5 {
-	background: #ffffff url("../../img/body/img/5.jpg") repeat;
+	background: #ffffff url("/publiciti/img/body/img/5.jpg") repeat;
 	background-attachment: fixed;
 	background-size: cover;
 }
@@ -2715,7 +2715,7 @@ body.boxed.img-5 {
 /* Page heading one */
 .page-heading-one {
 	text-align:center;
-	background:url("../../img/backgrounds/heading-back.jpg");
+	background:url("/publiciti/img/backgrounds/heading-back.jpg");
 	background-size:cover;
 	background-position:center center;
 	padding:50px 10px;
@@ -3745,7 +3745,7 @@ body.boxed.img-5 {
 }
 /* CTA Six  */
 .cta-six{
-	background:#fff url("../../img/backgrounds/2.jpg") repeat;
+	background:#fff url("/publiciti/img/backgrounds/2.jpg") repeat;
 	background-size:cover;
 	background-attachment:fixed;
 	padding:70px 0px;
@@ -5695,7 +5695,7 @@ body.boxed.img-5 {
 }
 /* Testimonial 2 */
 .testimonials-two{
-	background:url("../../img/raster.png"), url("../../img/backgrounds/2.jpg") center center repeat;
+	background:url("/publiciti/img/raster.png"), url("/publiciti/img/backgrounds/2.jpg") center center repeat;
 	background-attachment:fixed;
 	color:#fff;
 	padding:70px 50px;
@@ -6404,7 +6404,7 @@ body.boxed.img-5 {
 }
 /* Quote two */
 .quote-two{
-	background:url("../../img/raster.png"),url("../../img/backgrounds/3.jpg") center center;
+	background:url("/publiciti/img/raster.png"),url("/publiciti/img/backgrounds/3.jpg") center center;
 	background-attachment:fixed;
 }
 .quote-two .quote-two-content{
@@ -7049,7 +7049,7 @@ body.boxed.img-5 {
 }
 /* Body background image for some pages */
 body.bg-img{
-	background:url("../../img/raster.png"),url("../../img/backgrounds/1.jpg");
+	background:url("/publiciti/img/raster.png"),url("/publiciti/img/backgrounds/1.jpg");
 	background-size:cover;
 	background-attachment:fixed;
 }

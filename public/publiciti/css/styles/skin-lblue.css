@@ -541,7 +541,7 @@ blockquote.blockquote-reverse {
 }
 /* Resume */
 .resume .main-block {
-  background: #32c8de url(../../img/overlay.png) repeat;
+  background: #32c8de url(/publiciti/img/overlay.png) repeat;
   background-size: 252px 230px;
 }
 /* Smart forms */
@@ -596,7 +596,7 @@ blockquote.blockquote-reverse {
 }
 /* Wedding */
 .wedding-header {
-  background: #32c8de url("../../img/wedding/overlay.png") repeat;
+  background: #32c8de url("/publiciti/img/wedding/overlay.png") repeat;
   background-size: 252px 230px;
 }
 /* Restaurant */
