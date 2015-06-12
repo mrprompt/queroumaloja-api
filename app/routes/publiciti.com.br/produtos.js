@@ -9,11 +9,20 @@ exports.index = function(req, res) {
         site: req.site
     };
 
+    var filter = {
+        site: req.site._id
+    };
+
+    if (req.query.tipo !== undefined) {
+        filter.tipo = req.query.tipo;
+
+        if (req.query.categoria !== undefined) {
+            filter.categoria = req.query.categoria;
+        }
+    };
+
     produto
-        .find({
-            site: req.site._id,
-            tipo: req.query.tipo
-        })
+        .find(filter)
         .sort({
             cadastro: -1
         })

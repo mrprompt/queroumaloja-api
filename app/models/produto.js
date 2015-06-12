@@ -54,10 +54,10 @@ exports.list = function(req, res) {
         site: req.site._id
     };
 
-    if (req.query.tipo) {
+    if (req.query.tipo !== undefined) {
         filter.tipo = req.query.tipo;
 
-        if (req.query.categoria) {
+        if (req.query.categoria !== undefined) {
             filter.categoria = req.query.categoria;
         }
     };
