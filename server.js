@@ -123,6 +123,9 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
+        /**
+         * GET requests
+         */
         self.app.get('/', self.getSite, app.index);
         self.app.get('/logout', app.logout);
         self.app.get('/login', app.login);
@@ -133,6 +136,9 @@ var Application = function () {
         self.app.get('/:modulo', self.getSite, app.list);
         self.app.get('/:modulo/:id', self.getSite, app.get);
 
+        /**
+         * POST requests
+         */
         self.app.post('/api/upload', self.getSite, api.upload);
         self.app.post('/api/:modulo', self.ensureAuthenticated, self.getSite, api.create);
         self.app.post('/login', passport.authenticate('local', {
@@ -143,8 +149,14 @@ var Application = function () {
                 res.redirect('/painel');
             });
 
+        /**
+         * PUT requests
+         */
         self.app.put('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.update);
 
+        /**
+         * DELETE requests
+         */
         self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.delete);
     };
 
@@ -175,6 +187,8 @@ var Application = function () {
         self.app.use(morgan('dev'));
         self.app.use(express.static(__dirname + '/public'));
         self.app.use(paginate.middleware(12, 100));
+
+        self.app.disable('etag');
 
         self.createRoutes();
     };
