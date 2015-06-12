@@ -60,7 +60,7 @@ exports.delete = function(req, res) {
     (route).delete(req, res);
 };
 
-exports.upload = function (req, res, next) {
+exports.upload = function (req, res) {
     var file = req.files.file;
     var dominio = req.site.dominio;
 
@@ -73,18 +73,6 @@ exports.upload = function (req, res, next) {
     cloudinary.uploader.upload(file.path, {
         tags: dominio
     }, function (err, image) {
-        if (err) {
-            console.warn(err);
-
-            return res.json(err);
-        }
-
-        fs.unlink(file.path, function (err) {
-            if (err) {
-                console.warn(err);
-            }
-        });
-
         return res.json(image);
     });
 };

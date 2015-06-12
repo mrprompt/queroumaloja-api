@@ -119,6 +119,14 @@ angular
 
                         $scope.equipeForm.invalid = false;
                         $scope.membro.imagem = JSON.stringify(data);
+                    })
+                    .error(function(data) {
+                        $scope.status = {
+                            type: 'danger',
+                            message: 'Ocorreu um erro enviando a imagem'
+                        }
+
+                        $scope.equipeForm.invalid = true;
                     });
             }
         }

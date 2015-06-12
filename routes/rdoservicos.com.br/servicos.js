@@ -16,13 +16,13 @@ exports.index = function (req, res) {
                 },
                 {},
                 {},
-                function (err, equipe) {
+                function (err, servicos) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.equipe = equipe;
+                        conteudos.servicos = servicos;
 
-                        callback(null, equipe);
+                        callback(null, servicos);
                     }
                 }
             );
