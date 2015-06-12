@@ -1,6 +1,7 @@
 'use strict';
 
 var random      = require('mongoose-simple-random');
+var pagination  = require('mongoose-paginate');
 var mongoose    = require(__dirname + '/index').mongoose;
 var Schema      = mongoose.Schema;
 var ProdutoSchema = new Schema({
@@ -44,6 +45,7 @@ var ProdutoSchema = new Schema({
 });
 
 ProdutoSchema.plugin(random);
+ProdutoSchema.plugin(pagination);
 
 var Produto = mongoose.model('Produto', ProdutoSchema);
 

@@ -5,6 +5,7 @@
  */
 var express = require('express');
 var session = require('express-session')
+var paginate = require('express-paginate');
 var morgan = require('morgan');
 var multer  = require('multer')
 var methodOverride = require('method-override');
@@ -196,6 +197,7 @@ var Application = function () {
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
         self.app.use(express.static(path.join(__dirname, 'public')));
+        self.app.use(paginate.middleware(12, 100));
 
         self.createRoutes();
     };

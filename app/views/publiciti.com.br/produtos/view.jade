@@ -40,7 +40,7 @@ block conteudo
                                     // Outer layer
                                     #bs-carousel-1.carousel.slide(data-ride='carousel', data-interval='3000', data-pause='hover', data-wrap='true')
                                         // Bootstrap indicators. If you don't need indicators, remove the below section
-                                        ol.carousel-indicators
+                                        ol.carousel-indicators.hidden
                                             li.active(data-target='#bs-carousel-1', data-slide-to='0')
                                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                             li(data-target='#bs-carousel-1', data-slide-to='1')
@@ -50,6 +50,7 @@ block conteudo
                                             li(data-target='#bs-carousel-1', data-slide-to='3')
                                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                             li(data-target='#bs-carousel-1', data-slide-to='4')
+
                                         // Slides. You can also add captions
                                         .carousel-inner
                                             // Item, First item should have extra class "active"
@@ -59,10 +60,10 @@ block conteudo
                                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
 
                                         // Carousel controls (arrows). If you don't need controls, remove the below section
-                                        a.left.carousel-control(href='#bs-carousel-1', role='button', data-slide='prev')
+                                        a.left.carousel-control.hidden(href='#bs-carousel-1', role='button', data-slide='prev')
                                             span.fa.fa-chevron-left
                                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.right.carousel-control(href='#bs-carousel-1', role='button', data-slide='next')
+                                        a.right.carousel-control.hidden(href='#bs-carousel-1', role='button', data-slide='next')
                                             span.fa.fa-chevron-right
                                 | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                 .col-md-5.col-sm-6
@@ -74,11 +75,6 @@ block conteudo
                                     // Product Details
                                     .table-responsive
                                         table.table.table-bordered.sitem-table
-                                            tr
-                                                th Name :
-                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                                td #{produto.titulo}
-                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                             tr
                                                 th Preço :
                                                 | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -286,7 +282,7 @@ block conteudo
                                     h4
                                         a(href='/produtos/#{item._id}')
                                             | #{item.titulo}
-                                            span.color.pull-right R$ #{item.valor}
+                                            span.color.pull-right.hidden R$ #{item.valor}
                                     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                     .clearfix
                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;

@@ -5,13 +5,14 @@ block conteudo
   .page-heading-two
     .container
       h2
-        | #{produtos[0].tipo}
+        | #{produtos.length > 0 ? produtos[0].tipo : ''}
       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
       .breads
         | Início /
         a(href='/produtos') Produtos
         |  /
-        a(href='/produtos?tipo=#{produtos[0].tipo}') #{produtos[0].tipo}
+        if produtos.length > 0
+            a(href='/produtos?tipo=#{produtos[0].tipo}') #{produtos[0].tipo}
       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
       .clearfix
   // Page heading two ends
@@ -26,58 +27,128 @@ block conteudo
             // Block Title
             h4
               i.fa.fa-laptop.color
-              | &nbsp; #{produtos[0].tipo}
-              small &nbsp; #{produtos[0].categoria}
+              if produtos.length
+                  | &nbsp; #{produtos[0].tipo}
+                  small &nbsp; #{produtos[0].categoria}
+              else
+                  | &nbsp; Produtos
+                  small &nbsp; listando todas as categorias
             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
             hr
             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
             .row
-              each produto in produtos
-                  if produto.imagem
-                      .col-md-3
-                        // Shopping items
-                        .shopping-item
-                          // Image
-                          a(href='/produtos/#{produto._id}')
-                            img.img-responsive(src='#{produto.imagem.url}', alt='')
-                          // Shopping item name / Heading
-                          h4
-                            a(href='/produtos/#{produto._id}') #{produto.titulo}
-                            span.color.pull-right R$ #{produto.valor}
-                          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                          .clearfix
-                          // Buy now button
-                          .visible-xs
-                            a.btn.btn-color.btn-sm(href='#') Comprar
-                          // Shopping item hover block & link
-                          .item-hover.bg-color.hidden-xs
-                            a(href='#') Add to cart
+                if produtos.length > 0
+                  each produto in produtos
+                      if produto.imagem
+                          .col-md-3
+                            // Shopping items
+                            .shopping-item
+                              // Image
+                              a(href='/produtos/#{produto._id}')
+                                img.img-responsive(src='#{produto.imagem.url}', alt='')
+                              // Shopping item name / Heading
+                              h4
+                                a(href='/produtos/#{produto._id}') #{produto.titulo}
+                                span.color.pull-right.hidden R$ #{produto.valor}
+                              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                              .clearfix
+                              // Buy now button
+                              .visible-xs
+                                a.btn.btn-color.btn-sm(href='#') Comprar
+                              // Shopping item hover block & link
+                              .item-hover.bg-color.hidden-xs
+                                a(href='#') Add to cart
+                          | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                else
+                    .alert.alert-info
+                        | Sem produtos cadastrados.
+
+                    .img-box-3.text-center
+                        .row
+                            .col-md-3.col-sm-6
+                                // Image Box #3 Item
+                                .img-box-3-item
+                                    .img-box-3-icon.bg-red
+                                        a(href='/produtos?tipo=Brinquedos')
+                                            img.img-responsive(src='/publiciti/img/flat-icons/20.png', alt='')
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    h4
+                                        a(href='/produtos?tipo=Brinquedos') Brinquedos
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .bor.bg-red
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    p
+                                        | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .col-md-3.col-sm-6
+                                // Image Box #3 Item
+                                .img-box-3-item
+                                    .img-box-3-icon.bg-blue
+                                        a(href='/produtos?tipo=Livros')
+                                            img.img-responsive(src='/publiciti/img/flat-icons/14.png', alt='')
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    h4
+                                        a(href='/produtos?tipo=Livros') Livros
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .bor.bg-blue
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    p
+                                        | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .col-md-3.col-sm-6
+                                // Image Box #3 Item
+                                .img-box-3-item
+                                    .img-box-3-icon.bg-orange
+                                        a(href='/produtos?tipo=Materiais Esportivos')
+                                            img.img-responsive(src='/publiciti/img/flat-icons/22.png', alt='')
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    h4
+                                        a(href='/produtos?tipo=Materiais Esportivos') Materiais Esportivos
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .bor.bg-orange
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    p
+                                        | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .col-md-3.col-sm-6
+                                // Image Box #3 Item
+                                .img-box-3-item
+                                    .img-box-3-icon.bg-green
+                                        a(href='/produtos?tipo=Parques')
+                                            img.img-responsive(src='/publiciti/img/flat-icons/19.png', alt='')
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    h4
+                                        a(href='/produtos?tipo=Parques') Parques
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .bor.bg-green
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    p
+                                        | Maiores alias consequatur aut perferendis doloribus asperiores repellat earum dolor.
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;
+                    .divider-1
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;
+
+            if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+              // Pagination
+              ul.pagination
+                  if paginate.hasPreviousPages
+                      li
+                        a(href=paginate.href(true)) &laquo;
                       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
 
-            // Pagination
-            ul.pagination
-              li.disabled
-                a(href='#') &laquo;
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li.active
-                a(href='#')
-                  | 1
-                  span.sr-only (current)
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') 2
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') 3
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') 4
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') 5
-              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-              li
-                a(href='#') &raquo;
+                  - var page = 1;
+                  while page <= pageCount
+                      li
+                        a(href=paginate.href({ page: page}))
+                          | #{page++}
+                          span.sr-only (current)
+                      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+
+                  if paginate.hasNextPages(pageCount)
+                      li
+                        a(href=paginate.href()) &raquo;
             // Pagination end
         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
 
@@ -101,7 +172,7 @@ block conteudo
                       h4
                         a(href='#')
                           | #{item.titulo}
-                          span.color.pull-right R$ #{item.valor}
+                          span.color.pull-right.hidden R$ #{item.valor}
                       | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                       .clearfix
                   | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;

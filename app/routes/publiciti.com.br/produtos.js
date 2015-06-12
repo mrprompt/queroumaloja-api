@@ -9,9 +9,6 @@ exports.index = function (req, res) {
     conteudos.site = req.site;
     conteudos.novidades = [];
 
-    var dominio = req.site.dominio;
-    var produto = routes.produto.Produto;
-
     var filter = {
         site: req.site._id
     };
@@ -22,8 +19,7 @@ exports.index = function (req, res) {
         if (req.query.categoria !== undefined) {
             filter.categoria = req.query.categoria;
         }
-    }
-    ;
+    };
 
     async.parallel([
         function (callback) {
@@ -49,19 +45,19 @@ exports.index = function (req, res) {
             );
         },
         function (callback) {
-            routes.produto.Produto.find(
+            routes.produto.Produto.paginate(
                 filter,
-                {},
-                {
-                    limit: LIMITE
-                },
-                function (err, parques) {
+                req.query.page,
+                req.query.limit,
+                function (err, pageCount, items, itemCount) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.produtos = parques;
+                        conteudos.produtos = items;
+                        conteudos.pageCount = pageCount;
+                        conteudos.itemCount = itemCount;
 
-                        callback(null, parques);
+                        callback(null, items);
                     }
                 }
             );
@@ -77,10 +73,6 @@ exports.index = function (req, res) {
         conteudos.novidades.sort(function () {
             return 0.5 - Math.random()
         });
-
-        if (conteudos.produtos.length === 0 || conteudos.produtos === undefined) {
-            conteudos.produtos = conteudos.novidades;
-        }
 
         return res.render(req.site.dominio + '/produtos/index', conteudos)
     });
