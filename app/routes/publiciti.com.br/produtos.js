@@ -5,7 +5,7 @@ var routes = require('../index').routes;
 var conteudos = {};
 var LIMITE = 24;
 
-exports.index = function(req, res) {
+exports.index = function (req, res) {
     conteudos.site = req.site;
     conteudos.novidades = [];
 
@@ -22,7 +22,8 @@ exports.index = function(req, res) {
         if (req.query.categoria !== undefined) {
             filter.categoria = req.query.categoria;
         }
-    };
+    }
+    ;
 
     async.parallel([
         function (callback) {
@@ -38,7 +39,7 @@ exports.index = function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        uniformes.forEach(function(uniforme) {
+                        uniformes.forEach(function (uniforme) {
                             conteudos.novidades.push(uniforme);
                         });
 
@@ -73,7 +74,7 @@ exports.index = function(req, res) {
         }
 
         // randomizando o array final
-        conteudos.novidades.sort(function() {
+        conteudos.novidades.sort(function () {
             return 0.5 - Math.random()
         });
 
@@ -85,25 +86,70 @@ exports.index = function(req, res) {
     });
 };
 
-exports.get = function(req, res) {
+exports.get = function (req, res) {
+    conteudos.site = req.site;
+    conteudos.novidades = [];
+
     var dominio = req.site.dominio;
     var produto = routes.produto.Produto;
-    var conteudos = {
-        site: req.site
+
+    var filter = {
+        site: req.site._id
     };
 
-    produto
-        .findOne({
-            site: req.site._id,
-            _id: req.params.id
-        })
-        .exec(function(err, linhas) {
-            if (err) {
-                console.log(err);
-            } else {
-                conteudos.produto = linhas;
+    if (req.query.tipo !== undefined) {
+        filter.tipo = req.query.tipo;
 
-                res.render(dominio + '/produtos/view', conteudos);
-            }
+        if (req.query.categoria !== undefined) {
+            filter.categoria = req.query.categoria;
+        }
+    };
+
+    async.parallel([
+        function (callback) {
+            routes.produto.Produto.findOne({
+                _id: req.params.id
+            })
+                .exec(function (err, linhas) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.produto = linhas;
+
+                        callback(null, linhas);
+                    }
+                });
+        },
+        function (callback) {
+            routes.produto.Produto.find(
+                filter,
+                {},
+                {
+                    limit: LIMITE
+                },
+                function (err, parques) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.novidades = parques;
+
+                        callback(null, parques);
+                    }
+                }
+            );
+        }
+    ], function (err, results) {
+        if (err) {
+            console.log(err);
+
+            return res.status(500).send('Ocorreu um erro inesperado.');
+        }
+
+        // randomizando o array final
+        conteudos.novidades.sort(function () {
+            return 0.5 - Math.random()
         });
+
+        return res.render(req.site.dominio + '/produtos/view', conteudos)
+    });
 };
