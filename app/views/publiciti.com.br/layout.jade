@@ -332,10 +332,13 @@ html
                                 // Heading
                                 h5.bold
                                     i.fa.fa-user
-                                    | &nbsp;&nbsp;About
+                                    | &nbsp;&nbsp;#{site.nome}
                                 | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                 p
-                                    | Itaque earum rerum hic tenetur a atque atatum dele niti atque tenetur a atque atatum tenetur volup tatum.
+                                    | Temos o objetivo de dar a oportunidade de conhecer os melhores produtos,
+                                    | entre eles livros de diversas editoras, materiais e brinquedos pedagógicos de
+                                    | fábricas conceituadas no mercado, materiais de expediente, papelaria, material
+                                    | esportivo, parques infantis,etc.
                                 | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                 .brand-bg
                                     // Social Media Icons
@@ -365,6 +368,7 @@ html
                                             span.input-group-btn
                                                 button.btn.btn-color(type='button') Subscribe
                         | &#x9;
+
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .col-md-3.col-sm-6
                             // Foot Item
@@ -391,6 +395,7 @@ html
                                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                         li
                                             a(href='#') Denocing Sapientes Contain
+
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .col-md-3.col-sm-6
                             // Foot Item
@@ -398,7 +403,7 @@ html
                                 // Heading
                                 h5.bold
                                     i.fa.fa-picture-o
-                                    | &nbsp;&nbsp;Recent Images
+                                    | &nbsp;&nbsp;Produtos Recentes
                                 // Foot Item Content
                                 .foot-item-content
                                     // Foot Recent Image
@@ -411,26 +416,8 @@ html
                                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                                         a.lightbox(href='/publiciti/img/gallery/small/3.jpg')
                                             img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/3.jpg', alt='')
-                                    // Foot Recent Image
-                                    .foot-recent-img
-                                        a.lightbox(href='/publiciti/img/gallery/small/1.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/1.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/2.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/2.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/3.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/3.jpg', alt='')
-                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                    .foot-recent-img
-                                        a.lightbox(href='/publiciti/img/gallery/small/1.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/1.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/2.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/2.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/3.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/3.jpg', alt='')
+
+
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                         .col-md-3.col-sm-6
                             // Foot Item
@@ -444,23 +431,25 @@ html
                                     // Heading
                                     h6.bold
                                         i.fa.fa-home
-                                        | &nbsp;&nbsp;Publiciti - Distribuidora de Livros e Brinquedos Educativos
+                                        | &nbsp;&nbsp; #{site.nome}
                                     // Paragraph
-                                    p.add
-                                        | Florianópolis, Santa Catarina - Brasil
-                                        br
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; Rua Felipe Neves - 933.
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9; Estreito
-                                    p.tel
-                                        i.fa.fa-phone
-                                        |  Tel : +55 (48) 3248-5414
-                                        br
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        i.fa.fa-envelope
-                                        |   Mail :
-                                        a(href='mailto:contato@publiciti.com.br') contato@publiciti.com.br
+                                    for endereco in site.enderecos
+                                        p.add
+                                            | #{endereco}
+
+                                    p
+                                        for telefone in site.telefones
+                                            i.fa.fa-phone
+                                            |  #{telefone}
                                         br
                                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+
+                                        for email in site.emails
+                                            i.fa.fa-envelope
+                                            a(href='mailto:#{email}') #{email}
+                                            br
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+
                                         i.fa.fa-calendar
                                         |  Atendimento : 9:00 - 18:30
             // Foot Ends
@@ -472,7 +461,7 @@ html
                     // Footer Content
                     // Paragraph
                     p.pull-left
-                        | Copyright &copy; 2015 -
+                        | Copyright &copy; #{new Date().getFullYear()} -
                         a(href='/') Publiciti - Distribuidora de Livros e Brinquedos Educativos
                     | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                     ul.list-inline.pull-right
