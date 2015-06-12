@@ -37,3 +37,22 @@ block conteudo
                       a(href='/produtos/#{produto._id}') #{produto.titulo}
                       .clearfix
                       p Categoria: #{produto.categoria}
+
+            if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+                // Pagination
+                ul.pagination
+                    if paginate.hasPreviousPages
+                        li
+                            a(href=paginate.href(true)) &laquo;
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    - var page = 1;
+                    while page <= pageCount
+                        li
+                            a(href=paginate.href({page: page}))
+                                | #{page++}
+                                span.sr-only (current)
+                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    if paginate.hasNextPages(pageCount)
+                        li
+                            a(href=paginate.href()) &raquo;
+                // Pagination end
