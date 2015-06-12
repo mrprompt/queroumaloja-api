@@ -138,7 +138,7 @@ var Application = function () {
                 failureFlash: false
             }),
             function (req, res) {
-                res.redirect('/rhcloud');
+                res.redirect('/painel');
             });
 
         self.app.put('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.update);
