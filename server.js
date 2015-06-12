@@ -7,21 +7,21 @@ var express = require('express');
 var session = require('express-session')
 var paginate = require('express-paginate');
 var morgan = require('morgan');
-var multer  = require('multer')
+var multer = require('multer')
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser')
 var os = require('os');
+var fs = require('fs');
+var ini = require('ini');
 var path = require('path');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-var usuarioModel = require(__dirname + '/app/models/usuario').Usuario;
-var siteModel = require(__dirname + '/app/models/site').Site;
-var app = require(__dirname + '/app/routes/app');
-var api = require(__dirname + '/app/routes/api');
-var fs = require('fs');
-var ini = require('ini');
+var usuarioModel = require(__dirname + '/src/models/usuario').Usuario;
+var siteModel = require(__dirname + '/src/models/site').Site;
+var app = require(__dirname + '/src/controllers/app');
+var api = require(__dirname + '/src/controllers/api');
 
-global.ini = ini.parse(fs.readFileSync(__dirname + '/app/config/config.ini', 'utf-8'));
+global.ini = ini.parse(fs.readFileSync(__dirname + '/src/config/config.ini', 'utf-8'));
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -126,6 +126,10 @@ var Application = function () {
         /**
          * GET requests
          */
+        self.app.get('/*', function(req, res, next){
+            res.setHeader('Last-Modified', (new Date()).toUTCString());
+            next();
+        });
         self.app.get('/', self.getSite, app.index);
         self.app.get('/logout', app.logout);
         self.app.get('/login', app.login);
@@ -135,10 +139,6 @@ var Application = function () {
         self.app.get('/painel/template/:diretorio/:name', app.template);
         self.app.get('/:modulo', self.getSite, app.list);
         self.app.get('/:modulo/:id', self.getSite, app.get);
-        self.app.get('/*', function(req, res, next){
-            res.setHeader('Last-Modified', (new Date()).toUTCString());
-            next();
-        });
 
         /**
          * POST requests
@@ -172,19 +172,14 @@ var Application = function () {
 
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
-        self.app.set('views', __dirname + '/app/views');
+        self.app.set('views', __dirname + '/src/views');
         self.app.set('view engine', 'jade');
 
         self.app.use(multer({ dest: os.tmpdir() }));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
-        self.app.use(session({
-            secret: 'aicaramba',
-            name: 'publiciti',
-            resave: true,
-            saveUninitialized: true
-        }));
+        self.app.use(session({ secret: 'aicaramba', name: 'publiciti', resave: true, saveUninitialized: true }));
         self.app.use(passport.initialize());
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
