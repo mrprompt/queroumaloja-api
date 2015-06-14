@@ -23,6 +23,18 @@ exports.index = function (req, res) {
 
     async.parallel([
         function (callback) {
+            routes.carrinho.list(req, res, function (err, carrinhos) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.carrinho = carrinhos;
+
+                        callback(null, carrinhos);
+                    }
+                }
+            );
+        },
+        function (callback) {
             routes.produto.Produto.findRandom(
                 {
                     site: req.site._id
@@ -99,6 +111,18 @@ exports.get = function (req, res) {
 
     async.parallel([
         function (callback) {
+            routes.carrinho.list(req, res, function (err, carrinhos) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        conteudos.carrinho = carrinhos;
+
+                        callback(null, carrinhos);
+                    }
+                }
+            );
+        },
+        function (callback) {
             routes.produto.Produto.findOne({
                 _id: req.params.id
             })
@@ -119,13 +143,13 @@ exports.get = function (req, res) {
                 {
                     limit: LIMITE
                 },
-                function (err, parques) {
+                function (err, linhas) {
                     if (err) {
                         console.log(err);
                     } else {
-                        conteudos.novidades = parques;
+                        conteudos.novidades = linhas;
 
-                        callback(null, parques);
+                        callback(null, linhas);
                     }
                 }
             );

@@ -52,7 +52,8 @@ html
                         |  &nbsp; &nbsp;
                         // Phone
                         i.fa.fa-phone.color
-                        |  &nbsp; (48) 3248-5414
+                        |  &nbsp;
+                        a(href='tel:00554832485414') (48) 3248-5414
                     // Contact ends
 
                     // Shopping kart starts
@@ -63,46 +64,35 @@ html
                             | &nbsp;
                             i.fa.fa-angle-down.color
                             | &nbsp;
-                            span.badge.badge-color 5
+                            span.badge.badge-color #{carrinho !== undefined ? carrinho.items.length : 0}
                         // Dropdown content with item details
                         .b-dropdown-block
                             // Heading
                             h4
                                 i.fa.fa-shopping-cart.color
-                                |  Your Items
+                                |  Seu carrinho
                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
                             ul.list-unstyled
-                                // Item 1
-                                li
-                                    // Item image
-                                    .cart-img
-                                        a(href='#')
-                                            img.img-responsive(src='/publiciti/img/ecommerce/view-cart/1.png', alt='')
-                                    // Item heading and price
-                                    .cart-title
-                                        h5
-                                            a(href='#') Samsamgun galaxy some thing about.
-                                        // Item price
-                                        span.label.label-color.label-sm $1,900
-                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                    .clearfix
-                                // Item 2
-                                li
-                                    .cart-img
-                                        a(href='#')
-                                            img.img-responsive(src='/publiciti/img/ecommerce/view-cart/2.png', alt='')
-                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                    .cart-title
-                                        h5
-                                            a(href='#') Samsamgun galaxy some thing about.
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        span.label.label-color.label-sm $1,900
-                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                    .clearfix
+                                if (carrinho !== undefined)
+                                    for item in carrinho.items
+                                        // Item
+                                        li
+                                            // Item image
+                                            .cart-img
+                                                a(href='/produtos/#{item.produto._id}')
+                                                    img.img-responsive(src='#{item.produto.imagem.url}', alt='')
+                                            // Item heading and price
+                                            .cart-title
+                                                h5
+                                                    a(href='/produtos/#{item.produto._id}') #{item.produto.titulo}
+                                                // Item price
+                                                span.label.label-color.label-sm R$ #{item.produto.valor}
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            .clearfix
                             | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                            a.btn.btn-white.btn-sm(href='#') View Cart
+                            a.btn.btn-white.btn-sm(href='/carrinho') Meu Carrinho
                             |  &nbsp;
-                            a.btn.btn-color.btn-sm(href='#') Checkout
+                            a.btn.btn-color.btn-sm(href='/pagamento') Pagar
                     // Shopping kart ends
 
                     // Search section for responsive design
@@ -400,22 +390,20 @@ html
                         .col-md-3.col-sm-6
                             // Foot Item
                             .foot-item
-                                // Heading
-                                h5.bold
-                                    i.fa.fa-picture-o
-                                    | &nbsp;&nbsp;Produtos Recentes
-                                // Foot Item Content
-                                .foot-item-content
-                                    // Foot Recent Image
-                                    .foot-recent-img
-                                        a.lightbox(href='/publiciti/img/gallery/small/1.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/1.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/2.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/2.jpg', alt='')
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
-                                        a.lightbox(href='/publiciti/img/gallery/small/3.jpg')
-                                            img.img-responsive.img-thumbnail(src='/publiciti/img/gallery/small/3.jpg', alt='')
+                                if (novidades !== null)
+                                    // Heading
+                                    h5.bold
+                                        i.fa.fa-picture-o
+                                        | &nbsp;&nbsp;Produtos Recentes
+                                    // Foot Item Content
+                                    .foot-item-content
+                                        // Foot Recent Image
+                                        .foot-recent-img
+                                            for produto in novidades.slice(-13, -1)
+                                                if (produto.imagem !== undefined)
+                                                    a.lightbox(href='#{produto.imagem.url}')
+                                                        img.img-responsive.img-thumbnail(src='#{produto.imagem.url}', alt='')
+                                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
 
 
                         | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
@@ -440,9 +428,9 @@ html
                                     p
                                         for telefone in site.telefones
                                             i.fa.fa-phone
-                                            |  #{telefone}
-                                        br
-                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            a(href='tel:0055#{telefone.replace(/[^0-9]/g, "")}') #{telefone}
+                                            br
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
 
                                         for email in site.emails
                                             i.fa.fa-envelope
@@ -485,6 +473,7 @@ html
         span.totop
             a(href='#')
                 i.fa.fa-angle-up.bg-color
+
 
         // Javascript files
         // jQuery

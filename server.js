@@ -3,8 +3,6 @@
  * @author Thiago Paes <mrprompt@gmail.com>
  * @type {*|exports|module.exports}
  */
-process.env.PWD = process.cwd()
-
 var express = require('express');
 var session = require('express-session')
 var paginate = require('express-paginate');
@@ -16,38 +14,41 @@ var os = require('os');
 var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
-var jumanji = require('jumanji');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-var usuarioModel = require(__dirname + '/src/models/usuario').Usuario;
-var siteModel = require(__dirname + '/src/models/site').Site;
+var user = require(__dirname + '/src/models/usuario');
+var site = require(__dirname + '/src/models/site');
 var app = require(__dirname + '/src/controllers/app');
 var api = require(__dirname + '/src/controllers/api');
 
 global.ini = ini.parse(fs.readFileSync(__dirname + '/src/config/config.ini', 'utf-8'));
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
+passport.serializeUser(function (usr, result) {
+    done(null, result._id);
 });
 
 passport.deserializeUser(function (id, done) {
-    usuarioModel.findById(id, function (err, user) {
-        done(err, user);
+    user.findById(id, function (err, result) {
+        done(err, result);
     });
 });
 
 passport.use(new localStrategy(
     function (username, password, done) {
-        usuarioModel.findOne({
-            email: username,
-            password: password
-        }, function (err, user) {
-            if (err) {
-                return done(err);
+        var req = {
+            params: {
+                body: {
+                    username: username,
+                    password: password
+                }
             }
+        };
 
-            return done(null, user);
-        });
+        var res = {
+
+        };
+
+        user.auth(req, res, done);
     }
 ));
 
@@ -93,25 +94,6 @@ var Application = function () {
     };
 
     /**
-     * Find active site by url
-     */
-    self.getSite = function (req, res, next) {
-        var dominio = req.headers.host.substr((req.headers.host.indexOf('.') + 1)).replace(/.[0-9]{2,4}$/, '');
-
-        siteModel.findOne({
-            dominio: dominio
-        }, function (err, site) {
-            if (err) {
-                res.status(404).send('Domínio ' + dominio + ' não cadastrado');
-            }
-
-            req.site = site;
-
-            next();
-        });
-    };
-
-    /**
      * Check if the user is authenticated
      */
     self.ensureAuthenticated = function (req, res, next) {
@@ -129,21 +111,21 @@ var Application = function () {
         /**
          * GET requests
          */
-        self.app.get('/', self.getSite, app.index);
+        self.app.get('/', site.findByDomain, app.index);
         self.app.get('/logout', app.logout);
         self.app.get('/login', app.login);
-        self.app.get('/api/:modulo', self.getSite, api.list);
-        self.app.get('/api/:modulo/:id', self.getSite, api.get);
-        self.app.get('/painel', self.ensureAuthenticated, self.getSite, app.panel);
+        self.app.get('/api/:modulo', site.findByDomain, api.list);
+        self.app.get('/api/:modulo/:id', site.findByDomain, api.get);
+        self.app.get('/painel', self.ensureAuthenticated, site.findByDomain, app.panel);
         self.app.get('/painel/template/:diretorio/:name', app.template);
-        self.app.get('/:modulo', self.getSite, app.list);
-        self.app.get('/:modulo/:id', self.getSite, app.get);
+        self.app.get('/:modulo', site.findByDomain, app.list);
+        self.app.get('/:modulo/:id', site.findByDomain, app.get);
 
         /**
          * POST requests
          */
-        self.app.post('/api/upload', self.getSite, api.upload);
-        self.app.post('/api/:modulo', self.ensureAuthenticated, self.getSite, api.create);
+        self.app.post('/api/upload', site.findByDomain, api.upload);
+        self.app.post('/api/:modulo', self.ensureAuthenticated, site.findByDomain, api.create);
         self.app.post('/login', passport.authenticate('local', {
                 failureRedirect: '/login',
                 failureFlash: false
@@ -155,12 +137,12 @@ var Application = function () {
         /**
          * PUT requests
          */
-        self.app.put('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.update);
+        self.app.put('/api/:modulo/:id', self.ensureAuthenticated, site.findByDomain, api.update);
 
         /**
          * DELETE requests
          */
-        self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, self.getSite, api.delete);
+        self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, site.findByDomain, api.delete);
     };
 
     /**
@@ -180,9 +162,11 @@ var Application = function () {
             res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match");
             res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin");
             res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+
             next();
         });
 
+        self.app.use(express.static('public'));
         self.app.use(multer({ dest: os.tmpdir() }));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
@@ -192,8 +176,6 @@ var Application = function () {
         self.app.use(passport.session());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
-        self.app.use(jumanji);
-        self.app.use(express.static(process.env.PWD + '/public'));
 
         self.createRoutes();
     };

@@ -44,6 +44,6 @@ exports.index = function (req, res) {
             return 0.5 - Math.random()
         });
 
-        return res.render(req.site.dominio + '/empresa/index', conteudos)
+        return res.render(req.site.dominio + '/carrinho/index', conteudos)
     });
 };

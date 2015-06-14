@@ -27,3 +27,28 @@ UsuarioSchema.plugin(pagination);
 var Usuario = mongoose.model('Usuario', UsuarioSchema);
 
 exports.Usuario = Usuario;
+
+exports.auth = function(req, res, callback) {
+    Usuario.find({
+        email: req.params.body.username,
+        password: req.params.body.password
+    }, function (err, user) {
+        if (err || user === null) {
+            return callback(null);
+        }
+
+        return callback(user._id);
+    });
+};
+
+exports.findById = function(req, res, callback) {
+    Usuario.find({
+        _id: req.params.body.id
+    }, function (err, user) {
+        if (err) {
+            return callback(err);
+        }
+
+        return user;
+    });
+};

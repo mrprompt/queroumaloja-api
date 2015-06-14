@@ -33,4 +33,7 @@ exports.routes = {
 
     produtos: require('../models/produto'),
     produto: require('../models/produto'),
+
+    carrinhos: require('../models/carrinho'),
+    carrinho: require('../models/carrinho'),
 };

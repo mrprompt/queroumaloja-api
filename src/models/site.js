@@ -66,3 +66,19 @@ exports.update = function(req, res, callback) {
         callback(err, data);
     });
 };
+
+exports.findByDomain = function(req, res, callback) {
+    var dominio = req.headers.host.substr((req.headers.host.indexOf('.') + 1)).replace(/.[0-9]{2,4}$/, '');
+
+    Site.findOne({
+        dominio: dominio
+    }, function (err, site) {
+        if (err) {
+            return res.status(404).send('Domínio ' + dominio + ' não cadastrado');
+        }
+
+        req.site = site;
+
+        callback();
+    });
+}

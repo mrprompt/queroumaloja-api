@@ -1,6 +1,8 @@
 'use strict';
 
 var routes = require('./index').routes;
+var fs = require('fs');
+var ini = require('ini').parse(fs.readFileSync(__dirname + '/../config/config.ini', 'utf-8'));
 var cloudinary = require('cloudinary').v2;
 
 exports.list = function(req, res) {
@@ -25,7 +27,7 @@ exports.get = function(req, res) {
     var route = eval('routes.' + modulo);
 
     if (route == undefined) {
-        return res.status(404).send('Módulo não encontrado: ', route);
+        return res.status(404).send('Módulo não encontrado: ');
     }
 
     (route).get(req, res, function(err, rows) {
