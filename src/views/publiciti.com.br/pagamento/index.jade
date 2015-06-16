@@ -1,0 +1,396 @@
+extends ../layout
+
+block conteudo
+    // Page heading two starts
+    .page-heading-two
+        .container
+            h2
+                | Checkout
+                span Something goes here
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .breads
+                | Home /
+                a(href='#') Page
+                |  /
+                a(href='#') Sub Page
+            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+            .clearfix
+    // Page heading two ends
+    .container
+        // Actual content
+        .ecommerce
+            .row
+                .col-md-9.col-sm-8
+                    // Shopping items content
+                    .shopping-content
+                        .shopping-checkout
+                            // Heading
+                            h4 Shipping &amp; Billing Details
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            hr
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            form.form-horizontal(role='form')
+                                .form-group
+                                    label.col-md-2.control-label(for='inputName') Name
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        input#inputName.form-control(type='text', placeholder='Name')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputEmail1') Email
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        input#inputEmail1.form-control(type='email', placeholder='Email')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputPhone') Phone Number
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        input#inputPhone.form-control(type='text', placeholder='Phone')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputCountry') Country
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        select#inputCountry.form-control
+                                            option Select Country
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option USA
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option India
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option Canada
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option UK
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputAddress') Address
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        textarea#inputAddress.form-control(rows='3', placeholder='Address')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputZip') Zip Code
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        input#inputZip.form-control(type='text', placeholder='Zip Code')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                hr
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                h4 Payment Details
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                hr
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputPayment') Payment Method
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        select#inputPayment.form-control
+                                            option(selected='') Credit Card
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option Debit Card
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option Internet Banking
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option Check
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='inputFName') Full Name
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-5
+                                        input#inputFName.form-control(type='text', placeholder='Card Holder Name')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='cardNum') Card Number
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .clearfix.visible-sm.visible-xs
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-3.col-sm-8.col-xs-8
+                                        input#cardNum.form-control(type='text', placeholder='Card Number')
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-2.col-sm-4.col-xs-4
+                                        input#cardNum1.form-control(type='text', placeholder='CCV')
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    label.col-md-2.control-label(for='Date') Expire Date
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .clearfix.visible-sm.visible-xs
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-2.col-sm-4.col-xs-4
+                                        select#Date.form-control
+                                            option(selected='') MM
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option JAN
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option FEB
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option MAR
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option APR
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option MAY
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option JUN
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option JUL
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option AUG
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option SEP
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option OCT
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option NOV
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option DEC
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    .col-md-3.col-sm-8.col-xs-8
+                                        select#Date1.form-control
+                                            option(selected='') YYYY
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2014
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2015
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2016
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2017
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2018
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2019
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2020
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2021
+                                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                            option 2022
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                hr
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .form-group
+                                    .col-md-offset-2.col-md-6
+                                        button.btn.btn-color(type='submit') Confirm Order
+                                        | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                        button.btn.btn-default(type='reset') Reset
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    br
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .col-md-3.col-sm-4
+                    // Shopping Sidebar
+                    .sidebar
+                        // Heading
+                        h2 Navigation
+                        // Sidebar Menu
+                        ul.account-nav
+                            li
+                                a(href='ecommerce-account.html') My Account
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='ecommerce-edit-profile.html') Edit Profile
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='ecommerce-order-history.html') Order History
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            li
+                                a(href='ecommerce-wish-list.html') Wish List
+                        // Sidebar Widget
+                        .s-widget
+                            h3
+                                i.fa.fa-fire.color
+                                |  Hot Selling
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='img/ecommerce/items/4.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 HTC Hi-Tech
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                // Price
+                                span.sw-price $49
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='img/ecommerce/items/5.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 Motorola GSD
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star-half-o.yellow
+                                // Price
+                                span.sw-price $99
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+                            // Widget Content
+                            .sw-content
+                                // Image
+                                a(href='#')
+                                    img.img-responsive(src='img/ecommerce/items/6.png', alt='')
+                                // Heading
+                                a(href='#')
+                                    h4 Samsung G60
+                                // Stars
+                                span.star
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                    i.fa.fa-star.yellow
+                                // Price
+                                span.sw-price $120
+                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                .clearfix
+            // Recent items Starts
+            .recent-items
+                // Block heading two
+                .block-heading-two
+                    h3
+                        span Recent Items
+                // Owl carousel block starts
+                // Change values of data-items, data-auto-play, data-pagination & data-single-item based on your needs
+                .owl-carousel(data-items='5', data-auto-play='true', data-pagination='true', data-single-item='false')
+                    // Carousel item
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/1.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Motorola G
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/2.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Google Nexus 7
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/3.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Samsung Galaxy
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/4.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Lenovo Phonepad
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/5.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Asus Ideapad
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/6.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Micromax Canvas
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/7.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Sony Xperia Pro
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/8.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Apple iPhone 5S
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/9.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Galaxy Tab 2
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .owl-content
+                        .padd-15
+                            a(href='#')
+                                img.img-responsive(src='img/ecommerce/items/10.png', alt='')
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            h4
+                                a(href='#')
+                                    | Karboon Tab
+                                    span.color.pull-right $25
+                            | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                            .clearfix
+                // Owl carousel block ends
+            // Recent items Ends
