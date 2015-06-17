@@ -18,8 +18,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var user = require(__dirname + '/src/models/usuario');
 var site = require(__dirname + '/src/models/site');
-var app = require(__dirname + '/src/controllers/app');
-var api = require(__dirname + '/src/controllers/api');
+var api = require(__dirname + '/src/controllers');
 
 global.ini = ini.parse(fs.readFileSync(__dirname + '/src/config/config.ini', 'utf-8'));
 
@@ -111,27 +110,20 @@ var Application = function () {
         /**
          * GET requests
          */
-        self.app.get('/', site.findByDomain, app.index);
-        self.app.get('/logout', app.logout);
-        self.app.get('/login', app.login);
         self.app.get('/api/:modulo', site.findByDomain, api.list);
         self.app.get('/api/:modulo/:id', site.findByDomain, api.get);
-        self.app.get('/painel', self.ensureAuthenticated, site.findByDomain, app.panel);
-        self.app.get('/painel/template/:diretorio/:name', app.template);
-        self.app.get('/:modulo', site.findByDomain, app.list);
-        self.app.get('/:modulo/:id', site.findByDomain, app.get);
 
         /**
          * POST requests
          */
         self.app.post('/api/upload', site.findByDomain, api.upload);
         self.app.post('/api/:modulo', self.ensureAuthenticated, site.findByDomain, api.create);
-        self.app.post('/login', passport.authenticate('local', {
-                failureRedirect: '/login',
+        self.app.post('/api/login', passport.authenticate('local', {
+                failureRedirect: '/api/login',
                 failureFlash: false
             }),
             function (req, res) {
-                res.redirect('/painel');
+                res.redirect('/api/site');
             });
 
         /**
@@ -153,8 +145,6 @@ var Application = function () {
 
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
-        self.app.set('views', __dirname + '/src/views');
-        self.app.set('view engine', 'jade');
 
         // first, enable CORS
         self.app.use(function(req, res, next) {
@@ -166,7 +156,6 @@ var Application = function () {
             next();
         });
 
-        self.app.use(express.static('public'));
         self.app.use(multer({ dest: os.tmpdir() }));
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
