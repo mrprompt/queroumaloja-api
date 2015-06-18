@@ -65,8 +65,6 @@ CurriculoSchema.plugin(pagination);
 
 var Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 
-exports.Curriculo = Curriculo;
-
 exports.list = function(req, res, callback) {
     Curriculo
         .find({

@@ -34,8 +34,6 @@ ContatoSchema.plugin(pagination);
 
 var Contato = mongoose.model('Contato', ContatoSchema);
 
-exports.Contato = Contato;
-
 exports.list = function(req, res, callback) {
     Contato
         .find({

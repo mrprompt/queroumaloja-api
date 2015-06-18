@@ -38,8 +38,6 @@ ClienteSchema.plugin(pagination);
 
 var Cliente = mongoose.model('Cliente', ClienteSchema);
 
-exports.Cliente = Cliente;
-
 exports.list = function(req, res, callback) {
     Cliente
         .find({

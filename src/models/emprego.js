@@ -34,8 +34,6 @@ EmpregoSchema.plugin(pagination);
 
 var Emprego = mongoose.model('Emprego', EmpregoSchema);
 
-exports.Emprego = Emprego;
-
 exports.list = function(req, res, callback) {
     Emprego
         .find({

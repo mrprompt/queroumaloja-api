@@ -42,8 +42,6 @@ CarrinhoSchema.plugin(pagination);
 
 var Carrinho = mongoose.model('Carrinho', CarrinhoSchema);
 
-exports.Carrinho = Carrinho;
-
 exports.list = function(req, res, callback) {
     Carrinho
         .findOne({

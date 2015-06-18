@@ -32,8 +32,6 @@ EquipeSchema.plugin(pagination);
 
 var Equipe = mongoose.model('Equipe', EquipeSchema);
 
-exports.Equipe = Equipe;
-
 exports.list = function(req, res, callback) {
     Equipe
         .find({

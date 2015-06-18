@@ -26,8 +26,6 @@ UsuarioSchema.plugin(pagination);
 
 var Usuario = mongoose.model('Usuario', UsuarioSchema);
 
-exports.Usuario = Usuario;
-
 exports.auth = function(req, res, callback) {
     Usuario.find({
         email: req.params.body.username,

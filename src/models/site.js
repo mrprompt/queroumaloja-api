@@ -37,8 +37,6 @@ SiteSchema.plugin(pagination);
 
 var Site = mongoose.model('Site', SiteSchema);
 
-exports.Site = Site;
-
 exports.get = function(req, res, callback) {
     Site
         .findOne({

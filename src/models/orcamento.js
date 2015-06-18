@@ -67,8 +67,6 @@ var OrcamentoSchema = new Schema({
 
 var Orcamento = mongoose.model('Orcamento', OrcamentoSchema);
 
-exports.Orcamento = Orcamento;
-
 exports.list = function(req, res, callback) {
     Orcamento
         .find({

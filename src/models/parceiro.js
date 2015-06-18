@@ -32,8 +32,6 @@ ParceiroSchema.plugin(pagination);
 
 var Parceiro = mongoose.model('Parceiro', ParceiroSchema);
 
-exports.Parceiro = Parceiro;
-
 exports.list = function(req, res, callback) {
     Parceiro
         .find({

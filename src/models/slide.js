@@ -33,8 +33,6 @@ SlideSchema.plugin(pagination);
 
 var Slide = mongoose.model('Slide', SlideSchema);
 
-exports.Slide = Slide;
-
 exports.list = function(req, res, callback) {
     Slide
         .find({

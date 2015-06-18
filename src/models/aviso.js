@@ -38,8 +38,6 @@ AvisoSchema.plugin(pagination);
 
 var Aviso = mongoose.model('Aviso', AvisoSchema);
 
-exports.Aviso = Aviso;
-
 exports.list = function(req, res, callback) {
     Aviso
         .find({

@@ -49,8 +49,6 @@ ProdutoSchema.plugin(pagination);
 
 var Produto = mongoose.model('Produto', ProdutoSchema);
 
-exports.Produto = Produto;
-
 exports.list = function(req, res, callback) {
     var filter = {
         site: req.headers.authentication
