@@ -4,7 +4,6 @@
  * @type {*|exports|module.exports}
  */
 var express = require('express');
-var session = require('express-session')
 var paginate = require('express-paginate');
 var morgan = require('morgan');
 var multer = require('multer')
@@ -120,7 +119,6 @@ var Application = function () {
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
-        self.app.use(session({ secret: '9346ddlddld633205kdcc72lf', name: 'grupo-publiciti', resave: true, saveUninitialized: true }));
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
 
