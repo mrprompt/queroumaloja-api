@@ -110,31 +110,24 @@ var Application = function () {
         /**
          * GET requests
          */
-        self.app.get('/api/:modulo', site.findByDomain, api.list);
-        self.app.get('/api/:modulo/:id', site.findByDomain, api.get);
+        self.app.get('/api/:modulo', api.list);
+        self.app.get('/api/:modulo/:id', api.get);
 
         /**
          * POST requests
          */
-        self.app.post('/api/upload', site.findByDomain, api.upload);
-        self.app.post('/api/:modulo', self.ensureAuthenticated, site.findByDomain, api.create);
-        self.app.post('/api/login', passport.authenticate('local', {
-                failureRedirect: '/api/login',
-                failureFlash: false
-            }),
-            function (req, res) {
-                res.redirect('/api/site');
-            });
+        self.app.post('/api/upload', api.upload);
+        self.app.post('/api/:modulo', api.create);
 
         /**
          * PUT requests
          */
-        self.app.put('/api/:modulo/:id', self.ensureAuthenticated, site.findByDomain, api.update);
+        self.app.put('/api/:modulo/:id', api.update);
 
         /**
          * DELETE requests
          */
-        self.app.delete('/api/:modulo/:id', self.ensureAuthenticated, site.findByDomain, api.delete);
+        self.app.delete('/api/:modulo/:id', api.delete);
     };
 
     /**

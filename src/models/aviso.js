@@ -43,7 +43,7 @@ exports.Aviso = Aviso;
 exports.list = function(req, res, callback) {
     Aviso
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .sort({
             cadastro: -1
@@ -59,7 +59,7 @@ exports.get = function(req, res, callback) {
     Aviso
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -82,7 +82,7 @@ exports.create = function(req, res, callback) {
         tipo: data.tipo,
         inicio: inicio,
         fim: fim,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var aviso = new Aviso(dados);
@@ -116,7 +116,7 @@ exports.update = function(req, res, callback) {
 
     Aviso.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -127,7 +127,7 @@ exports.delete = function(req, res, callback) {
 
     Aviso.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

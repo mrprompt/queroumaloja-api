@@ -43,7 +43,7 @@ exports.Cliente = Cliente;
 exports.list = function(req, res, callback) {
     Cliente
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -56,7 +56,7 @@ exports.get = function(req, res, callback) {
     Cliente
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, products) {
             callback(err, data);
@@ -72,7 +72,7 @@ exports.create = function(req, res, callback) {
         atuacao: data.atuacao,
         descricao: data.descricao,
         cadastro: data.cadastro,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var cliente = new Cliente(dados);
@@ -87,7 +87,7 @@ exports.update = function(req, res, callback) {
 
     Cliente.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, data, function(err, data) {
         callback(err, data);
     });
@@ -98,7 +98,7 @@ exports.delete = function(req, res, callback) {
 
     Cliente.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

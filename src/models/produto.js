@@ -53,7 +53,7 @@ exports.Produto = Produto;
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     if (req.query.tipo !== undefined) {
@@ -70,7 +70,7 @@ exports.list = function(req, res, callback) {
             cadastro: -1
         })
         .exec(function(err, data) {
-            callback(err, data);
+            return callback(err, data);
         });
 };
 
@@ -80,10 +80,10 @@ exports.get = function(req, res, callback) {
     Produto
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
-            callback(err, data);
+            return callback(err, data);
         });
 };
 
@@ -93,7 +93,7 @@ exports.create = function(req, res, callback) {
         titulo: data.titulo,
         descricao: data.descricao,
         imagem: JSON.parse(data.imagem),
-        site: req.site._id,
+        site: req.headers.authentication,
         codigo: data.codigo,
         tipo: data.tipo,
         categoria: data.categoria,
@@ -102,7 +102,7 @@ exports.create = function(req, res, callback) {
 
     var produto = new Produto(dados);
         produto.save(function(err, data) {
-            callback(err, data);
+            return callback(err, data);
         });
 };
 
@@ -124,9 +124,9 @@ exports.update = function(req, res, callback) {
 
     Produto.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, dados, function(err, data) {
-        callback(err, data);
+        return callback(err, data);
     });
 };
 
@@ -135,8 +135,8 @@ exports.delete = function(req, res, callback) {
 
     Produto.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
-        callback(err, data);
+        return callback(err, data);
     });
 };

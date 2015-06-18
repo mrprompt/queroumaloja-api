@@ -52,3 +52,11 @@ alias grep='grep --color=auto -in'
 alias ..='cd ..'
 
 source /usr/local/rvm/scripts/rvm
+
+export OPENSHIFT_MONGODB_DB_USERNAME="admin"
+export OPENSHIFT_MONGODB_DB_PASSWORD="q25er9zBvGun"
+export OPENSHIFT_MONGODB_DB_HOST="127.0.0.1"
+export OPENSHIFT_MONGODB_DB_PORT="27018"
+export OPENSHIFT_APP_NAME="grupo"
+export OPENSHIFT_NODEJS_IP="0.0.0.0"
+export OPENSHIFT_NODEJS_PORT="3000"

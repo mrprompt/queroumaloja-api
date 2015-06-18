@@ -42,7 +42,7 @@ exports.Site = Site;
 exports.get = function(req, res, callback) {
     Site
         .findOne({
-            _id: req.site._id
+            _id: req.params.id
         })
         .exec(function(err, data) {
             callback(err, data);

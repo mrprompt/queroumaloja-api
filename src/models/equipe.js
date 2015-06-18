@@ -37,7 +37,7 @@ exports.Equipe = Equipe;
 exports.list = function(req, res, callback) {
     Equipe
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -50,7 +50,7 @@ exports.get = function(req, res, callback) {
     Equipe
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -65,7 +65,7 @@ exports.create = function(req, res, callback) {
         cargo: data.cargo,
         email: data.email,
         imagem: data.imagem,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var membro = new Equipe(dados);
@@ -83,7 +83,7 @@ exports.update = function(req, res, callback) {
         nome: data.nome,
         cargo: data.cargo,
         email: data.email,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     if (data.imagem) {
@@ -102,7 +102,7 @@ exports.delete = function(req, res, callback) {
 
     Equipe.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

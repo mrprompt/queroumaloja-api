@@ -70,7 +70,7 @@ exports.Curriculo = Curriculo;
 exports.list = function(req, res, callback) {
     Curriculo
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .sort({
             cadastro: -1
@@ -86,7 +86,7 @@ exports.get = function(req, res, callback) {
     Curriculo
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -110,7 +110,7 @@ exports.create = function(req, res, callback) {
         observacao: data.observacao,
         cadastro: data.cadastro,
         arquivo: JSON.parse(data.arquivo),
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var curriculo = new Curriculo(dados);
@@ -125,7 +125,7 @@ exports.update = function(req, res, callback) {
 
     Curriculo.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -136,7 +136,7 @@ exports.delete = function(req, res, callback) {
 
     Curriculo.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

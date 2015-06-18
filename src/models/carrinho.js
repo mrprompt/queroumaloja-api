@@ -47,7 +47,7 @@ exports.Carrinho = Carrinho;
 exports.list = function(req, res, callback) {
     Carrinho
         .findOne({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .sort({
             cadastro: -1
@@ -65,7 +65,7 @@ exports.get = function(req, res, callback) {
     Carrinho
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .populate('items.produto')
         .populate('usuario')
@@ -82,7 +82,7 @@ exports.create = function(req, res, callback) {
     var data =  {
         titulo: req.body.titulo,
         cadastro: (new Date),
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var carrinho = new Carrinho(data);
@@ -123,7 +123,7 @@ exports.delete = function(req, res, callback) {
 
     Carrinho.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

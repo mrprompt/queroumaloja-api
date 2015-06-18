@@ -37,7 +37,7 @@ exports.Parceiro = Parceiro;
 exports.list = function(req, res, callback) {
     Parceiro
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -50,7 +50,7 @@ exports.get = function(req, res, callback) {
     Parceiro
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -66,7 +66,7 @@ exports.create = function(req, res, callback) {
         url: data.url,
         atuacao: data.atuacao,
         cadastro: data.cadastro,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var parceiro = new Parceiro(dados);
@@ -83,7 +83,7 @@ exports.update = function(req, res, callback) {
         url: data.url,
         atuacao: data.atuacao,
         cadastro: data.cadastro,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     if (data.imagem) {
@@ -92,7 +92,7 @@ exports.update = function(req, res, callback) {
 
     Parceiro.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -103,7 +103,7 @@ exports.delete = function(req, res, callback) {
 
     Parceiro.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

@@ -72,7 +72,7 @@ exports.Orcamento = Orcamento;
 exports.list = function(req, res, callback) {
     Orcamento
         .find({
-            site: req.site._id
+            site: req.headers.authentication
         })
         .populate('servico')
         .exec(function(err, data) {
@@ -86,7 +86,7 @@ exports.get = function(req, res, callback) {
     Orcamento
         .findOne({
             _id: id,
-            site: req.site._id
+            site: req.headers.authentication
         })
         .populate('servico')
         .exec(function(err, data) {
@@ -112,7 +112,7 @@ exports.create = function(req, res, callback) {
         estado: data.estado,
         detalhes: data.detalhes,
         cadastro: data.cadastro,
-        site: req.site._id
+        site: req.headers.authentication
     };
 
     var orcamento = new Orcamento(dados);
@@ -126,7 +126,7 @@ exports.update = function(req, res, callback) {
 
     Orcamento.update({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, req.body, function(err, data) {
         callback(err, data);
     });
@@ -137,7 +137,7 @@ exports.delete = function(req, res, callback) {
 
     Orcamento.remove({
         _id: id,
-        site: req.site._id
+        site: req.headers.authentication
     }, function(err, data) {
         callback(err, data);
     });

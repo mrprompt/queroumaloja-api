@@ -3,7 +3,7 @@ vagrantfile:
     vm:
         box: puphpet/ubuntu1404-x64
         box_url: puphpet/ubuntu1404-x64
-        hostname: vm.publiciti
+        hostname: local.api.publiciti.com.br
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
@@ -77,7 +77,7 @@ users_groups:
     groups: {  }
     users: {  }
 firewall:
-    install: '1'
+    install: '0'
     rules: {  }
 cron:
     install: '1'
@@ -148,14 +148,10 @@ apache:
         - rewrite
     vhosts:
         av_6k103v7eugfv:
-            servername: publiciti.com.br
+            servername: awesome.dev
             serveraliases:
-                - local.publiciti.com.br
-                - local.librinke.com.br
-                - local.nxtchallenger.com.br
-                - local.editoranxt.com.br
-                - local.projetocultural.esp.br
-            docroot: /var/www/public
+                - www.awesome.dev
+            docroot: /var/www/awesome
             port: '80'
             setenv:
                 - 'APP_ENV dev'
@@ -248,14 +244,22 @@ drush:
     version: 6.3.0
 ruby:
     install: '1'
-    versions: {  }
+    versions:
+        hRDoJFjOLzkH:
+            default: '1'
+            version: 1.9.3
+            gems:
+                - rhc
+            bundler: '1'
 python:
     install: '1'
     packages: {  }
     versions: {  }
 nodejs:
     install: '1'
-    npm_packages: {  }
+    npm_packages:
+        - nodemon
+        - forever
 hhvm:
     install: '0'
     nightly: 0
