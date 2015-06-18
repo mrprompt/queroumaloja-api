@@ -14,42 +14,9 @@ var os = require('os');
 var fs = require('fs');
 var ini = require('ini');
 var path = require('path');
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
-var user = require(__dirname + '/src/models/usuario');
-var site = require(__dirname + '/src/models/site');
 var api = require(__dirname + '/src/controllers');
 
 global.ini = ini.parse(fs.readFileSync(__dirname + '/src/config/config.ini', 'utf-8'));
-
-passport.serializeUser(function (usr, result) {
-    done(null, result._id);
-});
-
-passport.deserializeUser(function (id, done) {
-    user.findById(id, function (err, result) {
-        done(err, result);
-    });
-});
-
-passport.use(new localStrategy(
-    function (username, password, done) {
-        var req = {
-            params: {
-                body: {
-                    username: username,
-                    password: password
-                }
-            }
-        };
-
-        var res = {
-
-        };
-
-        user.auth(req, res, done);
-    }
-));
 
 /**
  *  Define the application.
@@ -110,24 +77,24 @@ var Application = function () {
         /**
          * GET requests
          */
-        self.app.get('/api/:modulo', api.list);
-        self.app.get('/api/:modulo/:id', api.get);
+        self.app.get('/:modulo', api.list);
+        self.app.get('/:modulo/:id', api.get);
 
         /**
          * POST requests
          */
-        self.app.post('/api/upload', api.upload);
-        self.app.post('/api/:modulo', api.create);
+        self.app.post('/upload', api.upload);
+        self.app.post('/:modulo', api.create);
 
         /**
          * PUT requests
          */
-        self.app.put('/api/:modulo/:id', api.update);
+        self.app.put('/:modulo/:id', api.update);
 
         /**
          * DELETE requests
          */
-        self.app.delete('/api/:modulo/:id', api.delete);
+        self.app.delete('/:modulo/:id', api.delete);
     };
 
     /**
@@ -153,9 +120,7 @@ var Application = function () {
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
-        self.app.use(session({ secret: 'aicaramba', name: 'publiciti', resave: true, saveUninitialized: true }));
-        self.app.use(passport.initialize());
-        self.app.use(passport.session());
+        self.app.use(session({ secret: '9346ddlddld633205kdcc72lf', name: 'grupo-publiciti', resave: true, saveUninitialized: true }));
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(12, 100));
 
