@@ -72,6 +72,7 @@ var Application = function () {
          * POST requests
          */
         self.app.post('/upload', api.upload);
+        self.app.post('/login', api.login);
         self.app.post('/:modulo', api.create);
 
         /**

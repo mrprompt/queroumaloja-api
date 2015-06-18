@@ -142,3 +142,15 @@ exports.upload = function (req, res) {
         return res.json(image);
     });
 };
+
+exports.login = function (req, res) {
+    var route = require('../models/usuario');
+
+    (route).auth(req, res, function (err, rows) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        res.json(rows);
+    });
+};
