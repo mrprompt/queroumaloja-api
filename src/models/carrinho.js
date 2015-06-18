@@ -51,7 +51,7 @@ exports.list = function(req, res, callback) {
             cadastro: -1
         })
         .populate('items.produto')
-        .populate('usuario')
+        //.populate('usuario')
         .exec(function(err, data) {
             callback(err, data);
         });
@@ -66,7 +66,7 @@ exports.get = function(req, res, callback) {
             site: req.headers.authentication
         })
         .populate('items.produto')
-        .populate('usuario')
+        //.populate('usuario')
         .exec(function(err, data) {
             callback(err, data);
         });
