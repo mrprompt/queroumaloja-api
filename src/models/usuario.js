@@ -32,7 +32,7 @@ exports.auth = function(req, res, callback) {
         password: req.body.password
     }, function (err, user) {
         if (err || user === null) {
-            return res.send(403);
+            return res.sendStatus(403);
         }
 
         return callback(null, user);
