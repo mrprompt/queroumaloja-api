@@ -36,17 +36,19 @@ exports.auth = function(req, res, callback) {
         }
 
         return callback(null, user);
-    });
+    })
+        .populate('site');
 };
 
-exports.findById = function(req, res, callback) {
-    Usuario.find({
-        _id: req.params.body.id
+exports.get = function (req, res, callback) {
+    Usuario.findOne({
+        _id: req.params.id
     }, function (err, user) {
-        if (err) {
-            return callback(err);
+        if (err || user === null) {
+            return res.sendStatus(404);
         }
 
-        return user;
-    });
+        return callback(null, user);
+    })
+        .populate('site');
 };
