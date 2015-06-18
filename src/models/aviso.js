@@ -39,10 +39,30 @@ AvisoSchema.plugin(pagination);
 var Aviso = mongoose.model('Aviso', AvisoSchema);
 
 exports.list = function(req, res, callback) {
+    var filtro = {
+        site: req.headers.authentication
+    };
+
+    if (req.query.inicio) {
+        var dataInicio = req.query.inicio.split('-');
+        var inicio = new Date(dataInicio[0], (dataInicio[1] - 1), dataInicio[2]);
+
+        filtro.inicio = {
+            $gte: inicio
+        };
+    }
+
+    if (req.query.fim) {
+        var dataFim = req.query.fim.split('-');
+        var fim = new Date(dataFim[0], (dataFim[1] - 1), dataFim[2]);
+
+        filtro.fim = {
+            $gte: fim
+        };
+    }
+
     Aviso
-        .find({
-            site: req.headers.authentication
-        })
+        .find(filtro)
         .sort({
             cadastro: -1
         })
