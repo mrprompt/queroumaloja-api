@@ -59,17 +59,6 @@ var Application = function () {
     };
 
     /**
-     * Check if the user is authenticated
-     */
-    self.ensureAuthenticated = function (req, res, next) {
-        if (req.isAuthenticated()) {
-            return next(null, res);
-        }
-
-        next();
-    };
-
-    /**
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
