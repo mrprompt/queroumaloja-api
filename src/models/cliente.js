@@ -1,6 +1,7 @@
 'use strict';
 
 var pagination  = require('mongoose-paginate');
+var paginate = require('express-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var ClienteSchema = new Schema({
@@ -39,13 +40,20 @@ ClienteSchema.plugin(pagination);
 var Cliente = mongoose.model('Cliente', ClienteSchema);
 
 exports.list = function(req, res, callback) {
+    var filter = {
+        site: req.headers.authentication
+    };
+
     Cliente
-        .find({
-            site: req.headers.authentication
-        })
-        .exec(function(err, data) {
-            callback(err, data);
-        });
+        .paginate(filter, req.query.page, req.query.limit, function (err, pageCount, data, itemCount) {
+            return callback(err, {
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: data,
+                itemCount: itemCount,
+                pageCount: pageCount
+            });
+        }, {sortBy: {cadastro: -1}});
 };
 
 exports.get = function(req, res, callback) {

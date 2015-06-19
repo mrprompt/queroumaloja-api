@@ -1,6 +1,7 @@
 'use strict';
 
 var pagination  = require('mongoose-paginate');
+var paginate = require('express-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var CurriculoSchema = new Schema({
@@ -66,16 +67,20 @@ CurriculoSchema.plugin(pagination);
 var Curriculo = mongoose.model('Curriculo', CurriculoSchema);
 
 exports.list = function(req, res, callback) {
+    var filter = {
+        site: req.headers.authentication
+    };
+
     Curriculo
-        .find({
-            site: req.headers.authentication
-        })
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, data) {
-            callback(err, data);
-        });
+        .paginate(filter, req.query.page, req.query.limit, function (err, pageCount, data, itemCount) {
+            return callback(err, {
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: data,
+                itemCount: itemCount,
+                pageCount: pageCount
+            });
+        }, {sortBy: {cadastro: -1}});
 };
 
 exports.get = function(req, res, callback) {
