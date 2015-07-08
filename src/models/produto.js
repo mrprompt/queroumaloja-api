@@ -129,7 +129,7 @@ exports.update = function (req, res, callback) {
     });
 };
 
-exports.delete = function (req, res, callback) {
+exports.remove = function (req, res, callback) {
     var id = req.params.id;
 
     Produto.remove({
