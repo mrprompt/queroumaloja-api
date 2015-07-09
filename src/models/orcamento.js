@@ -1,7 +1,8 @@
 'use strict';
 
-var mongoose = require(__dirname + '/index').mongoose;
+var pagination = require('mongoose-paginate');
 var paginate = require('express-paginate');
+var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var OrcamentoSchema = new Schema({
     solicitante: {
@@ -66,11 +67,13 @@ var OrcamentoSchema = new Schema({
     }
 });
 
+OrcamentoSchema.plugin(pagination);
+
 var Orcamento = mongoose.model('Orcamento', OrcamentoSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Orcamento
@@ -91,7 +94,7 @@ exports.get = function(req, res, callback) {
     Orcamento
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .populate('servico')
         .exec(function(err, data) {
@@ -117,7 +120,7 @@ exports.create = function(req, res, callback) {
         estado: data.estado,
         detalhes: data.detalhes,
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var orcamento = new Orcamento(dados);
@@ -131,7 +134,7 @@ exports.update = function(req, res, callback) {
 
     Orcamento.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, req.body, function(err, data) {
         callback(err, data);
     });
@@ -142,7 +145,7 @@ exports.remove = function(req, res, callback) {
 
     Orcamento.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

@@ -36,7 +36,7 @@ var Slide = mongoose.model('Slide', SlideSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Slide
@@ -57,7 +57,7 @@ exports.get = function(req, res, callback) {
     Slide
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -73,7 +73,7 @@ exports.create = function(req, res, callback) {
         endereco: data.endereco,
         imagem: JSON.parse(data.imagem),
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var slide = new Slide(dados);
@@ -98,7 +98,7 @@ exports.update = function(req, res, callback) {
 
     Slide.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -109,7 +109,7 @@ exports.remove = function(req, res, callback) {
 
     Slide.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

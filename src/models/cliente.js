@@ -41,7 +41,7 @@ var Cliente = mongoose.model('Cliente', ClienteSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Cliente
@@ -62,7 +62,7 @@ exports.get = function(req, res, callback) {
     Cliente
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, products) {
             callback(err, data);
@@ -78,7 +78,7 @@ exports.create = function(req, res, callback) {
         atuacao: data.atuacao,
         descricao: data.descricao,
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var cliente = new Cliente(dados);
@@ -93,7 +93,7 @@ exports.update = function(req, res, callback) {
 
     Cliente.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, data, function(err, data) {
         callback(err, data);
     });
@@ -104,7 +104,7 @@ exports.remove = function(req, res, callback) {
 
     Cliente.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

@@ -37,7 +37,7 @@ var Contato = mongoose.model('Contato', ContatoSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Contato
@@ -58,7 +58,7 @@ exports.get = function(req, res, callback) {
     Contato
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -74,7 +74,7 @@ exports.create = function(req, res, callback) {
         telefone: data.telefone,
         mensagem: data.mensagem,
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var contato = new Contato(dados);
@@ -89,7 +89,7 @@ exports.update = function(req, res, callback) {
 
     Contato.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -100,7 +100,7 @@ exports.remove = function(req, res, callback) {
 
     Contato.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

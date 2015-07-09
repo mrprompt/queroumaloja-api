@@ -35,7 +35,7 @@ var Equipe = mongoose.model('Equipe', EquipeSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Equipe
@@ -56,7 +56,7 @@ exports.get = function(req, res, callback) {
     Equipe
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -71,7 +71,7 @@ exports.create = function(req, res, callback) {
         cargo: data.cargo,
         email: data.email,
         imagem: data.imagem,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var membro = new Equipe(dados);
@@ -89,7 +89,7 @@ exports.update = function(req, res, callback) {
         nome: data.nome,
         cargo: data.cargo,
         email: data.email,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     if (data.imagem) {
@@ -108,7 +108,7 @@ exports.remove = function(req, res, callback) {
 
     Equipe.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

@@ -1,6 +1,7 @@
 'use strict';
 
-var pagination  = require('mongoose-paginate');
+var pagination = require('mongoose-paginate');
+var paginate = require('express-paginate');
 var mongoose = require(__dirname + '/index').mongoose;
 var Schema = mongoose.Schema;
 var AvisoSchema = new Schema({
@@ -38,37 +39,21 @@ AvisoSchema.plugin(pagination);
 
 var Aviso = mongoose.model('Aviso', AvisoSchema);
 
-exports.list = function(req, res, callback) {
-    var filtro = {
-        site: req.headers.authentication
+exports.list = function (req, res, callback) {
+    var filter = {
+        site: req.headers.authorization
     };
 
-    if (req.query.inicio) {
-        var dataInicio = req.query.inicio.split('-');
-        var inicio = new Date(dataInicio[0], (dataInicio[1] - 1), dataInicio[2]);
-
-        filtro.inicio = {
-            $gte: inicio
-        };
-    }
-
-    if (req.query.fim) {
-        var dataFim = req.query.fim.split('-');
-        var fim = new Date(dataFim[0], (dataFim[1] - 1), dataFim[2]);
-
-        filtro.fim = {
-            $gte: fim
-        };
-    }
-
     Aviso
-        .find(filtro)
-        .sort({
-            cadastro: -1
-        })
-        .exec(function(err, data) {
-            callback(err, data);
-        });
+        .paginate(filter, req.query.page, req.query.limit, function (err, pageCount, data, itemCount) {
+            return callback(err, {
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: data,
+                itemCount: itemCount,
+                pageCount: pageCount
+            });
+        }, {sortBy: {cadastro: -1}});
 };
 
 exports.get = function(req, res, callback) {
@@ -77,7 +62,7 @@ exports.get = function(req, res, callback) {
     Aviso
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -100,7 +85,7 @@ exports.create = function(req, res, callback) {
         tipo: data.tipo,
         inicio: inicio,
         fim: fim,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var aviso = new Aviso(dados);
@@ -134,7 +119,7 @@ exports.update = function(req, res, callback) {
 
     Aviso.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -145,7 +130,7 @@ exports.remove = function(req, res, callback) {
     
     Aviso.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

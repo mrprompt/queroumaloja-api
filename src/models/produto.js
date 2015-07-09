@@ -50,7 +50,7 @@ var Produto = mongoose.model('Produto', ProdutoSchema);
 
 exports.list = function (req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     if (req.query.tipo !== undefined) {

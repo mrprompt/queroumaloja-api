@@ -43,7 +43,7 @@ var Carrinho = mongoose.model('Carrinho', CarrinhoSchema);
 
 exports.list = function (req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Carrinho
@@ -64,7 +64,7 @@ exports.get = function (req, res, callback) {
     Carrinho
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .populate('items.produto')
         .exec(function (err, data) {
@@ -80,7 +80,7 @@ exports.create = function (req, res, callback) {
     var data = {
         titulo: req.body.titulo,
         cadastro: (new Date),
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var carrinho = new Carrinho(data);
@@ -121,7 +121,7 @@ exports.remove = function (req, res, callback) {
 
     Carrinho.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function (err, data) {
         callback(err, data);
     });

@@ -33,7 +33,7 @@ var Parceiro = mongoose.model('Parceiro', ParceiroSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Parceiro
@@ -54,7 +54,7 @@ exports.get = function(req, res, callback) {
     Parceiro
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -70,7 +70,7 @@ exports.create = function(req, res, callback) {
         url: data.url,
         atuacao: data.atuacao,
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var parceiro = new Parceiro(dados);
@@ -87,7 +87,7 @@ exports.update = function(req, res, callback) {
         url: data.url,
         atuacao: data.atuacao,
         cadastro: data.cadastro,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     if (data.imagem) {
@@ -96,7 +96,7 @@ exports.update = function(req, res, callback) {
 
     Parceiro.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -107,7 +107,7 @@ exports.remove = function(req, res, callback) {
 
     Parceiro.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });

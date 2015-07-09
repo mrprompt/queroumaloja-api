@@ -37,7 +37,7 @@ var Emprego = mongoose.model('Emprego', EmpregoSchema);
 
 exports.list = function(req, res, callback) {
     var filter = {
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     Emprego
@@ -58,7 +58,7 @@ exports.get = function(req, res, callback) {
     Emprego
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function(err, data) {
             callback(err, data);
@@ -73,7 +73,7 @@ exports.create = function(req, res, callback) {
         cadastro: (new Date),
         tags: data.tags.split(','),
         salario: data.salario,
-        site: req.headers.authentication
+        site: req.headers.authorization
     };
 
     var emprego = new Emprego(dados);
@@ -94,7 +94,7 @@ exports.update = function(req, res, callback) {
 
     Emprego.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function(err, data) {
         callback(err, data);
     });
@@ -105,7 +105,7 @@ exports.remove = function(req, res, callback) {
 
     Emprego.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function(err, data) {
         callback(err, data);
     });
