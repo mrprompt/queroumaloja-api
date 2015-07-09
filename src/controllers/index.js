@@ -37,7 +37,7 @@ exports.get = function(req, res) {
     var modulo = req.params.modulo;
     var route = eval('routes.' + modulo);
 
-    if (route == undefined || typeof (route).list != 'function') {
+    if (route == undefined || typeof (route).get != 'function') {
         return res.status(404).send('Módulo não encontrado: ');
     }
 
@@ -54,7 +54,7 @@ exports.create = function(req, res) {
     var modulo = req.params.modulo;
     var route = eval('routes.' + modulo);
 
-    if (route == undefined || typeof (route).list != 'function') {
+    if (route == undefined || typeof (route).create != 'function') {
         return res.status(404).send('Módulo não encontrado');
     }
 
@@ -71,7 +71,7 @@ exports.update = function(req, res) {
     var modulo = req.params.modulo;
     var route = eval('routes.' + modulo);
 
-    if (route == undefined || typeof (route).list != 'function') {
+    if (route == undefined || typeof (route).update != 'function') {
         return res.status(404).send('Módulo não encontrado');
     }
 
@@ -88,7 +88,7 @@ exports.remove = function(req, res) {
     var modulo = req.params.modulo;
     var route = eval('routes.' + modulo);
 
-    if (route == undefined || typeof (route).list != 'function') {
+    if (route == undefined || typeof (route).remove != 'function') {
         return res.status(404).send('Módulo não encontrado');
     }
 
