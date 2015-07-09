@@ -64,8 +64,8 @@ exports.get = function(req, res, callback) {
             _id: id,
             site: req.headers.authorization
         })
-        .exec(function(err, products) {
-            callback(err, data);
+        .exec(function(err, result) {
+            callback(err, result);
         });
 };
 
