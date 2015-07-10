@@ -79,7 +79,7 @@ exports.get = function (req, res, callback) {
     Produto
         .findOne({
             _id: id,
-            site: req.headers.authentication
+            site: req.headers.authorization
         })
         .exec(function (err, data) {
             return callback(err, data);
@@ -92,7 +92,7 @@ exports.create = function (req, res, callback) {
         titulo: data.titulo,
         descricao: data.descricao,
         imagem: JSON.parse(data.imagem),
-        site: req.headers.authentication,
+        site: req.headers.authorization,
         codigo: data.codigo,
         tipo: data.tipo,
         categoria: data.categoria,
@@ -123,7 +123,7 @@ exports.update = function (req, res, callback) {
 
     Produto.update({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, dados, function (err, data) {
         return callback(err, data);
     });
@@ -134,7 +134,7 @@ exports.remove = function (req, res, callback) {
 
     Produto.remove({
         _id: id,
-        site: req.headers.authentication
+        site: req.headers.authorization
     }, function (err, data) {
         return callback(err, data);
     });
