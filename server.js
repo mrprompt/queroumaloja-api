@@ -10,6 +10,7 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser')
 var os = require('os');
 var route = require(__dirname + '/src/controllers');
+var usuario = require(__dirname + '/src/models/usuario');
 
 /**
  *  Define the application.
@@ -52,6 +53,12 @@ var Application = function () {
             });
     };
 
+    self.userAuth = function(req, res, callback) {
+        console.log(req);
+
+        callback(req, res);
+    };
+
     /**
      *  Create the routing table entries + handlers for the application.
      */
@@ -63,20 +70,24 @@ var Application = function () {
         self.app.get('/:modulo/:id', route.get);
 
         /**
-         * POST requests
+         * Login request
          */
         self.app.post('/login', route.login);
-        self.app.post('/:modulo', route.create);
+
+        /**
+         * POST requests
+         */
+        self.app.post('/:modulo', usuario.auth, route.create);
 
         /**
          * PUT requests
          */
-        self.app.put('/:modulo/:id', route.update);
+        self.app.put('/:modulo/:id', usuario.auth, route.update);
 
         /**
          * DELETE requests
          */
-        self.app.delete('/:modulo/:id', route.remove);
+        self.app.delete('/:modulo/:id', usuario.auth, route.remove);
     };
 
     /**
@@ -102,7 +113,7 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
-        self.app.use(paginate.middleware(10, 1000));
+        self.app.use(paginate.middleware(10, 6000));
         self.createRoutes();
     };
 

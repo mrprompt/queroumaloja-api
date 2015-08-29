@@ -117,6 +117,8 @@ exports.update = function (req, res, callback) {
         valor: data.valor
     };
 
+    console.log(dados);
+
     if (data.imagem) {
         dados.imagem = JSON.parse(data.imagem);
     }
