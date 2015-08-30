@@ -1,11 +1,10 @@
 {
   "name": "grupo-publiciti",
   "version": "0.0.3",
-  "description": "Gerenciador de Conteúdo para os sites do grupo Publiciti",
+  "description": "API de produtos para o grupo Publiciti",
+  "private": true,
+  "main": "server.js",
   "keywords": [
-    "cms",
-    "gerenciador",
-    "conteudo",
     "api",
     "ecommerce"
   ],
@@ -14,7 +13,7 @@
     "email": "mrprompt@gmail.com",
     "url": "http://www.mrprompt.com.br/"
   },
-  "homepage": "http://grupo-publiciti.rhcloud.com",
+  "homepage": "http://www.publiciti.com.br",
   "repository": {
     "type": "git",
     "url": "ssh://545e7855e0b8cd0e8500017c@grupo-publiciti.rhcloud.com/~/git/grupo.git/"
@@ -29,11 +28,9 @@
     "express-paginate": "0.0.8",
     "method-override": "^2.3.3",
     "mongoose": "^4.0.5",
-    "mongoose-paginate": "^3.1.3",
+    "mongoose-paginate": "*",
     "morgan": "^1.5.3"
   },
   "devDependencies": {},
-  "bundleDependencies": [],
-  "private": true,
-  "main": "server.js"
+  "bundleDependencies": []
 }

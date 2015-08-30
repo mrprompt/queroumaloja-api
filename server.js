@@ -3,14 +3,11 @@
  * @author Thiago Paes <mrprompt@gmail.com>
  * @type {*|exports|module.exports}
  */
-var express = require('express');
-var paginate = require('express-paginate');
-var morgan = require('morgan');
-var methodOverride = require('method-override');
-var bodyParser = require('body-parser')
-var os = require('os');
-var route = require(__dirname + '/src/controllers');
-var usuario = require(__dirname + '/src/models/usuario');
+var express         = require('express');
+var paginate        = require('express-paginate');
+var morgan          = require('morgan');
+var methodOverride  = require('method-override');
+var bodyParser      = require('body-parser')
 
 /**
  *  Define the application.
@@ -44,8 +41,9 @@ var Application = function () {
         });
 
         // Removed 'SIGPIPE' from the list - bugz 852598.
+        // Removev 'SIGUSR2' from the list - bugz with  nodemon/forever.
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-            'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
+            'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGTERM'
         ].forEach(function (element, index, array) {
                 process.on(element, function () {
                     self.terminator(element);
@@ -53,41 +51,22 @@ var Application = function () {
             });
     };
 
-    self.userAuth = function(req, res, callback) {
-        console.log(req);
-
-        callback(req, res);
-    };
-
     /**
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        /**
-         * GET requests
-         */
-        self.app.get('/:modulo', route.list);
-        self.app.get('/:modulo/:id', route.get);
-
-        /**
-         * Login request
-         */
-        self.app.post('/login', route.login);
-
-        /**
-         * POST requests
-         */
-        self.app.post('/:modulo', usuario.auth, route.create);
-
-        /**
-         * PUT requests
-         */
-        self.app.put('/:modulo/:id', usuario.auth, route.update);
-
-        /**
-         * DELETE requests
-         */
-        self.app.delete('/:modulo/:id', usuario.auth, route.remove);
+        self.app.use('/aviso', require(__dirname + '/src/aviso'));
+        self.app.use('/carrinho', require(__dirname + '/src/carrinho'));
+        self.app.use('/cliente', require(__dirname + '/src/cliente'));
+        self.app.use('/curriculo', require(__dirname + '/src/curriculo'));
+        self.app.use('/emprego', require(__dirname + '/src/emprego'));
+        self.app.use('/equipe', require(__dirname + '/src/equipe'));
+        self.app.use('/orcamento', require(__dirname + '/src/orcamento'));
+        self.app.use('/parceiro', require(__dirname + '/src/parceiro'));
+        self.app.use('/produto', require(__dirname + '/src/produto'));
+        self.app.use('/site', require(__dirname + '/src/site'));
+        self.app.use('/slide', require(__dirname + '/src/slide'));
+        self.app.use('/usuario', require(__dirname + '/src/usuario'));
     };
 
     /**
@@ -113,7 +92,8 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
-        self.app.use(paginate.middleware(10, 6000));
+        self.app.use(paginate.middleware(10, 100));
+
         self.createRoutes();
     };
 
