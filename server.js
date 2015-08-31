@@ -7,7 +7,7 @@ var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
-var bodyParser      = require('body-parser')
+var bodyParser      = require('body-parser');
 
 /**
  *  Define the application.
