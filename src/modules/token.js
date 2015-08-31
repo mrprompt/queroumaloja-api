@@ -1,12 +1,18 @@
 'use strict';
 
-var router              = require('express').Router();
-var firewall            = require(__dirname + '/../modules/firewall');
-var token               = require('token');
+var router                  = require('express').Router();
+var firewall                = require(__dirname + '/../modules/firewall');
+var token                   = require('token');
     token.defaults.secret   = 'AAB';
     token.defaults.timeStep = (24 * 60 * 60) * 30; // 24h in seconds
 
 router.all('*', function(req, res, next) {
+    if (req.method === 'OPTIONS') {
+        next();
+
+        return true;
+    }
+
     if (_.contains(firewall, req.path + '|' + req.method)) {
         if (!req.headers.authorization) {
             res.status(500).json({
