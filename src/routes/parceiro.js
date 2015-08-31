@@ -3,19 +3,19 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var EquipeSchema    = new mongoose.Schema({
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var ParceiroSchema  = new mongoose.Schema({
     nome: {
-        type: String
-    },
-    cargo: {
-        type: String
-    },
-    email: {
         type: String
     },
     imagem: {
         type: Object
+    },
+    url: {
+        type: String
+    },
+    atuacao: {
+        type: String
     },
     cadastro: {
         type: Date,
@@ -26,10 +26,10 @@ var EquipeSchema    = new mongoose.Schema({
         ref: 'Site'
     }
 }).plugin(pagination);
-var EquipeModel     = mongoose.model('Equipe', EquipeSchema);
+var ParceiroModel   = mongoose.model('Parceiro', ParceiroSchema);
 
 router.get('/', function(req, res) {
-    EquipeModel.paginate(
+    ParceiroModel.paginate(
         {
             site: req.headers.authorization
         },
@@ -47,15 +47,14 @@ router.get('/', function(req, res) {
             });
         },
         {
-            sortBy: {
-                cadastro: -1
-            }
+            populate: [ 'site' ],
+            sortBy: {cadastro: -1}
         }
     );
 });
 
 router.get('/:id', function(req, res) {
-    EquipeModel.findOne({
+    ParceiroModel.findOne({
             _id : req.params.id,
             site: req.headers.authorization
         })
@@ -72,16 +71,17 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var membro = new EquipeModel({
+    var parceiro = new ParceiroModel({
         nome    : req.body.nome,
-        cargo   : req.body.cargo,
-        email   : req.body.email,
-        imagem  : req.body.imagem,
+        imagem  : (req.body.imagem ? JSON.parse(req.body.imagem) : ''),
+        url     : req.body.url,
+        atuacao : req.body.atuacao,
+        cadastro: req.body.cadastro,
         site    : req.headers.authorization
     });
 
-    membro.save(function(err, data) {
-        res.status(201).json({
+    parceiro.save(function(err, data) {
+        res.status(200).json({
             object      : 'object',
             has_more    : false,
             data        : data,
@@ -92,16 +92,17 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    EquipeModel.update(
+    ParceiroModel.update(
         {
             _id : req.params.id,
             site: req.headers.authorization
         },
         {
             nome    : req.body.nome,
-            cargo   : req.body.cargo,
-            email   : req.body.email,
-            imagem  : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
+            url     : req.body.url,
+            atuacao : req.body.atuacao,
+            image   : (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
+            cadastro: req.body.cadastro,
             site    : req.headers.authorization
         },
         function(err, data) {
@@ -117,11 +118,12 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    EquipeModel.remove(
+    ParceiroModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization
-        }, function(err, data) {
+        },
+        function(err, data) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,

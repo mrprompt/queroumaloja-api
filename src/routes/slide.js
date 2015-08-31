@@ -1,19 +1,11 @@
 'use strict';
 
-var router          = require('express').Router();
-var pagination      = require('mongoose-paginate');
-var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var ClienteSchema   = new mongoose.Schema({
-    nome: {
-        type: String,
-        default: ''
-    },
-    url: {
-        type: String,
-        default: ''
-    },
-    logo: {
+var router      = require('express').Router();
+var pagination  = require('mongoose-paginate');
+var paginate    = require('express-paginate');
+var mongoose    = require(__dirname + '/../modules/connection').mongoose;
+var SlideSchema = new mongoose.Schema({
+    titulo: {
         type: String,
         default: ''
     },
@@ -21,9 +13,12 @@ var ClienteSchema   = new mongoose.Schema({
         type: String,
         default: ''
     },
-    atuacao: {
+    endereco: {
         type: String,
         default: ''
+    },
+    imagem: {
+        type: Object
     },
     cadastro: {
         type: Date,
@@ -34,47 +29,43 @@ var ClienteSchema   = new mongoose.Schema({
         ref: 'Site'
     }
 }).plugin(pagination);
-var ClienteModel    = mongoose.model('Cliente', ClienteSchema);
+var SlideModel  = mongoose.model('Slide', SlideSchema);
 
 router.get('/', function(req, res) {
-    ClienteModel.paginate(
+    SlideModel.paginate(
         {
             site: req.headers.authorization
         },
         {
             page: req.query.page,
-            limite: req.query.limit
+            limit: req.query.limit
         },
         function (err, data, pageCount, itemCount) {
             res.status(200).json({
-                object: 'list',
-                has_more: paginate.hasNextPages(req)(pageCount),
-                data: data,
-                itemCount: itemCount,
-                pageCount: pageCount
+                object      : 'list',
+                has_more    : paginate.hasNextPages(req)(pageCount),
+                data        : data,
+                itemCount   : itemCount,
+                pageCount   : pageCount
             });
         },
         {
-            sortBy: {
-                cadastro: -1
-            }
+            populate: [ 'site' ],
+            sortBy: { cadastro: -1 }
         }
     );
 });
 
 router.get('/:id', function(req, res) {
-    var id = req.params.id;
-
-    Cliente
-        .findOne({
-            _id: id,
+    SlideModel.findOne({
+            _id : req.params.id,
             site: req.headers.authorization
         })
-        .exec(function(err, result) {
+        .exec(function(err, data) {
             res.status(200).json({
                 object      : 'object',
                 has_more    : false,
-                data        : result,
+                data        : data,
                 itemCount   : 1,
                 pageCount   : 1
             });
@@ -82,21 +73,20 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var cliente = new Cliente({
-        nome        : req.body.nome,
-        url         : req.body.url,
-        logo        : req.body.logo,
-        atuacao     : req.body.atuacao,
+    var slide = new SlideModel({
+        titulo      : req.body.titulo,
         descricao   : req.body.descricao,
+        endereco    : req.body.endereco,
+        imagem      : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
         cadastro    : req.body.cadastro,
         site        : req.headers.authorization
     });
 
-    ClienteModel.save(function(err, result) {
+    slide.save(function(err, data) {
         res.status(201).json({
             object      : 'object',
             has_more    : false,
-            data        : result,
+            data        : data,
             itemCount   : 1,
             pageCount   : 1
         });
@@ -104,17 +94,30 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    ClienteModel.update(
+    var id = req.params.id;
+    var data = req.body;
+
+    var dados = {
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        endereco: req.body.endereco
+    }
+
+    if (req.body.imagem) {
+        dados.imagem = JSON.parse(req.body.imagem);
+    }
+
+    SlideModel.update(
         {
-            _id : req.params.id,
+            _id : id,
             site: req.headers.authorization
         },
-        req.body,
-        function(err, result) {
+        dados,
+        function(err, data) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,
-                data        : result,
+                data        : data,
                 itemCount   : 1,
                 pageCount   : 1
             });
@@ -123,16 +126,16 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    ClienteModel.remove(
+    SlideModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization
         },
-        function(err, result) {
+        function(err, data) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,
-                data        : result,
+                data        : data,
                 itemCount   : 1,
                 pageCount   : 1
             });

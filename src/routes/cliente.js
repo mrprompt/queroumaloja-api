@@ -3,54 +3,27 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var CurriculoSchema = new mongoose.Schema({
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var ClienteSchema   = new mongoose.Schema({
     nome: {
         type: String,
         default: ''
     },
-    email: {
+    url: {
         type: String,
         default: ''
     },
-    telefone: {
+    logo: {
         type: String,
         default: ''
     },
-    celular: {
+    descricao: {
         type: String,
         default: ''
     },
-    escala: {
+    atuacao: {
         type: String,
         default: ''
-    },
-    endereco: {
-        type: String,
-        default: ''
-    },
-    bairro: {
-        type: String,
-        default: ''
-    },
-    cep: {
-        type: String,
-        default: ''
-    },
-    cidade: {
-        type: String,
-        default: ''
-    },
-    estado: {
-        type: String,
-        default: ''
-    },
-    observacao: {
-        type: String,
-        default: ''
-    },
-    arquivo: {
-        type: Object
     },
     cadastro: {
         type: Date,
@@ -61,16 +34,16 @@ var CurriculoSchema = new mongoose.Schema({
         ref: 'Site'
     }
 }).plugin(pagination);
-var CurriculoModel  = mongoose.model('Curriculo', CurriculoSchema);
+var ClienteModel    = mongoose.model('Cliente', ClienteSchema);
 
 router.get('/', function(req, res) {
-    CurriculoModel.paginate(
+    ClienteModel.paginate(
         {
             site: req.headers.authorization
         },
         {
             page: req.query.page,
-            limit: req.query.limit
+            limite: req.query.limit
         },
         function (err, data, pageCount, itemCount) {
             res.status(200).json({
@@ -82,7 +55,6 @@ router.get('/', function(req, res) {
             });
         },
         {
-            populate: ['site'],
             sortBy: {
                 cadastro: -1
             }
@@ -91,16 +63,18 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-    CurriculoModel.findOne({
-            _id : req.params.id,
+    var id = req.params.id;
+
+    Cliente
+        .findOne({
+            _id: id,
             site: req.headers.authorization
         })
-        .populate(['site'])
-        .exec(function(err, data) {
+        .exec(function(err, result) {
             res.status(200).json({
                 object      : 'object',
                 has_more    : false,
-                data        : data,
+                data        : result,
                 itemCount   : 1,
                 pageCount   : 1
             });
@@ -108,28 +82,21 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var curriculo = new CurriculoModel({
+    var cliente = new Cliente({
         nome        : req.body.nome,
-        email       : req.body.email,
-        telefone    : req.body.telefone,
-        celular     : req.body.celular,
-        escala      : req.body.escala,
-        endereco    : req.body.endereco,
-        bairro      : req.body.bairro,
-        cep         : req.body.cep,
-        cidade      : req.body.cidade,
-        estado      : req.body.estado,
-        observacao  : req.body.observacao,
+        url         : req.body.url,
+        logo        : req.body.logo,
+        atuacao     : req.body.atuacao,
+        descricao   : req.body.descricao,
         cadastro    : req.body.cadastro,
-        arquivo     : req.body.arquivo,
         site        : req.headers.authorization
     });
 
-    curriculo.save(function(err, data) {
+    ClienteModel.save(function(err, result) {
         res.status(201).json({
             object      : 'object',
             has_more    : false,
-            data        : data,
+            data        : result,
             itemCount   : 1,
             pageCount   : 1
         });
@@ -137,17 +104,17 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    CurriculoModel.update(
+    ClienteModel.update(
         {
-            _id: req.params.id,
+            _id : req.params.id,
             site: req.headers.authorization
         },
         req.body,
-        function(err, data) {
+        function(err, result) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,
-                data        : data,
+                data        : result,
                 itemCount   : 1,
                 pageCount   : 1
             });
@@ -156,16 +123,16 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    CurriculoModel.remove(
+    ClienteModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization
         },
-        function(err, data) {
+        function(err, result) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,
-                data        : data,
+                data        : result,
                 itemCount   : 1,
                 pageCount   : 1
             });

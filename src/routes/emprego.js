@@ -3,87 +3,51 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var OrcamentoSchema = new mongoose.Schema({
-    solicitante: {
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var EmpregoSchema   = new mongoose.Schema({
+    titulo: {
         type: String,
         default: ''
     },
-    empresa: {
+    descricao: {
         type: String,
         default: ''
     },
-    documento: {
-        type: String,
-        default: ''
-    },
-    email: {
-        type: String,
-        default: ''
-    },
-    telefone: {
-        type: String,
-        default: ''
-    },
-    celular: {
-        type: String,
-        default: ''
-    },
-    servico: {
-        type: String,
-        default: ''
-    },
-    endereco: {
-        type: String,
-        default: ''
-    },
-    bairro: {
-        type: String,
-        default: ''
-    },
-    cep: {
-        type: String,
-        default: ''
-    },
-    cidade: {
-        type: String,
-        default: ''
-    },
-    estado: {
-        type: String,
-        default: ''
-    },
-    detalhes: {
-        type: String,
+    tags: {
+        type: [],
         default: ''
     },
     cadastro: {
         type: Date,
         default: Date.now
     },
+    salario: {
+        type: String,
+        default: ''
+    },
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
 }).plugin(pagination);
-var OrcamentoModel  = mongoose.model('Orcamento', OrcamentoSchema);
+var EmpregoModel    = mongoose.model('Emprego', EmpregoSchema);
 
 router.get('/', function(req, res) {
-    OrcamentoModel.paginate(
+    EmpregoModel.paginate(
         {
             site: req.headers.authorization
         },
         {
-            page : req.query.page,
+            page: req.query.page,
             limit: req.query.limit
         },
         function (err, data, pageCount, itemCount) {
             res.status(200).json({
-                object      : 'list',
-                has_more    : paginate.hasNextPages(req)(pageCount),
-                data        : data,
-                itemCount   : itemCount,
-                pageCount   : pageCount
+                object: 'list',
+                has_more: paginate.hasNextPages(req)(pageCount),
+                data: data,
+                itemCount: itemCount,
+                pageCount: pageCount
             });
         },
         {
@@ -96,11 +60,10 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-    OrcamentoModel.findOne({
+    EmpregoModel.findOne({
             _id : req.params.id,
             site: req.headers.authorization
         })
-        .populate(['site'])
         .exec(function(err, data) {
             res.status(200).json({
                 object      : 'object',
@@ -113,25 +76,16 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var orcamento = new OrcamentoModel({
-        solicitante     : req.body.solicitante,
-        empresa         : req.body.empresa,
-        documento       : req.body.documento,
-        email           : req.body.email,
-        telefone        : req.body.telefone,
-        celular         : req.body.celular,
-        servico         : req.body.servico,
-        endereco        : req.body.endereco,
-        bairro          : req.body.bairro,
-        cep             : req.body.cep,
-        cidade          : req.body.cidade,
-        estado          : req.body.estado,
-        detalhes        : req.body.detalhes,
-        cadastro        : req.body.cadastro,
-        site            : req.headers.authorization
+    var emprego = new EmpregoModel({
+        titulo      : req.body.titulo,
+        descricao   : req.body.descricao,
+        cadastro    : (new Date),
+        tags        : (req.body.tags ? req.body.tags.split(',') : ''),
+        salario     : req.body.salario,
+        site        : req.headers.authorization
     });
-
-    orcamento.save(function(err, data) {
+    
+    emprego.save(function(err, data) {
         res.status(201).json({
             object      : 'object',
             has_more    : false,
@@ -143,12 +97,17 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    OrcamentoModel.update(
+    EmpregoModel.update(
         {
             _id : req.params.id,
             site: req.headers.authorization
         },
-        req.body,
+        {
+            titulo      : req.body.titulo,
+            descricao   : req.body.descricao,
+            tags        : (req.body.tags ? req.body.tags.toString().split(',') : ''),
+            salario     : req.body.salario
+        },
         function(err, data) {
             res.status(204).json({
                 object      : 'object',
@@ -162,7 +121,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    OrcamentoModel.remove(
+    EmpregoModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization

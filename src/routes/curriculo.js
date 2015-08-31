@@ -3,37 +3,68 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var EmpregoSchema   = new mongoose.Schema({
-    titulo: {
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var CurriculoSchema = new mongoose.Schema({
+    nome: {
         type: String,
         default: ''
     },
-    descricao: {
+    email: {
         type: String,
         default: ''
     },
-    tags: {
-        type: [],
+    telefone: {
+        type: String,
         default: ''
+    },
+    celular: {
+        type: String,
+        default: ''
+    },
+    escala: {
+        type: String,
+        default: ''
+    },
+    endereco: {
+        type: String,
+        default: ''
+    },
+    bairro: {
+        type: String,
+        default: ''
+    },
+    cep: {
+        type: String,
+        default: ''
+    },
+    cidade: {
+        type: String,
+        default: ''
+    },
+    estado: {
+        type: String,
+        default: ''
+    },
+    observacao: {
+        type: String,
+        default: ''
+    },
+    arquivo: {
+        type: Object
     },
     cadastro: {
         type: Date,
         default: Date.now
-    },
-    salario: {
-        type: String,
-        default: ''
     },
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
 }).plugin(pagination);
-var EmpregoModel    = mongoose.model('Emprego', EmpregoSchema);
+var CurriculoModel  = mongoose.model('Curriculo', CurriculoSchema);
 
 router.get('/', function(req, res) {
-    EmpregoModel.paginate(
+    CurriculoModel.paginate(
         {
             site: req.headers.authorization
         },
@@ -60,10 +91,11 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-    EmpregoModel.findOne({
+    CurriculoModel.findOne({
             _id : req.params.id,
             site: req.headers.authorization
         })
+        .populate(['site'])
         .exec(function(err, data) {
             res.status(200).json({
                 object      : 'object',
@@ -76,16 +108,24 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var emprego = new EmpregoModel({
-        titulo      : req.body.titulo,
-        descricao   : req.body.descricao,
-        cadastro    : (new Date),
-        tags        : (req.body.tags ? req.body.tags.split(',') : ''),
-        salario     : req.body.salario,
+    var curriculo = new CurriculoModel({
+        nome        : req.body.nome,
+        email       : req.body.email,
+        telefone    : req.body.telefone,
+        celular     : req.body.celular,
+        escala      : req.body.escala,
+        endereco    : req.body.endereco,
+        bairro      : req.body.bairro,
+        cep         : req.body.cep,
+        cidade      : req.body.cidade,
+        estado      : req.body.estado,
+        observacao  : req.body.observacao,
+        cadastro    : req.body.cadastro,
+        arquivo     : req.body.arquivo,
         site        : req.headers.authorization
     });
-    
-    emprego.save(function(err, data) {
+
+    curriculo.save(function(err, data) {
         res.status(201).json({
             object      : 'object',
             has_more    : false,
@@ -97,17 +137,12 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    EmpregoModel.update(
+    CurriculoModel.update(
         {
-            _id : req.params.id,
+            _id: req.params.id,
             site: req.headers.authorization
         },
-        {
-            titulo      : req.body.titulo,
-            descricao   : req.body.descricao,
-            tags        : (req.body.tags ? req.body.tags.toString().split(',') : ''),
-            salario     : req.body.salario
-        },
+        req.body,
         function(err, data) {
             res.status(204).json({
                 object      : 'object',
@@ -121,7 +156,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    EmpregoModel.remove(
+    CurriculoModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization

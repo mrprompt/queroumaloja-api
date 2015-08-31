@@ -1,7 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
-var mongoose    = require(__dirname + '/index').mongoose;
+var mongoose    = require(__dirname + '/../modules/connection').mongoose;
 var SiteSchema  = new mongoose.Schema({
     nome: {
         type: String
@@ -73,3 +73,4 @@ exports.update = function(req, res) {
 };
 
 module.exports = router;
+module.exports = SiteModel;

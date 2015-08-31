@@ -2,7 +2,7 @@
 
 var router      = require('express').Router();
 var paginate    = require('express-paginate');
-var mongoose    = require(__dirname + '/index').mongoose;
+var mongoose    = require(__dirname + '/../modules/connection').mongoose;
 var AvisoSchema = new mongoose.Schema({
     titulo: {
         type: String,
@@ -154,3 +154,4 @@ router.delete('/:id', function(req, res) {
 });
 
 module.exports = router;
+module.exports = AvisoModel;

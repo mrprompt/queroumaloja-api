@@ -1,7 +1,7 @@
 'use strict';
 
 var router          = require('express').Router();
-var mongoose        = require(__dirname + '/index').mongoose;
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
 var UsuarioSchema   = new mongoose.Schema({
     email: {
         type: String

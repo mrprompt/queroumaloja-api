@@ -1,21 +1,18 @@
 'use strict';
 
-var router      = require('express').Router();
-var pagination  = require('mongoose-paginate');
-var paginate    = require('express-paginate');
-var mongoose    = require(__dirname + '/index').mongoose;
-var SlideSchema = new mongoose.Schema({
-    titulo: {
-        type: String,
-        default: ''
+var router          = require('express').Router();
+var pagination      = require('mongoose-paginate');
+var paginate        = require('express-paginate');
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var EquipeSchema    = new mongoose.Schema({
+    nome: {
+        type: String
     },
-    descricao: {
-        type: String,
-        default: ''
+    cargo: {
+        type: String
     },
-    endereco: {
-        type: String,
-        default: ''
+    email: {
+        type: String
     },
     imagem: {
         type: Object
@@ -29,15 +26,15 @@ var SlideSchema = new mongoose.Schema({
         ref: 'Site'
     }
 }).plugin(pagination);
-var SlideModel  = mongoose.model('Slide', SlideSchema);
+var EquipeModel     = mongoose.model('Equipe', EquipeSchema);
 
 router.get('/', function(req, res) {
-    SlideModel.paginate(
+    EquipeModel.paginate(
         {
             site: req.headers.authorization
         },
         {
-            page: req.query.page,
+            page : req.query.page,
             limit: req.query.limit
         },
         function (err, data, pageCount, itemCount) {
@@ -50,17 +47,19 @@ router.get('/', function(req, res) {
             });
         },
         {
-            populate: [ 'site' ],
-            sortBy: { cadastro: -1 }
+            sortBy: {
+                cadastro: -1
+            }
         }
     );
 });
 
 router.get('/:id', function(req, res) {
-    SlideModel.findOne({
+    EquipeModel.findOne({
             _id : req.params.id,
             site: req.headers.authorization
         })
+        .populate(['site'])
         .exec(function(err, data) {
             res.status(200).json({
                 object      : 'object',
@@ -73,16 +72,15 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var slide = new SlideModel({
-        titulo      : req.body.titulo,
-        descricao   : req.body.descricao,
-        endereco    : req.body.endereco,
-        imagem      : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
-        cadastro    : req.body.cadastro,
-        site        : req.headers.authorization
+    var membro = new EquipeModel({
+        nome    : req.body.nome,
+        cargo   : req.body.cargo,
+        email   : req.body.email,
+        imagem  : req.body.imagem,
+        site    : req.headers.authorization
     });
 
-    slide.save(function(err, data) {
+    membro.save(function(err, data) {
         res.status(201).json({
             object      : 'object',
             has_more    : false,
@@ -94,25 +92,18 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    var id = req.params.id;
-    var data = req.body;
-
-    var dados = {
-        titulo: req.body.titulo,
-        descricao: req.body.descricao,
-        endereco: req.body.endereco
-    }
-
-    if (req.body.imagem) {
-        dados.imagem = JSON.parse(req.body.imagem);
-    }
-
-    SlideModel.update(
+    EquipeModel.update(
         {
-            _id : id,
+            _id : req.params.id,
             site: req.headers.authorization
         },
-        dados,
+        {
+            nome    : req.body.nome,
+            cargo   : req.body.cargo,
+            email   : req.body.email,
+            imagem  : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
+            site    : req.headers.authorization
+        },
         function(err, data) {
             res.status(204).json({
                 object      : 'object',
@@ -126,12 +117,11 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    SlideModel.remove(
+    EquipeModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization
-        },
-        function(err, data) {
+        }, function(err, data) {
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,

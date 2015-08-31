@@ -41,7 +41,7 @@ var Application = function () {
         });
 
         // Removed 'SIGPIPE' from the list - bugz 852598.
-        // Removev 'SIGUSR2' from the list - bugz with  nodemon/forever.
+        // Removed 'SIGUSR2' from the list - bugz with  nodemon/forever.
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
             'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGTERM'
         ].forEach(function (element, index, array) {
@@ -55,18 +55,20 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        self.app.use('/aviso', require(__dirname + '/src/aviso'));
-        self.app.use('/carrinho', require(__dirname + '/src/carrinho'));
-        self.app.use('/cliente', require(__dirname + '/src/cliente'));
-        self.app.use('/curriculo', require(__dirname + '/src/curriculo'));
-        self.app.use('/emprego', require(__dirname + '/src/emprego'));
-        self.app.use('/equipe', require(__dirname + '/src/equipe'));
-        self.app.use('/orcamento', require(__dirname + '/src/orcamento'));
-        self.app.use('/parceiro', require(__dirname + '/src/parceiro'));
-        self.app.use('/produto', require(__dirname + '/src/produto'));
-        self.app.use('/site', require(__dirname + '/src/site'));
-        self.app.use('/slide', require(__dirname + '/src/slide'));
-        self.app.use('/usuario', require(__dirname + '/src/usuario'));
+        var site = require(__dirname + '/src/modules/site');
+
+        self.app.use('/aviso', site, require(__dirname + '/src/routes/aviso'));
+        self.app.use('/carrinho', site, require(__dirname + '/src/routes/carrinho'));
+        self.app.use('/cliente', site, require(__dirname + '/src/routes/cliente'));
+        self.app.use('/curriculo', site, require(__dirname + '/src/routes/curriculo'));
+        self.app.use('/emprego', site, require(__dirname + '/src/routes/emprego'));
+        self.app.use('/equipe', site, require(__dirname + '/src/routes/equipe'));
+        self.app.use('/orcamento', site, require(__dirname + '/src/routes/orcamento'));
+        self.app.use('/parceiro', site, require(__dirname + '/src/routes/parceiro'));
+        self.app.use('/produto', site, require(__dirname + '/src/routes/produto'));
+        self.app.use('/site', site, require(__dirname + '/src/routes/site'));
+        self.app.use('/slide', site, require(__dirname + '/src/routes/slide'));
+        self.app.use('/usuario', site, require(__dirname + '/src/routes/usuario'));
     };
 
     /**
@@ -88,12 +90,14 @@ var Application = function () {
             next();
         });
 
+        // load modules
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(10, 100));
 
+        // load routes
         self.createRoutes();
     };
 

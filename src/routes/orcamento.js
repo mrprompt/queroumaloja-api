@@ -3,19 +3,59 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
-var ParceiroSchema  = new mongoose.Schema({
-    nome: {
-        type: String
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var OrcamentoSchema = new mongoose.Schema({
+    solicitante: {
+        type: String,
+        default: ''
     },
-    imagem: {
-        type: Object
+    empresa: {
+        type: String,
+        default: ''
     },
-    url: {
-        type: String
+    documento: {
+        type: String,
+        default: ''
     },
-    atuacao: {
-        type: String
+    email: {
+        type: String,
+        default: ''
+    },
+    telefone: {
+        type: String,
+        default: ''
+    },
+    celular: {
+        type: String,
+        default: ''
+    },
+    servico: {
+        type: String,
+        default: ''
+    },
+    endereco: {
+        type: String,
+        default: ''
+    },
+    bairro: {
+        type: String,
+        default: ''
+    },
+    cep: {
+        type: String,
+        default: ''
+    },
+    cidade: {
+        type: String,
+        default: ''
+    },
+    estado: {
+        type: String,
+        default: ''
+    },
+    detalhes: {
+        type: String,
+        default: ''
     },
     cadastro: {
         type: Date,
@@ -26,10 +66,10 @@ var ParceiroSchema  = new mongoose.Schema({
         ref: 'Site'
     }
 }).plugin(pagination);
-var ParceiroModel   = mongoose.model('Parceiro', ParceiroSchema);
+var OrcamentoModel  = mongoose.model('Orcamento', OrcamentoSchema);
 
 router.get('/', function(req, res) {
-    ParceiroModel.paginate(
+    OrcamentoModel.paginate(
         {
             site: req.headers.authorization
         },
@@ -47,14 +87,16 @@ router.get('/', function(req, res) {
             });
         },
         {
-            populate: [ 'site' ],
-            sortBy: {cadastro: -1}
+            populate: ['site'],
+            sortBy: {
+                cadastro: -1
+            }
         }
     );
 });
 
 router.get('/:id', function(req, res) {
-    ParceiroModel.findOne({
+    OrcamentoModel.findOne({
             _id : req.params.id,
             site: req.headers.authorization
         })
@@ -71,17 +113,26 @@ router.get('/:id', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    var parceiro = new ParceiroModel({
-        nome    : req.body.nome,
-        imagem  : (req.body.imagem ? JSON.parse(req.body.imagem) : ''),
-        url     : req.body.url,
-        atuacao : req.body.atuacao,
-        cadastro: req.body.cadastro,
-        site    : req.headers.authorization
+    var orcamento = new OrcamentoModel({
+        solicitante     : req.body.solicitante,
+        empresa         : req.body.empresa,
+        documento       : req.body.documento,
+        email           : req.body.email,
+        telefone        : req.body.telefone,
+        celular         : req.body.celular,
+        servico         : req.body.servico,
+        endereco        : req.body.endereco,
+        bairro          : req.body.bairro,
+        cep             : req.body.cep,
+        cidade          : req.body.cidade,
+        estado          : req.body.estado,
+        detalhes        : req.body.detalhes,
+        cadastro        : req.body.cadastro,
+        site            : req.headers.authorization
     });
 
-    parceiro.save(function(err, data) {
-        res.status(200).json({
+    orcamento.save(function(err, data) {
+        res.status(201).json({
             object      : 'object',
             has_more    : false,
             data        : data,
@@ -92,19 +143,12 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    ParceiroModel.update(
+    OrcamentoModel.update(
         {
             _id : req.params.id,
             site: req.headers.authorization
         },
-        {
-            nome    : req.body.nome,
-            url     : req.body.url,
-            atuacao : req.body.atuacao,
-            image   : (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
-            cadastro: req.body.cadastro,
-            site    : req.headers.authorization
-        },
+        req.body,
         function(err, data) {
             res.status(204).json({
                 object      : 'object',
@@ -118,7 +162,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-    ParceiroModel.remove(
+    OrcamentoModel.remove(
         {
             _id : req.params.id,
             site: req.headers.authorization

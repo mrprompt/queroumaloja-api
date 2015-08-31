@@ -3,7 +3,7 @@
 var router          = require('express').Router();
 var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/index').mongoose;
+var mongoose        = require(__dirname + '/../modules/connection').mongoose;
 var CarrinhoSchema  = new mongoose.Schema({
     titulo: {
         type: String
