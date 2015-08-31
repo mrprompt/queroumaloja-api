@@ -3,6 +3,10 @@
 var router = require('express').Router();
 
 router.all('*', function(req, res, next) {
+    if (req.method === 'OPTIONS') {
+        return true;
+    }
+
     if (!req.headers.site) {
         res.status(500).json({
             object      : 'object',
