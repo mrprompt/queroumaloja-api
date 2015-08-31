@@ -7,7 +7,8 @@ var TokenSchema = new mongoose.Schema({
         default: ''
     },
     tipo: {
-        type: ['rw', 'ro']
+        type: String,
+        enum: ['rw', 'ro']
     },
     cadastro: {
         type: Date,

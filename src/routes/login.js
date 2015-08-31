@@ -8,14 +8,13 @@ var token                   = require('token');
     token.defaults.timeStep = (24 * 60 * 60) * 30; // 24h in seconds
 
 router.post('/', function(req, res) {
-    UsuarioModel.findOne(
-        {
-            email   : (req.body.username),
+    UsuarioModel
+        .findOne({
+            email   : (req.body.email),
             password: (req.body.password)
-        },
-        '_id',
-        function (err, user) {
-            if (err || !user) {
+        })
+        .exec(function (err, user) {
+            if (err || !user || (user.email !== req.body.email || user.password !== req.body.password)) {
                 res.status(403).json({
                     object      : 'object',
                     has_more    : false,
@@ -32,7 +31,7 @@ router.post('/', function(req, res) {
 
             var usertoken = new TokenModel({
                 usuario : user._id,
-                tipo    : 'ro',
+                tipo    : 'rw',
                 cadastro: (new Date()),
                 conteudo: token.generate(user._id + '|' + user.site)
             });
@@ -41,13 +40,14 @@ router.post('/', function(req, res) {
                 res.status(201).json({
                     object      : 'object',
                     has_more    : false,
-                    data        : data,
+                    data        : {
+                        conteudo: data.conteudo
+                    },
                     itemCount   : 1,
                     pageCount   : 1
                 });
             });
-        }
-    );
+        });
 });
 
 module.exports = router;

@@ -44,7 +44,7 @@ router.all('*', function(req, res, next) {
                     return false;
                 }
 
-                var verify = token.verify(data.usuario + '|' + data.usuario.site, req.headers.authorization);
+                var verify = token.verify(data.usuario + '|' + req.headers.site, req.headers.authorization);
 
                 if (verify === 0) {
                     res.status(403).json({
