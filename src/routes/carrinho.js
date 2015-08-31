@@ -7,7 +7,7 @@ var CarrinhoModel   = require(__dirname + '/../models/carrinho');
 router.get('/:usuario', function (req, res) {
     CarrinhoModel.paginate(
         {
-            site    : req.headers.authorization,
+            site    : req.headers.site,
             usuario : req.params.usuario
         },
         {
@@ -36,7 +36,7 @@ router.get('/:id/:usuario', function (req, res) {
     Carrinho
         .findOne({
             _id     : req.params.id,
-            site    : req.headers.authorization,
+            site    : req.headers.site,
             usuario : req.params.usuario
         })
         .populate(['items.produto', 'site', 'usuario'])
@@ -55,7 +55,7 @@ router.post('/:usuario', function (req, res) {
     var params = {
         titulo  : (req.body.titulo ? req.body.titulo : 'Sem título'),
         cadastro: (new Date),
-        site    : req.headers.authorization,
+        site    : req.headers.site,
         usuario : req.params.usuario
     };
 
@@ -80,7 +80,7 @@ router.put('/:id/:usuario', function (req, res) {
     var carrinho = Carrinho
         .findOne({
             _id     : req.params.id,
-            site    : req.headers.authorization,
+            site    : req.headers.site,
             usuario : req.params.usuario
         })
         .populate(['items.produto', 'site', 'usuario'])
@@ -105,7 +105,7 @@ router.put('/:id/:usuario', function (req, res) {
 router.delete('/:id/:usuario', function (req, res) {
     CarrinhoModel.remove({
         _id     : req.params.id,
-        site    : req.headers.authorization,
+        site    : req.headers.site,
         usuario : req.params.usuario
     }, function (err, data) {
         res.status(204).json({

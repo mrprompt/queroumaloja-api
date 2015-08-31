@@ -7,7 +7,7 @@ var EmpregoModel    = require(__dirname + '/../models/emprego');
 router.get('/', function(req, res) {
     EmpregoModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page: req.query.page,
@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     EmpregoModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .exec(function(err, data) {
             res.status(200).json({
@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
         cadastro    : (new Date),
         tags        : (req.body.tags ? req.body.tags.split(',') : ''),
         salario     : req.body.salario,
-        site        : req.headers.authorization
+        site        : req.headers.site
     });
     
     emprego.save(function(err, data) {
@@ -72,7 +72,7 @@ router.put('/:id', function(req, res) {
     EmpregoModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             titulo      : req.body.titulo,
@@ -96,7 +96,7 @@ router.delete('/:id', function(req, res) {
     EmpregoModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, data) {
             res.status(204).json({

@@ -7,7 +7,7 @@ var CurriculoModel  = require(__dirname + '/../models/curriculo');
 router.get('/', function(req, res) {
     CurriculoModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page: req.query.page,
@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     CurriculoModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .populate(['site'])
         .exec(function(err, data) {
@@ -63,7 +63,7 @@ router.post('/', function(req, res) {
         observacao  : req.body.observacao,
         cadastro    : req.body.cadastro,
         arquivo     : req.body.arquivo,
-        site        : req.headers.authorization
+        site        : req.headers.site
     });
 
     curriculo.save(function(err, data) {
@@ -81,7 +81,7 @@ router.put('/:id', function(req, res) {
     CurriculoModel.update(
         {
             _id: req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         req.body,
         function(err, data) {
@@ -100,7 +100,7 @@ router.delete('/:id', function(req, res) {
     CurriculoModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, data) {
             res.status(204).json({

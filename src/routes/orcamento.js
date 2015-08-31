@@ -7,7 +7,7 @@ var OrcamentoModel  = require(__dirname + '/../models/orcamento');
 router.get('/', function(req, res) {
     OrcamentoModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page : req.query.page,
@@ -34,7 +34,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     OrcamentoModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .populate(['site'])
         .exec(function(err, data) {
@@ -64,7 +64,7 @@ router.post('/', function(req, res) {
         estado          : req.body.estado,
         detalhes        : req.body.detalhes,
         cadastro        : req.body.cadastro,
-        site            : req.headers.authorization
+        site            : req.headers.site
     });
 
     orcamento.save(function(err, data) {
@@ -82,7 +82,7 @@ router.put('/:id', function(req, res) {
     OrcamentoModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         req.body,
         function(err, data) {
@@ -101,7 +101,7 @@ router.delete('/:id', function(req, res) {
     OrcamentoModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, data) {
             res.status(204).json({

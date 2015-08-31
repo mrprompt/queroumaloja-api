@@ -56,6 +56,7 @@ var Application = function () {
      */
     self.createRoutes = function () {
         var site = require(__dirname + '/src/modules/site');
+        var token = require(__dirname + '/src/modules/token');
 
         self.app.use('/aviso', site, require(__dirname + '/src/routes/aviso'));
         self.app.use('/carrinho', site, require(__dirname + '/src/routes/carrinho'));
@@ -69,6 +70,8 @@ var Application = function () {
         self.app.use('/site', site, require(__dirname + '/src/routes/site'));
         self.app.use('/slide', site, require(__dirname + '/src/routes/slide'));
         self.app.use('/usuario', site, require(__dirname + '/src/routes/usuario'));
+        self.app.use('/login', site, require(__dirname + '/src/routes/login'));
+        self.app.use('/logout', site, require(__dirname + '/src/routes/logout'));
     };
 
     /**
@@ -83,8 +86,8 @@ var Application = function () {
         // first, enable CORS
         self.app.use(function(req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match");
-            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin");
+            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match, Site");
+            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin, Site");
             res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
 
             next();

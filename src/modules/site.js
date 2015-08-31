@@ -3,10 +3,25 @@
 var router = require('express').Router();
 
 router.all('*', function(req, res, next) {
+    if (!req.headers.site) {
+        res.status(500).json({
+            object      : 'object',
+            has_more    : false,
+            data        : {
+                message : 'Atributo site não encontrado no cabeçalho',
+                status  : 500
+            },
+            itemCount   : 0,
+            pageCount   : 1
+        });
+
+        return false;
+    }
+
     var SiteModel = require(__dirname + '/../models/site');
 
     SiteModel.findOne({
-        _id: req.headers.authorization
+        _id: req.headers.site
     })
     .exec(function(err, data) {
         if (err) {

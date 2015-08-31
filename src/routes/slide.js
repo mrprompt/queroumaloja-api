@@ -7,7 +7,7 @@ var SlideModel  = require(__dirname + '/../models/slide');
 router.get('/', function(req, res) {
     SlideModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page: req.query.page,
@@ -32,7 +32,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     SlideModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .exec(function(err, data) {
             res.status(200).json({
@@ -52,7 +52,7 @@ router.post('/', function(req, res) {
         endereco    : req.body.endereco,
         imagem      : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
         cadastro    : req.body.cadastro,
-        site        : req.headers.authorization
+        site        : req.headers.site
     });
 
     slide.save(function(err, data) {
@@ -83,7 +83,7 @@ router.put('/:id', function(req, res) {
     SlideModel.update(
         {
             _id : id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         dados,
         function(err, data) {
@@ -102,7 +102,7 @@ router.delete('/:id', function(req, res) {
     SlideModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, data) {
             res.status(204).json({

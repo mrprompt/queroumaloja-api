@@ -7,7 +7,7 @@ var ParceiroModel   = require(__dirname + '/../models/parceiro');
 router.get('/', function(req, res) {
     ParceiroModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page : req.query.page,
@@ -32,7 +32,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     ParceiroModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .populate(['site'])
         .exec(function(err, data) {
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
         url     : req.body.url,
         atuacao : req.body.atuacao,
         cadastro: req.body.cadastro,
-        site    : req.headers.authorization
+        site    : req.headers.site
     });
 
     parceiro.save(function(err, data) {
@@ -71,7 +71,7 @@ router.put('/:id', function(req, res) {
     ParceiroModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             nome    : req.body.nome,
@@ -79,7 +79,7 @@ router.put('/:id', function(req, res) {
             atuacao : req.body.atuacao,
             image   : (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
             cadastro: req.body.cadastro,
-            site    : req.headers.authorization
+            site    : req.headers.site
         },
         function(err, data) {
             res.status(204).json({
@@ -97,7 +97,7 @@ router.delete('/:id', function(req, res) {
     ParceiroModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, data) {
             res.status(204).json({

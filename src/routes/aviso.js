@@ -6,7 +6,7 @@ var AvisoModel  = require(__dirname + '/../models/aviso');
 
 router.get('/', function(req, res) {
     var filter = {
-        site: req.headers.authorization
+        site: req.headers.site
     };
 
     AvisoModel.paginate(
@@ -36,7 +36,7 @@ router.get('/:id', function(req, res) {
     Aviso
         .findOne({
             _id: req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .exec(function(err, data) {
             res.status(200).json({
@@ -65,7 +65,7 @@ router.post('/', function(req, res) {
         tipo    : data.tipo,
         inicio  : inicio,
         fim     : fim,
-        site    : req.headers.authorization
+        site    : req.headers.site
     };
 
     var aviso = new AvisoModel(dados);
@@ -104,7 +104,7 @@ router.put('/:id', function(req, res) {
     AvisoModel.update(
         {
             _id: req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         dados,
         function(err, data) {
@@ -116,7 +116,7 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
     AvisoModel.remove({
         _id: req.params.id,
-        site: req.headers.authorization
+        site: req.headers.site
     }, function(err, data) {
         res.status(204).json(data);
     });

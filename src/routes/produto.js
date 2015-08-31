@@ -6,7 +6,7 @@ var ProdutoModel    = require(__dirname + '/../models/produto');
 
 router.get('/', function (req, res) {
     var filter = {
-        site: req.headers.authorization
+        site: req.headers.site
     };
 
     if (req.query.tipo !== undefined) {
@@ -42,7 +42,7 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     ProdutoModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .exec(function (err, data) {
             res.status(200).json({
@@ -60,7 +60,7 @@ router.post('/', function (req, res) {
         titulo      : req.body.titulo,
         descricao   : req.body.descricao,
         imagem      : (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
-        site        : req.headers.authorization,
+        site        : req.headers.site,
         codigo      : req.body.codigo,
         tipo        : req.body.tipo,
         categoria   : req.body.categoria,
@@ -82,7 +82,7 @@ router.put('/:id', function (req, res) {
     ProdutoModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             titulo      : req.body.titulo,
@@ -109,7 +109,7 @@ router.delete('/:id', function (req, res) {
     ProdutoModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function (err, data) {
             res.status(204).json({

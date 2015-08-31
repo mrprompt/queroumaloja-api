@@ -7,7 +7,7 @@ var EquipeModel     = require(__dirname + '/../models/equipe');
 router.get('/', function(req, res) {
     EquipeModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page : req.query.page,
@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     EquipeModel.findOne({
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .populate(['site'])
         .exec(function(err, data) {
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
         cargo   : req.body.cargo,
         email   : req.body.email,
         imagem  : req.body.imagem,
-        site    : req.headers.authorization
+        site    : req.headers.site
     });
 
     membro.save(function(err, data) {
@@ -71,14 +71,14 @@ router.put('/:id', function(req, res) {
     EquipeModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             nome    : req.body.nome,
             cargo   : req.body.cargo,
             email   : req.body.email,
             imagem  : (req.body.imagem ? JSON.parse(req.body.imagem) : null),
-            site    : req.headers.authorization
+            site    : req.headers.site
         },
         function(err, data) {
             res.status(204).json({
@@ -96,7 +96,7 @@ router.delete('/:id', function(req, res) {
     EquipeModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         }, function(err, data) {
             res.status(204).json({
                 object      : 'object',

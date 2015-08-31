@@ -7,7 +7,7 @@ var ClienteModel    = require(__dirname + '/../models/cliente');
 router.get('/', function(req, res) {
     ClienteModel.paginate(
         {
-            site: req.headers.authorization
+            site: req.headers.site
         },
         {
             page: req.query.page,
@@ -36,7 +36,7 @@ router.get('/:id', function(req, res) {
     Cliente
         .findOne({
             _id: id,
-            site: req.headers.authorization
+            site: req.headers.site
         })
         .exec(function(err, result) {
             res.status(200).json({
@@ -57,7 +57,7 @@ router.post('/', function(req, res) {
         atuacao     : req.body.atuacao,
         descricao   : req.body.descricao,
         cadastro    : req.body.cadastro,
-        site        : req.headers.authorization
+        site        : req.headers.site
     });
 
     ClienteModel.save(function(err, result) {
@@ -75,7 +75,7 @@ router.put('/:id', function(req, res) {
     ClienteModel.update(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         req.body,
         function(err, result) {
@@ -94,7 +94,7 @@ router.delete('/:id', function(req, res) {
     ClienteModel.remove(
         {
             _id : req.params.id,
-            site: req.headers.authorization
+            site: req.headers.site
         },
         function(err, result) {
             res.status(204).json({
