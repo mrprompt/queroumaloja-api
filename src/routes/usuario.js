@@ -1,24 +1,7 @@
 'use strict';
 
 var router          = require('express').Router();
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
-var UsuarioSchema   = new mongoose.Schema({
-    email: {
-        type: String
-    },
-    password: {
-        type: String
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-});
-var UsuarioModel    = mongoose.model('Usuario', UsuarioSchema);
+var UsuarioModel    = require(__dirname + '/../models/usuario');
 
 router.post('/', function(req, res) {
     UsuarioModel.findOne(

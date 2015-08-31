@@ -2,38 +2,7 @@
 
 var router      = require('express').Router();
 var paginate    = require('express-paginate');
-var mongoose    = require(__dirname + '/../modules/connection').mongoose;
-var AvisoSchema = new mongoose.Schema({
-    titulo: {
-        type: String,
-        default: ''
-    },
-    conteudo: {
-        type: String,
-        default: ''
-    },
-    tipo: {
-        type: String,
-        default: 'info'
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    inicio: {
-        type: Date,
-        default: Date.now
-    },
-    fim: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-}).plugin(require('mongoose-paginate'));
-var AvisoModel  = mongoose.model('Aviso', AvisoSchema);
+var AvisoModel  = require(__dirname + '/../models/aviso');
 
 router.get('/', function(req, res) {
     var filter = {
@@ -154,4 +123,3 @@ router.delete('/:id', function(req, res) {
 });
 
 module.exports = router;
-module.exports = AvisoModel;

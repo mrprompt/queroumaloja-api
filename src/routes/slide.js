@@ -1,35 +1,8 @@
 'use strict';
 
 var router      = require('express').Router();
-var pagination  = require('mongoose-paginate');
 var paginate    = require('express-paginate');
-var mongoose    = require(__dirname + '/../modules/connection').mongoose;
-var SlideSchema = new mongoose.Schema({
-    titulo: {
-        type: String,
-        default: ''
-    },
-    descricao: {
-        type: String,
-        default: ''
-    },
-    endereco: {
-        type: String,
-        default: ''
-    },
-    imagem: {
-        type: Object
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-}).plugin(pagination);
-var SlideModel  = mongoose.model('Slide', SlideSchema);
+var SlideModel  = require(__dirname + '/../models/slide');
 
 router.get('/', function(req, res) {
     SlideModel.paginate(

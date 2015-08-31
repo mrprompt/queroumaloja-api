@@ -1,32 +1,8 @@
 'use strict';
 
 var router          = require('express').Router();
-var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
-var ParceiroSchema  = new mongoose.Schema({
-    nome: {
-        type: String
-    },
-    imagem: {
-        type: Object
-    },
-    url: {
-        type: String
-    },
-    atuacao: {
-        type: String
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-}).plugin(pagination);
-var ParceiroModel   = mongoose.model('Parceiro', ParceiroSchema);
+var ParceiroModel   = require(__dirname + '/../models/parceiro');
 
 router.get('/', function(req, res) {
     ParceiroModel.paginate(

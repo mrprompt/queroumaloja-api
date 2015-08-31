@@ -1,37 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
-var mongoose    = require(__dirname + '/../modules/connection').mongoose;
-var SiteSchema  = new mongoose.Schema({
-    nome: {
-        type: String
-    },
-    dominio: {
-        type: String
-    },
-    descricao: {
-        type: String
-    },
-    emails: {
-        type: []
-    },
-    enderecos: {
-        type: []
-    },
-    telefones: {
-        type: []
-    },
-    modulos: {
-        type: []
-    },
-    atuacao: {
-        type: []
-    },
-    servicos: {
-        type: []
-    }
-});
-var SiteModel   = mongoose.model('Site', SiteSchema);
+var SiteModel   = require(__dirname + '/../models/site');
 
 router.get('/:id', function(req, res) {
     SiteModel.findOne({
@@ -73,4 +43,3 @@ exports.update = function(req, res) {
 };
 
 module.exports = router;
-module.exports = SiteModel;

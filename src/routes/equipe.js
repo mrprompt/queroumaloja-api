@@ -1,32 +1,8 @@
 'use strict';
 
 var router          = require('express').Router();
-var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
-var EquipeSchema    = new mongoose.Schema({
-    nome: {
-        type: String
-    },
-    cargo: {
-        type: String
-    },
-    email: {
-        type: String
-    },
-    imagem: {
-        type: Object
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-}).plugin(pagination);
-var EquipeModel     = mongoose.model('Equipe', EquipeSchema);
+var EquipeModel     = require(__dirname + '/../models/equipe');
 
 router.get('/', function(req, res) {
     EquipeModel.paginate(

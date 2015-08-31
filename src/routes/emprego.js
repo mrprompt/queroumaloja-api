@@ -1,36 +1,8 @@
 'use strict';
 
 var router          = require('express').Router();
-var pagination      = require('mongoose-paginate');
 var paginate        = require('express-paginate');
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
-var EmpregoSchema   = new mongoose.Schema({
-    titulo: {
-        type: String,
-        default: ''
-    },
-    descricao: {
-        type: String,
-        default: ''
-    },
-    tags: {
-        type: [],
-        default: ''
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    salario: {
-        type: String,
-        default: ''
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    }
-}).plugin(pagination);
-var EmpregoModel    = mongoose.model('Emprego', EmpregoSchema);
+var EmpregoModel    = require(__dirname + '/../models/emprego');
 
 router.get('/', function(req, res) {
     EmpregoModel.paginate(
