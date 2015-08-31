@@ -4,7 +4,7 @@ var router = require('express').Router();
 
 router.all('*', function(req, res, next) {
     if (req.method === 'OPTIONS') {
-        return true;
+        return next();
     }
 
     if (!req.headers.site) {
