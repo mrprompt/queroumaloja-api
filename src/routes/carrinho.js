@@ -52,15 +52,13 @@ router.get('/:id/:usuario', function (req, res) {
 });
 
 router.post('/:usuario', function (req, res) {
-    var params = {
+    var carrinho = new CarrinhoModel({
         titulo  : (req.body.titulo ? req.body.titulo : 'Sem título'),
         cadastro: (new Date),
         site    : req.headers.site,
         usuario : req.params.usuario
-    };
-
-    var carrinho = new CarrinhoModel(params);
-        CarrinhoModel.items.push({
+    });
+    carrinho.items.push({
             produto     : req.body.produto,
             quantidade  : req.body.quantidade
         });
