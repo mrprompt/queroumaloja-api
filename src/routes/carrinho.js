@@ -75,8 +75,7 @@ router.post('/:usuario', function (req, res) {
 });
 
 router.put('/:id/:usuario', function (req, res) {
-    var carrinho = Carrinho
-        .findOne({
+    CarrinhoModel.findOne({
             _id     : req.params.id,
             site    : req.headers.site,
             usuario : req.params.usuario
