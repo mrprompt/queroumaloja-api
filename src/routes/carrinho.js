@@ -33,8 +33,7 @@ router.get('/:usuario', function (req, res) {
 });
 
 router.get('/:id/:usuario', function (req, res) {
-    Carrinho
-        .findOne({
+    CarrinhoModel.findOne({
             _id     : req.params.id,
             site    : req.headers.site,
             usuario : req.params.usuario
