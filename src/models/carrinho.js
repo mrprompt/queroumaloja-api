@@ -32,7 +32,11 @@ var CarrinhoSchema  = new mongoose.Schema({
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
-    }
+    },
+    status: {
+        type: String,
+        enum: ['novo', 'pago', 'apagado']
+    },
 }).plugin(require('mongoose-paginate'));
 var CarrinhoModel   = mongoose.model('Carrinho', CarrinhoSchema);
 

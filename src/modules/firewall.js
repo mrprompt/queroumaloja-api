@@ -2,9 +2,9 @@
 
 module.exports = [
     '/aviso/|POST',
-    '/aviso/:id|PUT',
-    '/aviso/:id|DELETE',
-    '/carrinho/:usuario|GET',
+    '/aviso/|PUT',
+    '/aviso/|DELETE',
+    '/carrinho/|GET',
     '/carrinho/:id/:usuario|GET',
     '/carrinho/:usuario|POST',
     '/carrinho/:id/:usuario|PUT',
