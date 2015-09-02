@@ -11,7 +11,10 @@ router.get('/', function(req, res) {
         },
         {
             page : req.query.page,
-            limit: req.query.limit
+            limit: req.query.limit,
+            sortBy: {
+                cadastro: -1
+            }
         },
         function (err, data, pageCount, itemCount) {
             res.status(200).json({
@@ -21,11 +24,6 @@ router.get('/', function(req, res) {
                 itemCount   : itemCount,
                 pageCount   : pageCount
             });
-        },
-        {
-            sortBy: {
-                cadastro: -1
-            }
         }
     );
 });

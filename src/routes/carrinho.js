@@ -12,7 +12,11 @@ router.get('/:usuario', function (req, res) {
         },
         {
             page: req.query.page,
-            limit: req.query.limit
+            limit: req.query.limit,
+            populate: ['items.produto', 'site', 'usuario'],
+            sortBy: {
+                cadastro: -1
+            }
         },
         function (err, data, pageCount, itemCount) {
             res.status(200).json({
@@ -22,12 +26,6 @@ router.get('/:usuario', function (req, res) {
                 itemCount   : itemCount,
                 pageCount   : pageCount
             });
-        },
-        {
-            populate: ['items.produto', 'site', 'usuario'],
-            sortBy: {
-                cadastro: -1
-            }
         }
     );
 });
