@@ -4,25 +4,22 @@ var router          = require('express').Router();
 var UsuarioModel    = require(__dirname + '/../models/usuario');
 
 router.post('/', function(req, res) {
-    UsuarioModel.findOne(
-        {
-            email   : req.body.username,
-            password: req.body.password
-        },
-        function (err, user) {
-            if (err || user === null) {
-                return res.sendStatus(403);
-            }
+    var usuario = new UsuarioModel({
+            email   : req.body.email,
+            password: req.body.password,
+            site    : req.headers.site,
+            nome    : req.body.nome,
+        });
 
-            res.status(200).json({
-                object      : 'object',
-                has_more    : false,
-                data        : user,
-                itemCount   : 1,
-                pageCount   : 1
-            });
-        }
-    ).populate('site');
+    usuario.save(function(err, user) {
+        res.status(201).json({
+            object      : 'object',
+            has_more    : false,
+            data        : usuario,
+            itemCount   : 1,
+            pageCount   : 1
+        });
+    });
 });
 
 router.get('/:id', function (req, res) {

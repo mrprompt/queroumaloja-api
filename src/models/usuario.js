@@ -2,11 +2,18 @@
 
 var mongoose        = require(__dirname + '/../modules/connection').mongoose;
 var UsuarioSchema   = new mongoose.Schema({
+    nome: {
+        type: String,
+        required: true
+    },
     email: {
-        type: String
+        type: String,
+        required: true,
+        index: { unique: true }
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     cadastro: {
         type: Date,
