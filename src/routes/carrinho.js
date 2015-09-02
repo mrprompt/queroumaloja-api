@@ -82,10 +82,20 @@ router.put('/:id/:usuario', function (req, res) {
         })
         .populate(['items.produto', 'site', 'usuario'])
         .exec(function (err, data) {
-            data.items.push({
-                produto: req.body.produto,
-                quantidade: req.body.quantidade
-            });
+            if (req.body.produto && req.body.quantidade) {
+                data.items.push({
+                    produto: req.body.produto,
+                    quantidade: req.body.quantidade
+                });
+            }
+
+            if (req.body.status) {
+                data.status = req.body.status;
+            }
+
+            if (req.body.token) {
+                data.token = req.body.token;
+            }
 
             data.save(function (err, result) {
                 res.status(204).json({

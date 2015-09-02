@@ -35,8 +35,12 @@ var CarrinhoSchema  = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['novo', 'pago', 'apagado']
+        enum: ['novo', 'pago', 'apagado', 'estornado']
     },
+    token: {
+        type: String,
+        default: ''
+    }
 }).plugin(require('mongoose-paginate'));
 var CarrinhoModel   = mongoose.model('Carrinho', CarrinhoSchema);
 
