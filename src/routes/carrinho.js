@@ -8,8 +8,7 @@ router.get('/:usuario', function (req, res) {
     CarrinhoModel.paginate(
         {
             site    : req.headers.site,
-            usuario : req.params.usuario,
-            status  : ['ativo', 'pago']
+            usuario : req.params.usuario
         },
         {
             page: req.query.page,
