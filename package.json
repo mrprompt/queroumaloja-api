@@ -1,12 +1,15 @@
 {
   "name": "grupo-publiciti",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "API de produtos para o grupo Publiciti",
   "private": true,
   "main": "server.js",
   "keywords": [
     "api",
-    "ecommerce"
+    "ecommerce",
+    "produtos",
+    "cms",
+    "conteudo"
   ],
   "author": {
     "name": "Thiago Paes",

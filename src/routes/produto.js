@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
             sortBy: { cadastro: -1 }
         },
         function (err, data, pageCount, itemCount) {
-            res.status(200).json({
+            return res.status(200).json({
                 object      : 'list',
                 has_more    : paginate.hasNextPages(req)(pageCount),
                 data        : data,
@@ -50,7 +50,10 @@ router.get('/busca/', function (req, res) {
         }
     };
 
-    ProdutoModel.textSearch(req.query.busca, filter, function(err, data) {
+    ProdutoModel.textSearch(
+        req.query.busca,
+        filter,
+        function(err, data) {
             if (err) {
                 return res.status(500).json({
                     object      : 'error',
@@ -61,10 +64,18 @@ router.get('/busca/', function (req, res) {
                 });
             };
 
-            res.status(200).json({
+            var items = [];
+
+            data.results.forEach(function(result) {
+                items.push(result.obj);
+
+                return result;
+            });
+
+            return res.status(200).json({
                 object      : 'list',
                 has_more    : true,
-                data        : data.results,
+                data        : items,
                 itemCount   : data.stats.nfound,
                 pageCount   : 1
             });

@@ -73,7 +73,16 @@ router.get('/:id', function (req, res) {
         },
         function (err, user) {
             if (err || user === null) {
-                return res.sendStatus(404);
+                return res.status(404).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : {
+                        status  : 404,
+                        message : 'Usuário não encontrado',
+                    },
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
             }
 
             res.status(200).json({
