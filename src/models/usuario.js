@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose        = require(__dirname + '/../modules/connection').mongoose;
-var uniqueValidator = require('mongoose-unique-validator');
 var UsuarioSchema   = new mongoose.Schema({
     nome: {
         type: String,
@@ -33,7 +32,15 @@ var UsuarioSchema   = new mongoose.Schema({
             type: String
         }
     }
-}).plugin(uniqueValidator).plugin(require('mongoose-bcrypt'));
-var UsuarioModel    = mongoose.model('Usuario', UsuarioSchema);
+})
+    .plugin(require('mongoose-unique-validator'))
+    .plugin(require('mongoose-bcrypt'))
+    .set('toJSON', {
+        transform: function(doc, ret, options) {
+            delete ret.password;
 
-module.exports = UsuarioModel;
+            return ret;
+        }
+    });
+
+module.exports = mongoose.model('Usuario', UsuarioSchema);
