@@ -42,7 +42,7 @@ var ProdutoSchema   = new mongoose.Schema({
 })
     .plugin(require('mongoose-paginate'))
     .plugin(require('mongoose-text-search'))
-    .index({ titulo: 'text', descricao: 'text' });
+    .index({ descricao: 'text' });
 
 var ProdutoModel    = mongoose.model('Produto', ProdutoSchema);
 
