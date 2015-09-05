@@ -19,6 +19,16 @@ router.get('/:usuario', function (req, res) {
             }
         },
         function (err, data, pageCount, itemCount) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'error',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(200).json({
                 object      : 'list',
                 has_more    : paginate.hasNextPages(req)(pageCount),
@@ -38,6 +48,16 @@ router.get('/:id/:usuario', function (req, res) {
         })
         .populate(['items.produto', 'site', 'usuario'])
         .exec(function (err, data) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'error',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(200).json({
                 object      : 'object',
                 has_more    : false,
@@ -55,12 +75,23 @@ router.post('/:usuario', function (req, res) {
         site    : req.headers.site,
         usuario : req.params.usuario
     });
+
     carrinho.items.push({
             produto     : req.body.produto,
             quantidade  : req.body.quantidade
         });
 
     carrinho.save(function (err, data) {
+        if (err) {
+            return res.status(500).json({
+                object      : 'error',
+                has_more    : false,
+                data        : err,
+                itemCount   : 1,
+                pageCount   : 1
+            });
+        }
+
         res.status(201).json({
             object      : 'object',
             has_more    : false,
@@ -80,10 +111,22 @@ router.put('/:id/:usuario', function (req, res) {
         .populate(['items.produto', 'site', 'usuario'])
         .exec(function (err, data) {
             if (req.body.produto && req.body.quantidade) {
-                data.items.push({
-                    produto: req.body.produto,
-                    quantidade: req.body.quantidade
+                var exists = false;
+
+                data.items.forEach(function(item) {
+                    if (item.produto._id.toString() == req.body.produto) {
+                        item.quantidade += req.body.quantidade;
+
+                        exists = true;
+                    }
                 });
+
+                if (exists === false) {
+                    data.items.push({
+                        produto: req.body.produto,
+                        quantidade: req.body.quantidade
+                    });
+                }
             }
 
             if (req.body.status) {
@@ -95,6 +138,16 @@ router.put('/:id/:usuario', function (req, res) {
             }
 
             data.save(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        object      : 'error',
+                        has_more    : false,
+                        data        : err,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
+                }
+
                 res.status(204).json({
                     object      : 'object',
                     has_more    : false,
@@ -112,6 +165,16 @@ router.delete('/:id/:usuario', function (req, res) {
         site    : req.headers.site,
         usuario : req.params.usuario
     }, function (err, data) {
+        if (err) {
+            return res.status(500).json({
+                object      : 'error',
+                has_more    : false,
+                data        : err,
+                itemCount   : 1,
+                pageCount   : 1
+            });
+        }
+
         res.status(204).json({
             object      : 'object',
             has_more    : false,

@@ -39,7 +39,11 @@ var ProdutoSchema   = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
+})
+    .plugin(require('mongoose-paginate'))
+    .plugin(require('mongoose-text-search'))
+    .index({ descricao: 'text' });
+
 var ProdutoModel    = mongoose.model('Produto', ProdutoSchema);
 
 module.exports = ProdutoModel;

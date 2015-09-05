@@ -9,9 +9,23 @@ router.post('/', function(req, res) {
             password: req.body.password,
             site    : req.headers.site,
             nome    : req.body.nome,
+            localidade: {
+                estado: req.body.estado,
+                cidade: req.body.cidade
+            }
         });
 
     usuario.save(function(err, user) {
+        if (err) {
+            return res.status(500).json({
+                object      : 'object',
+                has_more    : false,
+                data        : err,
+                itemCount   : 1,
+                pageCount   : 1
+            });
+        }
+
         res.status(201).json({
             object      : 'object',
             has_more    : false,
