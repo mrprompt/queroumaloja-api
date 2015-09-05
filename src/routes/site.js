@@ -18,10 +18,10 @@ router.get('/:id', function(req, res) {
         });
 });
 
-exports.update = function(req, res) {
+router.put('/:id', function(req, res) {
     SiteModel.update(
         {
-        _id: req.site._id,
+            _id: req.site._id,
         },
         {
             nome        : req.body.nome,
@@ -40,6 +40,6 @@ exports.update = function(req, res) {
             });
         }
     );
-};
+});
 
 module.exports = router;

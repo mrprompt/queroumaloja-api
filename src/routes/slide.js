@@ -65,9 +65,6 @@ router.post('/', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-    var id = req.params.id;
-    var data = req.body;
-
     var dados = {
         titulo: req.body.titulo,
         descricao: req.body.descricao,
@@ -80,7 +77,7 @@ router.put('/:id', function(req, res) {
 
     SlideModel.update(
         {
-            _id : id,
+            _id : req.params.id,
             site: req.headers.site
         },
         dados,

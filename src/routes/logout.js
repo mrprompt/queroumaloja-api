@@ -1,6 +1,6 @@
 'use strict';
 
-var router          = require('express').Router();
+var router = require('express').Router();
 
 router.post('/', function(req, res) {
     res.status(200).json({
