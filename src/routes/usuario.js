@@ -36,6 +36,36 @@ router.post('/', function(req, res) {
     });
 });
 
+router.get('/', function (req, res) {
+    UsuarioModel.findOne(
+        {
+            _id: req.params.usuario
+        },
+        function (err, user) {
+            if (err || user === null) {
+                return res.status(404).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : {
+                        status  : 404,
+                        message : 'Usuário não encontrado',
+                    },
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
+            res.status(200).json({
+                object      : 'object',
+                has_more    : false,
+                data        : user,
+                itemCount   : 1,
+                pageCount   : 1
+            });
+        }
+    ).populate('site');
+});
+
 router.get('/:id', function (req, res) {
     UsuarioModel.findOne(
         {

@@ -1,10 +1,49 @@
 'use strict';
 
 var router                  = require('express').Router();
-var firewall                = require(__dirname + '/../modules/firewall');
 var token                   = require('token');
     token.defaults.secret   = 'AAB';
     token.defaults.timeStep = (24 * 60 * 60) * 30; // 24h in seconds
+var routes                  = [
+    '/aviso|POST',
+    '/aviso|PUT',
+    '/aviso|DELETE',
+    '/carrinho|GET',
+    '/carrinho|POST',
+    '/carrinho|PUT',
+    '/carrinho|DELETE',
+    '/cliente|POST',
+    '/cliente|PUT',
+    '/cliente|DELETE',
+    '/curriculo|GET',
+    '/curriculo|PUT',
+    '/curriculo|DELETE',
+    '/emprego|POST',
+    '/emprego|PUT',
+    '/emprego|DELETE',
+    '/equipe|POST',
+    '/equipe|PUT',
+    '/equipe|DELETE',
+    '/orcamento|GET',
+    '/orcamento|POST',
+    '/orcamento|PUT',
+    '/orcamento|DELETE',
+    '/parceiro|POST',
+    '/parceiro|PUT',
+    '/parceiro|DELETE',
+    '/produto|POST',
+    '/produto|PUT',
+    '/produto|DELETE',
+    '/site|POST',
+    '/site|PUT',
+    '/site|DELETE',
+    '/slide|POST',
+    '/slide|PUT',
+    '/slide|DELETE',
+    '/usuario|GET',
+    '/usuario|PUT',
+    '/usuario|DELETE',
+];
 
 router.all('*', function(req, res, next) {
     if (req.method === 'OPTIONS') {
@@ -13,9 +52,9 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    if (_.contains(firewall, req.path + '|' + req.method)) {
+    if (_.contains(routes, req.baseUrl + '|' + req.method)) {
         if (!req.headers.authorization) {
-            res.status(500).json({
+            return res.status(500).json({
                 object: 'object',
                 has_more: false,
                 data: {
@@ -25,8 +64,6 @@ router.all('*', function(req, res, next) {
                 itemCount: 0,
                 pageCount: 1
             });
-
-            return false;
         }
 
         var TokenModel = require(__dirname + '/../models/token');
@@ -66,6 +103,8 @@ router.all('*', function(req, res, next) {
 
                     return false;
                 }
+
+                req.params.usuario = data.usuario;
 
                 next();
             });

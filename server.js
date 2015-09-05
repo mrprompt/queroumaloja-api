@@ -57,23 +57,23 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        self.app.use(require(__dirname + '/src/modules/site'));
-        self.app.use(require(__dirname + '/src/modules/token'));
+        var site  = require(__dirname + '/src/modules/site');
+        var token = require(__dirname + '/src/modules/token');
 
-        self.app.use('/aviso', require(__dirname + '/src/routes/aviso'));
-        self.app.use('/carrinho', require(__dirname + '/src/routes/carrinho'));
-        self.app.use('/cliente', require(__dirname + '/src/routes/cliente'));
-        self.app.use('/curriculo', require(__dirname + '/src/routes/curriculo'));
-        self.app.use('/emprego', require(__dirname + '/src/routes/emprego'));
-        self.app.use('/equipe', require(__dirname + '/src/routes/equipe'));
-        self.app.use('/orcamento', require(__dirname + '/src/routes/orcamento'));
-        self.app.use('/parceiro', require(__dirname + '/src/routes/parceiro'));
-        self.app.use('/produto', require(__dirname + '/src/routes/produto'));
-        self.app.use('/site', require(__dirname + '/src/routes/site'));
-        self.app.use('/slide', require(__dirname + '/src/routes/slide'));
-        self.app.use('/usuario', require(__dirname + '/src/routes/usuario'));
-        self.app.use('/login', require(__dirname + '/src/routes/login'));
-        self.app.use('/logout', require(__dirname + '/src/routes/logout'));
+        self.app.use('/aviso', site, require(__dirname + '/src/routes/aviso'));
+        self.app.use('/carrinho', site, token, require(__dirname + '/src/routes/carrinho'));
+        self.app.use('/cliente', site, require(__dirname + '/src/routes/cliente'));
+        self.app.use('/curriculo', site, require(__dirname + '/src/routes/curriculo'));
+        self.app.use('/emprego', site, require(__dirname + '/src/routes/emprego'));
+        self.app.use('/equipe', site, require(__dirname + '/src/routes/equipe'));
+        self.app.use('/orcamento', site, require(__dirname + '/src/routes/orcamento'));
+        self.app.use('/parceiro', site, require(__dirname + '/src/routes/parceiro'));
+        self.app.use('/produto', site, token, require(__dirname + '/src/routes/produto'));
+        self.app.use('/site', site, token, require(__dirname + '/src/routes/site'));
+        self.app.use('/slide', site, token, require(__dirname + '/src/routes/slide'));
+        self.app.use('/usuario', site, token, require(__dirname + '/src/routes/usuario'));
+        self.app.use('/login', site, require(__dirname + '/src/routes/login'));
+        self.app.use('/logout', site, require(__dirname + '/src/routes/logout'));
     };
 
     /**
