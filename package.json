@@ -28,6 +28,7 @@
     "express-paginate": "0.0.8",
     "method-override": "^2.3.3",
     "mongoose": "^4.0.5",
+    "mongoose-bcrypt": "^1.2.3",
     "mongoose-paginate": "*",
     "mongoose-text-search": "0.0.2",
     "mongoose-unique-validator": "^0.4.1",
