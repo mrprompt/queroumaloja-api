@@ -37,51 +37,6 @@ router.get('/', function (req, res) {
     );
 });
 
-router.get('/busca/', function (req, res) {
-    var filter = {
-        site: req.headers.site
-    };
-
-    if (req.query.tipo !== undefined) {
-        filter.tipo = req.query.tipo;
-
-        if (req.query.categoria !== undefined) {
-            filter.categoria = req.query.categoria;
-        }
-    };
-
-    ProdutoModel.textSearch(
-        req.query.busca,
-        filter,
-        function(err, data) {
-            if (err) {
-                return res.status(500).json({
-                    object      : 'error',
-                    has_more    : false,
-                    data        : err,
-                    itemCount   : 0,
-                    pageCount   : 0
-                });
-            };
-
-            var items = [];
-
-            data.results.forEach(function(result) {
-                items.push(result.obj);
-
-                return result;
-            });
-
-            return res.status(200).json({
-                object      : 'list',
-                has_more    : true,
-                data        : items,
-                itemCount   : data.stats.nfound,
-                pageCount   : 1
-            });
-        });
-});
-
 router.get('/:id', function (req, res) {
     ProdutoModel.findOne({
             _id : req.params.id,

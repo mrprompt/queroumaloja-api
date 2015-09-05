@@ -74,6 +74,7 @@ var Application = function () {
         self.app.use('/usuario', site, token, require(__dirname + '/src/routes/usuario'));
         self.app.use('/login', site, require(__dirname + '/src/routes/login'));
         self.app.use('/logout', site, token, require(__dirname + '/src/routes/logout'));
+        self.app.use('/busca', site, require(__dirname + '/src/routes/busca'));
     };
 
     /**
