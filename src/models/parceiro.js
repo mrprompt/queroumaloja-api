@@ -22,7 +22,7 @@ var ParceiroSchema  = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var ParceiroModel   = mongoose.model('Parceiro', ParceiroSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = ParceiroModel;
+module.exports = mongoose.model('Parceiro', ParceiroSchema);

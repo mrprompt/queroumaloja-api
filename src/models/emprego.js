@@ -26,7 +26,7 @@ var EmpregoSchema   = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var EmpregoModel    = mongoose.model('Emprego', EmpregoSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = EmpregoModel;
+module.exports = mongoose.model('Emprego', EmpregoSchema);

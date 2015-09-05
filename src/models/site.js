@@ -29,7 +29,7 @@ var SiteSchema  = new mongoose.Schema({
     servicos: {
         type: []
     }
-});
-var SiteModel   = mongoose.model('Site', SiteSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = SiteModel;
+module.exports = mongoose.model('Site', SiteSchema);

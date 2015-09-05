@@ -18,7 +18,7 @@ var TokenSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Usuario'
     }
-}).plugin(require('mongoose-paginate'));
-var TokenModel  = mongoose.model('Token', TokenSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = TokenModel;
+module.exports = mongoose.model('Token', TokenSchema);

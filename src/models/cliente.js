@@ -30,7 +30,7 @@ var ClienteSchema   = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var ClienteModel    = mongoose.model('Cliente', ClienteSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = ClienteModel;
+module.exports = mongoose.model('Cliente', ClienteSchema);

@@ -33,6 +33,7 @@ var UsuarioSchema   = new mongoose.Schema({
         }
     }
 })
+    .plugin(require('mongoose-paginate'))
     .plugin(require('mongoose-unique-validator'))
     .plugin(require('mongoose-bcrypt'))
     .set('toJSON', {

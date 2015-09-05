@@ -62,7 +62,7 @@ var OrcamentoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var OrcamentoModel  = mongoose.model('Orcamento', OrcamentoSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = OrcamentoModel;
+module.exports = mongoose.model('Orcamento', OrcamentoSchema);

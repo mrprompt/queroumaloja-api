@@ -41,7 +41,7 @@ var CarrinhoSchema  = new mongoose.Schema({
         type: String,
         default: ''
     }
-}).plugin(require('mongoose-paginate'));
-var CarrinhoModel   = mongoose.model('Carrinho', CarrinhoSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = CarrinhoModel;
+module.exports = mongoose.model('Carrinho', CarrinhoSchema);

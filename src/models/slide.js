@@ -25,7 +25,7 @@ var SlideSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var SlideModel  = mongoose.model('Slide', SlideSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = SlideModel;
+module.exports = mongoose.model('Slide', SlideSchema);

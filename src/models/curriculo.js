@@ -57,7 +57,7 @@ var CurriculoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var CurriculoModel  = mongoose.model('Curriculo', CurriculoSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = CurriculoModel;
+module.exports = mongoose.model('Curriculo', CurriculoSchema);

@@ -44,6 +44,4 @@ var ProdutoSchema   = new mongoose.Schema({
     .plugin(require('mongoose-text-search'))
     .index({ descricao: 'text' });
 
-var ProdutoModel    = mongoose.model('Produto', ProdutoSchema);
-
-module.exports = ProdutoModel;
+module.exports = mongoose.model('Produto', ProdutoSchema);

@@ -22,7 +22,7 @@ var EquipeSchema    = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var EquipeModel = mongoose.model('Equipe', EquipeSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports  = EquipeModel;
+module.exports = mongoose.model('Equipe', EquipeSchema);

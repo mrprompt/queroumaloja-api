@@ -30,7 +30,7 @@ var AvisoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     }
-}).plugin(require('mongoose-paginate'));
-var AvisoModel  = mongoose.model('Aviso', AvisoSchema);
+})
+    .plugin(require('mongoose-paginate'));
 
-module.exports = AvisoModel;
+module.exports = mongoose.model('Aviso', AvisoSchema);
