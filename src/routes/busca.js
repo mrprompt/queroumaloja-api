@@ -1,7 +1,7 @@
 'use strict';
 
-var router          = require('express').Router();
-var ProdutoModel    = require(__dirname + '/../models/produto');
+var router       = require('express').Router();
+var ProdutoModel = require(__dirname + '/../models/produto');
 
 router.get('/', function (req, res) {
     var filter = {
