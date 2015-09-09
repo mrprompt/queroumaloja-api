@@ -73,13 +73,26 @@ router.post('/:usuario', function (req, res) {
         titulo  : (req.body.titulo ? req.body.titulo : 'Sem título'),
         cadastro: (new Date),
         site    : req.headers.site,
-        usuario : req.params.usuario
+        usuario : req.params.usuario,
+        token   : (req.params.token ? req.params.token : null),
+        status  : (req.params.status ? req.params.status : 'novo'),
     });
 
-    carrinho.items.push({
+    if (req.body.items) {
+        req.body.items.forEach(function(item) {
+            carrinho.items.push({
+                produto     : item.produto,
+                quantidade  : item.quantidade
+            });
+        });
+    }
+
+    if (req.body.produto && req.body.quantidade) {
+        carrinho.items.push({
             produto     : req.body.produto,
             quantidade  : req.body.quantidade
         });
+    }
 
     carrinho.save(function (err, data) {
         if (err) {
