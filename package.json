@@ -30,6 +30,7 @@
     "express": "^4.12.4",
     "express-paginate": "0.0.8",
     "method-override": "^2.3.3",
+    "mongodb": "^2.0.42",
     "mongoose": "^4.0.5",
     "mongoose-bcrypt": "^1.2.3",
     "mongoose-paginate": "*",
