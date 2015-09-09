@@ -74,8 +74,8 @@ router.post('/:usuario', function (req, res) {
         cadastro: (new Date),
         site    : req.headers.site,
         usuario : req.params.usuario,
-        token   : (req.params.token ? req.params.token : null),
-        status  : (req.params.status ? req.params.status : 'novo'),
+        token   : (req.body.token ? req.body.token : null),
+        status  : (req.body.status ? req.body.status : 'novo'),
     });
 
     if (req.body.items) {
