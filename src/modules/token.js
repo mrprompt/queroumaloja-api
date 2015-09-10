@@ -34,7 +34,6 @@ var routes                  = [
     '/produto|POST',
     '/produto|PUT',
     '/produto|DELETE',
-    '/site|POST',
     '/site|PUT',
     '/site|DELETE',
     '/slide|POST',
