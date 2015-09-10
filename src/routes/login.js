@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
                     has_more    : false,
                     data        : {
                         usuario : user,
-                        conteudo: data
+                        token   : data
                     },
                     itemCount   : 1,
                     pageCount   : 1
