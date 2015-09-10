@@ -69,7 +69,7 @@ var Application = function () {
         self.app.use('/orcamento', site, token, require(__dirname + '/src/routes/orcamento'));
         self.app.use('/parceiro', site, token, require(__dirname + '/src/routes/parceiro'));
         self.app.use('/produto', site, token, require(__dirname + '/src/routes/produto'));
-        self.app.use('/site', site, token, require(__dirname + '/src/routes/site'));
+        self.app.use('/site', token, require(__dirname + '/src/routes/site'));
         self.app.use('/slide', site, token, require(__dirname + '/src/routes/slide'));
         self.app.use('/usuario', site, token, require(__dirname + '/src/routes/usuario'));
         self.app.use('/login', site, require(__dirname + '/src/routes/login'));
