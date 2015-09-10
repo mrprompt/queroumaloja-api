@@ -16,6 +16,16 @@ router.get('/', function(req, res) {
             sortBy  : { cadastro: -1 }
         },
         function (err, data, pageCount, itemCount) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(200).json({
                 object      : 'list',
                 has_more    : paginate.hasNextPages(req)(pageCount),

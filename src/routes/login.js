@@ -37,6 +37,16 @@ router.post('/', function(req, res) {
             });
 
             usertoken.save(function(err, data) {
+                if (err) {
+                    return res.status(500).json({
+                        object      : 'object',
+                        has_more    : false,
+                        data        : err,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
+                }
+
                 res.status(201).json({
                     object      : 'object',
                     has_more    : false,

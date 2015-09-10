@@ -12,6 +12,16 @@ router.get('/', function(req, res) {
             sortBy  : { cadastro: -1 }
         },
         function (err, data, pageCount, itemCount) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(200).json({
                 object      : 'list',
                 has_more    : paginate.hasNextPages(req)(pageCount),
@@ -28,6 +38,16 @@ router.get('/:id', function(req, res) {
             _id: req.params.id
         })
         .exec(function(err, data) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(200).json({
                 object      : 'object',
                 has_more    : false,
@@ -85,6 +105,16 @@ router.put('/:id', function(req, res) {
             enderecos   : req.body.enderecos,
             telefones   : req.body.telefones,
         }, function(err, data) {
+            if (err) {
+                return res.status(500).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : err,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
+            }
+
             res.status(204).json({
                 object      : 'object',
                 has_more    : false,
