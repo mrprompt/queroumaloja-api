@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
                 usuario : user._id,
                 tipo    : 'rw',
                 cadastro: (new Date()),
-                conteudo: token.generate(user._id + '|' + user.site)
+                conteudo: token.generate(user._id + '|' + user.site._id)
             });
 
             usertoken.save(function(err, data) {
