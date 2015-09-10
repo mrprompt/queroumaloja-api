@@ -210,9 +210,9 @@ router.put('/:id/:usuario', function (req, res) {
                             }
                         });
 
-                        email.addSubstitution('%carrinho%', resultSave._id);
-                        email.addSubstitution('%status%', resultSave.status);
-                        email.addSubstitution('%items%', JSON.stringify(resultSave.items));
+                        email.addSubstitution('%carrinho%', result._id);
+                        email.addSubstitution('%status%', result.status);
+                        email.addSubstitution('%items%', JSON.stringify(result.items));
 
                         sendgrid.send(email, function(err, json) {
                             if (err) { return console.error(err); }
