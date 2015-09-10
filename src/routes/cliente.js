@@ -41,7 +41,7 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
     var id = req.params.id;
 
-    Cliente
+    ClienteModel
         .findOne({
             _id: id,
             site: req.headers.site
@@ -78,7 +78,7 @@ router.post('/', function(req, res) {
         site        : req.headers.site
     });
 
-    ClienteModel.save(function(err, result) {
+    cliente.save(function(err, result) {
         if (err) {
             return res.status(500).json({
                 object      : 'object',
