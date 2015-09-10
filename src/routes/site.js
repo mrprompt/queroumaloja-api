@@ -1,6 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
+var paginate    = require('express-paginate');
 var SiteModel   = require(__dirname + '/../models/site');
 
 router.get('/', function(req, res) {
