@@ -52,8 +52,8 @@ router.post('/', function(req, res) {
                     object      : 'object',
                     has_more    : false,
                     data        : {
-                        usuario : user._id,
-                        conteudo: data.conteudo
+                        usuario : user,
+                        conteudo: data
                     },
                     itemCount   : 1,
                     pageCount   : 1
