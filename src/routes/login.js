@@ -13,6 +13,7 @@ router.post('/', function(req, res) {
             email   : (req.body.email),
             password: (req.body.password)
         })
+        .populate('site')
         .exec(function (err, user) {
             if (err || !user || (user.email !== req.body.email || user.password !== req.body.password)) {
                 res.status(403).json({
