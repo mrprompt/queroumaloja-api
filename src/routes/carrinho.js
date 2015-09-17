@@ -77,6 +77,7 @@ router.post('/', function (req, res) {
         usuario : req.params.usuario,
         token   : (req.body.token ? req.body.token : null),
         status  : (req.body.status ? req.body.status : 'novo'),
+        valor   : req.body.valor,
     });
 
     if (req.body.items) {
@@ -178,6 +179,10 @@ router.put('/:id', function (req, res) {
 
             if (req.body.token) {
                 data.token = req.body.token;
+            }
+
+            if (req.body.valor) {
+                data.valor = req.body.valor;
             }
 
             data.save(function (err, result) {
