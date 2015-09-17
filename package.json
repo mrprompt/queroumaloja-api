@@ -39,7 +39,8 @@
     "morgan": "^1.5.3",
     "sendgrid": "^1.9.2",
     "token": "0.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "pagarme-nodejs": "https://github.com/thiagorp/pagarme-nodejs.git"
   },
   "devDependencies": {},
   "bundleDependencies": []
