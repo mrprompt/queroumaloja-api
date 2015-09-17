@@ -5,6 +5,10 @@ var CarrinhoSchema  = new mongoose.Schema({
     titulo: {
         type: String
     },
+    valor: {
+        type: Number,
+        default: 0
+    },
     items: [
         new mongoose.Schema({
             produto: {

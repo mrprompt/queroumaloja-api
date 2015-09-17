@@ -5,7 +5,7 @@ var paginate        = require('express-paginate');
 var sendgrid        = require('sendgrid')('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');
 var CarrinhoModel   = require(__dirname + '/../models/carrinho');
 
-router.get('/:usuario', function (req, res) {
+router.get('/', function (req, res) {
     CarrinhoModel.paginate(
         {
             site    : req.headers.site,
@@ -41,7 +41,7 @@ router.get('/:usuario', function (req, res) {
     );
 });
 
-router.get('/:id/:usuario', function (req, res) {
+router.get('/:id', function (req, res) {
     CarrinhoModel.findOne({
             _id     : req.params.id,
             site    : req.headers.site,
@@ -69,7 +69,7 @@ router.get('/:id/:usuario', function (req, res) {
         });
 });
 
-router.post('/:usuario', function (req, res) {
+router.post('/', function (req, res) {
     var carrinho = new CarrinhoModel({
         titulo  : (req.body.titulo ? req.body.titulo : 'Sem título'),
         cadastro: (new Date),
@@ -145,7 +145,7 @@ router.post('/:usuario', function (req, res) {
     });
 });
 
-router.put('/:id/:usuario', function (req, res) {
+router.put('/:id', function (req, res) {
     CarrinhoModel.findOne({
             _id     : req.params.id,
             site    : req.headers.site,
@@ -231,7 +231,7 @@ router.put('/:id/:usuario', function (req, res) {
         });
 });
 
-router.delete('/:id/:usuario', function (req, res) {
+router.delete('/:id', function (req, res) {
     CarrinhoModel.remove({
         _id     : req.params.id,
         site    : req.headers.site,
