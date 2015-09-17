@@ -40,7 +40,7 @@
     "sendgrid": "^1.9.2",
     "token": "0.0.0",
     "underscore": "^1.8.3",
-    "pagarme-nodejs": "git+ssh://git@github.com/thiagorp/pagarme-nodejs.git"
+    "pagarme-nodejs": "git+https://git@github.com/thiagorp/pagarme-nodejs.git"
   },
   "devDependencies": {},
   "bundleDependencies": []
