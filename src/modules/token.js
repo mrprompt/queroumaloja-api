@@ -86,22 +86,22 @@ router.all('*', function(req, res, next) {
                     return false;
                 }
 
-                var verify = token.verify(data.usuario + '|' + req.headers.site, req.headers.authorization);
-
-                if (verify === 0) {
-                    res.status(403).json({
-                        object: 'object',
-                        has_more: false,
-                        data: {
-                            message: 'Token inválido',
-                            status: 403
-                        },
-                        itemCount: 0,
-                        pageCount: 1
-                    });
-
-                    return false;
-                }
+                //var verify = token.verify(data.usuario + '|' + req.headers.site, req.headers.authorization);
+                //
+                //if (verify === 0) {
+                //    res.status(403).json({
+                //        object: 'object',
+                //        has_more: false,
+                //        data: {
+                //            message: 'Token inválido',
+                //            status: 403
+                //        },
+                //        itemCount: 0,
+                //        pageCount: 1
+                //    });
+                //
+                //    return false;
+                //}
 
                 req.params.usuario = data.usuario;
 
