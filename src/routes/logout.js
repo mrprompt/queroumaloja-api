@@ -1,15 +1,8 @@
 'use strict';
 
-var router = require('express').Router();
+var router      = require('express').Router();
+var controller  = require(__dirname + '/../controllers/logout');
 
-router.post('/', function(req, res) {
-    res.status(200).json({
-        object      : 'object',
-        has_more    : false,
-        data        : [],
-        itemCount   : 1,
-        pageCount   : 1
-    });
-});
+router.post('/', controller.adiciona(req, res));
 
 module.exports = router;
