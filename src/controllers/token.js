@@ -3,6 +3,7 @@
 var TokenModel      = require(__dirname + '/../models/token');
 var TokenController = {
     adiciona: function (req, res) {
+        var user                    = req.user;
         var token                   = require('token');
             token.defaults.secret   = 'AAB';
             token.defaults.timeStep = (24 * 60 * 60) * 30; // 24h in seconds

@@ -1,6 +1,7 @@
 'use strict';
 
 var UsuarioModel    = require(__dirname + '/../models/usuario');
+var TokenController = require(__dirname + '/token');
 var LoginController = {
     adiciona: function (req, res) {
         UsuarioModel
@@ -25,16 +26,9 @@ var LoginController = {
                     return false;
                 }
 
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: {
-                        usuario: user,
-                        token: data
-                    },
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                req.user = user;
+
+                return TokenController.adiciona(req, res);
             });
     }
 }
