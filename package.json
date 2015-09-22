@@ -22,8 +22,8 @@
     "url": "ssh://545e7855e0b8cd0e8500017c@grupo-publiciti.rhcloud.com/~/git/grupo.git/"
   },
   "engines": {
-    "node": "^0.12.4",
-    "npm": ">= 2.10.1"
+    "node": "^0.12.7",
+    "npm": ">= 2.11.3"
   },
   "dependencies": {
     "body-parser": "^1.12.4",
