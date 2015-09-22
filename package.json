@@ -30,6 +30,7 @@
     "express": "^4.12.4",
     "express-paginate": "0.0.8",
     "method-override": "^2.3.3",
+    "mockery": "^1.4.0",
     "mongodb": "^2.0.42",
     "mongoose": "^4.0.5",
     "mongoose-bcrypt": "^1.2.3",
@@ -37,11 +38,14 @@
     "mongoose-text-search": "0.0.2",
     "mongoose-unique-validator": "^0.4.1",
     "morgan": "^1.5.3",
+    "pagarme-nodejs": "git+https://git@github.com/thiagorp/pagarme-nodejs.git",
     "sendgrid": "^1.9.2",
+    "sinon": "^1.16.1",
     "token": "0.0.0",
-    "underscore": "^1.8.3",
-    "pagarme-nodejs": "git+https://git@github.com/thiagorp/pagarme-nodejs.git"
+    "underscore": "^1.8.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.3.2"
+  },
   "bundleDependencies": []
 }
