@@ -67,7 +67,7 @@ var ClienteController = {
     },
 
     adiciona: function (req, res) {
-        var cliente = new Cliente({
+        var cliente = new ClienteModel({
             nome: req.body.nome,
             url: req.body.url,
             logo: req.body.logo,
