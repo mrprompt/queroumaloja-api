@@ -95,7 +95,7 @@ var SiteController  = {
     atualiza: function (req, res) {
         SiteModel.update(
             {
-                _id: req.site._id,
+                _id: req.params.id,
             },
             {
                 nome: req.body.nome,
