@@ -152,6 +152,6 @@ var SiteController  = {
             }
         );
     }
-}
+};
 
 module.exports = SiteController;
