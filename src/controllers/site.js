@@ -129,7 +129,7 @@ var SiteController  = {
     apaga: function (req, res) {
         SiteModel.remove(
             {
-                _id: req.params.site
+                _id: req.params.id
             },
             function (err, result) {
                 if (err) {
