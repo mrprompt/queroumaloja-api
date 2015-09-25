@@ -124,6 +124,33 @@ var SiteController  = {
                 });
             }
         );
+    },
+
+    apaga: function (req, res) {
+        SiteModel.remove(
+            {
+                _id: req.params.site
+            },
+            function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        object: 'object',
+                        has_more: false,
+                        data: err,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                }
+
+                res.status(204).json({
+                    object: 'object',
+                    has_more: false,
+                    data: result,
+                    itemCount: 1,
+                    pageCount: 1
+                });
+            }
+        );
     }
 }
 
