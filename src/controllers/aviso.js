@@ -65,21 +65,13 @@ var AvisoController = {
     },
 
     adiciona: function (req, res) {
-        var data        = req.body;
-
-        var dataInicio  = data.inicio.split('-');
-        var inicio      = new Date(dataInicio[2], (dataInicio[1] - 1), dataInicio[0]);
-
-        var dataFim     = data.fim.split('-');
-        var fim         = new Date(dataFim[2], (dataFim[1] - 1), dataFim[0]);
-
         var dados       = {
-            titulo  : data.titulo,
-            conteudo: data.conteudo,
+            titulo  : req.body.titulo,
+            conteudo: req.body.conteudo,
             cadastro: (new Date),
-            tipo    : data.tipo,
-            inicio  : inicio,
-            fim     : fim,
+            tipo    : req.body.tipo,
+            inicio  : new Date(req.body.inicio),
+            fim     : new Date(req.body.fim),
             site    : req.headers.site
         };
 
@@ -110,21 +102,9 @@ var AvisoController = {
             titulo  : req.body.titulo,
             conteudo: req.body.conteudo,
             tipo    : req.body.tipo,
+            inicio  : new Date(req.body.inicio),
+            fim     : new Date(req.body.fim)
         };
-
-        if (req.body.inicio.match(/^\d{2}\-\d{2}\-\d{4}$/)) {
-            var dataInicio  = req.body.inicio.split('-');
-            var inicio      = new Date(dataInicio[2], (dataInicio[1] - 1), dataInicio[0]);
-
-            dados.inicio    = inicio;
-        }
-
-        if (req.body.fim.match(/^\d{2}\-\d{2}\-\d{4}$/)) {
-            var dataFim = req.body.fim.split('-');
-            var fim     = new Date(dataFim[2], (dataFim[1] - 1), dataFim[0]);
-
-            dados.fim   = fim;
-        }
 
         AvisoModel.update(
             {
