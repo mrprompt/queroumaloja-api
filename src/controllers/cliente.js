@@ -99,6 +99,9 @@ var ClienteController = {
     },
 
     atualiza: function (req, res) {
+        delete req.body._id;
+        delete req.body.__v;
+
         ClienteModel.update(
             {
                 _id: req.params.id,
