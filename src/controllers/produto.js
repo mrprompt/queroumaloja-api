@@ -6,7 +6,7 @@ var ProdutoController = {
     lista: function (req, res) {
         var filter = {
             site: req.headers.site
-        }
+        };
 
         if (req.query.tipo !== undefined) {
             filter.tipo = req.query.tipo;
@@ -76,7 +76,7 @@ var ProdutoController = {
         var produto = new ProdutoModel({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
-            imagem: (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
+            imagem: req.body.imagem,
             site: req.headers.site,
             codigo: req.body.codigo,
             tipo: req.body.tipo,
@@ -118,7 +118,7 @@ var ProdutoController = {
                 tipo: req.body.tipo,
                 categoria: req.body.categoria,
                 valor: req.body.valor,
-                imagem: ( req.body.imagem ? JSON.parse(req.body.imagem) : null )
+                imagem: req.body.imagem
             },
             function (err, data) {
                 if (err) {
