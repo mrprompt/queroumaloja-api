@@ -67,7 +67,7 @@ var SlideController = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             endereco: req.body.endereco,
-            imagem: (req.body.imagem ? JSON.parse(req.body.imagem) : null),
+            imagem: req.body.imagem,
             cadastro: req.body.cadastro,
             site: req.headers.site
         });
@@ -97,12 +97,9 @@ var SlideController = {
         var dados = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
-            endereco: req.body.endereco
-        }
-
-        if (req.body.imagem) {
-            dados.imagem = JSON.parse(req.body.imagem);
-        }
+            endereco: req.body.endereco,
+            imagem: req.body.imagem
+        };
 
         SlideModel.update(
             {
