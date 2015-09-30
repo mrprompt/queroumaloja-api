@@ -3,7 +3,7 @@
 var paginate            = require('express-paginate');
 var EmpregoModel        = require(__dirname + '/../models/emprego');
 var EmpregoController   = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         EmpregoModel.paginate(
             {
                 site: req.headers.site
@@ -18,53 +18,57 @@ var EmpregoController   = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'list',
-                    has_more: paginate.hasNextPages(req)(pageCount),
-                    data: data,
-                    itemCount: itemCount,
-                    pageCount: pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         EmpregoModel.findOne({
             _id: req.params.id,
             site: req.headers.site
         })
             .exec(function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             });
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var emprego = new EmpregoModel({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -76,26 +80,28 @@ var EmpregoController   = {
 
         emprego.save(function (err, data) {
             if (err) {
-                return res.status(500).json({
-                    object: 'object',
+                res.status(500).json({
+                    object: 'error',
                     has_more: false,
                     data: err,
                     itemCount: 1,
                     pageCount: 1
                 });
+            } else {
+                res.status(201).json({
+                    object: 'object',
+                    has_more: false,
+                    data: data,
+                    itemCount: 1,
+                    pageCount: 1
+                });
             }
 
-            res.status(201).json({
-                object: 'object',
-                has_more: false,
-                data: data,
-                itemCount: 1,
-                pageCount: 1
-            });
+            done(err, data);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         EmpregoModel.update(
             {
                 _id: req.params.id,
@@ -109,27 +115,29 @@ var EmpregoController   = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         EmpregoModel.remove(
             {
                 _id: req.params.id,
@@ -137,22 +145,24 @@ var EmpregoController   = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     }
