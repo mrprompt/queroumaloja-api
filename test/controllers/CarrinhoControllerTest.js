@@ -1,6 +1,6 @@
 'use strict';
 
-var Aviso = require('../../src/controllers/AvisoController');
+var Carrinho = require('../../src/controllers/CarrinhoController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');
@@ -21,7 +21,7 @@ var response = {
     }
 };
 
-describe('Aviso Controller', function () {
+describe('Carrinho Controller', function () {
     before(function(done){
         sinon
             .stub(request, 'get')
@@ -41,13 +41,17 @@ describe('Aviso Controller', function () {
             site: new Site()
         };
 
+        request.params = {
+            usuario: new Site()
+        };
+
         request.query = {
             page: 1,
             limit: 1
         };
 
         it('deve retornar um array', function (done) {
-            Aviso.lista(request, response, function(err, result) {
+            Carrinho.lista(request, response, function(err, result) {
                 assert.equal(response.content.object, 'list');
 
                 done();
@@ -60,17 +64,17 @@ describe('Aviso Controller', function () {
             site: new Site()
         };
 
+        request.params = {
+            usuario: new Site()
+        };
+
         request.query = {
             page: 1,
             limit: 1
         };
 
-        request.params = {
-            id: 1
-        };
-
         it('deve retornar um objeto', function (done) {
-            Aviso.abre(request, response, function(err, result) {
+            Carrinho.abre(request, response, function(err, result) {
                 assert.equal(response.content.object, 'error');
                 assert.equal(response.statusCode, 500);
 
@@ -81,21 +85,20 @@ describe('Aviso Controller', function () {
 
     describe('#adiciona()', function () {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
-        request.body = {
-            titulo  : 'foo',
-            conteudo: 'foo',
-            cadastro: (new Date),
-            tipo    : 'foo',
-            inicio  : new Date(),
-            fim     : new Date(),
-            site    : new Site()
+        request.params = {
+            usuario: new Site()
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.adiciona(request, response, function(err, result) {
+        request.query = {
+            page: 1,
+            limit: 1
+        };
+
+        it('deve retornar um array', function (done) {
+            Carrinho.adiciona(request, response, function(err, result) {
                 assert.equal(response.content.object, 'object');
 
                 done();
@@ -109,22 +112,18 @@ describe('Aviso Controller', function () {
         };
 
         request.params = {
+            usuario: new Site(),
             id: 1
         };
 
-        request.body = {
-            titulo  : 'foo',
-            conteudo: 'foo',
-            tipo    : 'foo',
-            inicio  : new Date(),
-            fim     : new Date()
+        request.query = {
+            page: 1,
+            limit: 1
         };
 
         it('deve retornar um objeto', function (done) {
-            Aviso.atualiza(request, response, function(err, result) {
+            Carrinho.atualiza(request, response, function(err, result) {
                 assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
-
 
                 done();
             });
@@ -137,14 +136,18 @@ describe('Aviso Controller', function () {
         };
 
         request.params = {
+            usuario: new Site(),
             id: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        request.query = {
+            page: 1,
+            limit: 1
+        };
 
+        it('deve retornar um objeto', function (done) {
+            Carrinho.apaga(request, response, function(err, result) {
+                assert.equal(response.content.object, 'error');
 
                 done();
             });

@@ -36,7 +36,7 @@ describe('Busca Controller', function () {
         done();
     });
 
-    describe('#lista()', function () {
+    describe('#busca()', function () {
         request.headers = {
             site: new Site()
         };
@@ -49,7 +49,7 @@ describe('Busca Controller', function () {
 
         it('deve retornar um array', function (done) {
             Busca.busca(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+                assert.equal(response.content.object, 'error');
 
                 done();
             });

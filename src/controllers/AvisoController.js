@@ -18,7 +18,7 @@ var AvisoController = {
             function (err, data, pageCount, itemCount) {
                 if (err) {
                     res.status(500).json({
-                        object      : 'object',
+                        object      : 'error',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
@@ -48,7 +48,7 @@ var AvisoController = {
             .exec(function(err, data) {
                 if (err) {
                     res.status(500).json({
-                        object      : 'object',
+                        object      : 'error',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
@@ -83,7 +83,7 @@ var AvisoController = {
         aviso.save(function(err, data) {
             if (err) {
                 res.status(500).json({
-                    object      : 'object',
+                    object      : 'error',
                     has_more    : false,
                     data        : err,
                     itemCount   : 1,
@@ -121,7 +121,7 @@ var AvisoController = {
             function(err, data) {
                 if (err) {
                     res.status(500).json({
-                        object      : 'object',
+                        object      : 'error',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
@@ -143,7 +143,7 @@ var AvisoController = {
         }, function(err, data) {
             if (err) {
                 res.status(500).json({
-                    object      : 'object',
+                    object      : 'error',
                     has_more    : false,
                     data        : err,
                     itemCount   : 1,
