@@ -3,7 +3,7 @@
 var paginate            = require('express-paginate');
 var ParceiroModel       = require(__dirname + '/../models/parceiro');
 var ParceiroController  = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         ParceiroModel.paginate(
             {
                 site: req.headers.site
@@ -16,27 +16,29 @@ var ParceiroController  = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'list',
-                    has_more: paginate.hasNextPages(req)(pageCount),
-                    data: data,
-                    itemCount: itemCount,
-                    pageCount: pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         ParceiroModel.findOne({
             _id: req.params.id,
             site: req.headers.site
@@ -44,26 +46,28 @@ var ParceiroController  = {
             .populate(['site'])
             .exec(function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             });
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var parceiro = new ParceiroModel({
             nome: req.body.nome,
             imagem: req.body.imagem,
@@ -75,26 +79,28 @@ var ParceiroController  = {
 
         parceiro.save(function (err, data) {
             if (err) {
-                return res.status(500).json({
-                    object: 'object',
+                res.status(500).json({
+                    object: 'error',
                     has_more: false,
                     data: err,
                     itemCount: 1,
                     pageCount: 1
                 });
+            } else {
+                res.status(200).json({
+                    object: 'object',
+                    has_more: false,
+                    data: data,
+                    itemCount: 1,
+                    pageCount: 1
+                });
             }
 
-            res.status(200).json({
-                object: 'object',
-                has_more: false,
-                data: data,
-                itemCount: 1,
-                pageCount: 1
-            });
+            done(err, data);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         ParceiroModel.update(
             {
                 _id: req.params.id,
@@ -110,27 +116,29 @@ var ParceiroController  = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         ParceiroModel.remove(
             {
                 _id: req.params.id,
@@ -138,22 +146,24 @@ var ParceiroController  = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     }
