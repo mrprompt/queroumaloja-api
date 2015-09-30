@@ -66,7 +66,7 @@ var ParceiroController  = {
     adiciona: function (req, res) {
         var parceiro = new ParceiroModel({
             nome: req.body.nome,
-            imagem: (req.body.imagem ? JSON.parse(req.body.imagem) : ''),
+            imagem: req.body.imagem,
             url: req.body.url,
             atuacao: req.body.atuacao,
             cadastro: req.body.cadastro,
@@ -104,7 +104,7 @@ var ParceiroController  = {
                 nome: req.body.nome,
                 url: req.body.url,
                 atuacao: req.body.atuacao,
-                image: (req.body.imagem ? JSON.parse(req.body.imagem) : null ),
+                image: req.body.imagem,
                 cadastro: req.body.cadastro,
                 site: req.headers.site
             },
