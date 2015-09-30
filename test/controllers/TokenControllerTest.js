@@ -37,20 +37,10 @@ describe('Token Controller', function () {
     });
 
     describe('#adiciona()', function () {
-        request.headers = {
-            token: new ObjectId()
-        };
+        request.user = new ObjectId();
+        request.user.site = new ObjectId();
 
-        request.params = {
-            usuario: new ObjectId()
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        it('deve retornar um array', function (done) {
+        it('deve retornar um objeto', function (done) {
             Token.adiciona(request, response, function(err, result) {
                 assert.equal(response.content.object, 'object');
 

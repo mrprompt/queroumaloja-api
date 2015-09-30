@@ -6,7 +6,7 @@ var TokenController = {
         var user                    = req.user;
         var token                   = require('token');
             token.defaults.secret   = 'AAB';
-            token.defaults.timeStep = (24 * 60 * 60) * 30; // 24h in seconds
+            token.defaults.timeStep = (24 * 60 * 60);
 
         var usertoken = new TokenModel({
             usuario: user._id,

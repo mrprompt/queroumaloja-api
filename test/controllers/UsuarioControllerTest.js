@@ -76,7 +76,7 @@ describe('Usuario Controller', function () {
         it('deve retornar um objeto', function (done) {
             Usuario.abre(request, response, function(err, result) {
                 assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+                assert.equal(response.statusCode, 404);
 
                 done();
             });
@@ -88,21 +88,25 @@ describe('Usuario Controller', function () {
             site: new Site()
         };
 
-        request.params = {
-            usuario: new Site()
+        request.body = {
+            email: 'foo@bar.bar',
+            password: 'foo',
+            nome: 'Foo Bar',
+            localidade: {
+                uf: 'AA',
+                estado: 'aaa aaa',
+                cidade: 'bbb bbb bb'
+            }
         };
 
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        it('deve retornar um array', function (done) {
+        it('deve retornar um objeto', function (done) {
             Usuario.adiciona(request, response, function(err, result) {
                 assert.equal(response.content.object, 'object');
 
                 done();
             });
+
+            done();
         });
     });
 

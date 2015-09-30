@@ -77,6 +77,7 @@ var UsuarioController   = {
             site: req.headers.site,
             nome: req.body.nome,
             localidade: {
+                uf: req.body.uf,
                 estado: req.body.estado,
                 cidade: req.body.cidade
             }
@@ -95,7 +96,7 @@ var UsuarioController   = {
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
-                    data: usuario,
+                    data: user,
                     itemCount: 1,
                     pageCount: 1
                 });
@@ -149,7 +150,7 @@ var UsuarioController   = {
         UsuarioModel.remove(
             {
                 _id: req.params.id,
-                site: req.headers.site,
+                site: req.headers.site
             },
             function (err, usuario) {
                 if (err) {
@@ -174,6 +175,6 @@ var UsuarioController   = {
             }
         );
     }
-}
+};
 
 module.exports = UsuarioController;
