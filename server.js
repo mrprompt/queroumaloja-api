@@ -62,11 +62,8 @@ var Application = function () {
 
         self.app.use('/aviso', site, token, require(__dirname + '/src/routes/aviso'));
         self.app.use('/carrinho', site, token, require(__dirname + '/src/routes/carrinho'));
-        self.app.use('/cliente', site, token, require(__dirname + '/src/routes/cliente'));
-        self.app.use('/curriculo', site, token, require(__dirname + '/src/routes/curriculo'));
         self.app.use('/emprego', site, token, require(__dirname + '/src/routes/emprego'));
         self.app.use('/equipe', site, token, require(__dirname + '/src/routes/equipe'));
-        self.app.use('/orcamento', site, token, require(__dirname + '/src/routes/orcamento'));
         self.app.use('/parceiro', site, token, require(__dirname + '/src/routes/parceiro'));
         self.app.use('/produto', site, token, require(__dirname + '/src/routes/produto'));
         self.app.use('/site', token, require(__dirname + '/src/routes/site'));

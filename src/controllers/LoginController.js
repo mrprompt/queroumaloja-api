@@ -1,7 +1,7 @@
 'use strict';
 
 var UsuarioModel    = require(__dirname + '/../models/usuario');
-var TokenController = require(__dirname + '/token');
+var TokenController = require(__dirname + '/TokenController');
 var LoginController = {
     adiciona: function (req, res) {
         UsuarioModel
