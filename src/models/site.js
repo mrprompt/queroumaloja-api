@@ -19,15 +19,6 @@ var SiteSchema  = new mongoose.Schema({
     },
     telefones: {
         type: []
-    },
-    modulos: {
-        type: []
-    },
-    atuacao: {
-        type: []
-    },
-    servicos: {
-        type: []
     }
 })
     .plugin(require('mongoose-paginate'));

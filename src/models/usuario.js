@@ -2,6 +2,11 @@
 
 var mongoose        = require(__dirname + '/../modules/connection').mongoose;
 var UsuarioSchema   = new mongoose.Schema({
+    site: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Site',
+        required: true
+    },
     nome: {
         type: String,
         required: true
@@ -14,21 +19,21 @@ var UsuarioSchema   = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        bcrypt: true
     },
     cadastro: {
         type: Date,
         default: Date.now
     },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    },
     localidade: {
+        cidade: {
+            type: String
+        },
         estado: {
             type: String
         },
-        cidade: {
+        uf: {
             type: String
         }
     }

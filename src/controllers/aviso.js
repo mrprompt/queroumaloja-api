@@ -3,7 +3,7 @@
 var paginate        = require('express-paginate');
 var AvisoModel      = require(__dirname + '/../models/aviso');
 var AvisoController = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         AvisoModel.paginate(
             {
                 site: req.headers.site
@@ -17,27 +17,29 @@ var AvisoController = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         object      : 'object',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
                         pageCount   : 1
                     });
+                } else {
+                    res.status(200).json({
+                        object      : 'list',
+                        has_more    : paginate.hasNextPages(req)(pageCount),
+                        data        : data,
+                        itemCount   : itemCount,
+                        pageCount   : pageCount
+                    });
                 }
 
-                return res.status(200).json({
-                    object      : 'list',
-                    has_more    : paginate.hasNextPages(req)(pageCount),
-                    data        : data,
-                    itemCount   : itemCount,
-                    pageCount   : pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         AvisoModel
             .findOne({
                 _id: req.params.id,
@@ -45,26 +47,28 @@ var AvisoController = {
             })
             .exec(function(err, data) {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         object      : 'object',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
                         pageCount   : 1
                     });
+                } else {
+                    res.status(200).json({
+                        object      : 'object',
+                        has_more    : false,
+                        data        : data,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
                 }
 
-                res.status(200).json({
-                    object      : 'object',
-                    has_more    : false,
-                    data        : data,
-                    itemCount   : 1,
-                    pageCount   : 1
-                });
+                done(err, data);
             });
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var dados       = {
             titulo  : req.body.titulo,
             conteudo: req.body.conteudo,
@@ -78,26 +82,28 @@ var AvisoController = {
         var aviso = new AvisoModel(dados);
         aviso.save(function(err, data) {
             if (err) {
-                return res.status(500).json({
+                res.status(500).json({
                     object      : 'object',
                     has_more    : false,
                     data        : err,
                     itemCount   : 1,
                     pageCount   : 1
                 });
+            } else {
+                res.status(201).json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : data,
+                    itemCount   : 1,
+                    pageCount   : 1
+                });
             }
 
-            res.status(201).json({
-                object      : 'object',
-                has_more    : false,
-                data        : data,
-                itemCount   : 1,
-                pageCount   : 1
-            });
+            done(err, data);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         var dados   = {
             titulo  : req.body.titulo,
             conteudo: req.body.conteudo,
@@ -114,36 +120,40 @@ var AvisoController = {
             dados,
             function(err, data) {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         object      : 'object',
                         has_more    : false,
                         data        : err,
                         itemCount   : 1,
                         pageCount   : 1
                     });
+                } else {
+                    res.status(204).json(data);
                 }
 
-                res.status(204).json(data);
+                done(err, data);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         AvisoModel.remove({
             _id: req.params.id,
             site: req.headers.site
         }, function(err, data) {
             if (err) {
-                return res.status(500).json({
+                res.status(500).json({
                     object      : 'object',
                     has_more    : false,
                     data        : err,
                     itemCount   : 1,
                     pageCount   : 1
                 });
+            } else {
+                res.status(204).json(data);
             }
 
-            res.status(204).json(data);
+            done(err, data);
         });
     }
 };
