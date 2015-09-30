@@ -3,7 +3,7 @@
 var paginate            = require('express-paginate');
 var UsuarioModel        = require(__dirname + '/../models/usuario');
 var UsuarioController   = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         UsuarioModel.paginate(
             {
                 site: req.headers.site
@@ -16,35 +16,37 @@ var UsuarioController   = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'list',
-                    has_more: paginate.hasNextPages(req)(pageCount),
-                    data: data,
-                    itemCount: itemCount,
-                    pageCount: pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         UsuarioModel.findOne(
             {
                 _id: req.params.id
             },
             function (err, user) {
                 if (err || user === null) {
-                    return res.status(404).json({
-                        object: 'object',
+                    res.status(404).json({
+                        object: 'error',
                         has_more: false,
                         data: {
                             status: 404,
@@ -53,20 +55,22 @@ var UsuarioController   = {
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: user,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: user,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, user);
             }
         ).populate('site');
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var usuario = new UsuarioModel({
             email: req.body.email,
             password: req.body.password,
@@ -80,26 +84,28 @@ var UsuarioController   = {
 
         usuario.save(function (err, user) {
             if (err) {
-                return res.status(500).json({
-                    object: 'object',
+                res.status(500).json({
+                    object: 'error',
                     has_more: false,
                     data: err,
                     itemCount: 1,
                     pageCount: 1
                 });
+            } else {
+                res.status(201).json({
+                    object: 'object',
+                    has_more: false,
+                    data: usuario,
+                    itemCount: 1,
+                    pageCount: 1
+                });
             }
 
-            res.status(201).json({
-                object: 'object',
-                has_more: false,
-                data: usuario,
-                itemCount: 1,
-                pageCount: 1
-            });
+            done(err, user);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         UsuarioModel.update(
             {
                 _id: req.params.id,
@@ -114,30 +120,32 @@ var UsuarioController   = {
                     estado: req.body.estado,
                     cidade: req.body.cidade
                 }
-            }
-            , function (err, usuario) {
+            },
+            function (err, usuario) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: usuario,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: usuario,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, usuario);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         UsuarioModel.remove(
             {
                 _id: req.params.id,
@@ -145,22 +153,24 @@ var UsuarioController   = {
             },
             function (err, usuario) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: usuario,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: usuario,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, usuario);
             }
         );
     }
