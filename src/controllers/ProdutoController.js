@@ -3,7 +3,7 @@
 var paginate        = require('express-paginate');
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var ProdutoController = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         var filter = {
             site: req.headers.site
         };
@@ -26,53 +26,57 @@ var ProdutoController = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
                 }
 
-                return res.status(200).json({
-                    object: 'list',
-                    has_more: paginate.hasNextPages(req)(pageCount),
-                    data: data,
-                    itemCount: itemCount,
-                    pageCount: pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         ProdutoModel.findOne({
             _id: req.params.id,
             site: req.headers.site
         })
             .exec(function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             });
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var produto = new ProdutoModel({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -86,26 +90,28 @@ var ProdutoController = {
 
         produto.save(function (err, data) {
             if (err) {
-                return res.status(500).json({
+                res.status(500).json({
                     object: 'object',
                     has_more: false,
                     data: err,
                     itemCount: 1,
                     pageCount: 1
                 });
+            } else {
+                res.status(201).json({
+                    object: 'object',
+                    has_more: false,
+                    data: data,
+                    itemCount: 1,
+                    pageCount: 1
+                });
             }
 
-            res.status(201).json({
-                object: 'object',
-                has_more: false,
-                data: data,
-                itemCount: 1,
-                pageCount: 1
-            });
+            done(err, data);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         ProdutoModel.update(
             {
                 _id: req.params.id,
@@ -122,27 +128,29 @@ var ProdutoController = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         ProdutoModel.remove(
             {
                 _id: req.params.id,
@@ -150,22 +158,24 @@ var ProdutoController = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     }

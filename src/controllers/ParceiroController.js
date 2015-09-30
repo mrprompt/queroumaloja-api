@@ -167,6 +167,6 @@ var ParceiroController  = {
             }
         );
     }
-}
+};
 
 module.exports = ParceiroController;
