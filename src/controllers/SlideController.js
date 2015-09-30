@@ -3,7 +3,7 @@
 var paginate        = require('express-paginate');
 var SlideModel      = require(__dirname + '/../models/slide');
 var SlideController = {
-    lista: function (req, res) {
+    lista: function (req, res, done) {
         SlideModel.paginate(
             {
                 site: req.headers.site
@@ -16,53 +16,57 @@ var SlideController = {
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'list',
-                    has_more: paginate.hasNextPages(req)(pageCount),
-                    data: data,
-                    itemCount: itemCount,
-                    pageCount: pageCount
-                });
+                done(err, data);
             }
         );
     },
 
-    abre: function (req, res) {
+    abre: function (req, res, done) {
         SlideModel.findOne({
             _id: req.params.id,
             site: req.headers.site
         })
             .exec(function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             });
     },
 
-    adiciona: function (req, res) {
+    adiciona: function (req, res, done) {
         var slide = new SlideModel({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -74,26 +78,28 @@ var SlideController = {
 
         slide.save(function (err, data) {
             if (err) {
-                return res.status(500).json({
-                    object: 'object',
+                res.status(500).json({
+                    object: 'error',
                     has_more: false,
                     data: err,
                     itemCount: 1,
                     pageCount: 1
                 });
+            } else {
+                res.status(201).json({
+                    object: 'object',
+                    has_more: false,
+                    data: data,
+                    itemCount: 1,
+                    pageCount: 1
+                });
             }
 
-            res.status(201).json({
-                object: 'object',
-                has_more: false,
-                data: data,
-                itemCount: 1,
-                pageCount: 1
-            });
+            done(err, data);
         });
     },
 
-    atualiza: function (req, res) {
+    atualiza: function (req, res, done) {
         var dados = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -109,27 +115,29 @@ var SlideController = {
             dados,
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     },
 
-    apaga: function (req, res) {
+    apaga: function (req, res, done) {
         SlideModel.remove(
             {
                 _id: req.params.id,
@@ -137,25 +145,27 @@ var SlideController = {
             },
             function (err, data) {
                 if (err) {
-                    return res.status(500).json({
-                        object: 'object',
+                    res.status(500).json({
+                        object: 'error',
                         has_more: false,
                         data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
                 }
 
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
         );
     }
-}
+};
 
 module.exports = SlideController;
