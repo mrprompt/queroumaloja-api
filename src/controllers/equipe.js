@@ -94,7 +94,7 @@ var EquipeController    = {
                 nome: req.body.nome,
                 cargo: req.body.cargo,
                 email: req.body.email,
-                imagem: (req.body.imagem ? JSON.parse(req.body.imagem) : null),
+                imagem: req.body.imagem,
                 site: req.headers.site
             },
             function (err, data) {
