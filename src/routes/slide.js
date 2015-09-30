@@ -1,7 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
-var controller  = require(__dirname + '/../controllers/slide');
+var controller  = require(__dirname + '/../controllers/SlideController');
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);

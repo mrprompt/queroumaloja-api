@@ -1,7 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
-var controller  = require(__dirname + '/../controllers/parceiro');
+var controller  = require(__dirname + '/../controllers/ParceiroController');
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);

@@ -1,18 +1,25 @@
 'use strict';
 
-var Aviso = require('../../src/controllers/aviso');
+var Aviso = require('../../src/controllers/AvisoController');
+var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');
 var request = require('request');
-var res = {
-    json: function(){
+var response = {
+    content: null,
+    statusCode: 0,
+
+    json: function(content){
+        this.content = content;
+
         return this;
     },
-    status: function() {
+    status: function(status) {
+        this.statusCode = status;
+
         return this;
     }
 };
-
 
 describe('Aviso Controller', function () {
     before(function(done){
@@ -31,7 +38,7 @@ describe('Aviso Controller', function () {
 
     describe('#lista()', function () {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
         request.query = {
@@ -40,8 +47,8 @@ describe('Aviso Controller', function () {
         };
 
         it('deve retornar um array', function (done) {
-            Aviso.lista(request, res, function(err, result) {
-                assert.equal(result, undefined);
+            Aviso.lista(request, response, function(err, result) {
+                assert.equal(response.content.object, 'list');
 
                 done();
             });
@@ -50,7 +57,7 @@ describe('Aviso Controller', function () {
 
     describe('#abre()', function () {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
         request.query = {
@@ -63,7 +70,7 @@ describe('Aviso Controller', function () {
         };
 
         it('deve retornar um objeto', function (done) {
-            Aviso.abre(request, res, function(err, result) {
+            Aviso.abre(request, response, function(err, result) {
                 assert.equal(result, undefined);
 
                 done();
@@ -83,12 +90,12 @@ describe('Aviso Controller', function () {
             tipo    : 'foo',
             inicio  : new Date(),
             fim     : new Date(),
-            site    : 'foo'
+            site    : new Site()
         };
 
         it('deve retornar um objeto', function (done) {
-            Aviso.adiciona(request, res, function(err, result) {
-                assert.equal(result, undefined);
+            Aviso.adiciona(request, response, function(err, result) {
+                assert.equal(response.content.object, 'object');
 
                 done();
             });
@@ -97,7 +104,7 @@ describe('Aviso Controller', function () {
 
     describe('#atualiza()', function () {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
         request.params = {
@@ -109,12 +116,11 @@ describe('Aviso Controller', function () {
             conteudo: 'foo',
             tipo    : 'foo',
             inicio  : new Date(),
-            fim     : new Date(),
-            site    : 'foo'
+            fim     : new Date()
         };
 
         it('deve retornar um objeto', function (done) {
-            Aviso.atualiza(request, res, function(err, result) {
+            Aviso.atualiza(request, response, function(err, result) {
                 assert.equal(result.ok, 0);
 
                 done();
@@ -124,7 +130,7 @@ describe('Aviso Controller', function () {
 
     describe('#apaga()', function () {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
         request.params = {
@@ -132,8 +138,9 @@ describe('Aviso Controller', function () {
         };
 
         it('deve retornar um objeto', function (done) {
-            Aviso.apaga(request, res, function(err, result) {
-                assert.equal(result, undefined);
+            Aviso.apaga(request, response, function(err, result) {
+                assert.equal(response.content.object, 'object');
+                assert.equal(response.content.has_more, false);
 
                 done();
             });

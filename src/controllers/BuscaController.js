@@ -3,7 +3,7 @@
 var router          = require('express').Router();
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var BuscaController = {
-    busca: function (req, res) {
+    busca: function (req, res, done) {
         var filter = {
             site: req.headers.site,
             limit: 1000
@@ -22,28 +22,30 @@ var BuscaController = {
             filter,
             function(err, data) {
                 if (err) {
-                    return res.status(500).json({
+                    res.status(500).json({
                         object      : 'error',
                         has_more    : false,
                         data        : err,
                         itemCount   : 0,
                         pageCount   : 0
                     });
-                };
+                } else {
+                    var items = [];
 
-                var items = [];
+                    data.results.forEach(function(result) {
+                        items.push(result.obj);
+                    });
 
-                data.results.forEach(function(result) {
-                    items.push(result.obj);
-                });
+                    res.status(200).json({
+                        object      : 'list',
+                        has_more    : true,
+                        data        : items,
+                        itemCount   : data.stats.nfound,
+                        pageCount   : 1
+                    });
+                }
 
-                return res.status(200).json({
-                    object      : 'list',
-                    has_more    : true,
-                    data        : items,
-                    itemCount   : data.stats.nfound,
-                    pageCount   : 1
-                });
+                done(err, data);
             });
     }
 };

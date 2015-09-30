@@ -10,6 +10,6 @@ var LogoutController = {
             pageCount   : 1
         });
     }
-}
+};
 
 module.exports = LogoutController;
