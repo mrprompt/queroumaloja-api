@@ -3,12 +3,10 @@
 var mongoose    = require(__dirname + '/../modules/connection').mongoose;
 var AvisoSchema = new mongoose.Schema({
     titulo: {
-        type: String,
-        default: ''
+        type: String
     },
     conteudo: {
-        type: String,
-        default: ''
+        type: String
     },
     tipo: {
         type: String,
