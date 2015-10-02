@@ -31,16 +31,18 @@ router.all('*', function(req, res, next) {
     })
     .exec(function(err, data) {
         if (err) {
-            res.status(404).json({
-                object      : 'object',
-                has_more    : false,
-                data        : {
-                    message : 'Site não encontrado',
-                    status  : 404
-                },
-                itemCount   : 0,
-                pageCount   : 1
-            });
+            res
+                .status(403)
+                .json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : {
+                        message : 'Site não encontrado',
+                        status  : 404
+                    },
+                    itemCount   : 0,
+                    pageCount   : 1
+                });
 
             return false;
         }

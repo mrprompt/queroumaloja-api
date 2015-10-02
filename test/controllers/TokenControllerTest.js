@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Token = require('../../src/controllers/TokenController');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,30 +23,14 @@ var response = {
 };
 
 describe('Token Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um objeto', function (done) {
         request.user = new ObjectId();
         request.user.site = new ObjectId();
 
-        it('deve retornar um objeto', function (done) {
-            Token.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Token.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 });

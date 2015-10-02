@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Busca = require('../../src/controllers/BuscaController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Busca Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#busca()', function () {
+    it('#busca() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -47,12 +34,10 @@ describe('Busca Controller', function () {
             busca: 'livro'
         };
 
-        it('deve retornar um array', function (done) {
-            Busca.busca(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Busca.busca(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 });

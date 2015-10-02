@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose    = require(__dirname + '/../modules/connection').mongoose;
+var mongoose    = require('mongoose');
 var SlideSchema = new mongoose.Schema({
     titulo: {
         type: String,

@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Site = require('../../src/controllers/SiteController');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Site Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new ObjectId()
         };
@@ -50,16 +37,14 @@ describe('Site Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Site.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+        Site.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#abre()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new ObjectId()
         };
@@ -73,17 +58,15 @@ describe('Site Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Site.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Site.abre(request, response, function() {
+            assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 200);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um array', function (done) {
         request.headers = {
             site: new ObjectId()
         };
@@ -97,16 +80,14 @@ describe('Site Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Site.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Site.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new ObjectId()
         };
@@ -121,16 +102,14 @@ describe('Site Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Site.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Site.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#apaga() deve retornar um objeto', function (done) {
         request.headers = {
             site: new ObjectId()
         };
@@ -145,12 +124,10 @@ describe('Site Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Site.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Site.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 });

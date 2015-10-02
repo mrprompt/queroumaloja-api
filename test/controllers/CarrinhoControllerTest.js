@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Carrinho = require('../../src/controllers/CarrinhoController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Carrinho Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -50,16 +37,14 @@ describe('Carrinho Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Carrinho.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+        Carrinho.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#abre()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -73,17 +58,15 @@ describe('Carrinho Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Carrinho.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Carrinho.abre(request, response, function() {
+            assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 200);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -92,21 +75,47 @@ describe('Carrinho Controller', function () {
             usuario: new Site()
         };
 
+        request.body = {
+            token: 'Foo',
+            valor: 1,
+            items: [
+                {
+                    produto: new Site(),
+                    quantidade: 1
+                }
+            ],
+            comprador: {
+                nome: 'Foo',
+                email: 'foo@bar.bar',
+                telefone: '0000',
+                endereco: {
+                    logradouro: 'foo',
+                    numero: 1,
+                    complemento: 'foo',
+                    bairro: 'foo',
+                    cep: '00000'
+                },
+                localidade: {
+                    cidade: 'foo',
+                    estado: 'foo',
+                    uf: 'foo'
+                }
+            }
+        };
+
         request.query = {
             page: 1,
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Carrinho.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Carrinho.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -121,16 +130,14 @@ describe('Carrinho Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Carrinho.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Carrinho.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#apaga() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -145,12 +152,10 @@ describe('Carrinho Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Carrinho.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Carrinho.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 });

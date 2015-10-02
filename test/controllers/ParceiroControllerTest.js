@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Parceiro = require('../../src/controllers/ParceiroController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Parceiro Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -50,16 +37,14 @@ describe('Parceiro Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Parceiro.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+        Parceiro.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#abre()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -73,17 +58,15 @@ describe('Parceiro Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Parceiro.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Parceiro.abre(request, response, function() {
+            assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 200);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -97,16 +80,14 @@ describe('Parceiro Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Parceiro.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Parceiro.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -121,16 +102,14 @@ describe('Parceiro Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Parceiro.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Parceiro.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#apaga() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -145,12 +124,10 @@ describe('Parceiro Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Parceiro.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Parceiro.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 });

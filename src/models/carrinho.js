@@ -1,13 +1,10 @@
 'use strict';
 
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var mongoose        = require('mongoose');
 var CarrinhoSchema  = new mongoose.Schema({
-    titulo: {
-        type: String
-    },
-    valor: {
-        type: Number,
-        default: 0
+    site: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Site'
     },
     items: [
         new mongoose.Schema({
@@ -17,7 +14,8 @@ var CarrinhoSchema  = new mongoose.Schema({
             },
             quantidade: {
                 type: Number,
-                default: 1
+                default: 1,
+                min: 1
             },
             cadastro: {
                 type: Date,
@@ -25,27 +23,74 @@ var CarrinhoSchema  = new mongoose.Schema({
             }
         })
     ],
-    usuario: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario'
+    comprador: {
+        nome: {
+            type: String,
+            required: true
+        },
+        email: {
+            type: String,
+            required: true
+        },
+        telefone: {
+            type: String,
+            required: true
+        },
+        endereco: {
+            logradouro: {
+                type: String,
+                required: true
+            },
+            numero: {
+                type: String,
+                required: true
+            },
+            complemento: {
+                type: String,
+                required: false
+            },
+            bairro: {
+                type: String,
+                required: true
+            },
+            cep: {
+                type: Number,
+                required: true
+            }
+        },
+        localidade: {
+            cidade: {
+                type: String
+            },
+            estado: {
+                type: String
+            },
+            uf: {
+                type: String
+            }
+        }
     },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    },
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
-    },
-    status: {
-        type: String,
-        enum: ['novo', 'pago', 'apagado', 'estornado']
+    valor: {
+        type: Number,
+        required: true,
+        min: 1
     },
     token: {
         type: String,
         default: ''
+    },
+    status: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        enum: ['novo', 'pago', 'apagado', 'estornado'],
+        default: 'novo'
+    },
+    cadastro: {
+        type: Date,
+        default: Date.now
     }
 })
-    .plugin(require('mongoose-paginate'));
+.plugin(require('mongoose-paginate'));
 
 module.exports = mongoose.model('Carrinho', CarrinhoSchema);

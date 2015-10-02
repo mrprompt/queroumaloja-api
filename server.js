@@ -10,6 +10,7 @@ var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
+var connection      = require(__dirname + '/src/modules/connection');
 
 /**
  *  Define the application.
@@ -44,9 +45,8 @@ var Application = function () {
 
         // Removed 'SIGPIPE' from the list - bugz 852598.
         // Removed 'SIGUSR2' from the list - bugz with  nodemon/forever.
-        ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
-            'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGTERM'
-        ].forEach(function (element, index, array) {
+        ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT', 'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGTERM']
+            .forEach(function (element, index, array) {
                 process.on(element, function () {
                     self.terminator(element);
                 });

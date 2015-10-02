@@ -80,27 +80,27 @@ var AvisoController = {
         };
 
         var aviso = new AvisoModel(dados);
-        aviso.save(function(err, data) {
-            if (err) {
-                res.status(500).json({
-                    object      : 'error',
-                    has_more    : false,
-                    data        : err,
-                    itemCount   : 1,
-                    pageCount   : 1
-                });
-            } else {
-                res.status(201).json({
-                    object      : 'object',
-                    has_more    : false,
-                    data        : data,
-                    itemCount   : 1,
-                    pageCount   : 1
-                });
-            }
+            aviso.save(function(err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object      : 'error',
+                        has_more    : false,
+                        data        : err,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
+                } else {
+                    res.status(201).json({
+                        object      : 'object',
+                        has_more    : false,
+                        data        : data,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
+                }
 
-            done(err, data);
-        });
+                done(err, data);
+            });
     },
 
     atualiza: function (req, res, done) {

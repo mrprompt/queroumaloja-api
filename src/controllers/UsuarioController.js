@@ -72,10 +72,10 @@ var UsuarioController   = {
 
     adiciona: function (req, res, done) {
         var usuario = new UsuarioModel({
-            email: req.body.email,
-            password: req.body.password,
             site: req.headers.site,
             nome: req.body.nome,
+            email: req.body.email,
+            password: req.body.password,
             localidade: {
                 uf: req.body.uf,
                 estado: req.body.estado,

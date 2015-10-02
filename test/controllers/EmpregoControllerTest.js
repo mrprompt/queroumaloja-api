@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Emprego = require('../../src/controllers/EmpregoController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Emprego Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -50,16 +37,14 @@ describe('Emprego Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Emprego.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+        Emprego.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#abre()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -73,17 +58,15 @@ describe('Emprego Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Emprego.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Emprego.abre(request, response, function() {
+            assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 200);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -97,16 +80,14 @@ describe('Emprego Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Emprego.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Emprego.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -121,16 +102,14 @@ describe('Emprego Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Emprego.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Emprego.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#apaga() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -145,12 +124,10 @@ describe('Emprego Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Emprego.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Emprego.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
         });
     });
 });

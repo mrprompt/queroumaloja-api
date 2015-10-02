@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose    = require(__dirname + '/../modules/connection').mongoose;
+var mongoose    = require('mongoose');
 var TokenSchema = new mongoose.Schema({
     conteudo: {
         type: String,

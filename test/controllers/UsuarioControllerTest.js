@@ -1,5 +1,6 @@
 'use strict';
 
+var connection  = require('../test');
 var Usuario = require('../../src/controllers/UsuarioController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Usuario Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -50,74 +37,20 @@ describe('Usuario Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Usuario.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
-
-                done();
-            });
-        });
-    });
-
-    describe('#abre()', function () {
-        request.headers = {
-            site: new Site()
-        };
-
-        request.params = {
-            usuario: new Site()
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        it('deve retornar um objeto', function (done) {
-            Usuario.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 404);
-
-                done();
-            });
-        });
-    });
-
-    describe('#adiciona()', function () {
-        request.headers = {
-            site: new Site()
-        };
-
-        request.body = {
-            email: 'foo@bar.bar',
-            password: 'foo',
-            nome: 'Foo Bar',
-            localidade: {
-                uf: 'AA',
-                estado: 'aaa aaa',
-                cidade: 'bbb bbb bb'
-            }
-        };
-
-        it('deve retornar um objeto', function (done) {
-            Usuario.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
-
-                done();
-            });
+        Usuario.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
             done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
 
         request.params = {
-            usuario: new Site(),
-            id: 1
+            usuario: new Site()
         };
 
         request.query = {
@@ -125,16 +58,36 @@ describe('Usuario Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Usuario.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Usuario.abre(request, response, function() {
+            assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 404);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#adiciona() deve retornar um objeto', function (done) {
+        request.headers = {
+            site: new Site()
+        };
+
+        request.body = {
+            nome: 'Foo Bar',
+            email: 'foo@bar.bar',
+            password: 'foo',
+            uf: 'AA',
+            estado: 'aaa aaa',
+            cidade: 'bbb bbb bb'
+        };
+
+        Usuario.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'error');
+
+            done();
+        });
+    });
+
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -149,12 +102,32 @@ describe('Usuario Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Usuario.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
+        Usuario.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
 
-                done();
-            });
+            done();
+        });
+    });
+
+    it('#apaga() deve retornar um objeto', function (done) {
+        request.headers = {
+            site: new Site()
+        };
+
+        request.params = {
+            usuario: new Site(),
+            id: 1
+        };
+
+        request.query = {
+            page: 1,
+            limit: 1
+        };
+
+        Usuario.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
+
+            done();
         });
     });
 });

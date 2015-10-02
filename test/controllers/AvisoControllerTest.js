@@ -1,6 +1,7 @@
 'use strict';
 
-var Aviso = require('../../src/controllers/AvisoController');
+var connection  = require(__dirname + '/../test');
+var Aviso = require(__dirname + '/../../src/controllers/AvisoController');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');
@@ -22,21 +23,7 @@ var response = {
 };
 
 describe('Aviso Controller', function () {
-    before(function(done){
-        sinon
-            .stub(request, 'get')
-            .yields(null, null, JSON.stringify({}));
-
-        done();
-    });
-
-    after(function(done){
-        request.get.restore();
-
-        done();
-    });
-
-    describe('#lista()', function () {
+    it('#lista() deve retornar um array', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -46,16 +33,14 @@ describe('Aviso Controller', function () {
             limit: 1
         };
 
-        it('deve retornar um array', function (done) {
-            Aviso.lista(request, response, function(err, result) {
-                assert.equal(response.content.object, 'list');
+        Aviso.lista(request, response, function() {
+            assert.equal(response.content.object, 'list');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#abre()', function () {
+    it('#abre() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -69,41 +54,33 @@ describe('Aviso Controller', function () {
             id: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.abre(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Aviso.abre(request, response, function() {
+            assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#adiciona()', function () {
+    it('#adiciona() deve retornar um objeto', function (done) {
         request.headers = {
-            site: 'foo'
+            site: new Site()
         };
 
         request.body = {
             titulo  : 'foo',
             conteudo: 'foo',
-            cadastro: (new Date),
-            tipo    : 'foo',
-            inicio  : new Date(),
-            fim     : new Date(),
-            site    : new Site()
+            tipo    : 'foo'
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.adiciona(request, response, function(err, result) {
-                assert.equal(response.content.object, 'object');
+        Aviso.adiciona(request, response, function() {
+            assert.equal(response.content.object, 'object');
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#atualiza()', function () {
+    it('#atualiza() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -120,18 +97,16 @@ describe('Aviso Controller', function () {
             fim     : new Date()
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.atualiza(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Aviso.atualiza(request, response, function() {
+            assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
 
 
-                done();
-            });
+            done();
         });
     });
 
-    describe('#apaga()', function () {
+    it('#apaga() deve retornar um objeto', function (done) {
         request.headers = {
             site: new Site()
         };
@@ -140,14 +115,12 @@ describe('Aviso Controller', function () {
             id: 1
         };
 
-        it('deve retornar um objeto', function (done) {
-            Aviso.apaga(request, response, function(err, result) {
-                assert.equal(response.content.object, 'error');
-                assert.equal(response.statusCode, 500);
+        Aviso.apaga(request, response, function() {
+            assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
 
 
-                done();
-            });
+            done();
         });
     });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var mongoose        = require('mongoose');
 var CurriculoSchema = new mongoose.Schema({
     nome: {
         type: String,

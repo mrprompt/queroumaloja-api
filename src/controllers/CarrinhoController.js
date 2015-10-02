@@ -4,6 +4,13 @@ var paginate            = require('express-paginate');
 var sendgrid            = require('sendgrid')('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');
 var CarrinhoModel       = require(__dirname + '/../models/carrinho');
 var CarrinhoController  = {
+    /**
+     * Lista todos os carrinhos
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         CarrinhoModel.paginate(
             {
@@ -13,7 +20,7 @@ var CarrinhoController  = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['items.produto', 'site', 'usuario'],
+                populate: ['items.produto', 'site'],
                 sortBy: {
                     cadastro: -1
                 }
@@ -42,13 +49,20 @@ var CarrinhoController  = {
         );
     },
 
+    /**
+     * Abre um carrinho para visualização
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         CarrinhoModel.findOne({
             _id: req.params.id,
             site: req.headers.site,
             usuario: req.params.usuario
         })
-            .populate(['items.produto', 'site', 'usuario'])
+            .populate(['items.produto', 'site'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -72,15 +86,36 @@ var CarrinhoController  = {
             });
     },
 
+    /**
+     * Cria um novo carrinho com os produtos relacionados
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var carrinho = new CarrinhoModel({
-            titulo: (req.body.titulo ? req.body.titulo : 'Sem título'),
             cadastro: (new Date),
             site: req.headers.site,
-            usuario: req.params.usuario,
             token: (req.body.token ? req.body.token : null),
-            status: (req.body.status ? req.body.status : 'novo'),
             valor: req.body.valor,
+            comprador: {
+                nome: req.body.comprador.nome,
+                email: req.body.comprador.email,
+                telefone: req.body.comprador.telefone,
+                endereco: {
+                    logradouro: req.body.comprador.endereco.logradouro,
+                    numero: req.body.comprador.endereco.numero,
+                    complemento: req.body.comprador.endereco.complemento,
+                    bairro: req.body.comprador.endereco.bairro,
+                    cep: req.body.comprador.endereco.cep
+                },
+                localidade: {
+                    cidade: req.body.comprador.localidade.cidade,
+                    estado: req.body.comprador.localidade.estado,
+                    uf: req.body.comprador.localidade.uf
+                }
+            }
         });
 
         if (req.body.items) {
@@ -122,6 +157,13 @@ var CarrinhoController  = {
         });
     },
 
+    /**
+     * Atualiza os dados de um carrinho
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         var data = {};
 
@@ -188,11 +230,17 @@ var CarrinhoController  = {
             );
     },
 
+    /**
+     * Remove um carrinho
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         CarrinhoModel.remove({
             _id: req.params.id,
-            site: req.headers.site,
-            usuario: req.params.usuario
+            site: req.headers.site
         }, function (err, data) {
             if (err) {
                 res.status(500).json({
@@ -218,35 +266,47 @@ var CarrinhoController  = {
 };
 
 module.exports = CarrinhoController;
-/*
- var site = require(__dirname + '/../models/site')
- .findOne({_id: req.headers.site})
- .then(function (_site) {
- var email = new sendgrid.Email({
- to: _site.emails[0],
- from: 'system@publiciti.com.br',
- subject: ' ',
- html: ' '
- });
 
- email.setFilters({
- 'templates': {
- 'settings': {
- 'enable': 1,
- 'template_id': 'd5e54ad0-718f-4a53-8827-b1dbaeb68238',
- }
- }
- });
-
- email.addSubstitution('%carrinho%', resultSave._id);
- email.addSubstitution('%status%', resultSave.status);
- email.addSubstitution('%items%', JSON.stringify(resultSave.items));
-
- sendgrid.send(email, function (err, json) {
- if (err) {
- return console.error(err);
- }
- return json;
- });
- });
+/**
+ *
+ * @param site
  */
+function avisaPorEmail(siteId) {
+    var site = require(__dirname + '/../models/site');
+
+    site
+        .findOne(
+            {
+                _id: siteId
+            }
+        )
+        .then(function (_site) {
+            var email = new sendgrid.Email({
+                to: _site.emails[0],
+                from: 'system@publiciti.com.br',
+                subject: ' ',
+                html: ' '
+            });
+
+            email.setFilters({
+                'templates': {
+                    'settings': {
+                        'enable': 1,
+                        'template_id': 'd5e54ad0-718f-4a53-8827-b1dbaeb68238',
+                    }
+                }
+            });
+
+            email.addSubstitution('%carrinho%', resultSave._id);
+            email.addSubstitution('%status%', resultSave.status);
+            email.addSubstitution('%items%', JSON.stringify(resultSave.items));
+
+            sendgrid.send(email, function (err, json) {
+                if (err) {
+                    return console.error(err);
+                }
+
+                return json;
+            });
+        });
+}

@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var mongoose        = require('mongoose');
 var UsuarioSchema   = new mongoose.Schema({
     site: {
         type: mongoose.Schema.Types.ObjectId,
@@ -40,7 +40,6 @@ var UsuarioSchema   = new mongoose.Schema({
 })
     .plugin(require('mongoose-paginate'))
     .plugin(require('mongoose-unique-validator'))
-    .plugin(require('mongoose-bcrypt'))
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.password;

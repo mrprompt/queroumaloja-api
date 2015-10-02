@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose        = require(__dirname + '/../modules/connection').mongoose;
+var mongoose        = require('mongoose');
 var ClienteSchema   = new mongoose.Schema({
     nome: {
         type: String,
