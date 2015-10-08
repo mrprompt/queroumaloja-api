@@ -1,8 +1,5 @@
-#!/bin/env node
-/**
- * @author Thiago Paes <mrprompt@gmail.com>
- * @type {*|exports|module.exports}
- */
+'use strict';
+
 GLOBAL._            = require('underscore');
 
 var express         = require('express');
@@ -44,7 +41,7 @@ var Application = function () {
         });
 
         // Removed 'SIGPIPE' from the list - bugz 852598.
-        // Removed 'SIGUSR2' from the list - bugz with  nodemon/forever.
+        // Removed 'SIGUSR2' from the list - bugz with nodemon/forever.
         ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT', 'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGTERM']
             .forEach(function (element, index, array) {
                 process.on(element, function () {
@@ -83,23 +80,13 @@ var Application = function () {
         self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
         self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
 
-        // first, enable CORS
-        self.app.use(function(req, res, next) {
-            res.header("Content-type", "application/json");
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Authorization, Origin, X-Requested-With, Content-Type, Accept, ETag, Cache-Control, If-None-Match, Site, post, patch,  put, get, delete, head, options, header, common");
-            res.header("Access-Control-Expose-Headers", "Etag, Authorization, Origin, X-Requested-With, Content-Type, Accept, If-None-Match, Access-Control-Allow-Origin, Site");
-            res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-
-            next();
-        });
-
         // load modules
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(10, 100));
+        self.app.use(require(__dirname + '/src/modules/cors'));
 
         // load routes
         self.createRoutes();

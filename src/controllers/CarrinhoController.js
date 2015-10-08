@@ -2,6 +2,7 @@
 
 var paginate            = require('express-paginate');
 var sendgrid            = require('sendgrid')('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');
+var pagarme             = require('pagarme-nodejs')('ak_test_KwMAwfL6kGrt3kO9mgNC3qWnvdYe0C');
 var CarrinhoModel       = require(__dirname + '/../models/carrinho');
 var CarrinhoController  = {
     /**
@@ -94,66 +95,74 @@ var CarrinhoController  = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var carrinho = new CarrinhoModel({
-            cadastro: (new Date),
-            site: req.headers.site,
-            token: (req.body.token ? req.body.token : null),
-            valor: req.body.valor,
-            comprador: {
-                nome: req.body.comprador.nome,
-                email: req.body.comprador.email,
-                telefone: req.body.comprador.telefone,
-                endereco: {
-                    logradouro: req.body.comprador.endereco.logradouro,
-                    numero: req.body.comprador.endereco.numero,
-                    complemento: req.body.comprador.endereco.complemento,
-                    bairro: req.body.comprador.endereco.bairro,
-                    cep: req.body.comprador.endereco.cep
-                },
-                localidade: {
-                    cidade: req.body.comprador.localidade.cidade,
-                    estado: req.body.comprador.localidade.estado,
-                    uf: req.body.comprador.localidade.uf
+        pagarme.transactions.findById(req.body.token, function(err, transaction) {
+            var status = 'novo';
+
+            if (transaction.status == 'paid') {
+                status = 'pago';
+            }
+
+            var carrinho = new CarrinhoModel({
+                cadastro: (new Date),
+                site: req.headers.site,
+                token: req.body.token,
+                valor: req.body.valor,
+                comprador: {
+                    nome: transaction.customer.name,
+                    email: transaction.customer.email,
+                    telefone: transaction.phone.ddd + transaction.phone.number,
+                    endereco: {
+                        logradouro: transaction.address.street,
+                        numero: transaction.address.street_number,
+                        complemento: transaction.address.complementary,
+                        bairro: transaction.address.neighborhood,
+                        cep: transaction.address.zipcode
+                    },
+                    localidade: {
+                        cidade: transaction.address.city,
+                        estado: transaction.address.state,
+                        uf: transaction.address.state
+                    }
                 }
-            }
-        });
+            });
 
-        if (req.body.items) {
-            req.body.items.forEach(function (item) {
+            if (req.body.items) {
+                req.body.items.forEach(function (item) {
+                    carrinho.items.push({
+                        produto: item.produto,
+                        quantidade: item.quantidade
+                    });
+                });
+            }
+
+            if (req.body.produto && req.body.quantidade) {
                 carrinho.items.push({
-                    produto: item.produto,
-                    quantidade: item.quantidade
-                });
-            });
-        }
-
-        if (req.body.produto && req.body.quantidade) {
-            carrinho.items.push({
-                produto: req.body.produto,
-                quantidade: req.body.quantidade
-            });
-        }
-
-        carrinho.save(function (err, resultSave) {
-            if (err) {
-                return res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: resultSave,
-                    itemCount: 1,
-                    pageCount: 1
+                    produto: req.body.produto,
+                    quantidade: req.body.quantidade
                 });
             }
 
-            done(err, resultSave);
+            carrinho.save(function (err, resultSave) {
+                if (err) {
+                    return res.status(500).json({
+                        object: 'error',
+                        has_more: false,
+                        data: err,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                } else {
+                    res.status(201).json({
+                        object: 'object',
+                        has_more: false,
+                        data: resultSave,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                }
+
+                done(err, resultSave);
+            });
         });
     },
 

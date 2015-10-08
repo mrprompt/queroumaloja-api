@@ -6,7 +6,6 @@ var routes = [
     '/aviso|PUT',
     '/aviso|DELETE',
     '/carrinho|GET',
-    '/carrinho|POST',
     '/carrinho|PUT',
     '/carrinho|DELETE',
     '/cliente|POST',
