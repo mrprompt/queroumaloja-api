@@ -10,26 +10,6 @@ var connection_string = 'mongodb://' +
 var MongoClient = require('mongodb').MongoClient;
 var pagarme = require('pagarme-nodejs')('ak_test_KwMAwfL6kGrt3kO9mgNC3qWnvdYe0C');
 
-pagarme.transactions.findById('test_transaction_e4rXMGYtsqcBJW1yw6L6LIWwTzHz4w', function(err, transaction) {
-    var status = 'estornado';
-
-    if (!err) {
-        if (transaction.status == 'paid') {
-            status = 'pago';
-        }
-
-        if (transaction.status == 'waiting_payment') {
-            status = 'novo';
-        }
-    }
-
-    console.log(transaction);
-
-    //var carrinho = require(__dirname + '/../../../src/models/carrinho');
-    //    carrinho.findByIdAndUpdate(row._id, {status: status});
-    process.exit(0);
-});
-
 MongoClient.connect(connection_string, function (err, mongoclient) {
     var db = mongoclient.db('grupo');
 
@@ -63,10 +43,10 @@ MongoClient.connect(connection_string, function (err, mongoclient) {
                         }
                     }
 
-                    console.log(transaction);
+                    var carrinho = require(__dirname + '/../../../src/models/carrinho');
+                        carrinho.findByIdAndUpdate(row._id, {status: status});
 
-                    //var carrinho = require(__dirname + '/../../../src/models/carrinho');
-                    //    carrinho.findByIdAndUpdate(row._id, {status: status});
+                    mongoclient.close();
                 });
             });
         }

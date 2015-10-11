@@ -13,8 +13,6 @@ MongoClient.connect(connection_string, function(err, mongoclient) {
     var result = mongoclient.executeDbAdminCommand({ setParameter : 1, textSearchEnabled : true });
 
     result.then(function(result) {
-        console.log(result);
-
         mongoclient.close();
     });
 });
