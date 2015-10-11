@@ -1,6 +1,7 @@
 'use strict';
 
 var router      = require('express').Router();
+var connection  = require(__dirname + '/../modules/connection');
 var controller  = require(__dirname + '/../controllers/SiteController');
 
 router.get('/', controller.lista);
