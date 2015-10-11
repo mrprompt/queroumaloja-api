@@ -18,7 +18,7 @@ MongoClient.connect(connection_string, function (err, mongoclient) {
         .find(
         {
             status: {
-                $in: ['pago', 'novo']
+                $in: ['novo']
             },
             token: {
                 $ne: null
