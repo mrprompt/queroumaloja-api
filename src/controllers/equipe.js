@@ -1,20 +1,21 @@
 'use strict';
 
 var paginate            = require('express-paginate');
-var UsuarioModel        = require(__dirname + '/../models/usuario');
-var UsuarioController   = {
+var EquipeModel         = require(__dirname + '/../models/equipe');
+var EquipeController    = {
     lista: function (req, res, done) {
-        UsuarioModel.paginate(
+        EquipeModel.paginate(
             {
                 site: req.headers.site
             },
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['site'],
-                sortBy: {cadastro: -1}
+                sortBy: {
+                    cadastro: -1
+                }
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -24,6 +25,9 @@ var UsuarioController   = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),
@@ -39,19 +43,17 @@ var UsuarioController   = {
     },
 
     abre: function (req, res, done) {
-        UsuarioModel.findOne(
-            {
-                _id: req.params.id
-            },
-            function (err, user) {
-                if (err || user === null) {
-                    res.status(404).json({
+        EquipeModel.findOne({
+            _id: req.params.id,
+            site: req.headers.site
+        })
+            .populate(['site'])
+            .exec(function (err, data) {
+                if (err) {
+                    res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: {
-                            status: 404,
-                            message: 'Usuário não encontrado',
-                        },
+                        data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -59,31 +61,26 @@ var UsuarioController   = {
                     res.status(200).json({
                         object: 'object',
                         has_more: false,
-                        data: user,
+                        data: data,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, user);
-            }
-        ).populate('site');
+                done(err, data);
+            });
     },
 
     adiciona: function (req, res, done) {
-        var usuario = new UsuarioModel({
-            site: req.headers.site,
+        var membro = new EquipeModel({
             nome: req.body.nome,
+            cargo: req.body.cargo,
             email: req.body.email,
-            password: req.body.password,
-            localidade: {
-                uf: req.body.uf,
-                estado: req.body.estado,
-                cidade: req.body.cidade
-            }
+            imagem: req.body.imagem,
+            site: req.headers.site
         });
 
-        usuario.save(function (err, user) {
+        membro.save(function (err, data) {
             if (err) {
                 res.status(500).json({
                     object: 'error',
@@ -96,33 +93,30 @@ var UsuarioController   = {
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
-                    data: user,
+                    data: data,
                     itemCount: 1,
                     pageCount: 1
                 });
             }
 
-            done(err, user);
+            done(err, data);
         });
     },
 
     atualiza: function (req, res, done) {
-        UsuarioModel.update(
+        EquipeModel.update(
             {
                 _id: req.params.id,
-                site: req.headers.site,
+                site: req.headers.site
             },
             {
-
-                email: req.body.email,
-                password: req.body.password,
                 nome: req.body.nome,
-                localidade: {
-                    estado: req.body.estado,
-                    cidade: req.body.cidade
-                }
+                cargo: req.body.cargo,
+                email: req.body.email,
+                imagem: req.body.imagem,
+                site: req.headers.site
             },
-            function (err, usuario) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -135,24 +129,23 @@ var UsuarioController   = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: usuario,
+                        data: data,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, usuario);
+                done(err, data);
             }
         );
     },
 
     apaga: function (req, res, done) {
-        UsuarioModel.remove(
+        EquipeModel.remove(
             {
                 _id: req.params.id,
                 site: req.headers.site
-            },
-            function (err, usuario) {
+            }, function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -165,16 +158,16 @@ var UsuarioController   = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: usuario,
+                        data: data,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, usuario);
+                done(err, data);
             }
         );
     }
-};
+}
 
-module.exports = UsuarioController;
+module.exports = EquipeController;

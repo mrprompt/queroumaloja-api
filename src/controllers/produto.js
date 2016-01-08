@@ -1,17 +1,30 @@
 'use strict';
 
 var paginate        = require('express-paginate');
-var SiteModel       = require(__dirname + '/../models/site');
-var SiteController  = {
+var ProdutoModel    = require(__dirname + '/../models/produto');
+var ProdutoController = {
     lista: function (req, res, done) {
-        SiteModel.paginate(
-            {},
+        var filter = {
+            site: req.headers.site
+        };
+
+        if (req.query.tipo !== undefined) {
+            filter.tipo = req.query.tipo;
+
+            if (req.query.categoria !== undefined) {
+                filter.categoria = req.query.categoria;
+            }
+        }
+
+        ProdutoModel.paginate(
+            filter,
             {
                 page: req.query.page,
                 limit: req.query.limit,
+                populate: ['site'],
                 sortBy: {cadastro: -1}
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -21,6 +34,9 @@ var SiteController  = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),
@@ -36,8 +52,9 @@ var SiteController  = {
     },
 
     abre: function (req, res, done) {
-        SiteModel.findOne({
-            _id: req.params.id
+        ProdutoModel.findOne({
+            _id: req.params.id,
+            site: req.headers.site
         })
             .exec(function (err, data) {
                 if (err) {
@@ -63,22 +80,21 @@ var SiteController  = {
     },
 
     adiciona: function (req, res, done) {
-        var site = new SiteModel({
-            nome: req.body.nome,
-            dominio: req.body.dominio,
+        var produto = new ProdutoModel({
+            titulo: req.body.titulo,
             descricao: req.body.descricao,
-            emails: req.body.emails,
-            enderecos: req.body.enderecos,
-            telefones: req.body.telefones,
-            modulos: [],
-            atuacao: req.body.atuacao,
-            servicos: req.body.servicos
+            imagem: req.body.imagem,
+            site: req.headers.site,
+            codigo: req.body.codigo,
+            tipo: req.body.tipo,
+            categoria: req.body.categoria,
+            valor: req.body.valor
         });
 
-        site.save(function (err, newSite) {
+        produto.save(function (err, data) {
             if (err) {
                 res.status(500).json({
-                    object: 'error',
+                    object: 'object',
                     has_more: false,
                     data: err,
                     itemCount: 1,
@@ -88,29 +104,32 @@ var SiteController  = {
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
-                    data: newSite,
+                    data: data,
                     itemCount: 1,
                     pageCount: 1
                 });
             }
 
-            done(err, newSite);
+            done(err, data);
         });
     },
 
     atualiza: function (req, res, done) {
-        SiteModel.update(
+        ProdutoModel.update(
             {
                 _id: req.params.id,
+                site: req.headers.site
             },
             {
-                nome: req.body.nome,
-                dominio: req.body.dominio,
+                titulo: req.body.titulo,
                 descricao: req.body.descricao,
-                emails: req.body.emails,
-                enderecos: req.body.enderecos,
-                telefones: req.body.telefones,
-            }, function (err, data) {
+                codigo: req.body.codigo,
+                tipo: req.body.tipo,
+                categoria: req.body.categoria,
+                valor: req.body.valor,
+                imagem: req.body.imagem
+            },
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -135,11 +154,12 @@ var SiteController  = {
     },
 
     apaga: function (req, res, done) {
-        SiteModel.remove(
+        ProdutoModel.remove(
             {
-                _id: req.params.id
+                _id: req.params.id,
+                site: req.headers.site
             },
-            function (err, result) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -152,16 +172,16 @@ var SiteController  = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: result,
+                        data: data,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, result);
+                done(err, data);
             }
         );
     }
-};
+}
 
-module.exports = SiteController;
+module.exports = ProdutoController;

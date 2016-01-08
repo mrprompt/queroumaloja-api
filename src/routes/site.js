@@ -2,7 +2,7 @@
 
 var router      = require('express').Router();
 var connection  = require(__dirname + '/../modules/connection');
-var controller  = require(__dirname + '/../controllers/SiteController');
+var controller  = require(__dirname + '/../controllers/site');
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);

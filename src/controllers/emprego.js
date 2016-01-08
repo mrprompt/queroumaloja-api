@@ -16,7 +16,7 @@ var EmpregoController   = {
                     cadastro: -1
                 }
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -26,6 +26,9 @@ var EmpregoController   = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),

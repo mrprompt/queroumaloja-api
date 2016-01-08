@@ -1,21 +1,17 @@
 'use strict';
 
-var paginate            = require('express-paginate');
-var EquipeModel         = require(__dirname + '/../models/equipe');
-var EquipeController    = {
+var paginate        = require('express-paginate');
+var SiteModel       = require(__dirname + '/../models/site');
+var SiteController  = {
     lista: function (req, res, done) {
-        EquipeModel.paginate(
-            {
-                site: req.headers.site
-            },
+        SiteModel.paginate(
+            {},
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                sortBy: {
-                    cadastro: -1
-                }
+                sortBy: {cadastro: -1}
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -25,10 +21,13 @@ var EquipeController    = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),
-                        data: data,
+                        data: data.docs,
                         itemCount: itemCount,
                         pageCount: pageCount
                     });
@@ -40,11 +39,9 @@ var EquipeController    = {
     },
 
     abre: function (req, res, done) {
-        EquipeModel.findOne({
-            _id: req.params.id,
-            site: req.headers.site
+        SiteModel.findOne({
+            _id: req.params.id
         })
-            .populate(['site'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -69,15 +66,19 @@ var EquipeController    = {
     },
 
     adiciona: function (req, res, done) {
-        var membro = new EquipeModel({
+        var site = new SiteModel({
             nome: req.body.nome,
-            cargo: req.body.cargo,
-            email: req.body.email,
-            imagem: req.body.imagem,
-            site: req.headers.site
+            dominio: req.body.dominio,
+            descricao: req.body.descricao,
+            emails: req.body.emails,
+            enderecos: req.body.enderecos,
+            telefones: req.body.telefones,
+            modulos: [],
+            atuacao: req.body.atuacao,
+            servicos: req.body.servicos
         });
 
-        membro.save(function (err, data) {
+        site.save(function (err, newSite) {
             if (err) {
                 res.status(500).json({
                     object: 'error',
@@ -90,30 +91,29 @@ var EquipeController    = {
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
-                    data: data,
+                    data: newSite,
                     itemCount: 1,
                     pageCount: 1
                 });
             }
 
-            done(err, data);
+            done(err, newSite);
         });
     },
 
     atualiza: function (req, res, done) {
-        EquipeModel.update(
+        SiteModel.update(
             {
                 _id: req.params.id,
-                site: req.headers.site
             },
             {
                 nome: req.body.nome,
-                cargo: req.body.cargo,
-                email: req.body.email,
-                imagem: req.body.imagem,
-                site: req.headers.site
-            },
-            function (err, data) {
+                dominio: req.body.dominio,
+                descricao: req.body.descricao,
+                emails: req.body.emails,
+                enderecos: req.body.enderecos,
+                telefones: req.body.telefones,
+            }, function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -138,11 +138,11 @@ var EquipeController    = {
     },
 
     apaga: function (req, res, done) {
-        EquipeModel.remove(
+        SiteModel.remove(
             {
-                _id: req.params.id,
-                site: req.headers.site
-            }, function (err, data) {
+                _id: req.params.id
+            },
+            function (err, result) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -155,16 +155,16 @@ var EquipeController    = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: data,
+                        data: result,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, data);
+                done(err, result);
             }
         );
     }
-}
+};
 
-module.exports = EquipeController;
+module.exports = SiteController;

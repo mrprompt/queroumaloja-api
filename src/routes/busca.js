@@ -2,7 +2,7 @@
 
 var router     = require('express').Router();
 var connection = require(__dirname + '/../modules/connection');
-var controller = require(__dirname + '/../controllers/BuscaController');
+var controller = require(__dirname + '/../controllers/busca');
 
 router.get('/', controller.busca);
 

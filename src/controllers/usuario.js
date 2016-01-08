@@ -1,30 +1,20 @@
 'use strict';
 
-var paginate        = require('express-paginate');
-var ProdutoModel    = require(__dirname + '/../models/produto');
-var ProdutoController = {
+var paginate            = require('express-paginate');
+var UsuarioModel        = require(__dirname + '/../models/usuario');
+var UsuarioController   = {
     lista: function (req, res, done) {
-        var filter = {
-            site: req.headers.site
-        };
-
-        if (req.query.tipo !== undefined) {
-            filter.tipo = req.query.tipo;
-
-            if (req.query.categoria !== undefined) {
-                filter.categoria = req.query.categoria;
-            }
-        }
-
-        ProdutoModel.paginate(
-            filter,
+        UsuarioModel.paginate(
+            {
+                site: req.headers.site
+            },
             {
                 page: req.query.page,
                 limit: req.query.limit,
                 populate: ['site'],
                 sortBy: {cadastro: -1}
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -34,6 +24,9 @@ var ProdutoController = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),
@@ -49,16 +42,19 @@ var ProdutoController = {
     },
 
     abre: function (req, res, done) {
-        ProdutoModel.findOne({
-            _id: req.params.id,
-            site: req.headers.site
-        })
-            .exec(function (err, data) {
-                if (err) {
-                    res.status(500).json({
+        UsuarioModel.findOne(
+            {
+                _id: req.params.id
+            },
+            function (err, user) {
+                if (err || user === null) {
+                    res.status(404).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: {
+                            status: 404,
+                            message: 'Usuário não encontrado',
+                        },
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -66,32 +62,34 @@ var ProdutoController = {
                     res.status(200).json({
                         object: 'object',
                         has_more: false,
-                        data: data,
+                        data: user,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, data);
-            });
+                done(err, user);
+            }
+        ).populate('site');
     },
 
     adiciona: function (req, res, done) {
-        var produto = new ProdutoModel({
-            titulo: req.body.titulo,
-            descricao: req.body.descricao,
-            imagem: req.body.imagem,
+        var usuario = new UsuarioModel({
             site: req.headers.site,
-            codigo: req.body.codigo,
-            tipo: req.body.tipo,
-            categoria: req.body.categoria,
-            valor: req.body.valor
+            nome: req.body.nome,
+            email: req.body.email,
+            password: req.body.password,
+            localidade: {
+                uf: req.body.uf,
+                estado: req.body.estado,
+                cidade: req.body.cidade
+            }
         });
 
-        produto.save(function (err, data) {
+        usuario.save(function (err, user) {
             if (err) {
                 res.status(500).json({
-                    object: 'object',
+                    object: 'error',
                     has_more: false,
                     data: err,
                     itemCount: 1,
@@ -101,32 +99,33 @@ var ProdutoController = {
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
-                    data: data,
+                    data: user,
                     itemCount: 1,
                     pageCount: 1
                 });
             }
 
-            done(err, data);
+            done(err, user);
         });
     },
 
     atualiza: function (req, res, done) {
-        ProdutoModel.update(
+        UsuarioModel.update(
             {
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.headers.site,
             },
             {
-                titulo: req.body.titulo,
-                descricao: req.body.descricao,
-                codigo: req.body.codigo,
-                tipo: req.body.tipo,
-                categoria: req.body.categoria,
-                valor: req.body.valor,
-                imagem: req.body.imagem
+
+                email: req.body.email,
+                password: req.body.password,
+                nome: req.body.nome,
+                localidade: {
+                    estado: req.body.estado,
+                    cidade: req.body.cidade
+                }
             },
-            function (err, data) {
+            function (err, usuario) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -139,24 +138,24 @@ var ProdutoController = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: data,
+                        data: usuario,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, data);
+                done(err, usuario);
             }
         );
     },
 
     apaga: function (req, res, done) {
-        ProdutoModel.remove(
+        UsuarioModel.remove(
             {
                 _id: req.params.id,
                 site: req.headers.site
             },
-            function (err, data) {
+            function (err, usuario) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -169,16 +168,16 @@ var ProdutoController = {
                     res.status(204).json({
                         object: 'object',
                         has_more: false,
-                        data: data,
+                        data: usuario,
                         itemCount: 1,
                         pageCount: 1
                     });
                 }
 
-                done(err, data);
+                done(err, usuario);
             }
         );
     }
-}
+};
 
-module.exports = ProdutoController;
+module.exports = UsuarioController;

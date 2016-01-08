@@ -1,8 +1,6 @@
 'use strict';
 
 var paginate            = require('express-paginate');
-var sendgrid            = require('sendgrid')('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');
-var pagarme             = require('pagarme-nodejs')('ak_test_KwMAwfL6kGrt3kO9mgNC3qWnvdYe0C');
 var CarrinhoModel       = require(__dirname + '/../models/carrinho');
 var CarrinhoController  = {
     /**
@@ -95,74 +93,86 @@ var CarrinhoController  = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        pagarme.transactions.findById(req.body.token, function(err, transaction) {
-            var status = 'novo';
-
-            if (transaction.status == 'paid') {
-                status = 'pago';
+        var transaction = {
+            customer: {
+                name: 'null',
+                email: 'none@none.net',
+            },
+            phone: {
+                ddd: 0,
+                number: 0
+            },
+            address: {
+                street: 'null',
+                street_number: 0,
+                complementary: 'null',
+                neighborhood: 'null',
+                zipcode: 0,
+                city: 'null',
+                state: 'null'
             }
+        };
 
-            var carrinho = new CarrinhoModel({
-                cadastro: (new Date),
-                site: req.headers.site,
-                token: req.body.token,
-                valor: req.body.valor,
-                comprador: {
-                    nome: transaction.customer.name,
-                    email: transaction.customer.email,
-                    telefone: transaction.phone.ddd + transaction.phone.number,
-                    endereco: {
-                        logradouro: transaction.address.street,
-                        numero: transaction.address.street_number,
-                        complemento: transaction.address.complementary,
-                        bairro: transaction.address.neighborhood,
-                        cep: transaction.address.zipcode
-                    },
-                    localidade: {
-                        cidade: transaction.address.city,
-                        estado: transaction.address.state,
-                        uf: transaction.address.state
-                    }
+        var carrinho = new CarrinhoModel({
+            cadastro: (new Date),
+            site: req.headers.site,
+            token: req.body.token,
+            valor: req.body.valor,
+            comprador: {
+                nome: transaction.customer.name,
+                email: transaction.customer.email,
+                telefone: transaction.phone.ddd + transaction.phone.number,
+                endereco: {
+                    logradouro: transaction.address.street,
+                    numero: transaction.address.street_number,
+                    complemento: transaction.address.complementary,
+                    bairro: transaction.address.neighborhood,
+                    cep: transaction.address.zipcode
+                },
+                localidade: {
+                    cidade: transaction.address.city,
+                    estado: transaction.address.state,
+                    uf: transaction.address.state
                 }
-            });
-
-            if (req.body.items) {
-                req.body.items.forEach(function (item) {
-                    carrinho.items.push({
-                        produto: item.produto,
-                        quantidade: item.quantidade
-                    });
-                });
             }
+        });
 
-            if (req.body.produto && req.body.quantidade) {
+        if (req.body.items) {
+            req.body.items.forEach(function (item) {
                 carrinho.items.push({
-                    produto: req.body.produto,
-                    quantidade: req.body.quantidade
+                    produto: item.produto,
+                    quantidade: item.quantidade
+                });
+            });
+        }
+
+        if (req.body.produto && req.body.quantidade) {
+            carrinho.items.push({
+                produto: req.body.produto,
+                quantidade: req.body.quantidade
+            });
+        }
+
+        carrinho.save(function (err, resultSave) {
+            if (err) {
+                return res.status(500).json({
+                    object: 'error',
+                    has_more: false,
+                    data: err,
+                    itemCount: 1,
+                    pageCount: 1
+                });
+            } else {
+                res.status(201).json({
+                    object: 'object',
+                    has_more: false,
+                    data: resultSave,
+                    itemCount: 1,
+                    pageCount: 1
                 });
             }
 
-            carrinho.save(function (err, resultSave) {
-                if (err) {
-                    return res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(201).json({
-                        object: 'object',
-                        has_more: false,
-                        data: resultSave,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
-
-                done(err, resultSave);
-            });
+            done(err, resultSave);
         });
     },
 
@@ -275,47 +285,3 @@ var CarrinhoController  = {
 };
 
 module.exports = CarrinhoController;
-
-/**
- *
- * @param site
- */
-function avisaPorEmail(siteId) {
-    var site = require(__dirname + '/../models/site');
-
-    site
-        .findOne(
-            {
-                _id: siteId
-            }
-        )
-        .then(function (_site) {
-            var email = new sendgrid.Email({
-                to: _site.emails[0],
-                from: 'system@publiciti.com.br',
-                subject: ' ',
-                html: ' '
-            });
-
-            email.setFilters({
-                'templates': {
-                    'settings': {
-                        'enable': 1,
-                        'template_id': 'd5e54ad0-718f-4a53-8827-b1dbaeb68238',
-                    }
-                }
-            });
-
-            email.addSubstitution('%carrinho%', resultSave._id);
-            email.addSubstitution('%status%', resultSave.status);
-            email.addSubstitution('%items%', JSON.stringify(resultSave.items));
-
-            sendgrid.send(email, function (err, json) {
-                if (err) {
-                    return console.error(err);
-                }
-
-                return json;
-            });
-        });
-}
