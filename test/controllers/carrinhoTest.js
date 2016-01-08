@@ -1,7 +1,7 @@
 'use strict';
 
 var connection  = require('../test');
-var Carrinho = require('../../src/controllers/CarrinhoController');
+var Carrinho = require('../../src/controllers/carrinho');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');

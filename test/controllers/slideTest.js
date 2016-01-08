@@ -1,7 +1,7 @@
 'use strict';
 
 var connection  = require('../test');
-var Slide = require('../../src/controllers/SlideController');
+var Slide = require('../../src/controllers/slide');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');

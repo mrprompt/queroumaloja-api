@@ -1,7 +1,7 @@
 'use strict';
 
 var connection  = require('../test');
-var Token = require('../../src/controllers/TokenController');
+var Token = require('../../src/controllers/token');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');

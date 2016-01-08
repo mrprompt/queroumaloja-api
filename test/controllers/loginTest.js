@@ -1,7 +1,7 @@
 'use strict';
 
 var connection  = require('../test');
-var Login = require('../../src/controllers/LoginController');
+var Login = require('../../src/controllers/login');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');
