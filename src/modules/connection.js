@@ -11,5 +11,3 @@ var mongoose = require('mongoose');
     mongoose.connect(connection_string);
 
 exports.mongoose = mongoose;
-
-console.log(connection_string);
