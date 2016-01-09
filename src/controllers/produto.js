@@ -10,12 +10,12 @@ var ProdutoController = {
 
         if (req.query.tipo !== undefined) {
             filter.categoria = {
-                uri: req.query.tipo
+                uri: req.query.tipo.toLowerCase()
             };
 
             if (req.query.categoria !== undefined) {
                 filter.categoria.categoria = {
-                    uri: req.query.categoria
+                    uri: req.query.categoria.toLowerCase()
                 };
             }
         }
