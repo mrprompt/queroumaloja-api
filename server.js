@@ -76,8 +76,8 @@ var Application = function () {
     self.initializeServer = function () {
         self.app = express();
 
-        self.app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP);
-        self.app.set('port', process.env.OPENSHIFT_NODEJS_PORT);
+        self.app.set('ipaddress', process.env.NODE_IP);
+        self.app.set('port', process.env.NODE_PORT);
 
         // load modules
         self.app.use(bodyParser.json());
@@ -99,8 +99,8 @@ var Application = function () {
 
         self.initializeServer();
 
-        self.app.listen(process.env.OPENSHIFT_NODEJS_PORT, process.env.OPENSHIFT_NODEJS_IP, function () {
-            console.log('Started on http://%s:%d', process.env.OPENSHIFT_NODEJS_IP, process.env.OPENSHIFT_NODEJS_PORT);
+        self.app.listen(process.env.NODE_PORT, process.env.NODE_IP, function () {
+            console.log('Started on http://%s:%d', process.env.NODE_IP, process.env.NODE_PORT);
         });
     };
 };
