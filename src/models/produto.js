@@ -12,17 +12,12 @@ var ProdutoSchema   = new mongoose.Schema({
     descricao: {
         type: String
     },
-    tipo: {
-        type: String,
-        default: ''
-    },
     valor: {
         type: Number,
         default: 0.00
     },
     categoria: {
-        type: String,
-        default: ''
+        type: Object
     },
     ativo: {
         type: Boolean,
@@ -42,6 +37,6 @@ var ProdutoSchema   = new mongoose.Schema({
 })
     .plugin(require('mongoose-paginate'))
     .plugin(require('mongoose-text-search'))
-    .index({ descricao: 'text' });
+    .index({ titulo: 'text', descricao: 'text' });
 
 module.exports = mongoose.model('Produto', ProdutoSchema);

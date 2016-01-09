@@ -9,10 +9,14 @@ var ProdutoController = {
         };
 
         if (req.query.tipo !== undefined) {
-            filter.tipo = req.query.tipo;
+            filter.categoria = {
+                uri: req.query.tipo
+            };
 
             if (req.query.categoria !== undefined) {
-                filter.categoria = req.query.categoria;
+                filter.categoria.categoria = {
+                    uri: req.query.categoria
+                };
             }
         }
 
