@@ -18,8 +18,8 @@
   },
   "homepage": "http://api.publiciti.com.br",
   "engines": {
-    "node": "5.1.1",
-    "npm": "3.5.4"
+    "node": "~5.4.0",
+    "npm": "^3.5.4"
   },
   "dependencies": {
     "body-parser": "^1.12.4",
