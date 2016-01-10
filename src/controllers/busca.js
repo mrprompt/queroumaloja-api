@@ -6,19 +6,11 @@ var BuscaController = {
     busca: function (req, res, done) {
         var filter = {
             site: req.headers.site,
-            limit: 1000,
             $text: {
-                $search: req.query.busca
+                $search: req.query.busca,
+                $language: 'pt'
             }
         };
-
-        if (req.query.tipo !== undefined) {
-            filter["categoria.uri"] = req.query.tipo.toLowerCase()
-
-            if (req.query.categoria !== undefined) {
-                filter["categoria.categoria.uri"] = req.query.categoria.toLowerCase();
-            }
-        }
 
         ProdutoModel.paginate(
             filter,
