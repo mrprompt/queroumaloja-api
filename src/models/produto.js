@@ -36,7 +36,6 @@ var ProdutoSchema   = new mongoose.Schema({
     }
 })
     .plugin(require('mongoose-paginate'))
-    .plugin(require('mongoose-text-search'))
     .index({ titulo: 'text', descricao: 'text' });
 
 module.exports = mongoose.model('Produto', ProdutoSchema);

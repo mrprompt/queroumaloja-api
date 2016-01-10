@@ -6,20 +6,28 @@ var BuscaController = {
     busca: function (req, res, done) {
         var filter = {
             site: req.headers.site,
-            limit: 1000
-        };
-
-        if (req.query.tipo !== undefined) {
-            filter.tipo = req.query.tipo;
-
-            if (req.query.categoria !== undefined) {
-                filter.categoria = req.query.categoria;
+            limit: 1000,
+            $text: {
+                $search: req.query.busca
             }
         };
 
-        ProdutoModel.textSearch(
-            req.query.busca,
+        if (req.query.tipo !== undefined) {
+            filter["categoria.uri"] = req.query.tipo.toLowerCase()
+
+            if (req.query.categoria !== undefined) {
+                filter["categoria.categoria.uri"] = req.query.categoria.toLowerCase();
+            }
+        }
+
+        ProdutoModel.paginate(
             filter,
+            {
+                page: req.query.page,
+                limit: req.query.limit,
+                populate: ['site'],
+                sortBy: {cadastro: -1}
+            },
             function(err, data) {
                 if (err) {
                     res.status(500).json({
