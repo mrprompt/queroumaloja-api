@@ -8,9 +8,11 @@ var BuscaController = {
             site: req.headers.site
         };
 
-        filter["$text"] = {
-            $search: req.query.busca
-        };
+        if (req.query.busca !== undefined) {
+            filter["$text"] = {
+                $search: req.query.busca
+            };
+        }
 
         ProdutoModel.paginate(
             filter,
