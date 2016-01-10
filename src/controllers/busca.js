@@ -38,18 +38,15 @@ var BuscaController = {
                         pageCount   : 0
                     });
                 } else {
-                    var items = [];
-
-                    data.results.forEach(function(result) {
-                        items.push(result.obj);
-                    });
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
 
                     res.status(200).json({
-                        object      : 'list',
-                        has_more    : true,
-                        data        : items,
-                        itemCount   : data.stats.nfound,
-                        pageCount   : 1
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data.docs,
+                        itemCount: itemCount,
+                        pageCount: pageCount
                     });
                 }
 
