@@ -1,6 +1,6 @@
 'use strict';
 
-var router          = require('express').Router();
+var paginate        = require('express-paginate');
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var BuscaController = {
     busca: function (req, res, done) {
