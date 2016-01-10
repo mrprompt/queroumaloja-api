@@ -5,11 +5,11 @@ var ProdutoModel    = require(__dirname + '/../models/produto');
 var BuscaController = {
     busca: function (req, res, done) {
         var filter = {
-            site: req.headers.site,
-            $text: {
-                $search: req.query.busca,
-                $language: 'pt'
-            }
+            site: req.headers.site
+        };
+
+        filter["$text"] = {
+            $search: req.query.busca
         };
 
         ProdutoModel.paginate(
