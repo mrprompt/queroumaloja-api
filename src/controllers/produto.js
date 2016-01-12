@@ -1,6 +1,7 @@
 'use strict';
 
 var paginate        = require('express-paginate');
+var slugify         = require('slugify');
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var ProdutoController = {
     lista: function (req, res, done) {
@@ -22,7 +23,7 @@ var ProdutoController = {
                 page: req.query.page,
                 limit: req.query.limit,
                 populate: ['site'],
-                sortBy: {cadastro: -1}
+                sort: {cadastro : 'desc'}
             },
             function (err, data) {
                 if (err) {
@@ -86,9 +87,15 @@ var ProdutoController = {
             imagem: req.body.imagem,
             site: req.headers.site,
             codigo: req.body.codigo,
-            tipo: req.body.tipo,
-            categoria: req.body.categoria,
-            valor: req.body.valor
+            valor: req.body.valor,
+            categoria: {
+                titulo: req.body.tipo,
+                uri: slugify(req.body.tipo.toLowerCase()),
+                categoria: {
+                    titulo: req.body.categoria,
+                    uri: slugify(req.body.categoria.toLowerCase())
+                }
+            }
         });
 
         produto.save(function (err, data) {
@@ -124,10 +131,16 @@ var ProdutoController = {
                 titulo: req.body.titulo,
                 descricao: req.body.descricao,
                 codigo: req.body.codigo,
-                tipo: req.body.tipo,
-                categoria: req.body.categoria,
                 valor: req.body.valor,
-                imagem: req.body.imagem
+                imagem: req.body.imagem,
+                categoria: {
+                    titulo: req.body.tipo,
+                    uri: slugify(req.body.tipo.toLowerCase()),
+                    categoria: {
+                        titulo: req.body.categoria,
+                        uri: slugify(req.body.categoria.toLowerCase())
+                    }
+                }
             },
             function (err, data) {
                 if (err) {
@@ -182,6 +195,6 @@ var ProdutoController = {
             }
         );
     }
-}
+};
 
 module.exports = ProdutoController;

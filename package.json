@@ -26,14 +26,14 @@
     "express": "^4.12.4",
     "express-paginate": "0.0.8",
     "method-override": "^2.3.3",
-    "mongodb": "^2.1.3",
     "mongoose": "^4.0.5",
     "mongoose-paginate": "^5.0.0",
     "mongoose-unique-validator": "^0.4.1",
     "morgan": "^1.5.3",
     "sendgrid": "^1.9.2",
     "token": "0.0.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "slugify": "^0.1.1"
   },
   "devDependencies": {
     "mocha": "^2.3.3",

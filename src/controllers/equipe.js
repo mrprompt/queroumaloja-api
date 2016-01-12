@@ -11,9 +11,7 @@ var EquipeController    = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                sortBy: {
-                    cadastro: -1
-                }
+                sort: {cadastro : 'desc'}
             },
             function (err, data) {
                 if (err) {

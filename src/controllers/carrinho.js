@@ -20,9 +20,7 @@ var CarrinhoController  = {
                 page: req.query.page,
                 limit: req.query.limit,
                 populate: ['items.produto', 'site'],
-                sortBy: {
-                    cadastro: -1
-                }
+                sort: {cadastro : 'desc'}
             },
             function (err, data, pageCount, itemCount) {
                 if (err) {

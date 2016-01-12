@@ -12,7 +12,7 @@ var SlideController = {
                 page: req.query.page,
                 limit: req.query.limit,
                 populate: ['site'],
-                sortBy: {cadastro: -1}
+                sort: {cadastro : 'desc'}
             },
             function (err, data) {
                 if (err) {
