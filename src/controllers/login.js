@@ -12,7 +12,7 @@ var LoginController = {
             .populate('site')
             .exec(function (err, user) {
                 if (err) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         object: 'error',
                         has_more: false,
                         data: err,
@@ -20,7 +20,7 @@ var LoginController = {
                         pageCount: 1
                     });
                 } else if (!user) {
-                    res.status(403).json({
+                    return res.status(403).json({
                         object: 'object',
                         has_more: false,
                         data: {
