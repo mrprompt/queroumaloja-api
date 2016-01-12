@@ -82,18 +82,18 @@ var ProdutoController = {
 
     adiciona: function (req, res, done) {
         var produto = new ProdutoModel({
-            titulo: req.body.titulo,
-            descricao: req.body.descricao,
-            imagem: req.body.imagem,
-            site: req.headers.site,
-            codigo: req.body.codigo,
-            valor: req.body.valor,
-            categoria: {
-                titulo: req.body.tipo,
-                uri: slugify(req.body.tipo.toLowerCase()),
-                categoria: {
-                    titulo: req.body.categoria,
-                    uri: slugify(req.body.categoria.toLowerCase())
+            titulo      : req.body.titulo,
+            descricao   : req.body.descricao,
+            imagem      : req.body.imagem,
+            site        : req.headers.site,
+            codigo      : req.body.codigo,
+            valor       : req.body.valor,
+            categoria   : {
+                titulo      : req.body.categoria.titulo,
+                uri         : slugify(req.body.categoria.titulo.toLowerCase()),
+                categoria   : {
+                    titulo  : req.body.categoria.categoria.titulo,
+                    uri     : slugify(req.body.categoria.categoria.titulo.toLowerCase())
                 }
             }
         });
@@ -128,17 +128,17 @@ var ProdutoController = {
                 site: req.headers.site
             },
             {
-                titulo: req.body.titulo,
-                descricao: req.body.descricao,
-                codigo: req.body.codigo,
-                valor: req.body.valor,
-                imagem: req.body.imagem,
-                categoria: {
-                    titulo: req.body.tipo,
-                    uri: slugify(req.body.tipo.toLowerCase()),
-                    categoria: {
-                        titulo: req.body.categoria,
-                        uri: slugify(req.body.categoria.toLowerCase())
+                titulo      : req.body.titulo,
+                descricao   : req.body.descricao,
+                codigo      : req.body.codigo,
+                valor       : req.body.valor,
+                imagem      : req.body.imagem,
+                categoria   : {
+                    titulo      : req.body.categoria.titulo,
+                    uri         : slugify(req.body.categoria.titulo.toLowerCase()),
+                    categoria   : {
+                        titulo  : req.body.categoria.categoria.titulo,
+                        uri     : slugify(req.body.categoria.categoria.titulo.toLowerCase())
                     }
                 }
             },
