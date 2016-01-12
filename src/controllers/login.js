@@ -39,6 +39,6 @@ var LoginController = {
                 done(err, user);
             });
     }
-}
+};
 
 module.exports = LoginController;

@@ -31,7 +31,7 @@ var AvisoController = {
                     res.status(200).json({
                         object      : 'list',
                         has_more    : paginate.hasNextPages(req)(pageCount),
-                        data        : data,
+                        data        : data.docs,
                         itemCount   : itemCount,
                         pageCount   : pageCount
                     });
