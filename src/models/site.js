@@ -23,7 +23,7 @@ var SiteSchema  = new mongoose.Schema({
     config: {
         type: []
     },
-    modules: {
+    modulos: {
         type: []
     }
 })
@@ -31,7 +31,7 @@ var SiteSchema  = new mongoose.Schema({
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.config;
-            delete ret.modules;
+            delete ret.modulos;
 
             return ret;
         }
