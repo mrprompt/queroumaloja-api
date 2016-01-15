@@ -19,8 +19,22 @@ var SiteSchema  = new mongoose.Schema({
     },
     telefones: {
         type: []
+    },
+    config: {
+        type: []
+    },
+    modules: {
+        type: []
     }
 })
-    .plugin(require('mongoose-paginate'));
+    .plugin(require('mongoose-paginate'))
+    .set('toJSON', {
+        transform: function(doc, ret, options) {
+            delete ret.config;
+            delete ret.modules;
+
+            return ret;
+        }
+    });
 
 module.exports = mongoose.model('Site', SiteSchema);
