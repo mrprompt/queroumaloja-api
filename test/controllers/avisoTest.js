@@ -34,6 +34,7 @@ describe('Aviso Controller', function () {
 
         Aviso.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -70,6 +71,7 @@ describe('Aviso Controller', function () {
 
         Aviso.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 

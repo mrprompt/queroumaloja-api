@@ -22,7 +22,6 @@ var response = {
 };
 
 describe('Index Controller', function () {
-
     it('#lista() deve retornar uma string', function () {
         request.headers = {
             index: new ObjectId()
@@ -39,6 +38,7 @@ describe('Index Controller', function () {
 
         Index.lista(request, response, function() {
             assert.equal(response.content.object, 'string');
+            assert.equal(response.statusCode, 200);
         });
     });
 });

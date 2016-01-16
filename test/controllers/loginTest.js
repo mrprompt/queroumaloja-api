@@ -28,8 +28,8 @@ describe('Login Controller', function () {
         };
 
         request.body = {
-            email: 'foo@bar',
-            password: 'foobar',
+            email   : 'foo@bar.bar',
+            password: 'foobar'
         };
 
         request.query = {
@@ -39,6 +39,7 @@ describe('Login Controller', function () {
 
         Login.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 });

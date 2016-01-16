@@ -38,6 +38,7 @@ describe('Site Controller', function () {
 
         Site.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -77,6 +78,7 @@ describe('Site Controller', function () {
 
         Site.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 
@@ -97,6 +99,7 @@ describe('Site Controller', function () {
 
         Site.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -117,6 +120,7 @@ describe('Site Controller', function () {
 
         Site.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

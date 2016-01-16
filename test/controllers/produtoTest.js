@@ -38,6 +38,7 @@ describe('Produto Controller', function () {
 
         Produto.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -88,6 +89,7 @@ describe('Produto Controller', function () {
 
         Produto.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 
@@ -108,6 +110,7 @@ describe('Produto Controller', function () {
 
         Produto.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -128,6 +131,7 @@ describe('Produto Controller', function () {
 
         Produto.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

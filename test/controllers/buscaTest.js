@@ -35,6 +35,7 @@ describe('Busca Controller', function () {
 
         Busca.busca(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });
