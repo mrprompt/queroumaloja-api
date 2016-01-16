@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Logout = require('../../src/controllers/logout');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,15 +22,13 @@ var response = {
 };
 
 describe('Logout Controller', function () {
-    it('#logout() deve retornar um array', function (done) {
+    it('#logout() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
 
         Logout.logout(request, response, function() {
             assert.equal(response.content.object, 'object');
-
-            done();
         });
     });
 });

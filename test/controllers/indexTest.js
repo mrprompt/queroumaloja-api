@@ -1,7 +1,7 @@
 'use strict';
 
-var Busca = require('../../src/controllers/busca');
-var Site = require('mongoose').Types.ObjectId;
+var Index = require('../../src/controllers/index');
+var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
 var assert = require('assert');
 var request = require('request');
@@ -21,20 +21,24 @@ var response = {
     }
 };
 
-describe('Busca Controller', function () {
-    it('#busca() deve retornar um array', function () {
+describe('Index Controller', function () {
+
+    it('#lista() deve retornar uma string', function () {
         request.headers = {
-            site: new Site()
+            index: new ObjectId()
+        };
+
+        request.params = {
+            usuario: new ObjectId()
         };
 
         request.query = {
             page: 1,
-            limit: 1,
-            busca: 'livro'
+            limit: 1
         };
 
-        Busca.busca(request, response, function() {
-            assert.equal(response.content.object, 'error');
+        Index.lista(request, response, function() {
+            assert.equal(response.content.object, 'string');
         });
     });
 });

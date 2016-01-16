@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Login = require('../../src/controllers/login');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,7 +22,7 @@ var response = {
 };
 
 describe('Login Controller', function () {
-    it('#adiciona() deve retornar um array', function (done) {
+    it('#adiciona() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
@@ -40,8 +39,6 @@ describe('Login Controller', function () {
 
         Login.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
-
-            done();
         });
     });
 });

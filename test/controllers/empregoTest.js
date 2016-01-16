@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Emprego = require('../../src/controllers/emprego');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,7 +22,7 @@ var response = {
 };
 
 describe('Emprego Controller', function () {
-    it('#lista() deve retornar um array', function (done) {
+    it('#lista() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
@@ -39,12 +38,10 @@ describe('Emprego Controller', function () {
 
         Emprego.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
-
-            done();
         });
     });
 
-    it('#abre() deve retornar um objeto', function (done) {
+    it('#abre() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -61,12 +58,10 @@ describe('Emprego Controller', function () {
         Emprego.abre(request, response, function() {
             assert.equal(response.content.object, 'object');
             assert.equal(response.statusCode, 200);
-
-            done();
         });
     });
 
-    it('#adiciona() deve retornar um array', function (done) {
+    it('#adiciona() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
@@ -82,12 +77,10 @@ describe('Emprego Controller', function () {
 
         Emprego.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
-
-            done();
         });
     });
 
-    it('#atualiza() deve retornar um objeto', function (done) {
+    it('#atualiza() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -104,12 +97,10 @@ describe('Emprego Controller', function () {
 
         Emprego.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 
-    it('#apaga() deve retornar um objeto', function (done) {
+    it('#apaga() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -126,8 +117,6 @@ describe('Emprego Controller', function () {
 
         Emprego.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 });

@@ -4,3 +4,4 @@
 --growl
 --recursive
 --colors
+--timeout 15000
