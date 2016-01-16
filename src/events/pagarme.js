@@ -1,10 +1,12 @@
 'use strict';
 
-var mail = require(__dirname + '/../modules/mail');
+var pagarme = require(__dirname + '/../modules/pagarme');
 
 var router = function(req, res, done) {
     res.app.on('carrinho:adiciona', function(carrinho) {
-        // mail.avisoDeCompra(carrinho);
+        console.log('checando carrinho no pagarme');
+
+        pagarme.criar(carrinho);
     });
 
     done();

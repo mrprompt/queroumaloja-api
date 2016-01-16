@@ -63,10 +63,11 @@ var Application = function () {
         var site     = require('./src/modules/site');
         var token    = require('./src/modules/token');
         var carrinho = require('./src/events/carrinho');
+        var pagarme  = require('./src/events/pagarme');
 
         self.app.use('/', site, require('./src/routes/index'));
         self.app.use('/aviso', site, token, require('./src/routes/aviso'));
-        self.app.use('/carrinho', site, token, carrinho, require('./src/routes/carrinho'));
+        self.app.use('/carrinho', site, token, carrinho, pagarme, require('./src/routes/carrinho'));
         self.app.use('/emprego', site, token, require('./src/routes/emprego'));
         self.app.use('/equipe', site, token, require('./src/routes/equipe'));
         self.app.use('/parceiro', site, token, require('./src/routes/parceiro'));
