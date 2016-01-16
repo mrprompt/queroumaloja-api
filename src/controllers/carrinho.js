@@ -94,7 +94,7 @@ var CarrinhoController  = {
         var transaction = {
             customer: {
                 name: 'null',
-                email: 'none@none.net',
+                email: 'none@none.net'
             },
             phone: {
                 ddd: 0,
@@ -168,6 +168,8 @@ var CarrinhoController  = {
                     itemCount: 1,
                     pageCount: 1
                 });
+
+                res.app.emit('carrinho:adiciona', resultSave);
             }
 
             done(err, resultSave);
@@ -240,6 +242,8 @@ var CarrinhoController  = {
                             itemCount: 1,
                             pageCount: 1
                         });
+
+                        res.app.emit('carrinho.atualiza', result);
                     }
 
                     done(err, result);
@@ -275,6 +279,8 @@ var CarrinhoController  = {
                     itemCount: 1,
                     pageCount: 1
                 });
+
+                res.app.emit('carrinho.apaga', data);
             }
 
             done(err, data);
