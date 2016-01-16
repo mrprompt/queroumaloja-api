@@ -1,6 +1,6 @@
 {
-  "name": "grupo-publiciti",
-  "version": "0.0.10",
+  "name": "publiciti-api",
+  "version": "0.0.11",
   "description": "API de produtos para o grupo Publiciti",
   "private": true,
   "main": "server.js",
