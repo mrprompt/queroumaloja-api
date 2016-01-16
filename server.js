@@ -13,7 +13,9 @@ var bodyParser      = require('body-parser');
  */
 var Application = function () {
     //  Scope.
-    var self = this;
+    var self    = this;
+    var address = process.env.NODE_IP || '127.0.0.1';
+    var port    = process.env.NODE_PORT || '8080';
 
     /**
      *  terminator === the termination handler
@@ -53,11 +55,12 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        var site  = require(__dirname + '/src/modules/site');
-        var token = require(__dirname + '/src/modules/token');
+        var site     = require(__dirname + '/src/modules/site');
+        var token    = require(__dirname + '/src/modules/token');
+        var carrinho = require(__dirname + '/src/events/carrinho');
 
         self.app.use('/aviso', site, token, require(__dirname + '/src/routes/aviso'));
-        self.app.use('/carrinho', site, token, require(__dirname + '/src/routes/carrinho'));
+        self.app.use('/carrinho', site, token, carrinho, require(__dirname + '/src/routes/carrinho'));
         self.app.use('/emprego', site, token, require(__dirname + '/src/routes/emprego'));
         self.app.use('/equipe', site, token, require(__dirname + '/src/routes/equipe'));
         self.app.use('/parceiro', site, token, require(__dirname + '/src/routes/parceiro'));
@@ -74,10 +77,8 @@ var Application = function () {
      *  Initialize the server (express), create the routes and register the handlers.
      */
     self.initializeServer = function () {
+        // start ExpressJs
         self.app = express();
-
-        self.app.set('ipaddress', process.env.NODE_IP);
-        self.app.set('port', process.env.NODE_PORT);
 
         // load modules
         self.app.use(bodyParser.json());
@@ -99,8 +100,8 @@ var Application = function () {
 
         self.initializeServer();
 
-        self.app.listen(process.env.NODE_PORT, process.env.NODE_IP, function () {
-            console.log('Started on http://%s:%d', process.env.NODE_IP, process.env.NODE_PORT);
+        self.app.listen(port, address, function () {
+            console.log('Started on http://%s:%d', address, port);
         });
     };
 };
