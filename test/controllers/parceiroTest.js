@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Parceiro = require('../../src/controllers/parceiro');
 var Site = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,7 +22,7 @@ var response = {
 };
 
 describe('Parceiro Controller', function () {
-    it('#lista() deve retornar um array', function (done) {
+    it('#lista() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
@@ -39,12 +38,10 @@ describe('Parceiro Controller', function () {
 
         Parceiro.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
-
-            done();
         });
     });
 
-    it('#abre() deve retornar um objeto', function (done) {
+    it('#abre() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -61,12 +58,10 @@ describe('Parceiro Controller', function () {
         Parceiro.abre(request, response, function() {
             assert.equal(response.content.object, 'object');
             assert.equal(response.statusCode, 200);
-
-            done();
         });
     });
 
-    it('#adiciona() deve retornar um array', function (done) {
+    it('#adiciona() deve retornar um array', function () {
         request.headers = {
             site: new Site()
         };
@@ -82,12 +77,10 @@ describe('Parceiro Controller', function () {
 
         Parceiro.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
-
-            done();
         });
     });
 
-    it('#atualiza() deve retornar um objeto', function (done) {
+    it('#atualiza() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -104,12 +97,10 @@ describe('Parceiro Controller', function () {
 
         Parceiro.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 
-    it('#apaga() deve retornar um objeto', function (done) {
+    it('#apaga() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()
         };
@@ -126,8 +117,6 @@ describe('Parceiro Controller', function () {
 
         Parceiro.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 });

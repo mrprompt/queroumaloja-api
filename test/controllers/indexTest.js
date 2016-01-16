@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Index = require('../../src/controllers/index');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,7 +22,8 @@ var response = {
 };
 
 describe('Index Controller', function () {
-    it('#lista() deve retornar uma string', function (done) {
+
+    it('#lista() deve retornar uma string', function () {
         request.headers = {
             index: new ObjectId()
         };
@@ -39,8 +39,6 @@ describe('Index Controller', function () {
 
         Index.lista(request, response, function() {
             assert.equal(response.content.object, 'string');
-
-            done();
         });
     });
 });

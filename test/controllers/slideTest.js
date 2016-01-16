@@ -1,6 +1,5 @@
 'use strict';
 
-var connection  = require('../test');
 var Slide = require('../../src/controllers/slide');
 var ObjectId = require('mongoose').Types.ObjectId;
 var sinon = require('sinon');
@@ -23,7 +22,7 @@ var response = {
 };
 
 describe('Slide Controller', function () {
-    it('#lista() deve retornar um array', function (done) {
+    it('#lista() deve retornar um array', function () {
         request.headers = {
             slide: new ObjectId()
         };
@@ -39,12 +38,10 @@ describe('Slide Controller', function () {
 
         Slide.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
-
-            done();
         });
     });
 
-    it('#abre() deve retornar um objeto', function (done) {
+    it('#abre() deve retornar um objeto', function () {
         request.headers = {
             slide: new ObjectId()
         };
@@ -61,12 +58,10 @@ describe('Slide Controller', function () {
         Slide.abre(request, response, function() {
             assert.equal(response.content.object, 'object');
             assert.equal(response.statusCode, 200);
-
-            done();
         });
     });
 
-    it('#adiciona() deve retornar um array', function (done) {
+    it('#adiciona() deve retornar um array', function () {
         request.headers = {
             slide: new ObjectId()
         };
@@ -82,12 +77,10 @@ describe('Slide Controller', function () {
 
         Slide.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
-
-            done();
         });
     });
 
-    it('#atualiza() deve retornar um objeto', function (done) {
+    it('#atualiza() deve retornar um objeto', function () {
         request.headers = {
             slide: new ObjectId()
         };
@@ -104,12 +97,10 @@ describe('Slide Controller', function () {
 
         Slide.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 
-    it('#apaga() deve retornar um objeto', function (done) {
+    it('#apaga() deve retornar um objeto', function () {
         request.headers = {
             slide: new ObjectId()
         };
@@ -126,8 +117,6 @@ describe('Slide Controller', function () {
 
         Slide.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
-
-            done();
         });
     });
 });
