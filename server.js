@@ -59,6 +59,7 @@ var Application = function () {
         var token    = require(__dirname + '/src/modules/token');
         var carrinho = require(__dirname + '/src/events/carrinho');
 
+        self.app.use('/', site, require(__dirname + '/src/routes/index'));
         self.app.use('/aviso', site, token, require(__dirname + '/src/routes/aviso'));
         self.app.use('/carrinho', site, token, carrinho, require(__dirname + '/src/routes/carrinho'));
         self.app.use('/emprego', site, token, require(__dirname + '/src/routes/emprego'));
