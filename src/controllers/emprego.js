@@ -1,8 +1,22 @@
+/**
+ * Empregos
+ *
+ * @author Thiago Paes
+ * @package emprego
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate            = require('express-paginate');
 var EmpregoModel        = require(__dirname + '/../models/emprego');
 var EmpregoController   = {
+    /**
+     * Lista os empregos cadastrados
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         EmpregoModel.paginate(
             {
@@ -41,6 +55,13 @@ var EmpregoController   = {
         );
     },
 
+    /**
+     * Visualiza um emprego
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         EmpregoModel.findOne({
             _id: req.params.id,
@@ -69,6 +90,13 @@ var EmpregoController   = {
             });
     },
 
+    /**
+     * Adiciona um emprego
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var emprego = new EmpregoModel({
             titulo: req.body.titulo,
@@ -102,6 +130,13 @@ var EmpregoController   = {
         });
     },
 
+    /**
+     * Atualiza um emprego
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         EmpregoModel.update(
             {
@@ -138,6 +173,13 @@ var EmpregoController   = {
         );
     },
 
+    /**
+     * Remove um emprego
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         EmpregoModel.remove(
             {
@@ -167,6 +209,6 @@ var EmpregoController   = {
             }
         );
     }
-}
+};
 
 module.exports = EmpregoController;

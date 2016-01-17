@@ -1,8 +1,22 @@
+/**
+ * Usuario
+ *
+ * @author Thiago Paes
+ * @package usuario
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate            = require('express-paginate');
 var UsuarioModel        = require(__dirname + '/../models/usuario');
 var UsuarioController   = {
+    /**
+     * Lista os usuários
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         UsuarioModel.paginate(
             {
@@ -41,6 +55,13 @@ var UsuarioController   = {
         );
     },
 
+    /**
+     * Visualiza um usuário
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         UsuarioModel.findOne(
             {
@@ -73,6 +94,13 @@ var UsuarioController   = {
         ).populate('site');
     },
 
+    /**
+     * Adiciona um usuário
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var usuario = new UsuarioModel({
             site: req.headers.site,
@@ -109,11 +137,18 @@ var UsuarioController   = {
         });
     },
 
+    /**
+     * Atualiza um usuário
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         UsuarioModel.update(
             {
                 _id: req.params.id,
-                site: req.headers.site,
+                site: req.headers.site
             },
             {
 
@@ -149,6 +184,13 @@ var UsuarioController   = {
         );
     },
 
+    /**
+     * Remove um usuário
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         UsuarioModel.remove(
             {

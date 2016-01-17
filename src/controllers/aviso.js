@@ -1,8 +1,22 @@
+/**
+ * Aviso
+ *
+ * @author Thiago Paes
+ * @package aviso
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate        = require('express-paginate');
 var AvisoModel      = require(__dirname + '/../models/aviso');
 var AvisoController = {
+    /**
+     * Lista os avisos
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         AvisoModel.paginate(
             {
@@ -40,6 +54,13 @@ var AvisoController = {
         );
     },
 
+    /**
+     * Visualiza um aviso
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         AvisoModel
             .findOne({
@@ -69,6 +90,13 @@ var AvisoController = {
             });
     },
 
+    /**
+     * Cadastra um aviso
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var dados       = {
             titulo  : req.body.titulo,
@@ -104,6 +132,13 @@ var AvisoController = {
             });
     },
 
+    /**
+     * Atualiza um aviso
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         var dados   = {
             titulo  : req.body.titulo,
@@ -137,6 +172,13 @@ var AvisoController = {
         );
     },
 
+    /**
+     * Apagar aviso
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         AvisoModel.remove({
             _id: req.params.id,

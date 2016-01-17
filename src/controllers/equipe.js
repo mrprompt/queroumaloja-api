@@ -1,8 +1,22 @@
+/**
+ * Equipe
+ *
+ * @author Thiago Paes
+ * @package equipe
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate            = require('express-paginate');
 var EquipeModel         = require(__dirname + '/../models/equipe');
 var EquipeController    = {
+    /**
+     * Lista os membros da equipe
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         EquipeModel.paginate(
             {
@@ -40,6 +54,13 @@ var EquipeController    = {
         );
     },
 
+    /**
+     * Visualiza um membro da equipe
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         EquipeModel.findOne({
             _id: req.params.id,
@@ -69,6 +90,12 @@ var EquipeController    = {
             });
     },
 
+    /**
+     * Adiciona um membro na equipe
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var membro = new EquipeModel({
             nome: req.body.nome,
@@ -101,6 +128,13 @@ var EquipeController    = {
         });
     },
 
+    /**
+     * Atualiza os dados de um membro
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         EquipeModel.update(
             {
@@ -138,6 +172,13 @@ var EquipeController    = {
         );
     },
 
+    /**
+     * Remove um membro da equipe
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         EquipeModel.remove(
             {
@@ -166,6 +207,6 @@ var EquipeController    = {
             }
         );
     }
-}
+};
 
 module.exports = EquipeController;

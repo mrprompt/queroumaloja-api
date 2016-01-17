@@ -1,8 +1,22 @@
+/**
+ * Site
+ *
+ * @author Thiago Paes
+ * @package site
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate        = require('express-paginate');
 var SiteModel       = require(__dirname + '/../models/site');
 var SiteController  = {
+    /**
+     * Lista os sites cadastrados
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         SiteModel.paginate(
             {},
@@ -38,6 +52,13 @@ var SiteController  = {
         );
     },
 
+    /**
+     * Visualiza um site
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         SiteModel.findOne({
             _id: req.params.id
@@ -65,6 +86,13 @@ var SiteController  = {
             });
     },
 
+    /**
+     * Adiciona um site
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var site = new SiteModel({
             nome: req.body.nome,
@@ -101,6 +129,13 @@ var SiteController  = {
         });
     },
 
+    /**
+     * Atualiza os dados de um site
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         SiteModel.update(
             {
@@ -137,6 +172,13 @@ var SiteController  = {
         );
     },
 
+    /**
+     * Remove os dados de um site
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         SiteModel.remove(
             {

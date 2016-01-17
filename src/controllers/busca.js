@@ -1,8 +1,22 @@
+/**
+ * Busca de Produtos
+ *
+ * @author Thiago Paes
+ * @package busca
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate        = require('express-paginate');
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var BuscaController = {
+    /**
+     * Buscar por um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     busca: function (req, res, done) {
         var filter = {
             site: req.headers.site

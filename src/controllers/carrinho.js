@@ -1,3 +1,10 @@
+/**
+ * Carrinho de Compras
+ *
+ * @author Thiago Paes
+ * @package carrinho
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate            = require('express-paginate');

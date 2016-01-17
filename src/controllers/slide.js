@@ -1,8 +1,22 @@
+/**
+ * Slides
+ *
+ * @author Thiago Paes
+ * @package slide
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate        = require('express-paginate');
 var SlideModel      = require(__dirname + '/../models/slide');
 var SlideController = {
+    /**
+     * Lista os slides
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         SlideModel.paginate(
             {
@@ -41,6 +55,13 @@ var SlideController = {
         );
     },
 
+    /**
+     * Visualiza um slide
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         SlideModel.findOne({
             _id: req.params.id,
@@ -69,6 +90,13 @@ var SlideController = {
             });
     },
 
+    /**
+     * Adiciona um slide
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var slide = new SlideModel({
             titulo: req.body.titulo,
@@ -102,6 +130,13 @@ var SlideController = {
         });
     },
 
+    /**
+     * Atualiza os dados de um slide
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         var dados = {
             titulo: req.body.titulo,
@@ -140,6 +175,13 @@ var SlideController = {
         );
     },
 
+    /**
+     * Remove um slide
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         SlideModel.remove(
             {

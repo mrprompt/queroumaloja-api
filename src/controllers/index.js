@@ -1,6 +1,21 @@
+/**
+ * Tela inicial
+ *
+ * @author Thiago Paes
+ * @package index
+ * @licence GPL V3
+ */
 'use strict';
 
 var IndexController = {
+    /**
+     * Tela inicial
+     *
+     * @param req
+     * @param res
+     * @param done
+     * @returns {*}
+     */
     lista: function (req, res, done) {
         res
             .status(200)

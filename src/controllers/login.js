@@ -1,9 +1,23 @@
+/**
+ * Autenticação
+ *
+ * @author Thiago Paes
+ * @package login
+ * @licence GPL V3
+ */
 'use strict';
 
 var UsuarioModel    = require(__dirname + '/../models/usuario');
 var TokenModel      = require(__dirname + '/../models/token');
 var TokenAdapter    = require('token');
 var LoginController = {
+    /**
+     * Efetua um login e aquire um token de acesso
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         UsuarioModel
             .findOne({

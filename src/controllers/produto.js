@@ -1,9 +1,23 @@
+/**
+ * Produto
+ *
+ * @author Thiago Paes
+ * @package produto
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate        = require('express-paginate');
 var slugify         = require('slugify');
 var ProdutoModel    = require(__dirname + '/../models/produto');
 var ProdutoController = {
+    /**
+     * Lista os produtos
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         var filter = {
             site: req.headers.site
@@ -52,6 +66,13 @@ var ProdutoController = {
         );
     },
 
+    /**
+     * Visualiza um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         ProdutoModel.findOne({
             _id: req.params.id,
@@ -80,6 +101,13 @@ var ProdutoController = {
             });
     },
 
+    /**
+     * Adiciona um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var produto = new ProdutoModel({
             titulo      : req.body.titulo,
@@ -121,6 +149,13 @@ var ProdutoController = {
         });
     },
 
+    /**
+     * Atualiza os dados de um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         ProdutoModel.update(
             {
@@ -166,6 +201,13 @@ var ProdutoController = {
         );
     },
 
+    /**
+     * Remove um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         ProdutoModel.remove(
             {

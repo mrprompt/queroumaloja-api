@@ -1,8 +1,22 @@
+/**
+ * Parceiro
+ *
+ * @author Thiago Paes
+ * @package parceiro
+ * @licence GPL V3
+ */
 'use strict';
 
 var paginate            = require('express-paginate');
 var ParceiroModel       = require(__dirname + '/../models/parceiro');
 var ParceiroController  = {
+    /**
+     * Lista os parceiros
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     lista: function (req, res, done) {
         ParceiroModel.paginate(
             {
@@ -41,6 +55,13 @@ var ParceiroController  = {
         );
     },
 
+    /**
+     * Visualiza um parceiro
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     abre: function (req, res, done) {
         ParceiroModel.findOne({
             _id: req.params.id,
@@ -70,6 +91,13 @@ var ParceiroController  = {
             });
     },
 
+    /**
+     * Adiciona um parceiro
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     adiciona: function (req, res, done) {
         var parceiro = new ParceiroModel({
             nome: req.body.nome,
@@ -103,6 +131,13 @@ var ParceiroController  = {
         });
     },
 
+    /**
+     * Atualiza um parceiro
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     atualiza: function (req, res, done) {
         ParceiroModel.update(
             {
@@ -141,6 +176,13 @@ var ParceiroController  = {
         );
     },
 
+    /**
+     * Remove um parceiro
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
     apaga: function (req, res, done) {
         ParceiroModel.remove(
             {
