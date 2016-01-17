@@ -72,12 +72,12 @@ var CarrinhoSchema  = new mongoose.Schema({
     },
     valor: {
         type: Number,
-        required: true,
         min: 1
     },
     token: {
         type: String,
-        default: ''
+        required: true,
+        trim: true
     },
     status: {
         type: String,
