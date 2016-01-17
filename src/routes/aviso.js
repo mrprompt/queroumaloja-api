@@ -1,3 +1,10 @@
+/**
+ * Aviso
+ *
+ * @author Thiago Paes
+ * @package aviso
+ * @licence GPL V3
+ */
 'use strict';
 
 var router     = require('express').Router();

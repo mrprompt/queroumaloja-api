@@ -1,3 +1,10 @@
+/**
+ * Index
+ *
+ * @author Thiago Paes
+ * @package index
+ * @licence GPL V3
+ */
 'use strict';
 
 var router     = require('express').Router();

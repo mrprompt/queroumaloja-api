@@ -1,3 +1,10 @@
+/**
+ * Parceiro
+ *
+ * @author Thiago Paes
+ * @package parceiro
+ * @licence GPL V3
+ */
 'use strict';
 
 var router      = require('express').Router();

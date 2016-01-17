@@ -1,3 +1,10 @@
+/**
+ * Carrinho
+ *
+ * @author Thiago Paes
+ * @package carrinho
+ * @licence GPL V3
+ */
 'use strict';
 
 var router      = require('express').Router();
