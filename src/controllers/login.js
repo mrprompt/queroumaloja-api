@@ -81,8 +81,6 @@ var LoginController = {
                         return done(err, data);
                     });
                 }
-
-                done(err, user);
             });
     }
 };
