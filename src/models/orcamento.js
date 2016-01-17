@@ -1,3 +1,10 @@
+/**
+ * Orcamento Model
+ *
+ * @author Thiago Paes
+ * @package orcament
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose        = require('mongoose');

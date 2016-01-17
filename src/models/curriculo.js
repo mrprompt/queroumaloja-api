@@ -1,3 +1,10 @@
+/**
+ * Curriculo Model
+ *
+ * @author Thiago Paes
+ * @package curriculo
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose        = require('mongoose');

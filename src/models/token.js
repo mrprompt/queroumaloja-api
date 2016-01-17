@@ -1,3 +1,10 @@
+/**
+ * Token Model
+ *
+ * @author Thiago Paes
+ * @package token
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose    = require('mongoose');

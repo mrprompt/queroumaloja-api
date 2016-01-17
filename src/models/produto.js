@@ -1,3 +1,10 @@
+/**
+ * Produto Model
+ *
+ * @author Thiago Paes
+ * @package produto
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose        = require('mongoose');

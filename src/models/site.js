@@ -1,3 +1,10 @@
+/**
+ * Site Model
+ *
+ * @author Thiago Paes
+ * @package site
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose    = require('mongoose');

@@ -1,3 +1,10 @@
+/**
+ * Cliente Model
+ *
+ * @author Thiago Paes
+ * @package aviso
+ * @licence GPL V3
+ */
 'use strict';
 
 var mongoose        = require('mongoose');
