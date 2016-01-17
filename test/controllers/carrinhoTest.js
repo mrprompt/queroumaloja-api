@@ -38,6 +38,7 @@ describe('Carrinho Controller', function () {
 
         Carrinho.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -105,6 +106,7 @@ describe('Carrinho Controller', function () {
 
         Carrinho.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 
@@ -145,6 +147,7 @@ describe('Carrinho Controller', function () {
 
         Carrinho.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

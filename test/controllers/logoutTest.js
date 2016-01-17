@@ -29,6 +29,7 @@ describe('Logout Controller', function () {
 
         Logout.logout(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 200);
         });
     });
 });

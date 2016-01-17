@@ -38,6 +38,7 @@ describe('Emprego Controller', function () {
 
         Emprego.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -97,6 +98,7 @@ describe('Emprego Controller', function () {
 
         Emprego.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -117,6 +119,7 @@ describe('Emprego Controller', function () {
 
         Emprego.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

@@ -38,6 +38,7 @@ describe('Usuario Controller', function () {
 
         Usuario.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -77,6 +78,7 @@ describe('Usuario Controller', function () {
 
         Usuario.adiciona(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -97,6 +99,7 @@ describe('Usuario Controller', function () {
 
         Usuario.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -117,6 +120,7 @@ describe('Usuario Controller', function () {
 
         Usuario.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

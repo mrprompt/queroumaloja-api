@@ -39,6 +39,7 @@ describe('Equipe Controller', function () {
 
         Equipe.lista(request, response, function() {
             assert.equal(response.content.object, 'list');
+            assert.equal(response.statusCode, 200);
         });
     });
 
@@ -78,6 +79,7 @@ describe('Equipe Controller', function () {
 
         Equipe.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
+            assert.equal(response.statusCode, 201);
         });
     });
 
@@ -98,6 +100,7 @@ describe('Equipe Controller', function () {
 
         Equipe.atualiza(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 
@@ -118,6 +121,7 @@ describe('Equipe Controller', function () {
 
         Equipe.apaga(request, response, function() {
             assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
         });
     });
 });

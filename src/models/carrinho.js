@@ -72,19 +72,19 @@ var CarrinhoSchema  = new mongoose.Schema({
     },
     valor: {
         type: Number,
-        required: true,
         min: 1
     },
     token: {
         type: String,
-        default: ''
+        required: true,
+        trim: true
     },
     status: {
         type: String,
         lowercase: true,
         trim: true,
-        enum: ['novo', 'pago', 'apagado', 'estornado'],
-        default: 'novo'
+        enum: ['processando', 'autorizada', 'paga', 'estornada', 'aguardando', 'estornando', 'recusada'],
+        default: 'aguardando'
     },
     cadastro: {
         type: Date,

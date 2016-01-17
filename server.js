@@ -2,6 +2,11 @@
 
 GLOBAL._            = require('underscore');
 
+const PAGINATION = {
+    MIN: 10,
+    MAX: 1000
+};
+
 var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
@@ -55,23 +60,24 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        var site     = require(__dirname + '/src/modules/site');
-        var token    = require(__dirname + '/src/modules/token');
-        var carrinho = require(__dirname + '/src/events/carrinho');
+        var site     = require('./src/modules/site');
+        var token    = require('./src/modules/token');
+        var carrinho = require('./src/events/carrinho');
+        var pagarme  = require('./src/events/pagarme');
 
-        self.app.use('/', site, require(__dirname + '/src/routes/index'));
-        self.app.use('/aviso', site, token, require(__dirname + '/src/routes/aviso'));
-        self.app.use('/carrinho', site, token, carrinho, require(__dirname + '/src/routes/carrinho'));
-        self.app.use('/emprego', site, token, require(__dirname + '/src/routes/emprego'));
-        self.app.use('/equipe', site, token, require(__dirname + '/src/routes/equipe'));
-        self.app.use('/parceiro', site, token, require(__dirname + '/src/routes/parceiro'));
-        self.app.use('/produto', site, token, require(__dirname + '/src/routes/produto'));
-        self.app.use('/site', site, token, require(__dirname + '/src/routes/site'));
-        self.app.use('/slide', site, token, require(__dirname + '/src/routes/slide'));
-        self.app.use('/usuario', site, token, require(__dirname + '/src/routes/usuario'));
-        self.app.use('/login', require(__dirname + '/src/routes/login'));
-        self.app.use('/logout', site, token, require(__dirname + '/src/routes/logout'));
-        self.app.use('/busca', site, require(__dirname + '/src/routes/busca'));
+        self.app.use('/', site, require('./src/routes/index'));
+        self.app.use('/aviso', site, token, require('./src/routes/aviso'));
+        self.app.use('/carrinho', site, token, carrinho, pagarme, require('./src/routes/carrinho'));
+        self.app.use('/emprego', site, token, require('./src/routes/emprego'));
+        self.app.use('/equipe', site, token, require('./src/routes/equipe'));
+        self.app.use('/parceiro', site, token, require('./src/routes/parceiro'));
+        self.app.use('/produto', site, token, require('./src/routes/produto'));
+        self.app.use('/site', site, token, require('./src/routes/site'));
+        self.app.use('/slide', site, token, require('./src/routes/slide'));
+        self.app.use('/usuario', site, token, require('./src/routes/usuario'));
+        self.app.use('/login', require('./src/routes/login'));
+        self.app.use('/logout', site, token, require('./src/routes/logout'));
+        self.app.use('/busca', site, require('./src/routes/busca'));
     };
 
     /**
@@ -86,11 +92,16 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
-        self.app.use(paginate.middleware(10, 100));
-        self.app.use(require(__dirname + '/src/modules/cors'));
+        self.app.use(paginate.middleware(PAGINATION.MAX, PAGINATION.MAX));
+        self.app.use(require('./src/modules/cors'));
 
         // load routes
         self.createRoutes();
+
+        // start server
+        self.app.listen(port, address, function () {
+            console.log('Started on http://%s:%d', address, port);
+        });
     };
 
     /**
@@ -98,12 +109,7 @@ var Application = function () {
      */
     self.start = function () {
         self.setupTerminationHandlers();
-
         self.initializeServer();
-
-        self.app.listen(port, address, function () {
-            console.log('Started on http://%s:%d', address, port);
-        });
     };
 };
 
