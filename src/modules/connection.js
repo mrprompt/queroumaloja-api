@@ -1,3 +1,10 @@
+/**
+ * Database Connection
+ *
+ * @author Thiago Paes
+ * @package connection
+ * @licence GPL V3
+ */
 'use strict';
 
 var dbUser = process.env.OPENSHIFT_MONGODB_DB_USERNAME  || 'admin';

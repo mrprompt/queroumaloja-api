@@ -1,3 +1,10 @@
+/**
+ * Token Module
+ *
+ * @author Thiago Paes
+ * @package token
+ * @licence GPL V3
+ */
 'use strict';
 
 var router = require('express').Router();

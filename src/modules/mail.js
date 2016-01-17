@@ -1,3 +1,10 @@
+/**
+ * E-mail
+ *
+ * @author Thiago Paes
+ * @package email
+ * @licence GPL V3
+ */
 'use strict';
 
 var sendgrid    = require('sendgrid')(process.env.SENDGRID_TOKEN);
