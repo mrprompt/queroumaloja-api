@@ -1,7 +1,7 @@
 'use strict';
 
 var Pagarme         = require('pagarmejs');
-var pagarme         = new Pagarme('ak_test_KwMAwfL6kGrt3kO9mgNC3qWnvdYe0C');
+var pagarme         = new Pagarme(process.env.PAGARME_TOKEN);
 var CarrinhoModel   = require(__dirname + '/../models/carrinho');
 
 var api = {
@@ -72,8 +72,6 @@ var api = {
                             valor       : transaction.amount
                         },
                         function () {
-                            console.log('carrinho %s atualizado', carrinho._id);
-
                             return true;
                         }
                     );

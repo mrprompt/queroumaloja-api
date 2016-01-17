@@ -15,6 +15,7 @@ OPENSHIFT_MONGODB_DB_HOST (127.0.0.1)
 OPENSHIFT_MONGODB_DB_PORT (27017)
 OPENSHIFT_DATABASE_NAME (test)
 SENDGRID_TOKEN 
+PAGARME_TOKEN
 ``` 
 
 Logo após tudo configurado, basta instalar as dependências
