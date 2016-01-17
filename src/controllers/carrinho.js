@@ -22,7 +22,7 @@ var CarrinhoController  = {
                 populate: ['items.produto', 'site'],
                 sort: {cadastro : 'desc'}
             },
-            function (err, data, pageCount, itemCount) {
+            function (err, data) {
                 if (err) {
                     res.status(500).json({
                         object: 'error',
@@ -32,6 +32,9 @@ var CarrinhoController  = {
                         pageCount: 1
                     });
                 } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
                     res.status(200).json({
                         object: 'list',
                         has_more: paginate.hasNextPages(req)(pageCount),
