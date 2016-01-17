@@ -17,7 +17,7 @@ var mail = {
                 }
             )
             .then(function (site) {
-                if (site === null) {
+                if (site === null || site.config[0].sendgrid == undefined) {
                     return;
                 }
 
@@ -32,7 +32,7 @@ var mail = {
                     'templates': {
                         'settings': {
                             'enable': 1,
-                            'template_id': 'd5e54ad0-718f-4a53-8827-b1dbaeb68238'
+                            'template_id': site.config[0].sendgrid.templates.compra
                         }
                     }
                 });
