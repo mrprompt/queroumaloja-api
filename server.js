@@ -1,6 +1,6 @@
 'use strict';
 
-GLOBAL._            = require('underscore');
+GLOBAL._ = require('underscore');
 
 const PAGINATION = {
     MIN: 10,
@@ -19,7 +19,7 @@ var bodyParser      = require('body-parser');
 var Application = function () {
     //  Scope.
     var self    = this;
-    var address = process.env.NODE_IP || '127.0.0.1';
+    var address = process.env.NODE_IP   || '127.0.0.1';
     var port    = process.env.NODE_PORT || '8080';
 
     /**
