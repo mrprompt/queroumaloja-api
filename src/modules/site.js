@@ -54,6 +54,8 @@ router.all('*', function(req, res, next) {
             return false;
         }
 
+        req.app.site = data;
+
         next();
     });
 });

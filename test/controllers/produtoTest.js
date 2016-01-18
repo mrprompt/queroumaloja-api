@@ -87,6 +87,8 @@ describe('Produto Controller', function () {
             }
         };
 
+        request.files = [];
+
         Produto.adiciona(request, response, function() {
             assert.equal(response.content.object, 'object');
             assert.equal(response.statusCode, 201);
