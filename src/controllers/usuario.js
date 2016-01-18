@@ -35,7 +35,7 @@ var UsuarioController   = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -118,14 +118,20 @@ var UsuarioController   = {
 
         usuario.save(function (err, user) {
             if (err) {
+                console.error(err);
+
                 res.status(500).json({
                     object: 'error',
                     has_more: false,
-                    data: err,
+                    data: err.message,
                     itemCount: 1,
                     pageCount: 1
                 });
             } else {
+                delete user.site;
+                delete user.__v;
+                delete user.cadastro;
+
                 res.status(201).json({
                     object: 'object',
                     has_more: false,
@@ -164,7 +170,7 @@ var UsuarioController   = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -201,7 +207,7 @@ var UsuarioController   = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });

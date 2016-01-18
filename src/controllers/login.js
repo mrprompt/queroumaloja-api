@@ -15,7 +15,7 @@ var salt            = process.env.PASSWORD_SALT;
 
 var LoginController = {
     /**
-     * Efetua um login e aquire um token de acesso
+     * Efetua um login e adquire um token de acesso
      *
      * @param req
      * @param res
@@ -35,7 +35,7 @@ var LoginController = {
                     return res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -66,7 +66,7 @@ var LoginController = {
                             return res.status(500).json({
                                 object: 'error',
                                 has_more: false,
-                                data: err,
+                                data: err.message,
                                 itemCount: 1,
                                 pageCount: 1
                             });

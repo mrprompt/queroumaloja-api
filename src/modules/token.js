@@ -8,6 +8,7 @@
 'use strict';
 
 var router = require('express').Router();
+var TokenModel = require(__dirname + '/../models/token');
 var routes = [
     '/aviso|POST',
     '/aviso|PUT',
@@ -15,22 +16,12 @@ var routes = [
     '/carrinho|GET',
     '/carrinho|PUT',
     '/carrinho|DELETE',
-    '/cliente|POST',
-    '/cliente|PUT',
-    '/cliente|DELETE',
-    '/curriculo|GET',
-    '/curriculo|PUT',
-    '/curriculo|DELETE',
     '/emprego|POST',
     '/emprego|PUT',
     '/emprego|DELETE',
     '/equipe|POST',
     '/equipe|PUT',
     '/equipe|DELETE',
-    '/orcamento|GET',
-    '/orcamento|POST',
-    '/orcamento|PUT',
-    '/orcamento|DELETE',
     '/parceiro|POST',
     '/parceiro|PUT',
     '/parceiro|DELETE',
@@ -45,6 +36,7 @@ var routes = [
     '/usuario|GET',
     '/usuario|PUT',
     '/usuario|DELETE',
+    '/usuario|POST',
 ];
 
 router.all('*', function(req, res, next) {
@@ -68,11 +60,10 @@ router.all('*', function(req, res, next) {
             });
         }
 
-        var TokenModel = require(__dirname + '/../models/token');
-
-        TokenModel.findOne({
-            conteudo: req.headers.authorization
-        })
+        TokenModel
+            .findOne({
+                conteudo: req.headers.authorization
+            })
             .exec(function (err, data) {
                 if (err || !data) {
                     res.status(403).json({

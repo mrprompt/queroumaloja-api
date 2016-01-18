@@ -32,7 +32,7 @@ var EquipeController    = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -72,7 +72,7 @@ var EquipeController    = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -110,7 +110,7 @@ var EquipeController    = {
                 res.status(500).json({
                     object: 'error',
                     has_more: false,
-                    data: err,
+                    data: err.message,
                     itemCount: 1,
                     pageCount: 1
                 });
@@ -153,7 +153,7 @@ var EquipeController    = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
@@ -189,7 +189,7 @@ var EquipeController    = {
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
