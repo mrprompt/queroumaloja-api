@@ -63,9 +63,7 @@ describe('Usuario Controller', function () {
     });
 
     it('#adiciona() deve retornar um objeto', function () {
-        before(function() {
-            this.skip();
-        });
+        this.skip();
 
         request.headers = {
             site: new Site()
