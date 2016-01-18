@@ -9,7 +9,7 @@
 
 var paginate            = require('express-paginate');
 var bcrypt              = require('bcrypt');
-var salt                = bcrypt.genSaltSync(10);
+var salt                = process.env.PASSWORD_SALT;
 var UsuarioModel        = require(__dirname + '/../models/usuario');
 var UsuarioController   = {
     /**
@@ -153,9 +153,6 @@ var UsuarioController   = {
                 site: req.headers.site
             },
             {
-
-                email: req.body.email,
-                password: req.body.password,
                 nome: req.body.nome,
                 localidade: {
                     estado: req.body.estado,
