@@ -78,8 +78,8 @@ var api = {
                             comprador   : comprador,
                             valor       : transaction.amount
                         },
-                        function () {
-                            return true;
+                        function (err, row) {
+                            return row;
                         }
                     );
             })

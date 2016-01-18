@@ -7,6 +7,7 @@
  */
 'use strict';
 
+var pagarme             = require(__dirname + '/../modules/pagarme');
 var paginate            = require('express-paginate');
 var CarrinhoModel       = require(__dirname + '/../models/carrinho');
 var CarrinhoController  = {
@@ -295,7 +296,7 @@ var CarrinhoController  = {
 
             done(err, data);
         });
-    }
+    },
 };
 
 module.exports = CarrinhoController;

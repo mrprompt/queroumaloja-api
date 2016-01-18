@@ -10,6 +10,9 @@
 var UsuarioModel    = require(__dirname + '/../models/usuario');
 var TokenModel      = require(__dirname + '/../models/token');
 var TokenAdapter    = require('token');
+var bcrypt          = require('bcrypt');
+var salt            = bcrypt.genSaltSync(10);
+
 var LoginController = {
     /**
      * Efetua um login e aquire um token de acesso
@@ -21,8 +24,8 @@ var LoginController = {
     adiciona: function (req, res, done) {
         UsuarioModel
             .findOne({
-                email: (req.body.email),
-                password: (req.body.password)
+                email   : (req.body.email),
+                password: (bcrypt.compareSync(req.body.password, bcrypt.hashSync(req.body.password, salt)))
             })
             .populate('site')
             .exec(function (err, user) {
