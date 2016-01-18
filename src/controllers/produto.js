@@ -209,10 +209,13 @@ var ProdutoController = {
      * @param done
      */
     apaga: function (req, res, done) {
-        ProdutoModel.remove(
+        ProdutoModel.findOneAndUpdate(
             {
                 _id: req.params.id,
                 site: req.headers.site
+            },
+            {
+                ativo: false
             },
             function (err, data) {
                 if (err) {
