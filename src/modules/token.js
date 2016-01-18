@@ -36,7 +36,7 @@ var routes = [
     '/usuario|GET',
     '/usuario|PUT',
     '/usuario|DELETE',
-    '/usuario|POST',
+    '/usuario|POST'
 ];
 
 router.all('*', function(req, res, next) {
