@@ -13,10 +13,10 @@ var SiteSchema  = new mongoose.Schema({
         type: String
     },
     dominio: {
-        type: String
-    },
-    descricao: {
-        type: String
+        type: String,
+        index: true,
+        required: true,
+        unique: true
     },
     emails: {
         type: []
@@ -29,16 +29,13 @@ var SiteSchema  = new mongoose.Schema({
     },
     config: {
         type: []
-    },
-    modulos: {
-        type: []
     }
 })
     .plugin(require('mongoose-paginate'))
+    .plugin(require('mongoose-unique-validator'))
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.config;
-            delete ret.modulos;
 
             return ret;
         }
