@@ -97,13 +97,10 @@ var SiteController  = {
         var site = new SiteModel({
             nome: req.body.nome,
             dominio: req.body.dominio,
-            descricao: req.body.descricao,
             emails: req.body.emails,
             enderecos: req.body.enderecos,
             telefones: req.body.telefones,
-            modulos: [],
-            atuacao: req.body.atuacao,
-            servicos: req.body.servicos
+            categorias: req.body.categorias
         });
 
         site.save(function (err, newSite) {
@@ -139,15 +136,15 @@ var SiteController  = {
     atualiza: function (req, res, done) {
         SiteModel.update(
             {
-                _id: req.params.id,
+                _id: req.params.id
             },
             {
                 nome: req.body.nome,
                 dominio: req.body.dominio,
-                descricao: req.body.descricao,
                 emails: req.body.emails,
                 enderecos: req.body.enderecos,
                 telefones: req.body.telefones,
+                categorias: req.body.categorias
             }, function (err, data) {
                 if (err) {
                     res.status(500).json({
