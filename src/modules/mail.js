@@ -7,8 +7,7 @@
  */
 'use strict';
 
-var sendgrid    = require('sendgrid')(process.env.SENDGRID_TOKEN);
-var siteModel   = require(__dirname + '/../models/site');
+var siteModel = require(__dirname + '/../models/site');
 
 var mail = {
     /**
@@ -28,7 +27,8 @@ var mail = {
                     return;
                 }
 
-                var email = new sendgrid.Email({
+                var sendgrid = require('sendgrid')(site.config[0].sendgrid.token);
+                var email    = new sendgrid.Email({
                     to      : site.emails[0],
                     from    : site.emails[0],
                     subject : ' ',
@@ -39,7 +39,7 @@ var mail = {
                     'templates': {
                         'settings': {
                             'enable': 1,
-                            'template_id': site.config[0].sendgrid.templates.compra
+                            'template_id': site.config[0].sendgrid.template.carrinho_adiciona
                         }
                     }
                 });
