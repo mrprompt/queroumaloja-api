@@ -20,8 +20,7 @@ var CarrinhoController  = {
     lista: function (req, res, done) {
         CarrinhoModel.paginate(
             {
-                site: req.headers.site,
-                usuario: req.params.usuario
+                site: req.headers.site
             },
             {
                 page: req.query.page,
@@ -66,8 +65,7 @@ var CarrinhoController  = {
     abre: function (req, res, done) {
         CarrinhoModel.findOne({
             _id: req.params.id,
-            site: req.headers.site,
-            usuario: req.params.usuario
+            site: req.headers.site
         })
             .populate(['items.produto', 'site'])
             .exec(function (err, data) {
@@ -151,13 +149,6 @@ var CarrinhoController  = {
                     produto: item.produto,
                     quantidade: item.quantidade
                 });
-            });
-        }
-
-        if (req.body.produto && req.body.quantidade) {
-            carrinho.items.push({
-                produto: req.body.produto,
-                quantidade: req.body.quantidade
             });
         }
 
