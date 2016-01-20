@@ -62,6 +62,9 @@ var LoginController = {
                     });
 
                     usertoken.save(function (err, data) {
+                        delete data.usuario;
+                        delete data.tipo;
+
                         if (err) {
                             return res.status(500).json({
                                 object: 'error',
@@ -75,8 +78,9 @@ var LoginController = {
                                 object: 'object',
                                 has_more: false,
                                 data: {
-                                    usuario: user,
-                                    token: data
+                                    usuario : user,
+                                    token   : data,
+                                    site    : req.app.site
                                 },
                                 itemCount: 1,
                                 pageCount: 1
