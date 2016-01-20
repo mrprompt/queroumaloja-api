@@ -1,22 +1,20 @@
 {
-  "name": "publiciti-api",
+  "name": "quero-uma-loja-api",
   "version": "0.0.12",
-  "description": "API de produtos para o grupo Publiciti",
+  "description": "API de Produtos",
   "private": true,
   "main": "server.js",
   "keywords": [
     "api",
     "ecommerce",
-    "produtos",
-    "cms",
-    "conteudo"
+    "produtos"
   ],
   "author": {
     "name": "Thiago Paes",
     "email": "mrprompt@gmail.com",
     "url": "http://www.mrprompt.com.br/"
   },
-  "homepage": "http://api.publiciti.com.br",
+  "homepage": "http://www.queroumaloja.net",
   "engines": {
     "node": "^5.1.1",
     "npm": "^3.5.4"

@@ -1,7 +1,7 @@
 # API
 
-[![Codeship Status for mrprompt/publiciti-api](https://codeship.com/projects/69ae5cc0-9e39-0133-d4d4-2a763bc2b06b/status?branch=master)](https://codeship.com/projects/127714)
-[![Deployment status from DeployBot](https://mrprompt.deploybot.com/badge/34534836039204/60550.svg)](http://deploybot.com)
+[![Build Status](https://codeship.com/projects/69ae5cc0-9e39-0133-d4d4-2a763bc2b06b/status?branch=master)](https://codeship.com/projects/127714)
+[![Deployment Status](https://mrprompt.deploybot.com/badge/34534836039204/60550.svg)](http://deploybot.com)
 
 ### Instalação
 
