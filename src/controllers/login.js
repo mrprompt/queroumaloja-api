@@ -24,7 +24,8 @@ var LoginController = {
     adiciona: function (req, res, done) {
         var filter = {
             email   : (req.body.email),
-            password: (bcrypt.hashSync(req.body.password, salt))
+            password: (bcrypt.hashSync(req.body.password, salt)),
+            site    : (req.headers.site)
         };
 
         UsuarioModel

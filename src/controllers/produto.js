@@ -24,7 +24,7 @@ var ProdutoController = {
         };
 
         if (req.query.tipo !== undefined) {
-            filter["categoria.uri"] = req.query.tipo.toLowerCase()
+            filter["categoria.uri"] = req.query.tipo.toLowerCase();
 
             if (req.query.categoria !== undefined) {
                 filter["categoria.categoria.uri"] = req.query.categoria.toLowerCase();
