@@ -25,7 +25,7 @@ var CarrinhoController  = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['items.produto', 'site'],
+                populate: ['items.produto'],
                 sort: {cadastro : 'desc'}
             },
             function (err, data) {
@@ -67,7 +67,7 @@ var CarrinhoController  = {
             _id: req.params.id,
             site: req.headers.site
         })
-            .populate(['items.produto', 'site'])
+            .populate(['items.produto'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({

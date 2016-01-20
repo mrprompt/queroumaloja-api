@@ -25,7 +25,6 @@ var ParceiroController  = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['site'],
                 sort: {cadastro : 'desc'}
             },
             function (err, data) {
@@ -67,7 +66,6 @@ var ParceiroController  = {
             _id: req.params.id,
             site: req.headers.site
         })
-            .populate(['site'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({

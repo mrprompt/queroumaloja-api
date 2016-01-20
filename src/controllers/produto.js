@@ -36,7 +36,6 @@ var ProdutoController = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['site'],
                 sort: {cadastro : 'desc'}
             },
             function (err, data) {

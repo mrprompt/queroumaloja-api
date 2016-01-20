@@ -27,7 +27,6 @@ var UsuarioController   = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                populate: ['site'],
                 sort: {'nome' : 'asc', cadastro : 'desc'}
             },
             function (err, data) {
@@ -76,7 +75,7 @@ var UsuarioController   = {
                         has_more: false,
                         data: {
                             status: 404,
-                            message: 'Usuário não encontrado',
+                            message: 'Usuário não encontrado'
                         },
                         itemCount: 1,
                         pageCount: 1
@@ -93,7 +92,7 @@ var UsuarioController   = {
 
                 done(err, user);
             }
-        ).populate('site');
+        );
     },
 
     /**

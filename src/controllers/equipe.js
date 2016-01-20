@@ -66,7 +66,6 @@ var EquipeController    = {
             _id: req.params.id,
             site: req.headers.site
         })
-            .populate(['site'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
