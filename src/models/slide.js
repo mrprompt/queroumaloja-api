@@ -33,6 +33,13 @@ var SlideSchema = new mongoose.Schema({
         ref: 'Site'
     }
 })
-    .plugin(require('mongoose-paginate'));
+    .plugin(require('mongoose-paginate'))
+    .set('toJSON', {
+        transform: function(doc, ret, options) {
+            delete ret.site;
+
+            return ret;
+        }
+    });
 
 module.exports = mongoose.model('Slide', SlideSchema);

@@ -50,6 +50,7 @@ var UsuarioSchema   = new mongoose.Schema({
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.password;
+            delete ret.site;
 
             return ret;
         }

@@ -43,6 +43,14 @@ var ProdutoSchema   = new mongoose.Schema({
     }
 })
     .plugin(require('mongoose-paginate'))
+    .set('toJSON', {
+        transform: function(doc, ret, options) {
+            delete ret.site;
+            delete ret.ativo;
+
+            return ret;
+        }
+    })
     .index({ titulo: 'text', descricao: 'text' });
 
 module.exports = mongoose.model('Produto', ProdutoSchema);
