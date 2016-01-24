@@ -8,10 +8,10 @@
 'use strict';
 
 var router      = require('express').Router();
-var connection  = require(__dirname + '/../modules/connection');
-var controller  = require(__dirname + '/../controllers/slide');
 var multer      = require('multer');
+var connection  = require(__dirname + '/../modules/connection');
 var upload      = require(__dirname + '/../modules/upload');
+var controller  = require(__dirname + '/../controllers/slide');
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);
