@@ -62,12 +62,10 @@ var Application = function () {
     self.createRoutes = function () {
         var site     = require('./src/modules/site');
         var token    = require('./src/modules/token');
-        var carrinho = require('./src/events/carrinho');
-        var pagarme  = require('./src/events/pagarme');
 
-        self.app.use('/', site, require('./src/routes/index'));
+        self.app.use('/', site, token, require('./src/routes/index'));
         self.app.use('/aviso', site, token, require('./src/routes/aviso'));
-        self.app.use('/carrinho', site, token, carrinho, pagarme, require('./src/routes/carrinho'));
+        self.app.use('/carrinho', site, token, require('./src/routes/carrinho'));
         self.app.use('/emprego', site, token, require('./src/routes/emprego'));
         self.app.use('/equipe', site, token, require('./src/routes/equipe'));
         self.app.use('/parceiro', site, token, require('./src/routes/parceiro'));
@@ -75,9 +73,9 @@ var Application = function () {
         self.app.use('/site', site, token, require('./src/routes/site'));
         self.app.use('/slide', site, token, require('./src/routes/slide'));
         self.app.use('/usuario', site, token, require('./src/routes/usuario'));
-        self.app.use('/login', require('./src/routes/login'));
+        self.app.use('/login', site, token, require('./src/routes/login'));
         self.app.use('/logout', site, token, require('./src/routes/logout'));
-        self.app.use('/busca', site, require('./src/routes/busca'));
+        self.app.use('/busca', site, token, require('./src/routes/busca'));
     };
 
     /**

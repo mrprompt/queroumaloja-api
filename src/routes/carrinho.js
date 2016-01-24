@@ -10,11 +10,13 @@
 var router      = require('express').Router();
 var connection  = require(__dirname + '/../modules/connection');
 var controller  = require(__dirname + '/../controllers/carrinho');
+var carrinho    = require(__dirname + '/../events/carrinho');
+var pagarme     = require(__dirname + '/../events/pagarme');
 
-router.get('/', controller.lista);
-router.get('/:id', controller.abre);
-router.post('/', controller.adiciona);
-router.put('/:id', controller.atualiza);
-router.delete('/:id', controller.apaga);
+router.get('/', carrinho, pagarme, controller.lista);
+router.get('/:id', carrinho, pagarme, controller.abre);
+router.post('/', carrinho, pagarme, controller.adiciona);
+router.put('/:id', carrinho, pagarme, controller.atualiza);
+router.delete('/:id', carrinho, pagarme, controller.apaga);
 
 module.exports = router;
