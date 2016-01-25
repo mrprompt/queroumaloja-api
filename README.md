@@ -1,7 +1,9 @@
 # API
 
-[![Build Status](https://travis-ci.org/QueroUmaLoja/api.png)](https://travis-ci.org/QueroUmaLoja/api) 
-
+[![Build Status](https://travis-ci.org/QueroUmaLoja/api.png)](https://travis-ci.org/QueroUmaLoja/api)
+[![Code Climate](https://codeclimate.com/github/QueroUmaLoja/api/badges/gpa.svg)](https://codeclimate.com/github/QueroUmaLoja/api)
+[![Test Coverage](https://codeclimate.com/github/QueroUmaLoja/api/badges/coverage.svg)](https://codeclimate.com/github/QueroUmaLoja/api/coverage)
+[![Issue Count](https://codeclimate.com/github/QueroUmaLoja/api/badges/issue_count.svg)](https://codeclimate.com/github/QueroUmaLoja/api)
 
 API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
 
