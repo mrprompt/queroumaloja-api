@@ -1,11 +1,15 @@
 # API
 
-[![Build Status](https://codeship.com/projects/69ae5cc0-9e39-0133-d4d4-2a763bc2b06b/status?branch=master)](https://codeship.com/projects/127714)
-[![Deployment Status](https://mrprompt.deploybot.com/badge/34534836039204/60550.svg)](http://deploybot.com)
+API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
+
+### Pré Requisitos
+- Sendgrid (Envio de e-mails de aviso)
+- Cloudinary (Armazenamento)
+- Pagar-me (Pagamentos)
 
 ### Instalação
 
-Antes de rodar aplicação, são necessárias configurações para as variáveis de ambiente - valore entre parênteses é o padrão:
+Antes de rodar aplicação, são necessárias configurações para as variáveis de ambiente - valores entre parênteses é o padrão:
 
 ```
 NODE_IP (127.0.0.1)
