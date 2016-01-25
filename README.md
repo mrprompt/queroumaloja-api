@@ -49,3 +49,11 @@ npm test
 ```
 
 
+### Garantia
+Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização 
+desta. Você tem total liberdade de instalá-la em seu próprio servidor e utilizar para quaisquer fins, com ou sem 
+modificações na mesma.
+
+### Contribuindo
+Esta é uma API de código aberto e livre, fique a vontade para fazer um fork e contribuir com qualquer melhoria ou solução
+de bugs que a mesma possua ou precise.
