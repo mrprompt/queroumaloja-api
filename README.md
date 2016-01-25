@@ -1,5 +1,8 @@
 # API
 
+[![Build Status](https://travis-ci.org/QueroUmaLoja/api.png)](https://travis-ci.org/QueroUmaLoja/api) 
+
+
 API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
 
 ### Pré Requisitos
