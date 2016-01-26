@@ -28,6 +28,8 @@ var routes = [
     '/produto|POST',
     '/produto|PUT',
     '/produto|DELETE',
+    '/site|GET',
+    '/site|POST',
     '/site|PUT',
     '/site|DELETE',
     '/slide|POST',

@@ -7,6 +7,7 @@
  */
 'use strict';
 
+var SiteModel       = require(__dirname + '/../models/site');
 var IndexController = {
     /**
      * Tela inicial
@@ -17,17 +18,30 @@ var IndexController = {
      * @returns {*}
      */
     lista: function (req, res, done) {
-        res
-            .status(200)
-            .json({
-                object: 'string',
-                has_more: false,
-                data: 'Olá :)',
-                itemCount: 1,
-                pageCount: 1
-            });
+        SiteModel.findOne({
+                _id: req.headers.site
+            })
+            .exec(function (err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object: 'error',
+                        has_more: false,
+                        data: err.message,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                } else {
+                    res.status(200).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                }
 
-        return done;
+                done(err, data);
+            });
     }
 };
 
