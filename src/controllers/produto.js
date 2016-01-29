@@ -7,9 +7,10 @@
  */
 'use strict';
 
-var paginate        = require('express-paginate');
-var slugify         = require('slugify');
-var ProdutoModel    = require(__dirname + '/../models/produto');
+var paginate          = require('express-paginate');
+var slugify           = require('slugify');
+var striptags         = require('striptags');
+var ProdutoModel      = require(__dirname + '/../models/produto');
 var ProdutoController = {
     /**
      * Lista os produtos
@@ -109,18 +110,18 @@ var ProdutoController = {
      */
     adiciona: function (req, res, done) {
         var produto = new ProdutoModel({
-            titulo      : req.body.titulo,
-            descricao   : req.body.descricao,
+            titulo      : striptags(req.body.titulo),
+            descricao   : striptags(req.body.descricao),
             imagem      : req.body.imagem,
             site        : req.headers.site,
-            codigo      : req.body.codigo,
+            codigo      : striptags(req.body.codigo),
             valor       : req.body.valor,
             categoria   : {
-                titulo      : req.body.categoria.titulo,
-                uri         : slugify(req.body.categoria.titulo.toLowerCase()),
+                titulo      : striptags(req.body.categoria.titulo),
+                uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
                 categoria   : {
-                    titulo  : req.body.categoria.categoria.titulo,
-                    uri     : slugify(req.body.categoria.categoria.titulo.toLowerCase())
+                    titulo  : striptags(req.body.categoria.categoria.titulo),
+                    uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                 }
             }
         });
@@ -162,17 +163,17 @@ var ProdutoController = {
                 site: req.headers.site
             },
             {
-                titulo      : req.body.titulo,
-                descricao   : req.body.descricao,
-                codigo      : req.body.codigo,
+                titulo      : striptags(req.body.titulo),
+                descricao   : striptags(req.body.descricao),
+                codigo      : striptags(req.body.codigo),
                 valor       : req.body.valor,
                 imagem      : req.body.imagem,
                 categoria   : {
-                    titulo      : req.body.categoria.titulo,
-                    uri         : slugify(req.body.categoria.titulo.toLowerCase()),
+                    titulo      : striptags(req.body.categoria.titulo),
+                    uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
                     categoria   : {
-                        titulo  : req.body.categoria.categoria.titulo,
-                        uri     : slugify(req.body.categoria.categoria.titulo.toLowerCase())
+                        titulo  : striptags(req.body.categoria.categoria.titulo),
+                        uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                     }
                 }
             },

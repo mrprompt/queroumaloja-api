@@ -34,6 +34,7 @@
     "pagarmejs": "^1.0.6",
     "sendgrid": "^1.9.2",
     "slugify": "^0.1.1",
+    "striptags": "^2.1.1",
     "token": "0.0.0",
     "underscore": "^1.8.3"
   },
