@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate        = require('express-paginate');
+var striptags       = require('striptags');
 var SiteModel       = require(__dirname + '/../models/site');
 var SiteController  = {
     /**
@@ -95,12 +96,12 @@ var SiteController  = {
      */
     adiciona: function (req, res, done) {
         var site = new SiteModel({
-            nome: req.body.nome,
-            dominio: req.body.dominio,
-            emails: req.body.emails,
-            enderecos: req.body.enderecos,
-            telefones: req.body.telefones,
-            categorias: req.body.categorias
+            nome        : striptags(req.body.nome),
+            dominio     : req.body.dominio,
+            emails      : req.body.emails,
+            enderecos   : req.body.enderecos,
+            telefones   : req.body.telefones,
+            categorias  : req.body.categorias
         });
 
         site.save(function (err, newSite) {
@@ -139,12 +140,12 @@ var SiteController  = {
                 _id: req.params.id
             },
             {
-                nome: req.body.nome,
-                dominio: req.body.dominio,
-                emails: req.body.emails,
-                enderecos: req.body.enderecos,
-                telefones: req.body.telefones,
-                categorias: req.body.categorias
+                nome        : striptags(req.body.nome),
+                dominio     : req.body.dominio,
+                emails      : req.body.emails,
+                enderecos   : req.body.enderecos,
+                telefones   : req.body.telefones,
+                categorias  : req.body.categorias
             }, function (err, data) {
                 if (err) {
                     res.status(500).json({

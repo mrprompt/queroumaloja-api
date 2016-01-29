@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate            = require('express-paginate');
+var striptags           = require('striptags');
 var EmpregoModel        = require(__dirname + '/../models/emprego');
 var EmpregoController   = {
     /**
@@ -98,12 +99,12 @@ var EmpregoController   = {
      */
     adiciona: function (req, res, done) {
         var emprego = new EmpregoModel({
-            titulo: req.body.titulo,
-            descricao: req.body.descricao,
-            cadastro: (new Date),
-            tags: (req.body.tags ? req.body.tags.split(',') : ''),
-            salario: req.body.salario,
-            site: req.headers.site
+            titulo      : striptags(req.body.titulo),
+            descricao   : striptags(req.body.descricao),
+            cadastro    : (new Date),
+            tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
+            salario     : req.body.salario,
+            site        : req.headers.site
         });
 
         emprego.save(function (err, data) {
@@ -143,10 +144,10 @@ var EmpregoController   = {
                 site: req.headers.site
             },
             {
-                titulo: req.body.titulo,
-                descricao: req.body.descricao,
-                tags: (req.body.tags ? req.body.tags.toString().split(',') : ''),
-                salario: req.body.salario
+                titulo      : striptags(req.body.titulo),
+                descricao   : striptags(req.body.descricao),
+                tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
+                salario     : req.body.salario
             },
             function (err, data) {
                 if (err) {

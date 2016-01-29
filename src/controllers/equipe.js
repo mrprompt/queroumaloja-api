@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate            = require('express-paginate');
+var striptags           = require('striptags');
 var EquipeModel         = require(__dirname + '/../models/equipe');
 var EquipeController    = {
     /**
@@ -97,11 +98,11 @@ var EquipeController    = {
      */
     adiciona: function (req, res, done) {
         var membro = new EquipeModel({
-            nome: req.body.nome,
-            cargo: req.body.cargo,
-            email: req.body.email,
-            imagem: req.body.imagem,
-            site: req.headers.site
+            nome    : striptags(req.body.nome),
+            cargo   : striptags(req.body.cargo),
+            email   : req.body.email,
+            imagem  : req.body.imagem,
+            site    : req.headers.site
         });
 
         membro.save(function (err, data) {
@@ -141,11 +142,11 @@ var EquipeController    = {
                 site: req.headers.site
             },
             {
-                nome: req.body.nome,
-                cargo: req.body.cargo,
-                email: req.body.email,
-                imagem: req.body.imagem,
-                site: req.headers.site
+                nome    : striptags(req.body.nome),
+                cargo   : striptags(req.body.cargo),
+                email   : req.body.email,
+                imagem  : req.body.imagem,
+                site    : req.headers.site
             },
             function (err, data) {
                 if (err) {

@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate            = require('express-paginate');
+var striptags           = require('striptags');
 var ParceiroModel       = require(__dirname + '/../models/parceiro');
 var ParceiroController  = {
     /**
@@ -98,12 +99,12 @@ var ParceiroController  = {
      */
     adiciona: function (req, res, done) {
         var parceiro = new ParceiroModel({
-            nome: req.body.nome,
-            imagem: req.body.imagem,
-            url: req.body.url,
-            atuacao: req.body.atuacao,
+            nome    : striptags(req.body.nome),
+            atuacao : striptags(req.body.atuacao),
+            imagem  : req.body.imagem,
+            url     : req.body.url,
             cadastro: req.body.cadastro,
-            site: req.headers.site
+            site    : req.headers.site
         });
 
         parceiro.save(function (err, data) {
@@ -143,12 +144,12 @@ var ParceiroController  = {
                 site: req.headers.site
             },
             {
-                nome: req.body.nome,
-                url: req.body.url,
-                atuacao: req.body.atuacao,
-                image: req.body.imagem,
+                nome    : striptags(req.body.nome),
+                atuacao : striptags(req.body.atuacao),
+                url     : req.body.url,
+                imagem  : req.body.imagem,
                 cadastro: req.body.cadastro,
-                site: req.headers.site
+                site    : req.headers.site
             },
             function (err, data) {
                 if (err) {

@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate        = require('express-paginate');
+var striptags       = require('striptags');
 var AvisoModel      = require(__dirname + '/../models/aviso');
 var AvisoController = {
     /**
@@ -99,10 +100,10 @@ var AvisoController = {
      */
     adiciona: function (req, res, done) {
         var dados       = {
-            titulo  : req.body.titulo,
-            conteudo: req.body.conteudo,
+            titulo  : striptags(req.body.titulo),
+            conteudo: striptags(req.body.conteudo),
             cadastro: (new Date),
-            tipo    : req.body.tipo,
+            tipo    : striptags(req.body.tipo),
             inicio  : new Date(req.body.inicio),
             fim     : new Date(req.body.fim),
             site    : req.headers.site
@@ -141,9 +142,9 @@ var AvisoController = {
      */
     atualiza: function (req, res, done) {
         var dados   = {
-            titulo  : req.body.titulo,
-            conteudo: req.body.conteudo,
-            tipo    : req.body.tipo,
+            titulo  : striptags(req.body.titulo),
+            conteudo: striptags(req.body.conteudo),
+            tipo    : striptags(req.body.tipo),
             inicio  : new Date(req.body.inicio),
             fim     : new Date(req.body.fim)
         };

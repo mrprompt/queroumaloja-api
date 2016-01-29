@@ -8,6 +8,7 @@
 'use strict';
 
 var paginate        = require('express-paginate');
+var striptags       = require('striptags');
 var SlideModel      = require(__dirname + '/../models/slide');
 var SlideController = {
     /**
@@ -98,12 +99,12 @@ var SlideController = {
      */
     adiciona: function (req, res, done) {
         var slide = new SlideModel({
-            titulo: req.body.titulo,
-            descricao: req.body.descricao,
-            endereco: req.body.endereco,
-            imagem: req.body.imagem,
-            cadastro: req.body.cadastro,
-            site: req.headers.site
+            titulo      : striptags(req.body.titulo),
+            descricao   : striptags(req.body.descricao),
+            endereco    : req.body.endereco,
+            imagem      : req.body.imagem,
+            cadastro    : req.body.cadastro,
+            site        : req.headers.site
         });
 
         slide.save(function (err, data) {
@@ -138,10 +139,10 @@ var SlideController = {
      */
     atualiza: function (req, res, done) {
         var dados = {
-            titulo: req.body.titulo,
-            descricao: req.body.descricao,
-            endereco: req.body.endereco,
-            imagem: req.body.imagem
+            titulo      : striptags(req.body.titulo),
+            descricao   : striptags(req.body.descricao),
+            endereco    : req.body.endereco,
+            imagem      : req.body.imagem
         };
 
         SlideModel.update(
