@@ -24,7 +24,7 @@ var mail = {
                 }
             )
             .then(function (site) {
-                if (site === null || site.config[0].sendgrid == undefined) {
+                if (site === null || site.config[0].sendgrid === undefined) {
                     return;
                 }
 
