@@ -7,7 +7,8 @@
  */
 'use strict';
 
-var SiteModel       = require(__dirname + '/../models/site');
+var path            = require('path');
+var SiteModel       = require(path.join(__dirname, '/../models/site'));
 var IndexController = {
     /**
      * Tela inicial

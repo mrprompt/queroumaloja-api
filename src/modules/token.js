@@ -7,8 +7,9 @@
  */
 'use strict';
 
-var router = require('express').Router();
-var TokenModel = require(__dirname + '/../models/token');
+var path        = require('path');
+var router      = require('express').Router();
+var TokenModel  = require(path.join(__dirname, '/../models/token'));
 var routes = [
     '/aviso|POST',
     '/aviso|PUT',

@@ -7,7 +7,8 @@
  */
 'use strict';
 
-var siteModel = require(__dirname + '/../models/site');
+var path      = require('path');
+var siteModel = require(path.join(__dirname, '/../models/site'));
 
 var mail = {
     /**

@@ -31,7 +31,7 @@ var Application = function () {
         if (typeof sig === "string") {
             console.log('%s: Received %s - terminating app ...', Date(Date.now()), sig);
 
-            process.exit(1);
+            process.exit(0);
         }
 
         console.log('%s: Node server stopped.', Date(Date.now()));

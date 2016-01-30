@@ -9,7 +9,8 @@
 
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var SlideModel      = require(__dirname + '/../models/slide');
+var path            = require('path');
+var SlideModel      = require(path.join(__dirname, '/../models/slide'));
 var SlideController = {
     /**
      * Lista os slides

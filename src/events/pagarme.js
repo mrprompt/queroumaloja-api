@@ -7,7 +7,8 @@
  */
 'use strict';
 
-var pagarme = require(__dirname + '/../modules/pagarme');
+var path    = require('path');
+var pagarme = require(path.join(__dirname, '/../modules/pagarme'));
 
 var router = function(req, res, done) {
     res.app.on('carrinho:adiciona', function(carrinho) {

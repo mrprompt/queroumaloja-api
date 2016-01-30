@@ -9,7 +9,8 @@
 
 var paginate            = require('express-paginate');
 var striptags           = require('striptags');
-var EmpregoModel        = require(__dirname + '/../models/emprego');
+var path                = require('path');
+var EmpregoModel        = require(path.join(__dirname, '/../models/emprego'));
 var EmpregoController   = {
     /**
      * Lista os empregos cadastrados

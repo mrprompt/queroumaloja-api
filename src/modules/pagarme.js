@@ -8,8 +8,9 @@
 'use strict';
 
 var Pagarme         = require('pagarmejs');
-var CarrinhoModel   = require(__dirname + '/../models/carrinho');
-var siteModel       = require(__dirname + '/../models/site');
+var path            = require('path');
+var CarrinhoModel   = require(path.join(__dirname, '/../models/carrinho'));
+var siteModel       = require(path.join(__dirname, '/../models/site'));
 
 var api = {
     checaTransacao: function (carrinho) {

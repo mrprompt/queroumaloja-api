@@ -10,7 +10,8 @@
 var paginate            = require('express-paginate');
 var bcrypt              = require('bcrypt');
 var salt                = process.env.PASSWORD_SALT;
-var UsuarioModel        = require(__dirname + '/../models/usuario');
+var path                = require('path');
+var UsuarioModel        = require(path.join(__dirname, '/../models/usuario'));
 var UsuarioController   = {
     /**
      * Lista os usuários

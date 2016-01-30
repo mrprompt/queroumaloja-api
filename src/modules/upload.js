@@ -7,8 +7,8 @@
  */
 'use strict';
 
-var cloudinary = require('cloudinary');
-var router = require('express').Router();
+var cloudinary  = require('cloudinary');
+var router      = require('express').Router();
 
 router.all('*', function(req, res, done) {
     if (req.method === 'OPTIONS') {

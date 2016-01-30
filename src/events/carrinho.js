@@ -7,7 +7,8 @@
  */
 'use strict';
 
-var mail = require(__dirname + '/../modules/mail');
+var path = require('path');
+var mail = require(path.join(__dirname, '/../modules/mail'));
 
 var router = function(req, res, done) {
     res.app.on('carrinho:adiciona', function(carrinho) {

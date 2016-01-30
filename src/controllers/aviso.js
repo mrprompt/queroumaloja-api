@@ -9,7 +9,8 @@
 
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var AvisoModel      = require(__dirname + '/../models/aviso');
+var path            = require('path');
+var AvisoModel      = require(path.join(__dirname, '/../models/aviso'));
 var AvisoController = {
     /**
      * Lista os avisos

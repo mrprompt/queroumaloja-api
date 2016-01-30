@@ -10,7 +10,8 @@
 var paginate          = require('express-paginate');
 var slugify           = require('slugify');
 var striptags         = require('striptags');
-var ProdutoModel      = require(__dirname + '/../models/produto');
+var path              = require('path');
+var ProdutoModel      = require(path.join(__dirname, '/../models/produto'));
 var ProdutoController = {
     /**
      * Lista os produtos

@@ -7,8 +7,9 @@
  */
 'use strict';
 
-var UsuarioModel    = require(__dirname + '/../models/usuario');
-var TokenModel      = require(__dirname + '/../models/token');
+var path            = require('path');
+var UsuarioModel    = require(path.join(__dirname, '/../models/usuario'));
+var TokenModel      = require(path.join(__dirname, '/../models/token'));
 var TokenAdapter    = require('token');
 var bcrypt          = require('bcrypt');
 var salt            = process.env.PASSWORD_SALT;

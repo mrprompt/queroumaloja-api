@@ -9,7 +9,8 @@
 
 var paginate            = require('express-paginate');
 var striptags           = require('striptags');
-var ParceiroModel       = require(__dirname + '/../models/parceiro');
+var path                = require('path');
+var ParceiroModel       = require(path.join(__dirname, '/../models/parceiro'));
 var ParceiroController  = {
     /**
      * Lista os parceiros

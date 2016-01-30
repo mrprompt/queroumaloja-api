@@ -8,7 +8,8 @@
 'use strict';
 
 var paginate        = require('express-paginate');
-var ProdutoModel    = require(__dirname + '/../models/produto');
+var path            = require('path');
+var ProdutoModel    = require(path.join(__dirname, '/../models/produto'));
 var BuscaController = {
     /**
      * Buscar por um produto

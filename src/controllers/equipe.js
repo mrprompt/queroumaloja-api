@@ -9,7 +9,8 @@
 
 var paginate            = require('express-paginate');
 var striptags           = require('striptags');
-var EquipeModel         = require(__dirname + '/../models/equipe');
+var path                = require('path');
+var EquipeModel         = require(path.join(__dirname, '/../models/equipe'));
 var EquipeController    = {
     /**
      * Lista os membros da equipe

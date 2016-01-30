@@ -7,7 +7,9 @@
  */
 'use strict';
 
-var router = require('express').Router();
+var path        = require('path');
+var router      = require('express').Router();
+var SiteModel   = require(path.join(__dirname, '/../models/site'));
 
 router.all('*', function(req, res, next) {
     if (req.method === 'OPTIONS') {
@@ -30,8 +32,6 @@ router.all('*', function(req, res, next) {
 
         return false;
     }
-
-    var SiteModel = require(__dirname + '/../models/site');
 
     SiteModel.findOne({
         _id: req.headers.site

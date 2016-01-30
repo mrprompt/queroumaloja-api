@@ -9,7 +9,8 @@
 
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var SiteModel       = require(__dirname + '/../models/site');
+var path            = require('path');
+var SiteModel       = require(path.join(__dirname, '/../models/site'));
 var SiteController  = {
     /**
      * Lista os sites cadastrados
