@@ -8,10 +8,10 @@
 'use strict';
 
 var router      = require('express').Router();
-var path       = require('path');
-var connection  = require(__dirname + '/../modules/connection');
-var controller  = require(__dirname + '/../controllers/carrinho');
-var carrinho    = require(__dirname + '/../events/carrinho');
+var path        = require('path');
+var connection  = require(path.join(__dirname, '/../modules/connection'));
+var controller  = require(path.join(__dirname, '/../controllers/carrinho'));
+var carrinho    = require(path.join(__dirname, '/../events/carrinho'));
 
 router.get('/', carrinho, controller.lista);
 router.get('/:id', carrinho, controller.abre);
