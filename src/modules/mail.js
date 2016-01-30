@@ -7,7 +7,8 @@
  */
 'use strict';
 
-var mail    = {
+var SendGrid = require('sendgrid');
+var mail   = {
     /**
      * Aviso de compra por email
      *
@@ -20,8 +21,8 @@ var mail    = {
             return;
         }
 
-        var sendgrid = require('sendgrid')(site.config[0].sendgrid.token);
-        var email    = new sendgrid.Email({
+        var sender = new SendGrid(site.config[0].sendgrid.token);
+        var email  = new sender.Email({
             to      : site.emails[0],
             from    : carrinho.comprador.email,
             subject : ' ',
@@ -43,7 +44,7 @@ var mail    = {
         email.addSubstitution("%valor%", carrinho.valor);
         email.addSubstitution("%items%", carrinho.items.length);
 
-        sendgrid.send(email, function (err, json) {
+        sender.send(email, function (err, json) {
             if (err) {
                 return console.error(err);
             }
