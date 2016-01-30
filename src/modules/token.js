@@ -89,8 +89,6 @@ router.all('*', function(req, res, next) {
             });
 
         return false;
-    } else {
-        next();
     }
 });
 

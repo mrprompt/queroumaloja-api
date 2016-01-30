@@ -155,7 +155,7 @@ var CarrinhoController  = {
             var exists = false;
 
             data.items.forEach(function (item) {
-                if (item.produto._id.toString() == req.body.produto) {
+                if (item.produto._id.toString() === req.body.produto) {
                     item.quantidade += req.body.quantidade;
 
                     exists = true;
