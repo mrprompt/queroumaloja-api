@@ -12,6 +12,7 @@ var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
+var cors            = require('./src/modules/cors');
 var site            = require('./src/modules/site');
 var token           = require('./src/modules/token');
 var Index           = require('./src/routes/index');
@@ -103,7 +104,7 @@ var Application = function () {
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(PAGINATION.MAX, PAGINATION.MAX));
-        self.app.use(require('./src/modules/cors'));
+        self.app.use(cors);
 
         // load routes
         self.createRoutes();
