@@ -287,7 +287,7 @@ var CarrinhoController  = {
 
             done(err, data);
         });
-    },
+    }
 };
 
 module.exports = CarrinhoController;

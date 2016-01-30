@@ -12,6 +12,21 @@ var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
+var site            = require('./src/modules/site');
+var token           = require('./src/modules/token');
+var Index           = require('./src/routes/index');
+var Aviso           = require('./src/routes/aviso');
+var Carrinho        = require('./src/routes/carrinho');
+var Emprego         = require('./src/routes/emprego');
+var Equipe          = require('./src/routes/equipe');
+var Parceiro        = require('./src/routes/parceiro');
+var Produto         = require('./src/routes/produto');
+var Site            = require('./src/routes/site');
+var Slide           = require('./src/routes/slide');
+var Usuario         = require('./src/routes/usuario');
+var Login           = require('./src/routes/login');
+var Logout          = require('./src/routes/logout');
+var Busca           = require('./src/routes/busca');
 
 /**
  *  Define the application.
@@ -60,22 +75,19 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        var site     = require('./src/modules/site');
-        var token    = require('./src/modules/token');
-
-        self.app.use('/', site, token, require('./src/routes/index'));
-        self.app.use('/aviso', site, token, require('./src/routes/aviso'));
-        self.app.use('/carrinho', site, token, require('./src/routes/carrinho'));
-        self.app.use('/emprego', site, token, require('./src/routes/emprego'));
-        self.app.use('/equipe', site, token, require('./src/routes/equipe'));
-        self.app.use('/parceiro', site, token, require('./src/routes/parceiro'));
-        self.app.use('/produto', site, token, require('./src/routes/produto'));
-        self.app.use('/site', site, token, require('./src/routes/site'));
-        self.app.use('/slide', site, token, require('./src/routes/slide'));
-        self.app.use('/usuario', site, token, require('./src/routes/usuario'));
-        self.app.use('/login', site, token, require('./src/routes/login'));
-        self.app.use('/logout', site, token, require('./src/routes/logout'));
-        self.app.use('/busca', site, token, require('./src/routes/busca'));
+        self.app.use('/', site, token, Index);
+        self.app.use('/aviso', site, token, Aviso);
+        self.app.use('/carrinho', site, token, Carrinho);
+        self.app.use('/emprego', site, token, Emprego);
+        self.app.use('/equipe', site, token, Equipe);
+        self.app.use('/parceiro', site, token, Parceiro);
+        self.app.use('/produto', site, token, Produto);
+        self.app.use('/site', site, token, Site);
+        self.app.use('/slide', site, token, Slide);
+        self.app.use('/usuario', site, token, Usuario);
+        self.app.use('/login', site, token, Login);
+        self.app.use('/logout', site, token, Logout);
+        self.app.use('/busca', site, token, Busca);
     };
 
     /**
