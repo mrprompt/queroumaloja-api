@@ -21,7 +21,7 @@ var api = {
                 }
             )
             .then(function (site) {
-                if (site === null || site.config[0].pagarme == undefined) {
+                if (site === null || site.config[0].pagarme === undefined) {
                     return;
                 }
 
