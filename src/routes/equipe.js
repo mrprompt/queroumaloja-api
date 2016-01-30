@@ -9,9 +9,10 @@
 
 var router      = require('express').Router();
 var multer      = require('multer');
-var connection  = require(__dirname + '/../modules/connection');
-var upload      = require(__dirname + '/../modules/upload');
-var controller  = require(__dirname + '/../controllers/equipe');
+var path        = require('path');
+var connection  = require(path.join(__dirname, '/../modules/connection'));
+var upload      = require(path.join(__dirname, '/../modules/upload'));
+var controller  = require(path.join(__dirname, '/../controllers/equipe'));
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);

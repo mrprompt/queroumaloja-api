@@ -8,8 +8,9 @@
 'use strict';
 
 var router      = require('express').Router();
-var connection  = require(__dirname + '/../modules/connection');
-var controller  = require(__dirname + '/../controllers/usuario');
+var path        = require('path');
+var connection  = require(path.join(__dirname, '/../modules/connection'));
+var controller  = require(path.join(__dirname, '/../controllers/usuario'));
 
 router.get('/', controller.lista);
 router.get('/:id', controller.abre);

@@ -8,7 +8,8 @@
 'use strict';
 
 var router     = require('express').Router();
-var controller = require(__dirname + '/../controllers/index');
+var path       = require('path');
+var controller = require(path.join(__dirname, '/../controllers/index'));
 
 router.get('/', controller.lista);
 

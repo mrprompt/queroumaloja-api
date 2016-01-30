@@ -8,6 +8,7 @@
 'use strict';
 
 var router      = require('express').Router();
+var path       = require('path');
 var connection  = require(__dirname + '/../modules/connection');
 var controller  = require(__dirname + '/../controllers/carrinho');
 var carrinho    = require(__dirname + '/../events/carrinho');
