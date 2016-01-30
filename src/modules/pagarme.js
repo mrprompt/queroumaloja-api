@@ -22,7 +22,15 @@ var api = {
         return pagarme
             .transaction
             .findById(carrinho.token)
-            .then(function(transaction) {
+            .then(function(transaction, error) {
+                if (error) {
+                    console.error(error);
+
+                    done();
+
+                    return false;
+                }
+
                 var comprador = {
                     nome    : transaction.customer.name,
                     email   : transaction.customer.email,

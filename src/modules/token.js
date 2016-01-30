@@ -43,53 +43,51 @@ var routes = [
 ];
 
 router.all('*', function(req, res, next) {
-    if (req.method === 'OPTIONS') {
+    if (req.method === 'OPTIONS' || !_.contains(routes, req.baseUrl + '|' + req.method)) {
         next();
 
         return true;
     }
 
-    if (_.contains(routes, req.baseUrl + '|' + req.method)) {
-        if (!req.headers.authorization) {
-            return res.status(500).json({
-                object: 'object',
-                has_more: false,
-                data: {
-                    message: 'Atributo authorization não encontrado no cabeçalho',
-                    status: 500
-                },
-                itemCount: 0,
-                pageCount: 1
-            });
-        }
-
-        TokenModel
-            .findOne({
-                conteudo: req.headers.authorization
-            })
-            .exec(function (err, data) {
-                if (err || !data) {
-                    res.status(403).json({
-                        object: 'object',
-                        has_more: false,
-                        data: {
-                            message: 'Token não autorizado',
-                            status: 403
-                        },
-                        itemCount: 0,
-                        pageCount: 1
-                    });
-
-                    return false;
-                }
-
-                req.params.usuario = data.usuario;
-
-                next();
-            });
-
-        return false;
+    if (!req.headers.authorization) {
+        return res.status(403).json({
+            object: 'object',
+            has_more: false,
+            data: {
+                message: 'Atributo authorization não encontrado no cabeçalho',
+                status: 403
+            },
+            itemCount: 0,
+            pageCount: 1
+        });
     }
+
+    TokenModel
+        .findOne({
+            conteudo: req.headers.authorization
+        })
+        .exec(function (err, data) {
+            if (err || !data) {
+                res.status(401).json({
+                    object: 'object',
+                    has_more: false,
+                    data: {
+                        message: 'Token não autorizado',
+                        status: 401
+                    },
+                    itemCount: 0,
+                    pageCount: 1
+                });
+
+                return false;
+            }
+
+            req.params.usuario = data.usuario;
+
+            next();
+        });
+
+    return false;
 });
 
 module.exports = router;
