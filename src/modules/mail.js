@@ -7,66 +7,51 @@
  */
 'use strict';
 
-var path      = require('path');
-var siteModel = require(path.join(__dirname, '/../models/site'));
-
-var mail = {
+var mail    = {
     /**
      * Aviso de compra por email
      *
      * @param carrinho
+     * @param site
+     * @param done
      */
-    avisoDeCompra: function (carrinho) {
-        siteModel
-            .findOne(
-                {
-                    _id: carrinho.site
+    avisoDeCompra: function (carrinho, site, done) {
+        if (site === null || site.config[0].sendgrid === undefined || !_.contains(['pago', 'autorizado'], carrinho.status)) {
+            return;
+        }
+
+        var sendgrid = require('sendgrid')(site.config[0].sendgrid.token);
+        var email    = new sendgrid.Email({
+            to      : site.emails[0],
+            from    : carrinho.comprador.email,
+            subject : ' ',
+            html    : ' '
+        });
+
+        email.setFilters({
+            'templates': {
+                'settings': {
+                    'enable': 1,
+                    'template_id': site.config[0].sendgrid.template.carrinho_adiciona
                 }
-            )
-            .then(function (site) {
-                if (site === null || site.config[0].sendgrid === undefined) {
-                    return;
-                }
+            }
+        });
 
-                var sendgrid = require('sendgrid')(site.config[0].sendgrid.token);
-                var email    = new sendgrid.Email({
-                    to      : site.emails[0],
-                    from    : site.emails[0],
-                    subject : ' ',
-                    html    : ' '
-                });
+        email.addSubstitution("%comprador%", carrinho.comprador.nome);
+        email.addSubstitution("%email%", carrinho.comprador.email);
+        email.addSubstitution("%carrinho%", carrinho._id);
+        email.addSubstitution("%valor%", carrinho.valor);
+        email.addSubstitution("%items%", carrinho.items.length);
 
-                email.setFilters({
-                    'templates': {
-                        'settings': {
-                            'enable': 1,
-                            'template_id': site.config[0].sendgrid.template.carrinho_adiciona
-                        }
-                    }
-                });
+        sendgrid.send(email, function (err, json) {
+            if (err) {
+                return console.error(err);
+            }
 
-                var items = '';
-
-                if (carrinho.items.length > 0) {
-                    carrinho.items.forEach(function (item) {
-                        items += '<li><a href="http://' + site.dominio + '/#/product/' + item.produto + '" target="_blank">'
-                            + item.produto
-                            + '</a> x ' + item.quantidade + '</li>';
-                    });
-                }
-
-                email.addSubstitution("%carrinho%", carrinho._id);
-                email.addSubstitution("%status%", carrinho.status);
-                email.addSubstitution("%items%", '<ul>' + items + '</ul>');
-
-                sendgrid.send(email, function (err, json) {
-                    if (err) {
-                        return console.error(err);
-                    }
-
-                    return json;
-                });
-            });
+            if (done) {
+                done(json);
+            }
+        });
     }
 };
 

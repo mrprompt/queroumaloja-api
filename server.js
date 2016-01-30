@@ -28,6 +28,7 @@ var Usuario         = require('./src/routes/usuario');
 var Login           = require('./src/routes/login');
 var Logout          = require('./src/routes/logout');
 var Busca           = require('./src/routes/busca');
+var PagarMeWorker   = require('./src/workers/pagarme');
 
 /**
  *  Define the application.
@@ -92,6 +93,13 @@ var Application = function () {
     };
 
     /**
+     * Load Workers
+     */
+    self.createWorkers = function () {
+        PagarMeWorker.checaTransacao();
+    };
+
+    /**
      *  Initialize the server (express), create the routes and register the handlers.
      */
     self.initializeServer = function () {
@@ -108,6 +116,9 @@ var Application = function () {
 
         // load routes
         self.createRoutes();
+
+        // load workers
+        self.createWorkers();
 
         // start server
         self.app.listen(port, address, function () {

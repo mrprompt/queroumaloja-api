@@ -100,48 +100,11 @@ var CarrinhoController  = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var transaction = {
-            customer: {
-                name: 'null',
-                email: 'none@none.net'
-            },
-            phone: {
-                ddd: 0,
-                number: 0
-            },
-            address: {
-                street: 'null',
-                street_number: 0,
-                complementary: 'null',
-                neighborhood: 'null',
-                zipcode: 0,
-                city: 'null',
-                state: 'null'
-            }
-        };
-
         var carrinho = new CarrinhoModel({
-            cadastro: (new Date),
-            site: req.headers.site,
-            token: req.body.token,
-            valor: req.body.valor,
-            comprador: {
-                nome: transaction.customer.name,
-                email: transaction.customer.email,
-                telefone: transaction.phone.ddd + transaction.phone.number,
-                endereco: {
-                    logradouro: transaction.address.street,
-                    numero: transaction.address.street_number,
-                    complemento: transaction.address.complementary,
-                    bairro: transaction.address.neighborhood,
-                    cep: transaction.address.zipcode
-                },
-                localidade: {
-                    cidade: transaction.address.city,
-                    estado: transaction.address.state,
-                    uf: transaction.address.state
-                }
-            }
+            cadastro    : (new Date),
+            site        : req.headers.site,
+            token       : req.body.token,
+            valor       : req.body.valor
         });
 
         if (req.body.items) {

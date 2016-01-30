@@ -31,51 +31,8 @@ var CarrinhoSchema  = new mongoose.Schema({
         })
     ],
     comprador: {
-        nome: {
-            type: String,
-            required: true
-        },
-        email: {
-            type: String,
-            required: true
-        },
-        telefone: {
-            type: String,
-            required: true
-        },
-        endereco: {
-            logradouro: {
-                type: String,
-                required: true
-            },
-            numero: {
-                type: String,
-                required: true
-            },
-            complemento: {
-                type: String,
-                required: false
-            },
-            bairro: {
-                type: String,
-                required: true
-            },
-            cep: {
-                type: Number,
-                required: true
-            }
-        },
-        localidade: {
-            cidade: {
-                type: String
-            },
-            estado: {
-                type: String
-            },
-            uf: {
-                type: String
-            }
-        }
+        type: Object,
+        required: false
     },
     valor: {
         type: Number,
@@ -90,7 +47,7 @@ var CarrinhoSchema  = new mongoose.Schema({
         type: String,
         lowercase: true,
         trim: true,
-        enum: ['processando', 'autorizada', 'paga', 'estornada', 'aguardando', 'estornando', 'recusada'],
+        enum: ['processando', 'autorizado', 'pago', 'estornado', 'aguardando', 'estornando', 'recusado'],
         default: 'processando'
     },
     cadastro: {
