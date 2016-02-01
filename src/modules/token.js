@@ -68,7 +68,7 @@ router.all('*', function(req, res, next) {
         })
         .populate(['usuario'])
         .exec(function (err, data) {
-            if (err || !data || data.usuario.site.toString() !== req.app.site._id.toString()) {
+            if (err || !data || data.usuario.site.toString() !== req.app.site._id.toString() || data.validade < (new Date())) {
                 res.status(401).json({
                     object: 'object',
                     has_more: false,

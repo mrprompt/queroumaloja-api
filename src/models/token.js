@@ -13,11 +13,11 @@ var TokenSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
-    tipo: {
-        type: String,
-        enum: ['rw', 'ro']
-    },
     cadastro: {
+        type: Date,
+        default: Date.now
+    },
+    validade: {
         type: Date,
         default: Date.now
     },

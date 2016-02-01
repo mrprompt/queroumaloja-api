@@ -29,6 +29,9 @@ var LoginController = {
             site    : (req.headers.site)
         };
 
+        TokenAdapter.defaults.secret   = 'AAB';
+        TokenAdapter.defaults.timeStep = (24 * 60 * 60);
+
         UsuarioModel
             .findOne(filter)
             .populate('site')
@@ -53,13 +56,15 @@ var LoginController = {
                         pageCount: 1
                     });
                 } else {
-                    TokenAdapter.defaults.secret   = 'AAB';
-                    TokenAdapter.defaults.timeStep = (24 * 60 * 60);
+                    // validade do token é de uma semana
+                    var validade = new Date();
+                        validade.setDate(validade.getDate() + 7);
 
                     var usertoken = new TokenModel({
                         usuario : user._id,
                         tipo    : 'rw',
                         cadastro: (new Date()),
+                        validade: validade,
                         conteudo: TokenAdapter.generate(user._id + '|' + user.email)
                     });
 
