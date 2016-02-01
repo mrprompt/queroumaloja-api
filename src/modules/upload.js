@@ -1,10 +1,3 @@
-/**
- * Upload Module
- *
- * @author Thiago Paes
- * @package modules
- * @licence GPL V3
- */
 'use strict';
 
 var cloudinary  = require('cloudinary');

@@ -1,10 +1,3 @@
-/**
- * Parceiro Model
- *
- * @author Thiago Paes
- * @package parceiro
- * @licence GPL V3
- */
 'use strict';
 
 var mongoose        = require('mongoose');

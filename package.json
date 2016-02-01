@@ -4,6 +4,7 @@
   "description": "API de Produtos",
   "private": true,
   "main": "server.js",
+  "license" : "GPL-3.0",
   "keywords": [
     "api",
     "ecommerce",

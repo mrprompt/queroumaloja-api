@@ -1,10 +1,3 @@
-/**
- * Slide Model
- *
- * @author Thiago Paes
- * @package slide
- * @licence GPL V3
- */
 'use strict';
 
 var mongoose    = require('mongoose');

@@ -1,10 +1,3 @@
-/**
- * CORS
- *
- * @author Thiago Paes
- * @package cors
- * @licence GPL V3
- */
 'use strict';
 
 var router = function(req, res, done) {

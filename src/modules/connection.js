@@ -1,10 +1,3 @@
-/**
- * Database Connection
- *
- * @author Thiago Paes
- * @package connection
- * @licence GPL V3
- */
 'use strict';
 
 var dbUser = process.env.DB_USERNAME  || 'admin';

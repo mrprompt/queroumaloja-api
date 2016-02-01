@@ -1,10 +1,3 @@
-/**
- * Usuario
- *
- * @author Thiago Paes
- * @package usuario
- * @licence GPL V3
- */
 'use strict';
 
 var paginate            = require('express-paginate');

@@ -1,10 +1,3 @@
-/**
- * Equipe Model
- *
- * @author Thiago Paes
- * @package equipe
- * @licence GPL V3
- */
 'use strict';
 
 var mongoose        = require('mongoose');

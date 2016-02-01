@@ -1,10 +1,3 @@
-/**
- * Logout
- *
- * @author Thiago Paes
- * @package logout
- * @licence GPL V3
- */
 'use strict';
 
 var LogoutController = {

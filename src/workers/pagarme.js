@@ -1,10 +1,3 @@
-/**
- * Pagar-me Module
- *
- * @author Thiago Paes
- * @package pagarme
- * @licence GPL V3
- */
 'use strict';
 
 const INTERVAL      = 3600000;  // 1 hora

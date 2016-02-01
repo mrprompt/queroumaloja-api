@@ -1,10 +1,3 @@
-/**
- * Busca de Produtos
- *
- * @author Thiago Paes
- * @package busca
- * @licence GPL V3
- */
 'use strict';
 
 var paginate        = require('express-paginate');

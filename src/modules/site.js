@@ -1,10 +1,3 @@
-/**
- * Site module
- *
- * @author Thiago Paes
- * @package site
- * @licence GPL V3
- */
 'use strict';
 
 var path        = require('path');

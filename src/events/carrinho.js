@@ -1,10 +1,3 @@
-/**
- * Envia e-mail sempre que um carrinho é criado
- *
- * @author Thiago Paes
- * @package carrinho
- * @licence GPL V3
- */
 'use strict';
 
 var path    = require('path');

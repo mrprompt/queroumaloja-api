@@ -1,10 +1,3 @@
-/**
- * E-mail
- *
- * @author Thiago Paes
- * @package email
- * @licence GPL V3
- */
 'use strict';
 
 var SendGrid = require('sendgrid');

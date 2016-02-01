@@ -1,10 +1,3 @@
-/**
- * Tela inicial
- *
- * @author Thiago Paes
- * @package index
- * @licence GPL V3
- */
 'use strict';
 
 var path            = require('path');

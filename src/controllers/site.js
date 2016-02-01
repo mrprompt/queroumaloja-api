@@ -1,10 +1,3 @@
-/**
- * Site
- *
- * @author Thiago Paes
- * @package site
- * @licence GPL V3
- */
 'use strict';
 
 var paginate        = require('express-paginate');

@@ -1,10 +1,3 @@
-/**
- * Empregos
- *
- * @author Thiago Paes
- * @package emprego
- * @licence GPL V3
- */
 'use strict';
 
 var paginate            = require('express-paginate');

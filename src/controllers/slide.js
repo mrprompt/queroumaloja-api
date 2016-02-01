@@ -1,10 +1,3 @@
-/**
- * Slides
- *
- * @author Thiago Paes
- * @package slide
- * @licence GPL V3
- */
 'use strict';
 
 var paginate        = require('express-paginate');

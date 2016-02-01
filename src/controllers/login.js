@@ -1,10 +1,3 @@
-/**
- * Autenticação
- *
- * @author Thiago Paes
- * @package login
- * @licence GPL V3
- */
 'use strict';
 
 var path            = require('path');

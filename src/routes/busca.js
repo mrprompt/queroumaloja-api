@@ -1,10 +1,3 @@
-/**
- * Busca
- *
- * @author Thiago Paes
- * @package busca
- * @licence GPL V3
- */
 'use strict';
 
 var router     = require('express').Router();

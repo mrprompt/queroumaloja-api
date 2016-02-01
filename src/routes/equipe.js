@@ -1,10 +1,3 @@
-/**
- * Equipe
- *
- * @author Thiago Paes
- * @package equipe
- * @licence GPL V3
- */
 'use strict';
 
 var router      = require('express').Router();
