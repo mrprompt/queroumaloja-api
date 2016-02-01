@@ -13,7 +13,7 @@ API de Produtos para empresas de pequeno e médio porte, que queiram uma forma s
 
 ### Instalação
 
-Antes de rodar aplicação, são necessárias configurações para as variáveis de ambiente - valores entre parênteses é o padrão:
+Antes de rodar aplicação, são necessárias configurações das variáveis de ambiente - valores entre parênteses é o padrão:
 
 ```
 NODE_IP (127.0.0.1)

@@ -66,8 +66,9 @@ router.all('*', function(req, res, next) {
         .findOne({
             conteudo: req.headers.authorization
         })
+        .populate(['usuario'])
         .exec(function (err, data) {
-            if (err || !data) {
+            if (err || !data || data.usuario.site.toString() !== req.app.site._id.toString()) {
                 res.status(401).json({
                     object: 'object',
                     has_more: false,
@@ -82,7 +83,7 @@ router.all('*', function(req, res, next) {
                 return false;
             }
 
-            req.params.usuario = data.usuario;
+            req.app.usuario = data.usuario;
 
             next();
         });
