@@ -34,7 +34,9 @@ var CarrinhoSchema  = new mongoose.Schema({
     token: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        index: true,
+        unique: true
     },
     status: {
         type: String,
@@ -43,12 +45,21 @@ var CarrinhoSchema  = new mongoose.Schema({
         enum: ['processando', 'autorizado', 'pago', 'estornado', 'aguardando', 'estornando', 'recusado'],
         default: 'processando'
     },
+    tipo: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        required: true,
+        enum: ['local', 'pagarme'],
+        default: 'local'
+    },
     cadastro: {
         type: Date,
         default: Date.now
     }
 })
     .plugin(require('mongoose-paginate'))
+    .plugin(require('mongoose-unique-validator'))
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.site;

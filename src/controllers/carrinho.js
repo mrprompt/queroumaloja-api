@@ -97,7 +97,8 @@ var CarrinhoController  = {
             cadastro    : (new Date),
             site        : req.headers.site,
             token       : req.body.token,
-            valor       : req.body.valor
+            valor       : req.body.valor,
+            tipo        : req.body.tipo
         });
 
         if (req.body.items) {
@@ -179,8 +180,7 @@ var CarrinhoController  = {
             .findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    site: req.headers.site,
-                    usuario: req.params.usuario
+                    site: req.headers.site
                 },
                 data,
                 function (err, result) {

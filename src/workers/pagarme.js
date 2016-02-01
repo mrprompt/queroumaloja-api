@@ -13,6 +13,7 @@ var api = {
             CarrinhoModel
                 .find(
                     {
+                        tipo: 'pagarme',
                         status: {
                             $in: ['processando', 'aguardando']
                         }
