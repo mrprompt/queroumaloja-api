@@ -12,6 +12,7 @@ var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
+var connection      = require('./src/modules/connection');
 var cors            = require('./src/modules/cors');
 var site            = require('./src/modules/site');
 var token           = require('./src/modules/token');
@@ -29,6 +30,7 @@ var Login           = require('./src/routes/login');
 var Logout          = require('./src/routes/logout');
 var Busca           = require('./src/routes/busca');
 var PagarMeWorker   = require('./src/workers/pagarme');
+var LocalWorker     = require('./src/workers/local');
 
 /**
  *  Define the application.
@@ -63,6 +65,7 @@ var Application = function () {
      */
     self.createWorkers = function () {
         PagarMeWorker.checaTransacao();
+        LocalWorker.checaTransacao();
     };
 
     /**
