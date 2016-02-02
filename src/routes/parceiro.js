@@ -3,7 +3,6 @@
 var router      = require('express').Router();
 var multer      = require('multer');
 var path        = require('path');
-var connection  = require(path.join(__dirname, '/../modules/connection'));
 var upload      = require(path.join(__dirname, '/../modules/upload'));
 var controller  = require(path.join(__dirname, '/../controllers/parceiro'));
 
