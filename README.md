@@ -1,6 +1,6 @@
 # API
 
-[![Build Status](https://travis-ci.org/QueroUmaLoja/api.png)](https://travis-ci.org/QueroUmaLoja/api)
+[![Build Status](https://travis-ci.org/QueroUmaLoja/queroumaloja-api-server.png)](https://travis-ci.org/QueroUmaLoja/api)
 [![Code Climate](https://codeclimate.com/github/QueroUmaLoja/api/badges/gpa.svg)](https://codeclimate.com/github/QueroUmaLoja/api)
 [![Issue Count](https://codeclimate.com/github/QueroUmaLoja/api/badges/issue_count.svg)](https://codeclimate.com/github/QueroUmaLoja/api)
 
