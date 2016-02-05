@@ -42,6 +42,23 @@ describe('Produto Controller', function () {
         });
     });
 
+    it('#busca() deve retornar um array', function () {
+        request.headers = {
+            site: new Site()
+        };
+
+        request.query = {
+            page: 1,
+            limit: 1,
+            busca: 'livro'
+        };
+
+        Produto.busca(request, response, function() {
+            assert.equal(response.content.object, 'error');
+            assert.equal(response.statusCode, 500);
+        });
+    });
+
     it('#abre() deve retornar um objeto', function () {
         request.headers = {
             site: new Site()

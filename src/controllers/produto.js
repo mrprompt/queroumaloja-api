@@ -15,7 +15,8 @@ var ProdutoController = {
      */
     lista: function (req, res, done) {
         var filter = {
-            site: req.headers.site
+            site    : req.headers.site,
+            ativo   : true
         };
 
         if (req.query.tipo !== undefined) {
@@ -29,19 +30,24 @@ var ProdutoController = {
         ProdutoModel.paginate(
             filter,
             {
-                page: req.query.page,
-                limit: req.query.limit,
-                sort: {cadastro : 'desc'}
+                page    : req.query.page,
+                limit   : req.query.limit,
+                sort    : {
+                    cadastro : 'desc'
+                }
             },
             function (err, data) {
+                var status = 500;
+
                 if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
+                    var status = 500;
+                    var data   = {
+                        object      : 'error',
+                        has_more    : false,
+                        data        : err.message,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    };
                 } else {
                     var pageCount = data.pages;
                     var itemCount = data.total;
@@ -233,6 +239,55 @@ var ProdutoController = {
                 done(err, data);
             }
         );
+    },
+
+    /**
+     * Buscar por um produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    busca: function (req, res, done) {
+        ProdutoModel.paginate(
+            {
+                "site"  : req.headers.site,
+                "ativo" : true,
+                "$text" : {
+                    $search: (req.params.palavra ? req.params.palavra.toLocaleString() : '')
+                }
+            },
+            {
+                page    : req.query.page,
+                limit   : req.query.limit,
+                sort    : {
+                    cadastro : 'desc'
+                }
+            },
+            function(err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object      : 'error',
+                        has_more    : false,
+                        data        : err,
+                        itemCount   : 0,
+                        pageCount   : 0
+                    });
+                } else {
+                    var pageCount = data.pages;
+                    var itemCount = data.total;
+
+                    res.status(200).json({
+                        object: 'list',
+                        has_more: paginate.hasNextPages(req)(pageCount),
+                        data: data.docs,
+                        itemCount: itemCount,
+                        pageCount: pageCount
+                    });
+                }
+
+                done(err, data);
+            });
     }
 };
 

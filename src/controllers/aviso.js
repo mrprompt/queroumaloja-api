@@ -15,12 +15,15 @@ var AvisoController = {
     lista: function (req, res, done) {
         AvisoModel.paginate(
             {
-                site: req.headers.site
+                site    : req.headers.site,
+                ativo   : true
             },
             {
-                page: req.query.page,
-                limit: req.query.limit,
-                sort: {cadastro : 'desc'}
+                page    : req.query.page,
+                limit   : req.query.limit,
+                sort    : {
+                    cadastro : 'desc'
+                }
             },
             function (err, data) {
                 if (err) {
@@ -59,12 +62,13 @@ var AvisoController = {
     abre: function (req, res, done) {
         AvisoModel
             .findOne({
-                _id: req.params.id,
-                site: req.headers.site
+                _id     : req.params.id,
+                site    : req.headers.site,
+                ativo   : true
             })
             .exec(function(err, data) {
                 if (err) {
-                    res.status(500).json({
+                    res.status(404).json({
                         object      : 'error',
                         has_more    : false,
                         data        : err,
@@ -100,7 +104,8 @@ var AvisoController = {
             tipo    : striptags(req.body.tipo),
             inicio  : new Date(req.body.inicio),
             fim     : new Date(req.body.fim),
-            site    : req.headers.site
+            site    : req.headers.site,
+            ativo   : true
         };
 
         var aviso = new AvisoModel(dados);
@@ -140,7 +145,8 @@ var AvisoController = {
             conteudo: striptags(req.body.conteudo),
             tipo    : striptags(req.body.tipo),
             inicio  : new Date(req.body.inicio),
-            fim     : new Date(req.body.fim)
+            fim     : new Date(req.body.fim),
+            ativo   : true,
         };
 
         AvisoModel.update(
@@ -175,24 +181,30 @@ var AvisoController = {
      * @param done
      */
     apaga: function (req, res, done) {
-        AvisoModel.remove({
-            _id: req.params.id,
-            site: req.headers.site
-        }, function(err, data) {
-            if (err) {
-                res.status(500).json({
-                    object      : 'error',
-                    has_more    : false,
-                    data        : err,
-                    itemCount   : 1,
-                    pageCount   : 1
-                });
-            } else {
-                res.status(204).json(data);
-            }
+        AvisoModel.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                site: req.headers.site
+            },
+            {
+                ativo: false
+            },
+            function(err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object      : 'error',
+                        has_more    : false,
+                        data        : err,
+                        itemCount   : 1,
+                        pageCount   : 1
+                    });
+                } else {
+                    res.status(204).json(data);
+                }
 
-            done(err, data);
-        });
+                done(err, data);
+            }
+        );
     }
 };
 

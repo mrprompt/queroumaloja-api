@@ -55,7 +55,6 @@ var LoginController = {
 
                     var usertoken = new TokenModel({
                         usuario : user._id,
-                        tipo    : 'rw',
                         cadastro: (new Date()),
                         validade: validade,
                         conteudo: TokenAdapter.generate(user._id + '|' + user.email)
@@ -63,10 +62,9 @@ var LoginController = {
 
                     usertoken.save(function (err, data) {
                         delete data.usuario;
-                        delete data.tipo;
 
                         if (err) {
-                            return res.status(500).json({
+                            res.status(500).json({
                                 object: 'error',
                                 has_more: false,
                                 data: err.message,
@@ -74,7 +72,7 @@ var LoginController = {
                                 pageCount: 1
                             });
                         } else {
-                            return res.status(201).json({
+                            res.status(201).json({
                                 object: 'object',
                                 has_more: false,
                                 data: {

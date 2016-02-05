@@ -8,6 +8,7 @@ var upload      = require(path.join(__dirname, '/../modules/upload'));
 var view        = require(path.join(__dirname, '/../views/json'));
 
 router.get('/', controller.lista);
+router.get('/busca/:palavra', controller.busca);
 router.get('/:id', controller.abre);
 router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, controller.adiciona);
 router.put('/:id', controller.atualiza);

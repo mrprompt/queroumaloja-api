@@ -28,7 +28,6 @@ var Slide           = require('./src/routes/slide');
 var Usuario         = require('./src/routes/usuario');
 var Login           = require('./src/routes/login');
 var Logout          = require('./src/routes/logout');
-var Busca           = require('./src/routes/busca');
 var PagarMeWorker   = require('./src/workers/pagarme');
 var LocalWorker     = require('./src/workers/local');
 
@@ -57,7 +56,6 @@ var Application = function () {
         self.app.use('/usuario', site, token, Usuario);
         self.app.use('/login', site, token, Login);
         self.app.use('/logout', site, token, Logout);
-        self.app.use('/busca', site, token, Busca);
     };
 
     /**
