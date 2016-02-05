@@ -44,18 +44,18 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        self.app.use('/', site, token, Index);
-        self.app.use('/aviso', site, token, Aviso);
-        self.app.use('/carrinho', site, token, Carrinho);
-        self.app.use('/emprego', site, token, Emprego);
-        self.app.use('/equipe', site, token, Equipe);
-        self.app.use('/parceiro', site, token, Parceiro);
-        self.app.use('/produto', site, token, Produto);
-        self.app.use('/site', site, token, Site);
-        self.app.use('/slide', site, token, Slide);
-        self.app.use('/usuario', site, token, Usuario);
-        self.app.use('/login', site, token, Login);
-        self.app.use('/logout', site, token, Logout);
+        self.app.use('/', cors, site, token, Index);
+        self.app.use('/aviso', cors, site, token, Aviso);
+        self.app.use('/carrinho', cors, site, token, Carrinho);
+        self.app.use('/emprego', cors, site, token, Emprego);
+        self.app.use('/equipe', cors, site, token, Equipe);
+        self.app.use('/parceiro', cors, site, token, Parceiro);
+        self.app.use('/produto', cors, site, token, Produto);
+        self.app.use('/site', cors, site, token, Site);
+        self.app.use('/slide', cors, site, token, Slide);
+        self.app.use('/usuario', cors, site, token, Usuario);
+        self.app.use('/login', cors, site, token, Login);
+        self.app.use('/logout', cors, site, token, Logout);
     };
 
     /**
