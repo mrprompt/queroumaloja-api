@@ -44,6 +44,6 @@ var ProdutoSchema   = new mongoose.Schema({
             return ret;
         }
     })
-    .index({ titulo: 'text', descricao: 'text' });
+    .index({ '$**': 'text' });
 
 module.exports = mongoose.model('Produto', ProdutoSchema);

@@ -254,7 +254,7 @@ var ProdutoController = {
                 "site"  : req.headers.site,
                 "ativo" : true,
                 "$text" : {
-                    $search: (req.params.palavra ? req.params.palavra.toLocaleString() : '')
+                    "$search": (req.params.palavra ? req.params.palavra.toLocaleString() : '')
                 }
             },
             {
