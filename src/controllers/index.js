@@ -1,7 +1,7 @@
 'use strict';
 
-var path            = require('path');
-var SiteModel       = require(path.join(__dirname, '/../models/site'));
+var router          = require('express').Router();
+var SiteModel       = require('../../src/models/site');
 var IndexController = {
     /**
      * Tela inicial
@@ -12,7 +12,8 @@ var IndexController = {
      * @returns {*}
      */
     lista: function (req, res, done) {
-        SiteModel.findOne({
+        SiteModel
+            .findOne({
                 _id: req.headers.site
             })
             .exec(function (err, data) {
@@ -39,4 +40,6 @@ var IndexController = {
     }
 };
 
-module.exports = IndexController;
+router.get('/', IndexController.lista);
+
+module.exports = router;

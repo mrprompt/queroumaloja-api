@@ -1,6 +1,7 @@
 'use strict';
 
-var LogoutController = {
+var router              = require('express').Router();
+var LogoutController    = {
     /**
      * Logout
      *
@@ -21,4 +22,6 @@ var LogoutController = {
     }
 };
 
-module.exports = LogoutController;
+router.post('/', LogoutController.logout);
+
+module.exports = router;

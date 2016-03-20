@@ -1,126 +1,205 @@
 'use strict';
 
-var Parceiro = require('../../src/controllers/parceiro');
-var Site = require('mongoose').Types.ObjectId;
-var sinon = require('sinon');
-var assert = require('assert');
-var request = require('request');
-var response = {
-    content: null,
-    statusCode: 0,
+var should = require('should'),
+    http_mocks = require('node-mocks-http'),
+    mockery = require('mockery');
 
-    json: function(content){
-        this.content = content;
-
-        return this;
-    },
-    status: function(status) {
-        this.statusCode = status;
-
-        return this;
-    }
-};
-
-describe('Parceiro Controller', function () {
-    it('#lista() deve retornar um array', function () {
-        request.headers = {
-            site: new Site()
-        };
-
-        request.params = {
-            usuario: new Site()
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        Parceiro.lista(request, response, function() {
-            assert.equal(response.content.object, 'list');
-            assert.equal(response.statusCode, 200);
+describe('Parceiro Controller Tests', function () {
+    before(function() {
+        mockery.enable({
+            warnOnUnregistered: false,
+            warnOnReplace: false
         });
+
+        mockery.registerMock('../../src/modules/upload', function(req, res, end) {
+            end();
+        });
+
+        mockery.registerMock('../../src/models/parceiro', {
+            paginate: function(x, y, end) {
+                end(null, {
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
+            },
+            findOne: function(x) {
+                return {
+                    exec: function (end) {
+                        end(null, {});
+                    }
+                }
+            },
+            create: function(x, end) {
+                end(null, {});
+            },
+            update: function(x, y, end) {
+                end(null, {});
+            },
+            remove: function(x, end) {
+                end(null, {});
+            }
+        });
+
+        this.controller = require('../../src/controllers/parceiro');
     });
 
-    it('#abre() deve retornar um objeto', function () {
-        request.headers = {
-            site: new Site()
-        };
-
-        request.params = {
-            usuario: new Site()
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        Parceiro.abre(request, response, function() {
-            assert.equal(response.content.object, 'object');
-            assert.equal(response.statusCode, 200);
-        });
+    after(function() {
+        mockery.disable()
     });
 
-    it('#adiciona() deve retornar um array', function () {
-        request.headers = {
-            site: new Site()
-        };
+    it('#lista() deve retornar um array e status 200', function (done) {
+        var response = http_mocks.createResponse();
 
-        request.params = {
-            usuario: new Site()
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        Parceiro.adiciona(request, response, function() {
-            assert.equal(response.content.object, 'object');
-            assert.equal(response.statusCode, 201);
+        var request  = http_mocks.createRequest({
+            method: 'GET',
+            url: '/',
+            headers: {
+                site: 1
+            },
+            query: {
+                page: 1,
+                limit: 1
+            }
         });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 200);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'list');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 0);
+        should.equal(data.pageCount, 0);
+
+        done();
     });
 
-    it('#atualiza() deve retornar um objeto', function () {
-        request.headers = {
-            site: new Site()
-        };
+    it('#abre() deve retornar um objeto e status 200', function (done) {
+        var response = http_mocks.createResponse();
 
-        request.params = {
-            usuario: new Site(),
-            id: 1
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        Parceiro.atualiza(request, response, function() {
-            assert.equal(response.content.object, 'error');
-            assert.equal(response.statusCode, 500);
+        var request  = http_mocks.createRequest({
+            method: 'GET',
+            url: '/1',
+            params: {
+                id: 1
+            },
+            headers: {
+                site: 1
+            },
+            query: {
+                page: 1,
+                limit: 1
+            }
         });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 200);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
     });
 
-    it('#apaga() deve retornar um objeto', function () {
-        request.headers = {
-            site: new Site()
-        };
+    it('#adiciona() deve retornar um array e status 201', function (done) {
+        var response = http_mocks.createResponse();
 
-        request.params = {
-            usuario: new Site(),
-            id: 1
-        };
-
-        request.query = {
-            page: 1,
-            limit: 1
-        };
-
-        Parceiro.apaga(request, response, function() {
-            assert.equal(response.content.object, 'error');
-            assert.equal(response.statusCode, 500);
+        var request  = http_mocks.createRequest({
+            method: 'POST',
+            body: {
+                nome: 'foo',
+                atuacao: 'bar',
+                imagem: {},
+                url: 'http://localhost/',
+                cadastro: Date.now
+            },
+            url: '/',
+            headers: {
+                site: 1
+            }
         });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 201);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#atualiza() deve retornar um objeto e status 204', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'PUT',
+            url: '/1',
+            params: {
+                id: 1
+            },
+            body: {
+                titulo      : 'foo',
+                descricao   : 'bar',
+                tags        : 'foo, bar',
+                salario     : '100'
+            },
+            headers: {
+                site: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 204);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#apaga() deve retornar um objeto e status 204', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'DELETE',
+            url: '/1',
+            params: {
+                id: 1
+            },
+            headers: {
+                site: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 204);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
     });
 });

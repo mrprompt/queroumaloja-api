@@ -1,8 +1,9 @@
 'use strict';
 
+var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var path                = require('path');
-var CarrinhoModel       = require(path.join(__dirname, '/../models/carrinho'));
+var CarrinhoEvents      = require('../../src/events/carrinho');
+var CarrinhoModel       = require('../../src/models/carrinho');
 var CarrinhoController  = {
     /**
      * Lista todos os carrinhos
@@ -12,41 +13,42 @@ var CarrinhoController  = {
      * @param done
      */
     lista: function (req, res, done) {
-        CarrinhoModel.paginate(
-            {
-                site: req.headers.site
-            },
-            {
-                page: req.query.page,
-                limit: req.query.limit,
-                populate: ['items.produto'],
-                sort: {cadastro : 'desc'}
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    var pageCount = data.pages;
-                    var itemCount = data.total;
+        CarrinhoModel
+            .paginate(
+                {
+                    site: req.headers.site
+                },
+                {
+                    page: req.query.page,
+                    limit: req.query.limit,
+                    populate: ['items.produto'],
+                    sort: {cadastro : 'desc'}
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        var pageCount = data.pages;
+                        var itemCount = data.total;
 
-                    res.status(200).json({
-                        object: 'list',
-                        has_more: paginate.hasNextPages(req)(pageCount),
-                        data: data.docs,
-                        itemCount: itemCount,
-                        pageCount: pageCount
-                    });
+                        res.status(200).json({
+                            object: 'list',
+                            has_more: paginate.hasNextPages(req)(pageCount),
+                            data: data.docs,
+                            itemCount: itemCount,
+                            pageCount: pageCount
+                        });
+                    }
+
+                    done(err, data);
                 }
-
-                done(err, data);
-            }
-        );
+            );
     },
 
     /**
@@ -57,10 +59,11 @@ var CarrinhoController  = {
      * @param done
      */
     abre: function (req, res, done) {
-        CarrinhoModel.findOne({
-            _id: req.params.id,
-            site: req.headers.site
-        })
+        CarrinhoModel
+            .findOne({
+                _id: req.params.id,
+                site: req.headers.site
+            })
             .populate(['items.produto'])
             .exec(function (err, data) {
                 if (err) {
@@ -93,13 +96,14 @@ var CarrinhoController  = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var carrinho = new CarrinhoModel({
+        var carrinho = {
             cadastro    : (new Date),
             site        : req.headers.site,
             token       : req.body.token,
             valor       : req.body.valor,
-            tipo        : req.body.tipo
-        });
+            tipo        : req.body.tipo,
+            items       : []
+        };
 
         if (req.body.items) {
             req.body.items.forEach(function (item) {
@@ -110,29 +114,32 @@ var CarrinhoController  = {
             });
         }
 
-        carrinho.save(function (err, resultSave) {
-            if (err) {
-                return res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: resultSave,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+        CarrinhoModel
+            .create(
+                carrinho,
+                function (err, resultSave) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: resultSave,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
 
-                res.app.emit('carrinho:adiciona', resultSave);
-            }
+                        res.app.emit('carrinho:adiciona', resultSave);
+                    }
 
-            done(err, resultSave);
-        });
+                    done(err, resultSave);
+                });
     },
 
     /**
@@ -177,7 +184,7 @@ var CarrinhoController  = {
         }
 
         CarrinhoModel
-            .findOneAndUpdate(
+            .update(
                 {
                     _id: req.params.id,
                     site: req.headers.site
@@ -217,33 +224,40 @@ var CarrinhoController  = {
      * @param done
      */
     apaga: function (req, res, done) {
-        CarrinhoModel.remove({
-            _id: req.params.id,
-            site: req.headers.site
-        }, function (err, data) {
-            if (err) {
-                res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(204).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+        CarrinhoModel
+            .remove({
+                _id: req.params.id,
+                site: req.headers.site
+            }, function (err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object: 'error',
+                        has_more: false,
+                        data: err.message,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                } else {
+                    res.status(204).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
 
-                res.app.emit('carrinho.apaga', data);
-            }
+                    res.app.emit('carrinho.apaga', data);
+                }
 
-            done(err, data);
-        });
+                done(err, data);
+            });
     }
 };
 
-module.exports = CarrinhoController;
+router.get('/', CarrinhoEvents, CarrinhoController.lista);
+router.get('/:id', CarrinhoEvents, CarrinhoController.abre);
+router.post('/', CarrinhoEvents, CarrinhoController.adiciona);
+router.put('/:id', CarrinhoEvents, CarrinhoController.atualiza);
+router.delete('/:id', CarrinhoEvents, CarrinhoController.apaga);
+
+module.exports = router;

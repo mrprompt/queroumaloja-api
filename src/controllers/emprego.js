@@ -1,9 +1,9 @@
 'use strict';
 
+var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var striptags           = require('striptags');
-var path                = require('path');
-var EmpregoModel        = require(path.join(__dirname, '/../models/emprego'));
+var EmpregoModel        = require('../../src/models/emprego');
 var EmpregoController   = {
     /**
      * Lista os empregos cadastrados
@@ -13,40 +13,41 @@ var EmpregoController   = {
      * @param done
      */
     lista: function (req, res, done) {
-        EmpregoModel.paginate(
-            {
-                site: req.headers.site
-            },
-            {
-                page: req.query.page,
-                limit: req.query.limit,
-                sort: {cadastro : 'desc'}
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    var pageCount = data.pages;
-                    var itemCount = data.total;
+        EmpregoModel
+            .paginate(
+                {
+                    site: req.headers.site
+                },
+                {
+                    page: req.query.page,
+                    limit: req.query.limit,
+                    sort: {cadastro : 'desc'}
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        var pageCount = data.pages;
+                        var itemCount = data.total;
 
-                    res.status(200).json({
-                        object: 'list',
-                        has_more: paginate.hasNextPages(req)(pageCount),
-                        data: data.docs,
-                        itemCount: itemCount,
-                        pageCount: pageCount
-                    });
+                        res.status(200).json({
+                            object: 'list',
+                            has_more: paginate.hasNextPages(req)(pageCount),
+                            data: data.docs,
+                            itemCount: itemCount,
+                            pageCount: pageCount
+                        });
+                    }
+
+                    done(err, data);
                 }
-
-                done(err, data);
-            }
-        );
+            );
     },
 
     /**
@@ -57,10 +58,11 @@ var EmpregoController   = {
      * @param done
      */
     abre: function (req, res, done) {
-        EmpregoModel.findOne({
-            _id: req.params.id,
-            site: req.headers.site
-        })
+        EmpregoModel
+            .findOne({
+                _id: req.params.id,
+                site: req.headers.site
+            })
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -92,36 +94,38 @@ var EmpregoController   = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var emprego = new EmpregoModel({
-            titulo      : striptags(req.body.titulo),
-            descricao   : striptags(req.body.descricao),
-            cadastro    : (new Date),
-            tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
-            salario     : req.body.salario,
-            site        : req.headers.site
-        });
+        EmpregoModel
+            .create(
+                {
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    cadastro    : (new Date()),
+                    tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
+                    salario     : req.body.salario,
+                    site        : req.headers.site
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-        emprego.save(function (err, data) {
-            if (err) {
-                res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            }
-
-            done(err, data);
-        });
+                    done(err, data);
+                }
+            );
     },
 
     /**
@@ -132,39 +136,40 @@ var EmpregoController   = {
      * @param done
      */
     atualiza: function (req, res, done) {
-        EmpregoModel.update(
-            {
-                _id: req.params.id,
-                site: req.headers.site
-            },
-            {
-                titulo      : striptags(req.body.titulo),
-                descricao   : striptags(req.body.descricao),
-                tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
-                salario     : req.body.salario
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        EmpregoModel
+            .update(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                {
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
+                    salario     : req.body.salario
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            }
-        );
+                    done(err, data);
+                }
+            );
     },
 
     /**
@@ -175,34 +180,41 @@ var EmpregoController   = {
      * @param done
      */
     apaga: function (req, res, done) {
-        EmpregoModel.remove(
-            {
-                _id: req.params.id,
-                site: req.headers.site
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        EmpregoModel
+            .remove(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            }
-        );
+                    done(err, data);
+                }
+            );
     }
 };
 
-module.exports = EmpregoController;
+router.get('/', EmpregoController.lista);
+router.get('/:id', EmpregoController.abre);
+router.post('/', EmpregoController.adiciona);
+router.put('/:id', EmpregoController.atualiza);
+router.delete('/:id', EmpregoController.apaga);
+
+module.exports = router;

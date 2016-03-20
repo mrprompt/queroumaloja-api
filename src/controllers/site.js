@@ -1,9 +1,9 @@
 'use strict';
 
+var router          = require('express').Router();
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var path            = require('path');
-var SiteModel       = require(path.join(__dirname, '/../models/site'));
+var SiteModel       = require('../../src/models/site');
 var SiteController  = {
     /**
      * Lista os sites cadastrados
@@ -13,38 +13,39 @@ var SiteController  = {
      * @param done
      */
     lista: function (req, res, done) {
-        SiteModel.paginate(
-            {},
-            {
-                page: req.query.page,
-                limit: req.query.limit,
-                sort: {cadastro : 'desc'}
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    var pageCount = data.pages;
-                    var itemCount = data.total;
+        SiteModel
+            .paginate(
+                {},
+                {
+                    page: req.query.page,
+                    limit: req.query.limit,
+                    sort: {cadastro : 'desc'}
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        var pageCount = data.pages;
+                        var itemCount = data.total;
 
-                    res.status(200).json({
-                        object: 'list',
-                        has_more: paginate.hasNextPages(req)(pageCount),
-                        data: data.docs,
-                        itemCount: itemCount,
-                        pageCount: pageCount
-                    });
+                        res.status(200).json({
+                            object: 'list',
+                            has_more: paginate.hasNextPages(req)(pageCount),
+                            data: data.docs,
+                            itemCount: itemCount,
+                            pageCount: pageCount
+                        });
+                    }
+
+                    done(err, data);
                 }
-
-                done(err, data);
-            }
-        );
+            );
     },
 
     /**
@@ -55,9 +56,10 @@ var SiteController  = {
      * @param done
      */
     abre: function (req, res, done) {
-        SiteModel.findOne({
-            _id: req.params.id
-        })
+        SiteModel
+            .findOne({
+                _id: req.params.id
+            })
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -89,36 +91,38 @@ var SiteController  = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var site = new SiteModel({
-            nome        : striptags(req.body.nome),
-            dominio     : req.body.dominio,
-            emails      : req.body.emails,
-            enderecos   : req.body.enderecos,
-            telefones   : req.body.telefones,
-            categorias  : req.body.categorias
-        });
+        SiteModel
+            .create(
+                {
+                    nome        : striptags(req.body.nome),
+                    dominio     : req.body.dominio,
+                    emails      : req.body.emails,
+                    enderecos   : req.body.enderecos,
+                    telefones   : req.body.telefones,
+                    categorias  : req.body.categorias
+                },
+                function (err, newSite) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: newSite,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-        site.save(function (err, newSite) {
-            if (err) {
-                res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: newSite,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            }
-
-            done(err, newSite);
-        });
+                    done(err, newSite);
+                }
+            );
     },
 
     /**
@@ -129,39 +133,40 @@ var SiteController  = {
      * @param done
      */
     atualiza: function (req, res, done) {
-        SiteModel.update(
-            {
-                _id: req.params.id
-            },
-            {
-                nome        : striptags(req.body.nome),
-                dominio     : req.body.dominio,
-                emails      : req.body.emails,
-                enderecos   : req.body.enderecos,
-                telefones   : req.body.telefones,
-                categorias  : req.body.categorias
-            }, function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        SiteModel
+            .update(
+                {
+                    _id: req.params.id
+                },
+                {
+                    nome        : striptags(req.body.nome),
+                    dominio     : req.body.dominio,
+                    emails      : req.body.emails,
+                    enderecos   : req.body.enderecos,
+                    telefones   : req.body.telefones,
+                    categorias  : req.body.categorias
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            }
-        );
+                    done(err, data);
+                }
+            );
     },
 
     /**
@@ -172,33 +177,40 @@ var SiteController  = {
      * @param done
      */
     apaga: function (req, res, done) {
-        SiteModel.remove(
-            {
-                _id: req.params.id
-            },
-            function (err, result) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: result,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        SiteModel
+            .remove(
+                {
+                    _id: req.params.id
+                },
+                function (err, result) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: result,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, result);
-            }
-        );
+                    done(err, result);
+                }
+            );
     }
 };
 
-module.exports = SiteController;
+router.get('/', SiteController.lista);
+router.get('/:id', SiteController.abre);
+router.post('/', SiteController.adiciona);
+router.put('/:id', SiteController.atualiza);
+router.delete('/:id', SiteController.apaga);
+
+module.exports = router;

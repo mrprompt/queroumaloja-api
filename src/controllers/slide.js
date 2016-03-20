@@ -1,9 +1,11 @@
 'use strict';
 
+var router          = require('express').Router();
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var path            = require('path');
-var SlideModel      = require(path.join(__dirname, '/../models/slide'));
+var multer          = require('multer');
+var upload          = require('../../src/modules/upload');
+var SlideModel      = require('../../src/models/slide');
 var SlideController = {
     /**
      * Lista os slides
@@ -92,36 +94,37 @@ var SlideController = {
      * @param done
      */
     adiciona: function (req, res, done) {
-        var slide = new SlideModel({
-            titulo      : striptags(req.body.titulo),
-            descricao   : striptags(req.body.descricao),
-            endereco    : req.body.endereco,
-            imagem      : req.body.imagem,
-            cadastro    : req.body.cadastro,
-            site        : req.headers.site
-        });
+        SlideModel.create(
+            {
+                titulo      : striptags(req.body.titulo),
+                descricao   : striptags(req.body.descricao),
+                endereco    : req.body.endereco,
+                imagem      : req.body.imagem,
+                cadastro    : req.body.cadastro,
+                site        : req.headers.site
+            },
+            function (err, data) {
+                if (err) {
+                    res.status(500).json({
+                        object: 'error',
+                        has_more: false,
+                        data: err.message,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                } else {
+                    res.status(201).json({
+                        object: 'object',
+                        has_more: false,
+                        data: data,
+                        itemCount: 1,
+                        pageCount: 1
+                    });
+                }
 
-        slide.save(function (err, data) {
-            if (err) {
-                res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(201).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
+                done(err, data);
             }
-
-            done(err, data);
-        });
+        );
     },
 
     /**
@@ -139,34 +142,35 @@ var SlideController = {
             imagem      : req.body.imagem
         };
 
-        SlideModel.update(
-            {
-                _id: req.params.id,
-                site: req.headers.site
-            },
-            dados,
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        SlideModel
+            .update(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                dados,
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            }
-        );
+                    done(err, data);
+                }
+            );
     },
 
     /**
@@ -177,34 +181,41 @@ var SlideController = {
      * @param done
      */
     apaga: function (req, res, done) {
-        SlideModel.remove(
-            {
-                _id: req.params.id,
-                site: req.headers.site
-            },
-            function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        SlideModel
+            .remove(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            }
-        );
+                    done(err, data);
+                }
+            );
     }
 };
 
-module.exports = SlideController;
+router.get('/', SlideController.lista);
+router.get('/:id', SlideController.abre);
+router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, SlideController.adiciona);
+router.put('/:id', SlideController.atualiza);
+router.delete('/:id', SlideController.apaga);
+
+module.exports = router;

@@ -1,12 +1,11 @@
 'use strict';
 
-var path            = require('path');
-var UsuarioModel    = require(path.join(__dirname, '/../models/usuario'));
-var TokenModel      = require(path.join(__dirname, '/../models/token'));
+var router          = require('express').Router();
+var UsuarioModel    = require('../../src/models/usuario');
+var TokenModel      = require('../../src/models/token');
 var TokenAdapter    = require('token');
 var bcrypt          = require('bcrypt');
 var salt            = process.env.PASSWORD_SALT;
-
 var LoginController = {
     /**
      * Efetua um login e adquire um token de acesso
@@ -53,43 +52,46 @@ var LoginController = {
                     var validade = new Date();
                         validade.setDate(validade.getDate() + 7);
 
-                    var usertoken = new TokenModel({
-                        usuario : user._id,
-                        cadastro: (new Date()),
-                        validade: validade,
-                        conteudo: TokenAdapter.generate(user._id + '|' + user.email)
-                    });
+                    TokenModel.create(
+                        {
+                            usuario : user._id,
+                            cadastro: (new Date()),
+                            validade: validade,
+                            conteudo: TokenAdapter.generate(user._id + '|' + user.email)
+                        },
+                        function (err, data) {
+                            delete data.usuario;
 
-                    usertoken.save(function (err, data) {
-                        delete data.usuario;
+                            if (err) {
+                                res.status(500).json({
+                                    object: 'error',
+                                    has_more: false,
+                                    data: err.message,
+                                    itemCount: 1,
+                                    pageCount: 1
+                                });
+                            } else {
+                                res.status(201).json({
+                                    object: 'object',
+                                    has_more: false,
+                                    data: {
+                                        usuario : user,
+                                        token   : data,
+                                        site    : req.app.site
+                                    },
+                                    itemCount: 1,
+                                    pageCount: 1
+                                });
+                            }
 
-                        if (err) {
-                            res.status(500).json({
-                                object: 'error',
-                                has_more: false,
-                                data: err.message,
-                                itemCount: 1,
-                                pageCount: 1
-                            });
-                        } else {
-                            res.status(201).json({
-                                object: 'object',
-                                has_more: false,
-                                data: {
-                                    usuario : user,
-                                    token   : data,
-                                    site    : req.app.site
-                                },
-                                itemCount: 1,
-                                pageCount: 1
-                            });
+                            return done(err, data);
                         }
-
-                        return done(err, data);
-                    });
+                    );
                 }
             });
     }
 };
 
-module.exports = LoginController;
+router.post('/', LoginController.adiciona);
+
+module.exports = router;
