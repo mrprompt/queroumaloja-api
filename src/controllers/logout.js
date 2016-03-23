@@ -10,10 +10,10 @@ var LogoutController    = {
      * @param done
      */
     logout: function(req, res, done) {
-        res.status(200).json({
+        res.status(204).json({
             object      : 'object',
             has_more    : false,
-            data        : [],
+            data        : {},
             itemCount   : 1,
             pageCount   : 1
         });
@@ -22,6 +22,6 @@ var LogoutController    = {
     }
 };
 
-router.post('/', LogoutController.logout);
+router.delete('/', LogoutController.logout);
 
 module.exports = router;
