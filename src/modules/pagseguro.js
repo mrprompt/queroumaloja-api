@@ -1,6 +1,6 @@
 'use strict';
 
-var Pagseguro = require('pagseguro'),
+var Pagseguro = require('pagseguro.js'),
     CarrinhoModel = require('../models/carrinho');
 
 var api = {
