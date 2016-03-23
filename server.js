@@ -30,6 +30,7 @@ var Login           = require('./src/controllers/login');
 var Logout          = require('./src/controllers/logout');
 var PagarMeWorker   = require('./src/workers/pagarme');
 var LocalWorker     = require('./src/workers/local');
+var PagSeguroWorker = require('./src/workers/pagseguro');
 
 /**
  *  Define the application.
@@ -64,6 +65,7 @@ var Application = function () {
     self.createWorkers = function () {
         PagarMeWorker.checaTransacao();
         LocalWorker.checaTransacao();
+        PagSeguroWorker.checaTransacao();
     };
 
     /**
