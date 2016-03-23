@@ -50,7 +50,7 @@ var CarrinhoSchema  = new mongoose.Schema({
         lowercase: true,
         trim: true,
         required: true,
-        enum: ['local', 'pagarme'],
+        enum: ['local', 'pagarme', 'pagseguro'],
         default: 'local'
     },
     cadastro: {
