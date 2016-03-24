@@ -1,9 +1,9 @@
 'use strict';
 
-var path    = require('path'),
-    mail    = require(path.join(__dirname, '/../modules/mail')),
-    pagarme = require(path.join(__dirname, '/../modules/pagarme')),
-    pagseguro = require(path.join(__dirname, '/../modules/pagseguro'));
+var path        = require('path'),
+    mail        = require(path.join(__dirname, '/../modules/mail')),
+    pagarme     = require(path.join(__dirname, '/../modules/pagarme')),
+    pagseguro   = require(path.join(__dirname, '/../modules/pagseguro'));
 
 var router = function(req, res, done) {
     res.app.on('carrinho:adiciona', function(carrinho) {

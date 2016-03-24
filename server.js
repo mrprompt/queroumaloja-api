@@ -64,8 +64,8 @@ var Application = function () {
      */
     self.createWorkers = function () {
         PagarMeWorker.checaTransacao();
-        LocalWorker.checaTransacao();
         PagSeguroWorker.checaTransacao();
+        LocalWorker.checaTransacao();
     };
 
     /**

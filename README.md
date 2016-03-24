@@ -7,9 +7,11 @@
 API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
 
 ### Pré Requisitos
+
 - Sendgrid (Envio de e-mails de aviso)
 - Cloudinary (Armazenamento)
-- Pagar-me (Pagamentos)
+- Pagar-me (Pagamentos) - opcional
+- PagSeguro (Pagamentos) - opcional
 
 ### Instalação
 
