@@ -26,6 +26,53 @@ var ProdutoSchema   = new mongoose.Schema({
     imagem: {
         type: Object
     },
+    album:  [
+        new mongoose.Schema({
+            public_id: {
+                type: String
+            },
+            version: {
+                type: String
+            },
+            signature: {
+                type: String
+            },
+            width: {
+                type: Number
+            },
+            height: {
+                type: Number
+            },
+            format: {
+                type: String
+            },
+            resource_type: {
+                type: String
+            },
+            created_at: {
+                type: Date,
+                default: Date.now
+            },
+            tags: {
+                type: []
+            },
+            bytes: {
+                type: Number
+            },
+            type: {
+                type: String
+            },
+            etag: {
+                type: String
+            },
+            url: {
+                type: String
+            },
+            secure_url: {
+                type: String
+            }
+        })
+    ],
     cadastro: {
         type: Date,
         default: Date.now

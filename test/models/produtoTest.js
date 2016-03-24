@@ -9,7 +9,18 @@ describe('Produto Model', function () {
     it('inicia sem erros', function (done) {
         var produto = new Produto();
 
+        should(produto).have.property('id');
         should(produto.isNew).is.exactly(true);
+        should(produto.codigo).is.exactly('');
+        should(produto.titulo).is.exactly(undefined);
+        should(produto.descricao).is.exactly(undefined);
+        should(produto.valor).is.exactly(0.00);
+        should(produto.ativo).is.exactly(true);
+        should(produto.categoria).is.exactly(undefined);
+        should(produto.imagem).is.exactly(undefined);
+        should(produto.album).is.a.Array();
+        should(produto.cadastro).be.instanceOf(Date);
+        should(produto.site).is.exactly(undefined);
 
         done();
     });
