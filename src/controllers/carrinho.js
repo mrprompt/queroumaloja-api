@@ -2,7 +2,6 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var CarrinhoEvents      = require('../../src/events/carrinho');
 var CarrinhoModel       = require('../../src/models/carrinho');
 var CarrinhoController  = {
     /**
@@ -254,10 +253,10 @@ var CarrinhoController  = {
     }
 };
 
-router.get('/', CarrinhoEvents, CarrinhoController.lista);
-router.get('/:id', CarrinhoEvents, CarrinhoController.abre);
-router.post('/', CarrinhoEvents, CarrinhoController.adiciona);
-router.put('/:id', CarrinhoEvents, CarrinhoController.atualiza);
-router.delete('/:id', CarrinhoEvents, CarrinhoController.apaga);
+router.get('/', CarrinhoController.lista);
+router.get('/:id', CarrinhoController.abre);
+router.post('/', CarrinhoController.adiciona);
+router.put('/:id', CarrinhoController.atualiza);
+router.delete('/:id', CarrinhoController.apaga);
 
 module.exports = router;
