@@ -20,37 +20,39 @@ router.all('*', function(req, res, next) {
                 status  : 500
             },
             itemCount   : 0,
-            pageCount   : 1
+            pageCount   : 0
         });
 
         return false;
     }
 
-    SiteModel.findOne({
-        _id: req.headers.site
-    })
-    .exec(function(err, data) {
-        if (err) {
-            res
-                .status(403)
-                .json({
-                    object      : 'object',
-                    has_more    : false,
-                    data        : {
-                        message : 'Site não encontrado',
-                        status  : 404
-                    },
-                    itemCount   : 0,
-                    pageCount   : 1
-                });
+    SiteModel
+        .findOne({
+            _id: req.headers.site,
+            ativo: true
+        })
+        .exec(function(err, data) {
+            if (err) {
+                res
+                    .status(403)
+                    .json({
+                        object      : 'object',
+                        has_more    : false,
+                        data        : {
+                            message : 'Site não encontrado',
+                            status  : 404
+                        },
+                        itemCount   : 0,
+                        pageCount   : 0
+                    });
 
-            return false;
-        }
+                return false;
+            }
 
-        req.app.site = data;
+            req.app.site = data;
 
-        next();
-    });
+            next();
+        });
 });
 
 module.exports = router;

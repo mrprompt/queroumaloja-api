@@ -9,8 +9,6 @@ var api = {
             return;
         }
 
-        var pagseguro = new Pagseguro();
-
         var compra = Pagseguro({
             'name' : site.config[0].pagseguro.name,
             'email': site.config[0].pagseguro.email,

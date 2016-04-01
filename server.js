@@ -1,7 +1,5 @@
 'use strict';
 
-GLOBAL._ = require('underscore');
-
 const PAGINATION = {
     MIN: 10,
     MAX: 1000

@@ -22,6 +22,10 @@ var SiteSchema  = new mongoose.Schema({
     },
     config: {
         type: []
+    },
+    ativo: {
+        type: Boolean,
+        default: false
     }
 })
     .plugin(require('mongoose-paginate'))
@@ -29,6 +33,7 @@ var SiteSchema  = new mongoose.Schema({
     .set('toJSON', {
         transform: function(doc, ret, options) {
             delete ret.config;
+            delete ret.ativo;
 
             return ret;
         }

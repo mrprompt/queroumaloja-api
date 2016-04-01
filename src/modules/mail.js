@@ -1,7 +1,8 @@
 'use strict';
 
+var _        = require('underscore');
 var SendGrid = require('sendgrid');
-var mail   = {
+var mail     = {
     /**
      * Aviso de compra por email
      *

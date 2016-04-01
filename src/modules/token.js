@@ -1,6 +1,7 @@
 'use strict';
 
 var path        = require('path');
+var _           = require('underscore');
 var router      = require('express').Router();
 var TokenModel  = require(path.join(__dirname, '/../models/token'));
 var routes = [
@@ -23,7 +24,6 @@ var routes = [
     '/produto|PUT',
     '/produto|DELETE',
     '/site|GET',
-    '/site|POST',
     '/site|PUT',
     '/site|DELETE',
     '/slide|POST',
