@@ -23,6 +23,7 @@ describe('Produto Model', function () {
         should(produto.album).is.a.Array();
         should(produto.cadastro).be.instanceOf(Date);
         should(produto.site).is.exactly(undefined);
+        should(produto.valores).is.a.Array();
 
         done();
     });
@@ -31,10 +32,35 @@ describe('Produto Model', function () {
         var dados = {
             titulo      : 'Quam diu etiam furor iste tuus nos eludet?',
             descricao   : 'Paullum deliquit, ponderibus modulisque suis ratio utitur.',
-            imagem      : {},
+            imagem      : {
+                public_id: 'xxx',
+                version: 1,
+                signature: 'xx',
+                width: 100,
+                height: 100,
+                format: 'jpeg',
+                resource_type: 'foo',
+                created_at: (new Date),
+                tags: [],
+                bytes: 1,
+                type: 'image',
+                etag: 'foo',
+                url: 'foo',
+                secure_url: 'foo'
+            },
             site        : new ObjectId(),
             codigo      : 'Petierunt',
             valor       : 0.01,
+            valores: [
+                {
+                    nome: 'promoção',
+                    valor: 0.01
+                },
+                {
+                    nome: 'desconto',
+                    valor: 0.02
+                }
+            ],
             categoria   : {
                 titulo      : 'Paullum deliquit, ponderibus modulisque suis ratio utitur.',
                 uri         : 'http://localhost/',
@@ -56,9 +82,10 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(dados.titulo);
         should(produto.descricao).is.exactly(dados.descricao);
         should(produto.valor).is.exactly(dados.valor);
+        should(produto.valores).is.a.Array();
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(dados.categoria);
-        should(produto.imagem).is.exactly(dados.imagem);
+        should(produto.imagem).is.a.Object(dados.imagem);
         should(produto.album).is.a.Array();
         should(produto.cadastro).be.instanceOf(Date);
         should(produto.site).is.exactly(dados.site);
@@ -70,10 +97,35 @@ describe('Produto Model', function () {
         var dados = {
             titulo      : 'Quam diu etiam furor iste tuus nos eludet?',
             descricao   : 'Paullum deliquit, ponderibus modulisque suis ratio utitur.',
-            imagem      : {},
+            imagem      : {
+                public_id: 'xxx',
+                version: 1,
+                signature: 'xx',
+                width: 100,
+                height: 100,
+                format: 'jpeg',
+                resource_type: 'foo',
+                created_at: (new Date),
+                tags: [],
+                bytes: 1,
+                type: 'image',
+                etag: 'foo',
+                url: 'foo',
+                secure_url: 'foo'
+            },
             site        : new ObjectId(),
             codigo      : 'Petierunt',
-            valor       : 0.01,
+            valor       : 0.10,
+            valores: [
+                {
+                    nome: 'promoção',
+                    valor: 0.01
+                },
+                {
+                    nome: 'desconto',
+                    valor: 0.02
+                }
+            ],
             categoria   : {
                 titulo      : 'Paullum deliquit, ponderibus modulisque suis ratio utitur.',
                 uri         : 'http://localhost/',
@@ -112,9 +164,10 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(dados.titulo);
         should(produto.descricao).is.exactly(dados.descricao);
         should(produto.valor).is.exactly(dados.valor);
+        should(produto.valores).is.a.Array();
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(dados.categoria);
-        should(produto.imagem).is.exactly(dados.imagem);
+        should(produto.imagem).is.a.Object(dados.imagem);
         should(produto.album).is.a.Array();
         should(produto.cadastro).be.instanceOf(Date);
         should(produto.site).is.exactly(dados.site);
@@ -149,6 +202,7 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(undefined);
         should(produto.descricao).is.exactly(undefined);
         should(produto.valor).is.exactly(0.00);
+        should(produto.valores).is.a.Array();
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(undefined);
         should(produto.imagem).is.exactly(undefined);
@@ -161,7 +215,22 @@ describe('Produto Model', function () {
         var dados = {
             titulo      : 'Quam diu etiam furor iste tuus nos eludet?',
             descricao   : 'Paullum deliquit, ponderibus modulisque suis ratio utitur.',
-            imagem      : {},
+            imagem      : {
+                public_id: 'xxx',
+                version: 1,
+                signature: 'xx',
+                width: 100,
+                height: 100,
+                format: 'jpeg',
+                resource_type: 'foo',
+                created_at: (new Date),
+                tags: [],
+                bytes: 1,
+                type: 'image',
+                etag: 'foo',
+                url: 'foo',
+                secure_url: 'foo'
+            },
             site        : new ObjectId(),
             codigo      : 'Petierunt',
             valor       : 0.01,
@@ -204,7 +273,7 @@ describe('Produto Model', function () {
         should(produto.valor).is.exactly(dados.valor);
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(dados.categoria);
-        should(produto.imagem).is.exactly(dados.imagem);
+        should(produto.imagem).is.a.Object(dados.imagem);
         should(produto.album).is.a.Array();
         should(produto.cadastro).be.instanceOf(Date);
         should(produto.site).is.exactly(dados.site);

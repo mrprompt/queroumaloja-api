@@ -16,6 +16,17 @@ var ProdutoSchema   = new mongoose.Schema({
         type: Number,
         default: 0.00
     },
+    valores: [
+        new mongoose.Schema({
+            valor: {
+                type: Number,
+                default: 0.00
+            },
+            nome: {
+                type: String
+            }
+        })
+    ],
     categoria: {
         type: Object
     },
@@ -23,9 +34,51 @@ var ProdutoSchema   = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    imagem: {
-        type: Object
-    },
+    imagem: new mongoose.Schema({
+        public_id: {
+            type: String
+        },
+        version: {
+            type: String
+        },
+        signature: {
+            type: String
+        },
+        width: {
+            type: Number
+        },
+        height: {
+            type: Number
+        },
+        format: {
+            type: String
+        },
+        resource_type: {
+            type: String
+        },
+        created_at: {
+            type: Date,
+            default: Date.now
+        },
+        tags: {
+            type: []
+        },
+        bytes: {
+            type: Number
+        },
+        type: {
+            type: String
+        },
+        etag: {
+            type: String
+        },
+        url: {
+            type: String
+        },
+        secure_url: {
+            type: String
+        }
+    }),
     album:  [
         new mongoose.Schema({
             public_id: {
