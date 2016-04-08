@@ -12,24 +12,35 @@ var ProdutoSchema   = new mongoose.Schema({
     descricao: {
         type: String
     },
-    valor: {
-        type: Number,
-        default: 0.00
-    },
-    valores: [
+    valor: [
         new mongoose.Schema({
             valor: {
                 type: Number,
                 default: 0.00
             },
             nome: {
-                type: String
+                type: String,
+                required: true
+            },
+            moeda: {
+                type: String,
+                default: 'R$'
             }
         })
     ],
-    categoria: {
-        type: Object
-    },
+    categoria: new mongoose.Schema({
+        nome: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        uri: {
+            type: String,
+            required: true,
+            trim: true,
+            lowercase: true
+        }
+    }),
     ativo: {
         type: Boolean,
         default: true
@@ -126,13 +137,43 @@ var ProdutoSchema   = new mongoose.Schema({
             }
         })
     ],
-    cadastro: {
-        type: Date,
-        default: Date.now
+    estoque: {
+        type: Number,
+        default: 0
     },
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
+    },
+    dimensoes: new mongoose.Schema({
+        altura: {
+            type: Number
+        },
+        largura: {
+            type: Number
+        },
+        comprimento: {
+            type: Number
+        },
+        unidade: {
+            type: String
+        }
+    }),
+    peso: new mongoose.Schema({
+        total: {
+            type: Number
+        },
+        unidade: {
+            type: String
+        }
+    }),
+    cadastro: {
+        type: Date,
+        default: Date.now
+    },
+    atualizacao: {
+        type: Date,
+        default: Date.now
     }
 })
     .plugin(require('mongoose-paginate'))
