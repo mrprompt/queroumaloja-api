@@ -3,7 +3,8 @@
 var mongoose    = require('mongoose');
 var SiteSchema  = new mongoose.Schema({
     nome: {
-        type: String
+        type: String,
+        required: true
     },
     dominio: {
         type: String,

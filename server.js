@@ -26,9 +26,7 @@ var Slide           = require('./src/controllers/slide');
 var Usuario         = require('./src/controllers/usuario');
 var Login           = require('./src/controllers/login');
 var Logout          = require('./src/controllers/logout');
-var PagarMeWorker   = require('./src/workers/pagarme');
-var LocalWorker     = require('./src/workers/local');
-var PagSeguroWorker = require('./src/workers/pagseguro');
+var LocalWorker     = require('./src/workers/carrinho');
 
 /**
  *  Define the application.
@@ -61,8 +59,6 @@ var Application = function () {
      * Load Workers
      */
     self.createWorkers = function () {
-        PagarMeWorker.checaTransacao();
-        PagSeguroWorker.checaTransacao();
         LocalWorker.checaTransacao();
     };
 

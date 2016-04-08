@@ -25,17 +25,6 @@ var UsuarioSchema   = new mongoose.Schema({
     cadastro: {
         type: Date,
         default: Date.now
-    },
-    localidade: {
-        cidade: {
-            type: String
-        },
-        estado: {
-            type: String
-        },
-        uf: {
-            type: String
-        }
     }
 })
     .plugin(require('mongoose-paginate'))
