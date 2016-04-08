@@ -28,7 +28,7 @@ describe('Index Controller Test', function () {
         mockery.disable()
     });
 
-    it('#lista() deve retornar um array e status 200', function (done) {
+    it('#lista() deve retornar um objeto e status 200', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
@@ -40,6 +40,9 @@ describe('Index Controller Test', function () {
             query: {
                 page: 1,
                 limit: 1
+            },
+            app: {
+                site: {}
             }
         });
 
