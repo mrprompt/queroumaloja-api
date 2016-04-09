@@ -26,6 +26,7 @@ var Slide           = require('./src/controllers/slide');
 var Usuario         = require('./src/controllers/usuario');
 var Login           = require('./src/controllers/login');
 var Logout          = require('./src/controllers/logout');
+var Senha           = require('./src/controllers/senha');
 var LocalWorker     = require('./src/workers/carrinho');
 
 /**
@@ -53,6 +54,7 @@ var Application = function () {
         self.app.use('/usuario', cors, site, token, Usuario);
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
+        self.app.use('/senha', cors, site, token, Senha);
     };
 
     /**
