@@ -16,28 +16,12 @@ var api = {
         });
         
         return compra.transactions(carrinho.token, function(error, response, transaction) {
-                if (error || response.statusCode === 404) {
-                    console.error(error);
-
-                    done();
-
-                    return false;
+                if (error || response.statusCode === 404 || transaction === undefined) {
+                    transaction = {
+                        status: 7,
+                        grossAmount: 0
+                    };
                 }
-
-                var comprador = {
-                    nome    : transaction.sender.name,
-                    email   : transaction.sender.email,
-                    telefone: transaction.sender.phone.areaCode + transaction.sender.phone.number,
-                    endereco: {
-                        logradouro  : transaction.shipping.address.street,
-                        numero      : transaction.shipping.address.number,
-                        complemento : transaction.shipping.address.complement,
-                        bairro      : transaction.shipping.address.district,
-                        cep         : transaction.shipping.address.postalCode,
-                        cidade      : transaction.shipping.address.city,
-                        estado      : transaction.shipping.address.state
-                    }
-                };
 
                 var status = 'aguardando';
 
@@ -68,6 +52,10 @@ var api = {
                     case 7:
                         status = 'recusado';
                         break;
+
+                    default:
+                        status = 'recusado';
+                        break;
                 }
 
                 CarrinhoModel
@@ -77,8 +65,10 @@ var api = {
                         },
                         {
                             status      : status,
-                            comprador   : comprador,
                             valor       : transaction.grossAmount
+                        },
+                        {
+                            new: true
                         },
                         function (err, row) {
                             if (err) {
