@@ -170,6 +170,21 @@ var SiteSchema  = new mongoose.Schema({
             ]
         })
     ],
+    entrega: [
+        mongoose.Schema({
+            modalidade: {
+                type: String,
+                required: true,
+                lowercase: true,
+                trim: true,
+                enum: ['pac', 'sedex', 'transportadora', 'moto', 'proprio', 'outro', 'nenhuma']
+            },
+            valor: {
+                type: Number,
+                default: 0.00
+            }
+        })
+    ],
     ativo: {
         type: Boolean,
         default: false
