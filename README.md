@@ -1,4 +1,4 @@
-# API
+# Quero Uma Loja - API
 
 Master : [![Build Status](https://travis-ci.org/mrprompt/queroumaloja-api-server.svg?branch=master)](https://travis-ci.org/mrprompt/queroumaloja-api-server)
 Develop: [![Build Status](https://travis-ci.org/mrprompt/queroumaloja-api-server.svg?branch=develop)](https://travis-ci.org/mrprompt/queroumaloja-api-server)
