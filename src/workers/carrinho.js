@@ -37,6 +37,10 @@ var api = {
                             case 'pagarme':
                                 return PagarMe.checaTransacao(carrinho, carrinho.site, api.atualizaProdutos);
                             break;
+
+                            case 'local':
+                                return api.atualizaProdutos(carrinho);
+                            break;
                         }
                     });
                 });
@@ -52,7 +56,7 @@ var api = {
         if (carrinho.status !== 'pago') {
             return;
         }
-        
+
         carrinho.items.forEach(function(item) {
             ProdutoModel
                 .findOneAndUpdate(
