@@ -11,6 +11,19 @@ describe('Logout Controller Test', function () {
             warnOnReplace: false
         });
 
+        mockery.registerMock('../../src/models/token', {
+            findOne: function(x) {
+                return {
+                    populate: function() {
+                        return []
+                    }
+                }
+            },
+            remove: function(x, end) {
+                end(null, {});
+            }
+        });
+
         this.controller = require('../../src/controllers/logout');
     });
 
@@ -26,6 +39,11 @@ describe('Logout Controller Test', function () {
             url: '/',
             headers: {
                 site: 1
+            },
+            app: {
+                usuario: {
+                    _id: 1
+                }
             }
         });
 
