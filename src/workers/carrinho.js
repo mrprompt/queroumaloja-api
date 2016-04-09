@@ -10,7 +10,7 @@ var CarrinhoModel   = require('../models/carrinho'),
 var api = {
     /**
      * Inicia o timer de checagem dos carrinhos em processamento
-     * 
+     *
      */
     checaTransacao: function () {
         setInterval(function() {
@@ -49,6 +49,10 @@ var api = {
      * @param carrinho
      */
     atualizaProdutos: function(carrinho) {
+        if (carrinho.status !== 'pago') {
+            return;
+        }
+        
         carrinho.items.forEach(function(item) {
             ProdutoModel
                 .findOneAndUpdate(
