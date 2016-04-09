@@ -102,6 +102,7 @@ var CarrinhoController  = {
             token       : req.body.token,
             valor       : req.body.valor,
             tipo        : req.body.tipo,
+            entrega     : req.body.entrega,
             items       : []
         };
 
