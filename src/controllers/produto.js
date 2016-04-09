@@ -88,17 +88,27 @@ var ProdutoController = {
                         object: 'error',
                         has_more: false,
                         data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
+                        itemCount: 0,
+                        pageCount: 0
                     });
                 } else {
-                    res.status(200).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
+                    if (data === null) {
+                        res.status(404).json({
+                            object: 'error',
+                            has_more: false,
+                            data: 'Produto não encontrado',
+                            itemCount: 0,
+                            pageCount: 0
+                        });
+                    } else {
+                        res.status(200).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
                 }
 
                 done(err, data);
