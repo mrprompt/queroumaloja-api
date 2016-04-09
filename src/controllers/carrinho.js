@@ -101,7 +101,8 @@ var CarrinhoController  = {
             token       : req.body.token,
             valor       : req.body.valor,
             tipo        : req.body.tipo,
-            items       : []
+            items       : [],
+            comprador   : req.app.usuario._id
         };
 
         if (req.body.items) {
@@ -184,7 +185,8 @@ var CarrinhoController  = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.headers.site,
+                    comprador: req.app.usuario._id
                 },
                 data,
                 function (err, result) {
@@ -222,7 +224,8 @@ var CarrinhoController  = {
         CarrinhoModel
             .remove({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.headers.site,
+                comprador: req.app.usuario._id
             }, function (err, data) {
                 if (err) {
                     res.status(500).json({

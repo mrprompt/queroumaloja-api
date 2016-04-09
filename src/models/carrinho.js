@@ -4,11 +4,13 @@ var mongoose        = require('mongoose');
 var CarrinhoSchema  = new mongoose.Schema({
     site: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site'
+        ref: 'Site',
+        required: true
     },
     comprador: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'Usuario',
+        required: true
     },
     items: [
         new mongoose.Schema({

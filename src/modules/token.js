@@ -9,6 +9,7 @@ var routes = [
     '/aviso|PUT',
     '/aviso|DELETE',
     '/carrinho|GET',
+    '/carrinho|POST',
     '/carrinho|PUT',
     '/carrinho|DELETE',
     '/emprego|POST',
@@ -31,8 +32,7 @@ var routes = [
     '/slide|DELETE',
     '/usuario|GET',
     '/usuario|PUT',
-    '/usuario|DELETE',
-    '/usuario|POST'
+    '/usuario|DELETE'
 ];
 
 router.all('*', function(req, res, next) {
