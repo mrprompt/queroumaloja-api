@@ -179,6 +179,40 @@ describe('Usuario Controller Tests', function () {
         done();
     });
 
+    it('#atualiza() para outro nível deve retornar um objeto e status 204', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'PUT',
+            url: '/1',
+            params: {
+                id: 1
+            },
+            body: {
+                titulo: 'foo',
+                descricao: 'bar bar bar',
+                imagem: {},
+                nivel: 'administrador'
+            },
+            headers: {
+                site: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 204);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
     it('#apaga() deve retornar um objeto e status 204', function (done) {
         var response = http_mocks.createResponse();
 
