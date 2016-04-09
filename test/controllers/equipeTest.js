@@ -11,7 +11,7 @@ describe('Equipe Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/modules/upload', function(req, res, end) {
+        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
             end();
         });
 

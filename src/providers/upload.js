@@ -6,11 +6,11 @@ var router      = require('express').Router();
 router.all('*', function(req, res, done) {
     var site = req.app.site;
 
-    if (site === undefined || site.config[0].cloudinary === undefined) {
+    if (site === undefined || site.config.cloudinary === undefined) {
         return;
     }
 
-    var config = req.app.site.config[0].cloudinary;
+    var config = req.app.site.config.cloudinary;
 
     cloudinary.config({
         cloud_name  : config.cloud_name,

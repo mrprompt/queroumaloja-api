@@ -3,37 +3,7 @@
 var _           = require('underscore');
 var router      = require('express').Router();
 var TokenModel  = require('../models/token');
-var routes = [
-    '/aviso|POST',
-    '/aviso|PUT',
-    '/aviso|DELETE',
-    '/carrinho|GET',
-    '/carrinho|POST',
-    '/carrinho|PUT',
-    '/carrinho|DELETE',
-    '/emprego|POST',
-    '/emprego|PUT',
-    '/emprego|DELETE',
-    '/equipe|POST',
-    '/equipe|PUT',
-    '/equipe|DELETE',
-    '/parceiro|POST',
-    '/parceiro|PUT',
-    '/parceiro|DELETE',
-    '/produto|POST',
-    '/produto|PUT',
-    '/produto|DELETE',
-    '/site|GET',
-    '/site|PUT',
-    '/site|DELETE',
-    '/slide|POST',
-    '/slide|PUT',
-    '/slide|DELETE',
-    '/usuario|GET',
-    '/usuario|PUT',
-    '/usuario|DELETE',
-    '/logout|DELETE'
-];
+var routes      = require('../config/firewall.json');
 
 router.all('*', function(req, res, next) {
     if (req.method === 'OPTIONS' || !_.contains(routes, req.baseUrl + '|' + req.method)) {

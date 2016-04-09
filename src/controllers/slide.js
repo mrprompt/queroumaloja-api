@@ -4,7 +4,7 @@ var router          = require('express').Router();
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
 var multer          = require('multer');
-var upload          = require('../../src/modules/upload');
+var upload          = require('../../src/providers/upload');
 var SlideModel      = require('../../src/models/slide');
 var SlideController = {
     /**

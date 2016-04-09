@@ -5,7 +5,7 @@ var paginate          = require('express-paginate');
 var slugify           = require('slugify');
 var striptags         = require('striptags');
 var multer            = require('multer');
-var upload            = require('../../src/modules/upload');
+var upload            = require('../../src/providers/upload');
 var ProdutoModel      = require('../../src/models/produto');
 var ProdutoController = {
     /**

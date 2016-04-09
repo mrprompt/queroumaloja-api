@@ -1,6 +1,5 @@
 'use strict';
 
-var _        = require('underscore');
 var SendGrid = require('sendgrid');
 var mail     = {
     /**
@@ -10,13 +9,13 @@ var mail     = {
      * @param done
      */
     avisoDeCompra: function (carrinho, done) {
-        if (site === null || site.config[0].sendgrid === undefined || !_.contains(['pago', 'autorizado'], carrinho.status)) {
+        if (site === null || carrinho.site.config.sendgrid === undefined || carrinho.status !== 'pago') {
             return;
         }
 
-        var sender = new SendGrid(site.config[0].sendgrid.token);
+        var sender = new SendGrid(carrinho.site.config.sendgrid.token);
         var email  = new sender.Email({
-            to      : site.emails[0],
+            to      : carrinho.site.emails,
             from    : carrinho.comprador.email,
             subject : ' ',
             html    : ' '
@@ -26,7 +25,7 @@ var mail     = {
             'templates': {
                 'settings': {
                     'enable': 1,
-                    'template_id': site.config[0].sendgrid.template.carrinho_adiciona
+                    'template_id': carrinho.site.config.sendgrid.template.carrinho_adiciona
                 }
             }
         });
@@ -37,7 +36,6 @@ var mail     = {
         email.addSubstitution("%valor%", carrinho.valor);
         email.addSubstitution("%items%", carrinho.items.length);
 
-        /*
         sender.send(email, function (err, json) {
             if (err) {
                 return console.error(err);
@@ -47,8 +45,6 @@ var mail     = {
                 done(json);
             }
         });
-        */
-        console.log(carrinho);
     }
 };
 
