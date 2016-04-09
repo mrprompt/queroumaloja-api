@@ -130,6 +130,9 @@ describe('Carrinho Controller Tests', function () {
             app: {
                 usuario: {
                     id: 1
+                },
+                site: {
+                    id: 1
                 }
             }
         });
