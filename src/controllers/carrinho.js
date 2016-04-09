@@ -20,7 +20,7 @@ var CarrinhoController  = {
                 {
                     page: req.query.page,
                     limit: req.query.limit,
-                    populate: ['items.produto'],
+                    populate: ['items.produto', 'comprador'],
                     sort: {cadastro : 'desc'}
                 },
                 function (err, data) {
@@ -63,7 +63,7 @@ var CarrinhoController  = {
                 _id: req.params.id,
                 site: req.headers.site
             })
-            .populate(['items.produto'])
+            .populate(['items.produto', 'comprador'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -97,12 +97,12 @@ var CarrinhoController  = {
     adiciona: function (req, res, done) {
         var carrinho = {
             cadastro    : (new Date),
-            site        : req.headers.site,
+            site        : req.app.site._id,
+            comprador   : req.app.usuario._id,
             token       : req.body.token,
             valor       : req.body.valor,
             tipo        : req.body.tipo,
-            items       : [],
-            comprador   : req.app.usuario._id
+            items       : []
         };
 
         if (req.body.items) {
