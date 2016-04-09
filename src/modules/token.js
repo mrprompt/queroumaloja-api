@@ -32,7 +32,8 @@ var routes = [
     '/slide|DELETE',
     '/usuario|GET',
     '/usuario|PUT',
-    '/usuario|DELETE'
+    '/usuario|DELETE',
+    '/logout|DELETE'
 ];
 
 router.all('*', function(req, res, next) {
