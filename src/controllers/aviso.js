@@ -16,8 +16,7 @@ var AvisoController = {
         AvisoModel
             .paginate(
                 {
-                    site    : req.headers.site,
-                    ativo   : true
+                    site    : req.headers.site
                 },
                 {
                     page    : req.query.page,
@@ -64,8 +63,7 @@ var AvisoController = {
         AvisoModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site,
-                ativo: true
+                site: req.headers.site
             })
             .exec(function (err, data) {
                 if (err) {
@@ -109,8 +107,7 @@ var AvisoController = {
                     tipo     : striptags(req.body.tipo),
                     inicio   : new Date(req.body.inicio),
                     fim      : new Date(req.body.fim),
-                    site     : req.headers.site,
-                    ativo    : true
+                    site     : req.headers.site
                 },
                 function(err, data) {
                     if (err) {

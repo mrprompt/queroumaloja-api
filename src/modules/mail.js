@@ -7,10 +7,9 @@ var mail     = {
      * Aviso de compra por email
      *
      * @param carrinho
-     * @param site
      * @param done
      */
-    avisoDeCompra: function (carrinho, site, done) {
+    avisoDeCompra: function (carrinho, done) {
         if (site === null || site.config[0].sendgrid === undefined || !_.contains(['pago', 'autorizado'], carrinho.status)) {
             return;
         }
@@ -38,6 +37,7 @@ var mail     = {
         email.addSubstitution("%valor%", carrinho.valor);
         email.addSubstitution("%items%", carrinho.items.length);
 
+        /*
         sender.send(email, function (err, json) {
             if (err) {
                 return console.error(err);
@@ -47,6 +47,8 @@ var mail     = {
                 done(json);
             }
         });
+        */
+        console.log(carrinho);
     }
 };
 

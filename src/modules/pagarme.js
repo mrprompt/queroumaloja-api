@@ -15,30 +15,7 @@ var api = {
         return pagarme
             .transaction
             .findById(carrinho.token)
-            .then(function(transaction, error) {
-                if (error) {
-                    console.error(error);
-
-                    done();
-
-                    return false;
-                }
-
-                var comprador = {
-                    nome    : transaction.customer.name,
-                    email   : transaction.customer.email,
-                    telefone: transaction.phone.ddd + transaction.phone.number,
-                    endereco: {
-                        logradouro  : transaction.address.street,
-                        numero      : transaction.address.street_number,
-                        complemento : transaction.address.complementary,
-                        bairro      : transaction.address.neighborhood,
-                        cep         : transaction.address.zipcode,
-                        cidade      : transaction.address.city,
-                        estado      : transaction.address.state
-                    }
-                };
-
+            .then(function(transaction) {
                 var status = 'aguardando';
 
                 switch (transaction.status) {
@@ -69,6 +46,10 @@ var api = {
                     case 'refused':
                         status = 'recusado';
                         break;
+
+                    default:
+                        status = 'recusado';
+                        break;
                 }
 
                 CarrinhoModel
@@ -78,8 +59,10 @@ var api = {
                         },
                         {
                             status      : status,
-                            comprador   : comprador,
-                            valor       : transaction.amount
+                            valor       : transaction.amount || 0
+                        },
+                        {
+                            new: true
                         },
                         function (err, row) {
                             if (err) {

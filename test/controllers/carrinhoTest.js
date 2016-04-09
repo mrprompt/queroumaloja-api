@@ -121,11 +121,19 @@ describe('Carrinho Controller Tests', function () {
             body: {
                 token: 'foo',
                 valor: 'bar',
-                tipo: 'foo',
+                tipo: 'foo'
             },
             url: '/',
             headers: {
                 site: 1
+            },
+            app: {
+                usuario: {
+                    id: 1
+                },
+                site: {
+                    id: 1
+                }
             }
         });
 
@@ -160,6 +168,11 @@ describe('Carrinho Controller Tests', function () {
             },
             headers: {
                 site: 1
+            },
+            app: {
+                usuario: {
+                    id: 1
+                }
             }
         });
 
@@ -188,6 +201,11 @@ describe('Carrinho Controller Tests', function () {
             },
             headers: {
                 site: 1
+            },
+            app: {
+                usuario: {
+                    id: 1
+                }
             }
         });
 

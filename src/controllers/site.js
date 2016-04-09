@@ -99,7 +99,8 @@ var SiteController  = {
                     emails      : req.body.emails,
                     enderecos   : req.body.enderecos,
                     telefones   : req.body.telefones,
-                    categorias  : req.body.categorias
+                    categorias  : req.body.categorias,
+                    config      : req.body.config
                 },
                 function (err, newSite) {
                     if (err) {
@@ -144,7 +145,8 @@ var SiteController  = {
                     emails      : req.body.emails,
                     enderecos   : req.body.enderecos,
                     telefones   : req.body.telefones,
-                    categorias  : req.body.categorias
+                    categorias  : req.body.categorias,
+                    config      : req.body.config
                 }, function (err, data) {
                     if (err) {
                         res.status(500).json({

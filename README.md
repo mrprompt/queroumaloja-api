@@ -1,6 +1,8 @@
-# API
+# Quero Uma Loja - API
 
-[![Build Status](https://travis-ci.org/mrprompt/queroumaloja-api-server.png)](https://travis-ci.org/mrprompt/queroumaloja-api-server)
+Master : [![Build Status](https://travis-ci.org/mrprompt/queroumaloja-api-server.svg?branch=master)](https://travis-ci.org/mrprompt/queroumaloja-api-server)
+Develop: [![Build Status](https://travis-ci.org/mrprompt/queroumaloja-api-server.svg?branch=develop)](https://travis-ci.org/mrprompt/queroumaloja-api-server)
+
 [![Code Climate](https://codeclimate.com/github/mrprompt/queroumaloja-api-server/badges/gpa.svg)](https://codeclimate.com/github/mrprompt/queroumaloja-api-server)
 [![Issue Count](https://codeclimate.com/github/mrprompt/queroumaloja-api-server/badges/issue_count.svg)](https://codeclimate.com/github/mrprompt/queroumaloja-api-server)
 

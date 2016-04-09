@@ -120,7 +120,46 @@ describe('Site Controller Tests', function () {
                 emails: [],
                 enderecos: [],
                 telefones: [],
-                categorias: []
+                categorias: [],
+                config: {}
+            },
+            url: '/',
+            headers: {
+                site: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 201);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#adiciona() com categoria deve retornar um array e status 201', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'POST',
+            body: {
+                nome: 'foo',
+                dominio: 'localhost.localdomain',
+                emails: [],
+                enderecos: [],
+                telefones: [],
+                categorias: [
+                    {
+                        titulo: 'teste',
+                        urdi: 'teste'
+                    }
+                ]
             },
             url: '/',
             headers: {

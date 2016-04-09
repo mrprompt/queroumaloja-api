@@ -28,11 +28,10 @@ router.all('*', function(req, res, next) {
 
     SiteModel
         .findOne({
-            _id: req.headers.site,
-            ativo: true
+            _id: req.headers.site
         })
         .exec(function(err, data) {
-            if (err) {
+            if (err || data === null) {
                 res
                     .status(403)
                     .json({
