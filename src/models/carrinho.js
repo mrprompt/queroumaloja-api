@@ -6,6 +6,10 @@ var CarrinhoSchema  = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'
     },
+    comprador: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario'
+    },
     items: [
         new mongoose.Schema({
             produto: {
@@ -23,10 +27,6 @@ var CarrinhoSchema  = new mongoose.Schema({
             }
         })
     ],
-    comprador: {
-        type: Object,
-        required: false
-    },
     valor: {
         type: Number,
         min: 1

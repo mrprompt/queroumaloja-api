@@ -159,6 +159,14 @@ var ProdutoSchema   = new mongoose.Schema({
             type: String
         }
     }),
+    vendas: {
+        type: Number,
+        default: 0
+    },
+    quantidade: {
+        type: Number,
+        default: 0
+    },
     peso: new mongoose.Schema({
         total: {
             type: Number

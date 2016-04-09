@@ -78,7 +78,6 @@ var api = {
                         },
                         {
                             status      : status,
-                            comprador   : comprador,
                             valor       : transaction.amount
                         },
                         function (err, row) {
@@ -87,6 +86,9 @@ var api = {
 
                                 return false;
                             }
+
+                            row.status = status;
+                            row.valor = transaction.amount;
 
                             done(row, site);
                         }

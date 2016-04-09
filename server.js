@@ -85,7 +85,7 @@ var Application = function () {
 
         // start server
         self.app.listen(port, address, function () {
-            console.log('Started on http://%s:%d', address, port);
+            console.log('Started on http://%s:%d in %s', address, port, process.env.NODE_ENV);
         });
     };
 };

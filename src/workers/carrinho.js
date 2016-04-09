@@ -2,13 +2,16 @@
 
 const INTERVAL      = process.env.CART_INTERVAL || 3600000;  // 1 hora
 
-var path            = require('path');
-var CarrinhoModel   = require(path.join(__dirname, '/../models/carrinho'));
-var PagSeguro       = require(path.join(__dirname, '/../modules/pagseguro'));
-var PagarMe         = require(path.join(__dirname, '/../modules/pagarme'));
-var Mail            = require(path.join(__dirname, '/../modules/mail'));
+var CarrinhoModel   = require('../models/carrinho'),
+    ProdutoModel    = require('../models/produto'),
+    PagSeguro       = require('../modules/pagseguro'),
+    PagarMe         = require('../modules/pagarme');
 
 var api = {
+    /**
+     * Inicia o timer de checagem dos carrinhos em processamento
+     * 
+     */
     checaTransacao: function () {
         setInterval(function() {
             CarrinhoModel
@@ -21,25 +24,51 @@ var api = {
                 )
                 .populate(['site', 'items.produto'])
                 .then(function (carrinhos) {
-                    carrinhos.forEach(function(carrinho) {
+                    if (carrinhos.length === 0) {
+                        return;
+                    }
 
+                    carrinhos.forEach(function(carrinho) {
                         switch (carrinho.tipo) {
                             case 'pagseguro':
-                                return PagSeguro.checaTransacao(carrinho, carrinho.site, Mail.avisoDeCompra);
+                                return PagSeguro.checaTransacao(carrinho, carrinho.site, api.atualizaProdutos);
                             break;
 
                             case 'pagarme':
-                                return PagarMe.checaTransacao(carrinho, carrinho.site, Mail.avisoDeCompra);
+                                return PagarMe.checaTransacao(carrinho, carrinho.site, api.atualizaProdutos);
                             break;
-
-                            case 'local':
-                                return Mail.avisoDeCompra(carrinho, carrinho.site);
-                            break
                         }
-
                     });
                 });
         }, INTERVAL);
+    },
+
+    /**
+     * Percorre os ítens do carrinho e atualiza a quantidade de vendidos e em estoque
+     *
+     * @param carrinho
+     */
+    atualizaProdutos: function(carrinho) {
+        carrinho.items.forEach(function(item) {
+            ProdutoModel
+                .findOneAndUpdate(
+                    {
+                        _id: item.produto
+                    },
+                    {
+                        $inc: {
+                            vendas: item.quantidade,
+                            quantidade: (item.quantidade - (item.quantidade * 2))
+                        }
+                    },
+                    {
+                        new: true
+                    },
+                    function(err, produto) {
+                        console.log('%s atualizado', produto._id);
+                    }
+                )
+        });
     }
 };
 
