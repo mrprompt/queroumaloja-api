@@ -12,18 +12,164 @@ var SiteSchema  = new mongoose.Schema({
         required: true,
         unique: true
     },
-    emails: {
-        type: []
-    },
-    enderecos: {
-        type: []
-    },
-    telefones: {
-        type: []
-    },
-    config: {
-        type: []
-    },
+    emails: [
+        new mongoose.Schema({
+            nome: {
+                type: String,
+                required: true
+            },
+            endereco: {
+                type: String,
+                required: true
+            }
+        })
+    ],
+    enderecos: [
+        new mongoose.Schema({
+            logradouro: {
+                type: String,
+                required: true
+            },
+            complemento: {
+                type: String,
+                default: ''
+            },
+            numero: {
+                type: Number,
+                default:  0
+            },
+            bairro: {
+                type: String,
+                required: true
+            },
+            cep: {
+                type: String,
+                trim: true
+            },
+            cidade: {
+                type: String,
+                required: true
+            },
+            estado: {
+                type: String,
+                required: true
+            },
+            tipo: {
+                type: String,
+                enum: ['comercial', 'residencial'],
+                default: 'residencial'
+            }
+        })
+    ],
+    telefones: [
+        new mongoose.Schema({
+            nome: {
+                type: String,
+                required: true
+            },
+            numero: {
+                type: String,
+                required: true
+            },
+            tipo: {
+                type: String,
+                enum: ['comercial', 'residencial'],
+                default: 'comercial'
+            }
+        })
+    ],
+    config: mongoose.Schema({
+        cloudinary: mongoose.Schema({
+            upload_endpoint: {
+                type: String,
+                default: 'https://api.cloudinary.com/v1_1/'
+            },
+            cloud_name: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            upload_preset: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            api_key: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            api_secret: {
+                type: String,
+                required: true,
+                trim: true
+            }
+        }),
+        sendgrid: mongoose.Schema({
+            token: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            template: mongoose.Schema({
+                carrinho_adiciona: {
+                    type: String,
+                        required: true,
+                    trim: true
+                }
+            })
+        }),
+        pagarme: mongoose.Schema({
+            token: {
+                type: String,
+                required: true,
+                trim: true
+            }
+        }),
+        pagseguro: mongoose.Schema({
+            token: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            nome: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            email: {
+                type: String,
+                required: true,
+                trim: true
+            }
+        })
+    }),
+    categorias: [
+        mongoose.Schema({
+            titulo: {
+                type: String,
+                required: true
+            },
+            uri: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            categorias: [
+                mongoose.Schema({
+                    titulo: {
+                        type: String,
+                        required: true
+                    },
+                    uri: {
+                        type: String,
+                        required: true,
+                        trim: true
+                    }
+                })
+            ]
+        })
+    ],
     ativo: {
         type: Boolean,
         default: false
