@@ -59,6 +59,13 @@ var UsuarioSchema   = new mongoose.Schema({
             }
         })
     ],
+    nivel: {
+        type: String,
+        lowercase: true,
+        trim: true,
+        enum: ['administrador', 'editor', 'usuario', 'comprador'],
+        default: 'comprador'
+    },
     cadastro: {
         type: Date,
         default: Date.now

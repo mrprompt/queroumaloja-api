@@ -157,10 +157,8 @@ var UsuarioController   = {
                 },
                 {
                     nome: req.body.nome,
-                    localidade: {
-                        estado: req.body.estado,
-                        cidade: req.body.cidade
-                    }
+                    email: req.body.email,
+                    nivel: req.body.nivel
                 },
                 function (err, usuario) {
                     if (err) {
