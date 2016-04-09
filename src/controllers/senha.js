@@ -3,6 +3,7 @@
 var router          = require('express').Router();
 var UsuarioModel    = require('../../src/models/usuario');
 var bcrypt          = require('bcrypt');
+var uniqid          = require('uniqid');
 var salt            = process.env.PASSWORD_SALT;
 var SenhaController = {
     /**
@@ -12,7 +13,7 @@ var SenhaController = {
      * @param res
      * @param done
      */
-    adiciona: function (req, res, done) {
+    atualiza: function (req, res, done) {
         UsuarioModel
             .findOneAndUpdate(
                 {
@@ -39,7 +40,7 @@ var SenhaController = {
                             pageCount: 0
                         });
                     } else {
-                        res.status(201).json({
+                        res.status(204).json({
                             object: 'object',
                             has_more: false,
                             data: user,
@@ -51,9 +52,59 @@ var SenhaController = {
                     }
                 }
             );
+    },
+
+    /**
+     * Cria uma nova senha para o usuário
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    adiciona: function (req, res, done) {
+        var senhaLimpa = uniqid();
+        var novaSenha = bcrypt.hashSync(senhaLimpa, salt);
+
+        UsuarioModel
+            .findOneAndUpdate(
+                {
+                    _id: req.params.usuario,
+                    site: req.app.site._id
+                },
+                {
+                    $set: {
+                        password: novaSenha
+                    }
+                },
+                {
+                    new: true
+                },
+                function (err, user) {
+                    if (err || !user) {
+                        return res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: 'Não foi possível atualizar a senha',
+                            itemCount: 0,
+                            pageCount: 0
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: senhaLimpa,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+
+                        return done(err, user);
+                    }
+                }
+            );
     }
 };
 
-router.post('/', SenhaController.adiciona);
+router.post('/:usuario', SenhaController.adiciona);
+router.put('/', SenhaController.atualiza);
 
 module.exports = router;
