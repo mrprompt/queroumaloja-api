@@ -4,15 +4,15 @@ var Pagseguro = require('pagseguro.js'),
     CarrinhoModel = require('../models/carrinho');
 
 var api = {
-    checaTransacao: function (carrinho, site, done) {
-        if (site === undefined || site.config[0].pagseguro === undefined) {
+    checaTransacao: function (carrinho, done) {
+        if (carrinho.site === undefined || carrinho.site.config.pagseguro === undefined) {
             return;
         }
 
         var compra = Pagseguro({
-            'name' : site.config[0].pagseguro.name,
-            'email': site.config[0].pagseguro.email,
-            'token': site.config[0].pagseguro.token
+            'name' : carrinho.site.config.pagseguro.name,
+            'email': carrinho.site.config.pagseguro.email,
+            'token': carrinho.site.config.pagseguro.token
         });
         
         return compra.transactions(carrinho.token, function(error, response, transaction) {
@@ -77,7 +77,7 @@ var api = {
                                 return false;
                             }
 
-                            done(row, site);
+                            done(row);
                         }
                     );
             })

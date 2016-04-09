@@ -12,7 +12,7 @@ var api = {
      * Inicia o timer de checagem dos carrinhos em processamento
      *
      */
-    checaTransacao: function () {
+    start: function () {
         setInterval(function() {
             CarrinhoModel
                 .find(
@@ -31,15 +31,15 @@ var api = {
                     carrinhos.forEach(function(carrinho) {
                         switch (carrinho.tipo) {
                             case 'pagseguro':
-                                return PagSeguro.checaTransacao(carrinho, carrinho.site, api.atualizaProdutos);
+                                PagSeguro.checaTransacao(carrinho, api.atualizaProdutos);
                             break;
 
                             case 'pagarme':
-                                return PagarMe.checaTransacao(carrinho, carrinho.site, api.atualizaProdutos);
+                                PagarMe.checaTransacao(carrinho, api.atualizaProdutos);
                             break;
 
                             case 'local':
-                                return api.atualizaProdutos(carrinho);
+                                api.atualizaProdutos(carrinho);
                             break;
                         }
                     });

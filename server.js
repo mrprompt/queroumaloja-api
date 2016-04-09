@@ -61,7 +61,7 @@ var Application = function () {
      * Load Workers
      */
     self.createWorkers = function () {
-        LocalWorker.checaTransacao();
+        LocalWorker.start();
     };
 
     /**
