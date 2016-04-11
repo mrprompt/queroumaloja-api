@@ -17,7 +17,7 @@ describe('Usuario Controller Tests', function () {
             }
         });
 
-        mockery.registerMock('../../src/modules/upload', function(req, res, end) {
+        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
             end();
         });
 

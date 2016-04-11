@@ -1,8 +1,7 @@
 'use strict';
 
-var path        = require('path');
 var router      = require('express').Router();
-var SiteModel   = require(path.join(__dirname, '/../models/site'));
+var SiteModel   = require('../models/site');
 
 router.all('*', function(req, res, next) {
     if (req.method === 'OPTIONS') {

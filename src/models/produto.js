@@ -20,7 +20,7 @@ var ProdutoSchema   = new mongoose.Schema({
             },
             nome: {
                 type: String,
-                required: true
+                default: 'default'
             },
             moeda: {
                 type: String,
@@ -29,7 +29,7 @@ var ProdutoSchema   = new mongoose.Schema({
         })
     ],
     categoria: new mongoose.Schema({
-        nome: {
+        titulo: {
             type: String,
             required: true,
             trim: true
@@ -39,7 +39,20 @@ var ProdutoSchema   = new mongoose.Schema({
             required: true,
             trim: true,
             lowercase: true
-        }
+        },
+        categoria: new mongoose.Schema({
+            titulo: {
+                type: String,
+                required: true,
+                trim: true
+            },
+            uri: {
+                type: String,
+                required: true,
+                trim: true,
+                lowercase: true
+            }
+        })
     }),
     ativo: {
         type: Boolean,
@@ -137,10 +150,6 @@ var ProdutoSchema   = new mongoose.Schema({
             }
         })
     ],
-    estoque: {
-        type: Number,
-        default: 0
-    },
     site: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Site'

@@ -4,7 +4,7 @@ var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var multer              = require('multer');
 var striptags           = require('striptags');
-var UploadModule        = require('../../src/modules/upload');
+var UploadModule        = require('../../src/providers/upload');
 var EquipeModel         = require('../../src/models/equipe');
 var EquipeController    = {
     /**

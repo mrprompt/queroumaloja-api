@@ -5,7 +5,7 @@ var paginate          = require('express-paginate');
 var slugify           = require('slugify');
 var striptags         = require('striptags');
 var multer            = require('multer');
-var upload            = require('../../src/modules/upload');
+var upload            = require('../../src/providers/upload');
 var ProdutoModel      = require('../../src/models/produto');
 var ProdutoController = {
     /**
@@ -128,10 +128,9 @@ var ProdutoController = {
                 {
                     titulo      : striptags(req.body.titulo),
                     descricao   : striptags(req.body.descricao),
-                    imagem      : req.body.imagem,
-                    site        : req.headers.site,
                     codigo      : striptags(req.body.codigo),
                     valor       : req.body.valor,
+                    imagem      : req.body.imagem,
                     categoria   : {
                         titulo      : striptags(req.body.categoria.titulo),
                         uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
@@ -139,7 +138,10 @@ var ProdutoController = {
                             titulo  : striptags(req.body.categoria.categoria.titulo),
                             uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                         }
-                    }
+                    },
+                    estoque: striptags(req.body.estoque),
+                    dimensoes: req.body.dimensoes,
+                    peso: req.body.peso
                 },
                 function (err, data) {
                     if (err) {
@@ -174,7 +176,7 @@ var ProdutoController = {
      */
     atualiza: function (req, res, done) {
         ProdutoModel
-            .update(
+            .findOneAndUpdate(
                 {
                     _id: req.params.id,
                     site: req.headers.site
@@ -192,7 +194,14 @@ var ProdutoController = {
                             titulo  : striptags(req.body.categoria.categoria.titulo),
                             uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                         }
-                    }
+                    },
+                    estoque: striptags(req.body.estoque),
+                    dimensoes: req.body.dimensoes,
+                    peso: req.body.peso
+                },
+                {
+                    new: true,
+                    multi: true
                 },
                 function (err, data) {
                     if (err) {
@@ -305,6 +314,104 @@ var ProdutoController = {
                     done(err, data);
                 }
             );
+    },
+
+    /**
+     * Insere uma imagem no álbum do produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    adicionaImagem: function (req, res, done) {
+        ProdutoModel
+            .findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                {
+                    $push: {
+                        album: req.body.imagem
+                    }
+                },
+                {
+                    new: true,
+                    multi: true,
+                    safe: true,
+                    upsert: true
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
+
+                    done(err, data);
+                }
+            );
+    },
+
+    /**
+     * Remove uma imagem do álbum do produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    apagaImagem: function (req, res, done) {
+        ProdutoModel
+            .findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                {
+                    $pull: {
+                        album: {
+                            _id: req.params.img
+                        }
+                    }
+                },
+                {
+                    new: true,
+                    multi: true
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
+
+                    done(err, data);
+                }
+            );
     }
 };
 
@@ -314,5 +421,7 @@ router.get('/:id', ProdutoController.abre);
 router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adiciona);
 router.put('/:id', ProdutoController.atualiza);
 router.delete('/:id', ProdutoController.apaga);
+router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adicionaImagem);
+router.delete('/:id/album/:img', ProdutoController.apagaImagem);
 
 module.exports = router;

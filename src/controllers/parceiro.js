@@ -4,7 +4,7 @@ var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var multer              = require('multer');
 var striptags           = require('striptags');
-var upload              = require('../../src/modules/upload');
+var upload              = require('../../src/providers/upload');
 var ParceiroModel       = require('../../src/models/parceiro');
 var ParceiroController  = {
     /**

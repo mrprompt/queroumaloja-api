@@ -1,16 +1,15 @@
 'use strict';
 
-var Pagarme         = require('pagarmejs');
-var path            = require('path');
-var CarrinhoModel   = require(path.join(__dirname, '/../models/carrinho'));
+var Pagarme = require('pagarmejs'),
+    CarrinhoModel = require('../models/carrinho');
 
 var api = {
-    checaTransacao: function (carrinho, site, done) {
-        if (site === undefined || site.config[0].pagarme === undefined) {
+    checaTransacao: function (carrinho, done) {
+        if (carrinho.site === undefined || carrinho.site.config.pagarme === undefined) {
             return;
         }
 
-        var pagarme = new Pagarme(site.config[0].pagarme.token);
+        var pagarme = new Pagarme(carrinho.site.config.pagarme.token);
 
         return pagarme
             .transaction
@@ -65,13 +64,13 @@ var api = {
                             new: true
                         },
                         function (err, row) {
-                            if (err) {
+                            if (err || !row) {
                                 console.error(err);
 
                                 return false;
                             }
 
-                            done(row, site);
+                            done(row);
                         }
                     );
             })
