@@ -314,6 +314,104 @@ var ProdutoController = {
                     done(err, data);
                 }
             );
+    },
+
+    /**
+     * Insere uma imagem no álbum do produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    adicionaImagem: function (req, res, done) {
+        ProdutoModel
+            .findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                {
+                    $push: {
+                        album: req.body.imagem
+                    }
+                },
+                {
+                    new: true,
+                    multi: true,
+                    safe: true,
+                    upsert: true
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(201).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
+
+                    done(err, data);
+                }
+            );
+    },
+
+    /**
+     * Remove uma imagem do álbum do produto
+     *
+     * @param req
+     * @param res
+     * @param done
+     */
+    apagaImagem: function (req, res, done) {
+        ProdutoModel
+            .findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    site: req.headers.site
+                },
+                {
+                    $pull: {
+                        album: {
+                            _id: req.params.img
+                        }
+                    }
+                },
+                {
+                    new: true,
+                    multi: true
+                },
+                function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
+
+                    done(err, data);
+                }
+            );
     }
 };
 
@@ -323,5 +421,7 @@ router.get('/:id', ProdutoController.abre);
 router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adiciona);
 router.put('/:id', ProdutoController.atualiza);
 router.delete('/:id', ProdutoController.apaga);
+router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adicionaImagem);
+router.delete('/:id/album/:img', ProdutoController.apagaImagem);
 
 module.exports = router;
