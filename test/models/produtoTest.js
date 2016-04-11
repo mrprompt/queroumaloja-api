@@ -17,7 +17,7 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(undefined);
         should(produto.descricao).is.exactly(undefined);
         should(produto.valor).is.a.Array();
-        should(produto.estoque).is.exactly(0);
+        should(produto.quantidade).is.exactly(0);
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(undefined);
         should(produto.imagem).is.exactly(undefined);
@@ -63,7 +63,7 @@ describe('Produto Model', function () {
                     moeda: 'R$'
                 }
             ],
-            estoque     : 100,
+            quantidade     : 100,
             valores: [
                 {
                     nome: 'promoção',
@@ -90,7 +90,7 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(dados.titulo);
         should(produto.descricao).is.exactly(dados.descricao);
         should(produto.valor).is.a.Array();
-        should(produto.estoque).is.exactly(dados.estoque);
+        should(produto.quantidade).is.exactly(dados.quantidade);
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.a.Object();
         should(produto.imagem).is.a.Object();
@@ -157,7 +157,7 @@ describe('Produto Model', function () {
                     secure_url: 'foo'
                 }
             ],
-            estoque: 1000
+            quantidade: 1000
         };
 
         var produto = new Produto(dados);
@@ -175,7 +175,7 @@ describe('Produto Model', function () {
         should(produto.album).is.a.Array();
         should(produto.cadastro).be.instanceOf(Date);
         should(produto.site).is.exactly(dados.site);
-        should(produto.estoque).is.exactly(dados.estoque);
+        should(produto.quantidade).is.exactly(dados.quantidade);
 
         done();
     });
@@ -207,7 +207,7 @@ describe('Produto Model', function () {
         should(produto.titulo).is.exactly(undefined);
         should(produto.descricao).is.exactly(undefined);
         should(produto.valor).is.a.Array();
-        should(produto.estoque).is.exactly(0);
+        should(produto.quantidade).is.exactly(0);
         should(produto.ativo).is.exactly(true);
         should(produto.categoria).is.exactly(undefined);
         should(produto.imagem).is.exactly(undefined);

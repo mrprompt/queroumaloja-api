@@ -128,10 +128,9 @@ var ProdutoController = {
                 {
                     titulo      : striptags(req.body.titulo),
                     descricao   : striptags(req.body.descricao),
-                    imagem      : req.body.imagem,
-                    site        : req.headers.site,
                     codigo      : striptags(req.body.codigo),
                     valor       : req.body.valor,
+                    imagem      : req.body.imagem,
                     categoria   : {
                         titulo      : striptags(req.body.categoria.titulo),
                         uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
@@ -139,7 +138,10 @@ var ProdutoController = {
                             titulo  : striptags(req.body.categoria.categoria.titulo),
                             uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                         }
-                    }
+                    },
+                    estoque: striptags(req.body.estoque),
+                    dimensoes: req.body.dimensoes,
+                    peso: req.body.peso
                 },
                 function (err, data) {
                     if (err) {
@@ -174,7 +176,7 @@ var ProdutoController = {
      */
     atualiza: function (req, res, done) {
         ProdutoModel
-            .update(
+            .findOneAndUpdate(
                 {
                     _id: req.params.id,
                     site: req.headers.site
@@ -192,7 +194,14 @@ var ProdutoController = {
                             titulo  : striptags(req.body.categoria.categoria.titulo),
                             uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
                         }
-                    }
+                    },
+                    estoque: striptags(req.body.estoque),
+                    dimensoes: req.body.dimensoes,
+                    peso: req.body.peso
+                },
+                {
+                    new: true,
+                    multi: true
                 },
                 function (err, data) {
                     if (err) {

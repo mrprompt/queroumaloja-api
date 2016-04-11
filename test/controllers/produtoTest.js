@@ -36,6 +36,9 @@ describe('Produto Controller Tests', function () {
             update: function(x, y, end) {
                 end(null, {});
             },
+            findOneAndUpdate: function(x, y, z, end) {
+                end(null, {});
+            },
             remove: function(x, end) {
                 end(null, {});
             }
@@ -161,9 +164,13 @@ describe('Produto Controller Tests', function () {
             body: {
                 titulo: 'foo',
                 descricao: 'bar bar bar',
-                imagem: {},
+                imagem: {
+
+                },
                 codigo: 0,
-                valor: 1.00,
+                valor: {
+                    valor: 1.00
+                },
                 categoria: {
                     titulo: 'foo',
                     uri: 'foo',
@@ -171,7 +178,18 @@ describe('Produto Controller Tests', function () {
                         titulo: 'bar',
                         uri: 'bar'
                     }
-                }
+                },
+                dimensoes: {
+                    altura: 0,
+                    lartura: 0,
+                    comprimento: 0,
+                    unidade: 'cm'
+                },
+                peso: {
+                    total: 0,
+                    unidade: 'kg'
+                },
+                estoque: 100
             },
             headers: {
                 site: 1
