@@ -114,7 +114,7 @@ var SiteSchema  = new mongoose.Schema({
             template: mongoose.Schema({
                 carrinho_adiciona: {
                     type: String,
-                        required: true,
+                    required: true,
                     trim: true
                 }
             })
