@@ -27,7 +27,6 @@ var Usuario         = require('./src/controllers/usuario');
 var Login           = require('./src/controllers/login');
 var Logout          = require('./src/controllers/logout');
 var Senha           = require('./src/controllers/senha');
-var SiteMap         = require('./src/controllers/sitemap');
 var LocalWorker     = require('./src/workers/carrinho');
 
 /**
@@ -36,8 +35,8 @@ var LocalWorker     = require('./src/workers/carrinho');
 var Application = function () {
     //  Scope.
     var self    = this;
-    var address = process.env.NODE_IP   || '127.0.0.1';
-    var port    = process.env.NODE_PORT || '8080';
+    var port    = process.env.PORT || '8080';
+    var env     = process.env.ENV || 'production';
 
     /**
      *  Create the routing table entries + handlers for the application.
@@ -56,7 +55,6 @@ var Application = function () {
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
         self.app.use('/senha', cors, site, token, Senha);
-        self.app.use('/sitemap', cors, site, token, SiteMap);
     };
 
     /**
@@ -88,8 +86,8 @@ var Application = function () {
         self.createWorkers();
 
         // start server
-        self.app.listen(port, address, function () {
-            console.log('Started on http://%s:%d in %s', address, port, process.env.NODE_ENV);
+        self.app.listen(port, function () {
+            console.log('Started on port %d in %s mode', port, env);
         });
     };
 };
