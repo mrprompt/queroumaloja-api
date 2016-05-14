@@ -56,6 +56,11 @@ describe('Emprego Controller Tests', function () {
             query: {
                 page: 1,
                 limit: 1
+            },
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -84,6 +89,11 @@ describe('Emprego Controller Tests', function () {
             },
             headers: {
                 site: 1
+            },
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -117,8 +127,10 @@ describe('Emprego Controller Tests', function () {
                 salario     : '100'
             },
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -153,6 +165,11 @@ describe('Emprego Controller Tests', function () {
             },
             headers: {
                 site: 1
+            },
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -181,6 +198,11 @@ describe('Emprego Controller Tests', function () {
             },
             headers: {
                 site: 1
+            },
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 

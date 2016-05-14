@@ -18,7 +18,7 @@ var EquipeController    = {
         EquipeModel
             .paginate(
                 {
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     page: req.query.page,
@@ -63,7 +63,7 @@ var EquipeController    = {
         EquipeModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -102,7 +102,7 @@ var EquipeController    = {
                     cargo   : striptags(req.body.cargo),
                     email   : req.body.email,
                     imagem  : req.body.imagem,
-                    site    : req.headers.site
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -140,14 +140,14 @@ var EquipeController    = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     nome    : striptags(req.body.nome),
                     cargo   : striptags(req.body.cargo),
                     email   : req.body.email,
                     imagem  : req.body.imagem,
-                    site    : req.headers.site
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -185,7 +185,7 @@ var EquipeController    = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 }, function (err, data) {
                     if (err) {
                         res.status(500).json({

@@ -15,7 +15,7 @@ var CarrinhoController  = {
         CarrinhoModel
             .paginate(
                 {
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     page: req.query.page,
@@ -61,7 +61,7 @@ var CarrinhoController  = {
         CarrinhoModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .populate(['items.produto', 'comprador'])
             .exec(function (err, data) {
@@ -186,7 +186,7 @@ var CarrinhoController  = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site,
+                    site: req.app.site._id,
                     comprador: req.app.usuario._id
                 },
                 data,
@@ -225,7 +225,7 @@ var CarrinhoController  = {
         CarrinhoModel
             .remove({
                 _id: req.params.id,
-                site: req.headers.site,
+                site: req.app.site._id,
                 comprador: req.app.usuario._id
             }, function (err, data) {
                 if (err) {

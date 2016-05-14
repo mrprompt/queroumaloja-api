@@ -54,8 +54,10 @@ describe('Equipe Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -86,8 +88,10 @@ describe('Equipe Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -121,8 +125,10 @@ describe('Equipe Controller Tests', function () {
                 imagem: {}
             },
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -155,8 +161,10 @@ describe('Equipe Controller Tests', function () {
                 tags        : 'foo, bar',
                 salario     : '100'
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -183,8 +191,10 @@ describe('Equipe Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 

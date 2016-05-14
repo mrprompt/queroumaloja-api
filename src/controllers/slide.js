@@ -17,7 +17,7 @@ var SlideController = {
     lista: function (req, res, done) {
         SlideModel.paginate(
             {
-                site: req.headers.site
+                site: req.app.site._id
             },
             {
                 page: req.query.page,
@@ -61,7 +61,7 @@ var SlideController = {
     abre: function (req, res, done) {
         SlideModel.findOne({
             _id: req.params.id,
-            site: req.headers.site
+            site: req.app.site._id
         })
             .exec(function (err, data) {
                 if (err) {
@@ -101,7 +101,7 @@ var SlideController = {
                 endereco    : req.body.endereco,
                 imagem      : req.body.imagem,
                 cadastro    : req.body.cadastro,
-                site        : req.headers.site
+                site        : req.app.site._id
             },
             function (err, data) {
                 if (err) {
@@ -146,7 +146,7 @@ var SlideController = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 dados,
                 function (err, data) {
@@ -185,7 +185,7 @@ var SlideController = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function (err, data) {
                     if (err) {

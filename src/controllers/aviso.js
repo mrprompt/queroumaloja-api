@@ -16,7 +16,7 @@ var AvisoController = {
         AvisoModel
             .paginate(
                 {
-                    site    : req.headers.site
+                    site    : req.app.site._id
                 },
                 {
                     page    : req.query.page,
@@ -63,7 +63,7 @@ var AvisoController = {
         AvisoModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -107,7 +107,7 @@ var AvisoController = {
                     tipo     : striptags(req.body.tipo),
                     inicio   : new Date(req.body.inicio),
                     fim      : new Date(req.body.fim),
-                    site     : req.headers.site
+                    site     : req.app.site._id
                 },
                 function(err, data) {
                     if (err) {
@@ -144,7 +144,7 @@ var AvisoController = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     titulo  : striptags(req.body.titulo),
@@ -190,7 +190,7 @@ var AvisoController = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function(err, data) {
                     if (err) {

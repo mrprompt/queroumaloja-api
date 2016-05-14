@@ -56,8 +56,10 @@ describe('Usuario Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -88,8 +90,10 @@ describe('Usuario Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -127,8 +131,10 @@ describe('Usuario Controller Tests', function () {
                 }
             },
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -160,8 +166,10 @@ describe('Usuario Controller Tests', function () {
                 descricao: 'bar bar bar',
                 imagem: {},
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -194,8 +202,10 @@ describe('Usuario Controller Tests', function () {
                 imagem: {},
                 nivel: 'administrador'
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -222,8 +232,10 @@ describe('Usuario Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 

@@ -17,7 +17,7 @@ var ProdutoController = {
      */
     lista: function (req, res, done) {
         var filter = {
-            site    : req.headers.site,
+            site    : req.app.site._id,
             ativo   : true
         };
 
@@ -80,7 +80,7 @@ var ProdutoController = {
         ProdutoModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -179,7 +179,7 @@ var ProdutoController = {
             .findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     titulo      : striptags(req.body.titulo),
@@ -239,7 +239,7 @@ var ProdutoController = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -276,7 +276,7 @@ var ProdutoController = {
         ProdutoModel
             .paginate(
                 {
-                    "site"  : req.headers.site,
+                    "site"  : req.app.site._id,
                     "ativo" : true,
                     "$text" : {
                         "$search": (req.params.palavra ? req.params.palavra.toLocaleString() : '')
@@ -328,7 +328,7 @@ var ProdutoController = {
             .findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     $push: {
@@ -377,7 +377,7 @@ var ProdutoController = {
             .findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     $pull: {

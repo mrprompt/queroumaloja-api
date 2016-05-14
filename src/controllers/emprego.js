@@ -16,7 +16,7 @@ var EmpregoController   = {
         EmpregoModel
             .paginate(
                 {
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     page: req.query.page,
@@ -61,7 +61,7 @@ var EmpregoController   = {
         EmpregoModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -102,7 +102,7 @@ var EmpregoController   = {
                     cadastro    : (new Date()),
                     tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
                     salario     : req.body.salario,
-                    site        : req.headers.site
+                    site        : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -140,7 +140,7 @@ var EmpregoController   = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     titulo      : striptags(req.body.titulo),
@@ -184,7 +184,7 @@ var EmpregoController   = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function (err, data) {
                     if (err) {

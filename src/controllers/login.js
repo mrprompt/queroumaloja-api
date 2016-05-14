@@ -18,7 +18,7 @@ var LoginController = {
         var filter = {
             email   : (req.body.email),
             password: (bcrypt.hashSync(req.body.password, salt)),
-            site    : (req.headers.site)
+            site    : (req.app.site._id)
         };
 
         TokenAdapter.defaults.secret   = 'AAB';
