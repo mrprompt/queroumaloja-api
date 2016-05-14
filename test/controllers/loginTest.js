@@ -84,15 +84,14 @@ describe('Login Controller', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             url: '/',
-            headers: {
-                site: 1
-            },
             body: {
                 email: 'foo@bar.bar',
                 password: '1234567890'
             },
             app: {
-                site: 1
+                site: {
+                    _id: 1
+                }
             }
         });
 

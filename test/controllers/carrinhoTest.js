@@ -58,8 +58,10 @@ describe('Carrinho Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -90,8 +92,10 @@ describe('Carrinho Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -124,9 +128,6 @@ describe('Carrinho Controller Tests', function () {
                 tipo: 'foo'
             },
             url: '/',
-            headers: {
-                site: 1
-            },
             app: {
                 usuario: {
                     id: 1
@@ -166,12 +167,12 @@ describe('Carrinho Controller Tests', function () {
                 tags        : 'foo, bar',
                 salario     : '100'
             },
-            headers: {
-                site: 1
-            },
             app: {
                 usuario: {
                     id: 1
+                },
+                site: {
+                    _id: 1
                 }
             }
         });
@@ -205,6 +206,9 @@ describe('Carrinho Controller Tests', function () {
             app: {
                 usuario: {
                     id: 1
+                },
+                site: {
+                    _id: 1
                 }
             }
         });

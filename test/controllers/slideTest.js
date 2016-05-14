@@ -54,8 +54,10 @@ describe('Slide Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -86,8 +88,10 @@ describe('Slide Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -120,8 +124,10 @@ describe('Slide Controller Tests', function () {
                 imagem: {},
             },
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -151,10 +157,12 @@ describe('Slide Controller Tests', function () {
             body: {
                 titulo: 'foo',
                 descricao: 'bar bar bar',
-                imagem: {},
+                imagem: {}
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -181,8 +189,10 @@ describe('Slide Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 

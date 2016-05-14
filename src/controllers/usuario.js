@@ -16,7 +16,7 @@ var UsuarioController   = {
     lista: function (req, res, done) {
         UsuarioModel.paginate(
             {
-                site: req.headers.site
+                site: req.app.site._id
             },
             {
                 page: req.query.page,
@@ -101,7 +101,7 @@ var UsuarioController   = {
         UsuarioModel
             .create(
                 {
-                    site: req.headers.site,
+                    site: req.app.site._id,
                     nome: req.body.nome,
                     email: req.body.email,
                     password: bcrypt.hashSync(req.body.password, salt),
@@ -153,7 +153,7 @@ var UsuarioController   = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     nome: req.body.nome,
@@ -196,7 +196,7 @@ var UsuarioController   = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function (err, usuario) {
                     if (err) {

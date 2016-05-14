@@ -18,7 +18,7 @@ var ParceiroController  = {
         ParceiroModel
             .paginate(
                 {
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     page: req.query.page,
@@ -63,7 +63,7 @@ var ParceiroController  = {
         ParceiroModel
             .findOne({
                 _id: req.params.id,
-                site: req.headers.site
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -104,7 +104,7 @@ var ParceiroController  = {
                     imagem  : req.body.imagem,
                     url     : req.body.url,
                     cadastro: req.body.cadastro,
-                    site    : req.headers.site
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -142,7 +142,7 @@ var ParceiroController  = {
             .update(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 {
                     nome    : striptags(req.body.nome),
@@ -150,7 +150,7 @@ var ParceiroController  = {
                     url     : req.body.url,
                     imagem  : req.body.imagem,
                     cadastro: req.body.cadastro,
-                    site    : req.headers.site
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -188,7 +188,7 @@ var ParceiroController  = {
             .remove(
                 {
                     _id: req.params.id,
-                    site: req.headers.site
+                    site: req.app.site._id
                 },
                 function (err, data) {
                     if (err) {

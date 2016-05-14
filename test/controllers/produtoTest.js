@@ -57,8 +57,10 @@ describe('Produto Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -89,8 +91,10 @@ describe('Produto Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
@@ -133,9 +137,11 @@ describe('Produto Controller Tests', function () {
                 }
             },
             url: '/',
-            headers: {
-                site: 1
-            }
+            app: {
+                site: {
+                    _id: 1
+                }
+            },
         });
 
         this.controller.handle(request, response, function() {});
@@ -191,9 +197,11 @@ describe('Produto Controller Tests', function () {
                 },
                 estoque: 100
             },
-            headers: {
-                site: 1
-            }
+            app: {
+                site: {
+                    _id: 1
+                }
+            },
         });
 
         this.controller.handle(request, response, function() {});
@@ -219,8 +227,10 @@ describe('Produto Controller Tests', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             }
         });
 
@@ -244,8 +254,10 @@ describe('Produto Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/busca/foo',
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
             },
             query: {
                 page: 1,
