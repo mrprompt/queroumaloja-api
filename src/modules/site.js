@@ -10,12 +10,12 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    if (!req.headers.site) {
+    if (!req.headers.site && !req.query.site) {
         res.status(500).json({
             object      : 'object',
             has_more    : false,
             data        : {
-                message : 'Atributo site não encontrado no cabeçalho',
+                message : 'Atributo site não encontrado',
                 status  : 500
             },
             itemCount   : 0,
@@ -25,9 +25,19 @@ router.all('*', function(req, res, next) {
         return false;
     }
 
+    var site = null;
+
+    if (req.headers.site) {
+        site = req.headers.site;
+    }
+
+    if (req.query.site) {
+        site = req.query.site;
+    }
+
     SiteModel
         .findOne({
-            _id: req.headers.site
+            _id: site
         })
         .exec(function(err, data) {
             if (err || data === null) {
