@@ -141,7 +141,8 @@ var ProdutoController = {
                     },
                     estoque: striptags(req.body.estoque),
                     dimensoes: req.body.dimensoes,
-                    peso: req.body.peso
+                    peso: req.body.peso,
+                    site: req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
