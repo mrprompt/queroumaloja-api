@@ -10,7 +10,7 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    var site = req.headers.origin.replace(/(http.?:\/\/)/im, '').replace(/www/im, '');
+    var site = req.headers.origin.replace(/(http.?:\/\/)/im, '').replace(/www\./im, '');
 
     SiteModel
         .findOne({
