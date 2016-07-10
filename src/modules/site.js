@@ -10,34 +10,11 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    if (!req.headers.site && !req.query.site) {
-        res.status(500).json({
-            object      : 'object',
-            has_more    : false,
-            data        : {
-                message : 'Atributo site não encontrado',
-                status  : 500
-            },
-            itemCount   : 0,
-            pageCount   : 0
-        });
-
-        return false;
-    }
-
-    var site = null;
-
-    if (req.headers.site) {
-        site = req.headers.site;
-    }
-
-    if (req.query.site) {
-        site = req.query.site;
-    }
+    var site = req.headers.origin.replace(/(http.?:\/\/)/im, '').replace(/www/im, '');
 
     SiteModel
         .findOne({
-            _id: site
+            dominio: site
         })
         .exec(function(err, data) {
             if (err || data === null) {
