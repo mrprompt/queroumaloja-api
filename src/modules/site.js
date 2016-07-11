@@ -10,22 +10,24 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    var site = req.headers.origin.replace(/(http.?:\/\/)/im, '').replace(/www\./im, '');
+    var hostname = req.hostname
+        .replace(/(http.?:\/\/|(www|local|api))\./im, '')
+        .replace(/:[0-9]+/m, '');
 
     SiteModel
         .findOne({
-            dominio: site
+            dominio: hostname
         })
         .exec(function(err, data) {
             if (err || data === null) {
                 res
-                    .status(403)
+                    .status(400)
                     .json({
                         object      : 'object',
                         has_more    : false,
                         data        : {
-                            message : 'Site não encontrado',
-                            status  : 404
+                            message : 'Site não encontrado: ' + hostname,
+                            status  : 400
                         },
                         itemCount   : 0,
                         pageCount   : 0
