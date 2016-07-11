@@ -4,7 +4,7 @@ var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var bcrypt              = require('bcrypt');
 var salt                = process.env.PASSWORD_SALT;
-var UsuarioModel        = require('../../src/models/usuario');
+var UsuarioModel        = require('../../models/usuario');
 var UsuarioController   = {
     /**
      * Lista os usuários

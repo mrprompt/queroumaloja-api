@@ -2,17 +2,20 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var CarrinhoModel       = require('../../src/models/carrinho');
-var CarrinhoController  = {
+var multer              = require('multer');
+var striptags           = require('striptags');
+var UploadModule        = require('../../providers/upload');
+var EquipeModel         = require('../../models/equipe');
+var EquipeController    = {
     /**
-     * Lista todos os carrinhos
+     * Lista os membros da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        CarrinhoModel
+        EquipeModel
             .paginate(
                 {
                     site: req.app.site._id
@@ -20,7 +23,6 @@ var CarrinhoController  = {
                 {
                     page: req.query.page,
                     limit: req.query.limit,
-                    populate: ['items.produto', 'comprador'],
                     sort: {cadastro : 'desc'}
                 },
                 function (err, data) {
@@ -51,19 +53,18 @@ var CarrinhoController  = {
     },
 
     /**
-     * Abre um carrinho para visualização
+     * Visualiza um membro da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        CarrinhoModel
+        EquipeModel
             .findOne({
                 _id: req.params.id,
                 site: req.app.site._id
             })
-            .populate(['items.produto', 'comprador'])
             .exec(function (err, data) {
                 if (err) {
                     res.status(500).json({
@@ -88,37 +89,22 @@ var CarrinhoController  = {
     },
 
     /**
-     * Cria um novo carrinho com os produtos relacionados
-     *
+     * Adiciona um membro na equipe
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        var carrinho = {
-            cadastro    : (new Date),
-            site        : req.app.site._id,
-            comprador   : req.app.usuario._id,
-            token       : req.body.token,
-            valor       : req.body.valor,
-            tipo        : req.body.tipo,
-            entrega     : req.body.entrega,
-            items       : []
-        };
-
-        if (req.body.items) {
-            req.body.items.forEach(function (item) {
-                carrinho.items.push({
-                    produto: item.produto,
-                    quantidade: item.quantidade
-                });
-            });
-        }
-
-        CarrinhoModel
+        EquipeModel
             .create(
-                carrinho,
-                function (err, resultSave) {
+                {
+                    nome    : striptags(req.body.nome),
+                    cargo   : striptags(req.body.cargo),
+                    email   : req.body.email,
+                    imagem  : req.body.imagem,
+                    site    : req.app.site._id
+                },
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -131,66 +117,39 @@ var CarrinhoController  = {
                         res.status(201).json({
                             object: 'object',
                             has_more: false,
-                            data: resultSave,
+                            data: data,
                             itemCount: 1,
                             pageCount: 1
                         });
                     }
 
-                    done(err, resultSave);
-                });
+                    done(err, data);
+                }
+            );
     },
 
     /**
-     * Atualiza os dados de um carrinho
+     * Atualiza os dados de um membro
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        var data = {};
-
-        if (req.body.produto && req.body.quantidade) {
-            var exists = false;
-
-            data.items.forEach(function (item) {
-                if (item.produto._id.toString() === req.body.produto) {
-                    item.quantidade += req.body.quantidade;
-
-                    exists = true;
-                }
-            });
-
-            if (exists === false) {
-                data.items.push({
-                    produto: req.body.produto,
-                    quantidade: req.body.quantidade
-                });
-            }
-        }
-
-        if (req.body.status) {
-            data.status = req.body.status;
-        }
-
-        if (req.body.token) {
-            data.token = req.body.token;
-        }
-
-        if (req.body.valor) {
-            data.valor = req.body.valor;
-        }
-
-        CarrinhoModel
+        EquipeModel
             .update(
                 {
                     _id: req.params.id,
-                    site: req.app.site._id,
-                    comprador: req.app.usuario._id
+                    site: req.app.site._id
                 },
-                data,
-                function (err, result) {
+                {
+                    nome    : striptags(req.body.nome),
+                    cargo   : striptags(req.body.cargo),
+                    email   : req.body.email,
+                    imagem  : req.body.imagem,
+                    site    : req.app.site._id
+                },
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -203,58 +162,59 @@ var CarrinhoController  = {
                         res.status(204).json({
                             object: 'object',
                             has_more: false,
-                            data: result,
+                            data: data,
                             itemCount: 1,
                             pageCount: 1
                         });
                     }
 
-                    done(err, result);
+                    done(err, data);
                 }
             );
     },
 
     /**
-     * Remove um carrinho
+     * Remove um membro da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        CarrinhoModel
-            .remove({
-                _id: req.params.id,
-                site: req.app.site._id,
-                comprador: req.app.usuario._id
-            }, function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
+        EquipeModel
+            .remove(
+                {
+                    _id: req.params.id,
+                    site: req.app.site._id
+                }, function (err, data) {
+                    if (err) {
+                        res.status(500).json({
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    } else {
+                        res.status(204).json({
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
+                        });
+                    }
 
-                done(err, data);
-            });
+                    done(err, data);
+                }
+            );
     }
 };
 
-router.get('/', CarrinhoController.lista);
-router.get('/:id', CarrinhoController.abre);
-router.post('/', CarrinhoController.adiciona);
-router.put('/:id', CarrinhoController.atualiza);
-router.delete('/:id', CarrinhoController.apaga);
+router.get('/', EquipeController.lista);
+router.get('/:id', EquipeController.abre);
+router.post('/', multer({dest: '/tmp/'}).single('imagem'), UploadModule, EquipeController.adiciona);
+router.put('/:id', EquipeController.atualiza);
+router.delete('/:id', EquipeController.apaga);
 
 module.exports = router;

@@ -17,11 +17,11 @@ describe('Usuario Controller Tests', function () {
             }
         });
 
-        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
+        mockery.registerMock('../../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../src/models/usuario', {
+        mockery.registerMock('../../models/usuario', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -43,7 +43,7 @@ describe('Usuario Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/usuario');
+        this.controller = require('../../controllers/usuario');
     });
 
     after(function() {

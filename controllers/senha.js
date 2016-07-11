@@ -1,7 +1,7 @@
 'use strict';
 
 var router          = require('express').Router();
-var UsuarioModel    = require('../../src/models/usuario');
+var UsuarioModel    = require('../../models/usuario');
 var bcrypt          = require('bcrypt');
 var uniqid          = require('uniqid');
 var salt            = process.env.PASSWORD_SALT;

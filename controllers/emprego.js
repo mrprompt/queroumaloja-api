@@ -1,49 +1,47 @@
 'use strict';
 
-var paginate        = require('express-paginate');
-var router          = require('express').Router();
-var striptags       = require('striptags');
-var AvisoModel      = require('../../src/models/aviso');
-var AvisoController = {
+var router              = require('express').Router();
+var paginate            = require('express-paginate');
+var striptags           = require('striptags');
+var EmpregoModel        = require('../../models/emprego');
+var EmpregoController   = {
     /**
-     * Lista os avisos
+     * Lista os empregos cadastrados
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        AvisoModel
+        EmpregoModel
             .paginate(
                 {
-                    site    : req.app.site._id
+                    site: req.app.site._id
                 },
                 {
-                    page    : req.query.page,
-                    limit   : req.query.limit,
-                    sort    : {
-                        cadastro : 'desc'
-                    }
+                    page: req.query.page,
+                    limit: req.query.limit,
+                    sort: {cadastro : 'desc'}
                 },
                 function (err, data) {
                     if (err) {
                         res.status(500).json({
-                            object      : 'error',
-                            has_more    : false,
-                            data        : err,
-                            itemCount   : 1,
-                            pageCount   : 1
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
                         });
                     } else {
                         var pageCount = data.pages;
                         var itemCount = data.total;
 
                         res.status(200).json({
-                            object      : 'list',
-                            has_more    : paginate.hasNextPages(req)(pageCount),
-                            data        : data.docs,
-                            itemCount   : itemCount,
-                            pageCount   : pageCount
+                            object: 'list',
+                            has_more: paginate.hasNextPages(req)(pageCount),
+                            data: data.docs,
+                            itemCount: itemCount,
+                            pageCount: pageCount
                         });
                     }
 
@@ -53,29 +51,27 @@ var AvisoController = {
     },
 
     /**
-     * Visualiza um aviso
+     * Visualiza um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        AvisoModel
+        EmpregoModel
             .findOne({
                 _id: req.params.id,
                 site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
-                    res.status(404).json({
+                    res.status(500).json({
                         object: 'error',
                         has_more: false,
-                        data: err,
+                        data: err.message,
                         itemCount: 1,
                         pageCount: 1
                     });
-
-                    done(err);
                 } else {
                     res.status(200).json({
                         object: 'object',
@@ -91,68 +87,66 @@ var AvisoController = {
     },
 
     /**
-     * Cadastra um aviso
+     * Adiciona um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        AvisoModel
+        EmpregoModel
             .create(
                 {
-                    titulo   : striptags(req.body.titulo),
-                    conteudo : striptags(req.body.conteudo),
-                    cadastro : (new Date),
-                    tipo     : striptags(req.body.tipo),
-                    inicio   : new Date(req.body.inicio),
-                    fim      : new Date(req.body.fim),
-                    site     : req.app.site._id
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    cadastro    : (new Date()),
+                    tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
+                    salario     : req.body.salario,
+                    site        : req.app.site._id
                 },
-                function(err, data) {
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
-                            object      : 'error',
-                            has_more    : false,
-                            data        : err,
-                            itemCount   : 1,
-                            pageCount   : 1
+                            object: 'error',
+                            has_more: false,
+                            data: err.message,
+                            itemCount: 1,
+                            pageCount: 1
                         });
                     } else {
                         res.status(201).json({
-                            object      : 'object',
-                            has_more    : false,
-                            data        : data,
-                            itemCount   : 1,
-                            pageCount   : 1
+                            object: 'object',
+                            has_more: false,
+                            data: data,
+                            itemCount: 1,
+                            pageCount: 1
                         });
                     }
 
                     done(err, data);
-                });
+                }
+            );
     },
 
     /**
-     * Atualiza um aviso
+     * Atualiza um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        AvisoModel
+        EmpregoModel
             .update(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
                 },
                 {
-                    titulo  : striptags(req.body.titulo),
-                    conteudo: striptags(req.body.conteudo),
-                    tipo    : striptags(req.body.tipo),
-                    inicio  : new Date(req.body.inicio),
-                    fim     : new Date(req.body.fim),
-                    ativo   : true
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
+                    salario     : req.body.salario
                 },
                 function (err, data) {
                     if (err) {
@@ -179,20 +173,20 @@ var AvisoController = {
     },
 
     /**
-     * Apagar aviso
+     * Remove um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        AvisoModel
+        EmpregoModel
             .remove(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
                 },
-                function(err, data) {
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -217,10 +211,10 @@ var AvisoController = {
     }
 };
 
-router.get('/', AvisoController.lista);
-router.get('/:id', AvisoController.abre);
-router.post('/', AvisoController.adiciona);
-router.put('/:id', AvisoController.atualiza);
-router.delete('/:id', AvisoController.apaga);
+router.get('/', EmpregoController.lista);
+router.get('/:id', EmpregoController.abre);
+router.post('/', EmpregoController.adiciona);
+router.put('/:id', EmpregoController.atualiza);
+router.delete('/:id', EmpregoController.apaga);
 
 module.exports = router;

@@ -11,11 +11,11 @@ describe('Site Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
+        mockery.registerMock('../../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../src/models/site', {
+        mockery.registerMock('../../models/site', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -41,7 +41,7 @@ describe('Site Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/site');
+        this.controller = require('../../controllers/site');
     });
 
     after(function() {

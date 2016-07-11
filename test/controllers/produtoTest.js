@@ -11,11 +11,11 @@ describe('Produto Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
+        mockery.registerMock('../../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../src/models/produto', {
+        mockery.registerMock('../../models/produto', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -44,7 +44,7 @@ describe('Produto Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/produto');
+        this.controller = require('../../controllers/produto');
     });
 
     after(function() {

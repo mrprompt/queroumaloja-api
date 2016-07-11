@@ -1,6 +1,6 @@
 'use strict';
 
-var Carrinho = require('../../src/models/carrinho');
+var Carrinho = require('../../models/carrinho');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var should = require('should');

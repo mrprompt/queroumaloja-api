@@ -1,25 +1,21 @@
 'use strict';
 
-var router              = require('express').Router();
-var paginate            = require('express-paginate');
-var multer              = require('multer');
-var striptags           = require('striptags');
-var upload              = require('../../src/providers/upload');
-var ParceiroModel       = require('../../src/models/parceiro');
-var ParceiroController  = {
+var router          = require('express').Router();
+var paginate        = require('express-paginate');
+var striptags       = require('striptags');
+var SiteModel       = require('../../models/site');
+var SiteController  = {
     /**
-     * Lista os parceiros
+     * Lista os sites cadastrados
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        ParceiroModel
+        SiteModel
             .paginate(
-                {
-                    site: req.app.site._id
-                },
+                {},
                 {
                     page: req.query.page,
                     limit: req.query.limit,
@@ -53,17 +49,16 @@ var ParceiroController  = {
     },
 
     /**
-     * Visualiza um parceiro
+     * Visualiza um site
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        ParceiroModel
+        SiteModel
             .findOne({
-                _id: req.params.id,
-                site: req.app.site._id
+                _id: req.params.id
             })
             .exec(function (err, data) {
                 if (err) {
@@ -89,24 +84,25 @@ var ParceiroController  = {
     },
 
     /**
-     * Adiciona um parceiro
+     * Adiciona um site
      *
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        ParceiroModel
+        SiteModel
             .create(
                 {
-                    nome    : striptags(req.body.nome),
-                    atuacao : striptags(req.body.atuacao),
-                    imagem  : req.body.imagem,
-                    url     : req.body.url,
-                    cadastro: req.body.cadastro,
-                    site    : req.app.site._id
+                    nome        : striptags(req.body.nome),
+                    dominio     : req.body.dominio,
+                    emails      : req.body.emails,
+                    enderecos   : req.body.enderecos,
+                    telefones   : req.body.telefones,
+                    categorias  : req.body.categorias,
+                    config      : req.body.config
                 },
-                function (err, data) {
+                function (err, newSite) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -119,40 +115,39 @@ var ParceiroController  = {
                         res.status(201).json({
                             object: 'object',
                             has_more: false,
-                            data: data,
+                            data: newSite,
                             itemCount: 1,
                             pageCount: 1
                         });
                     }
 
-                    done(err, data);
+                    done(err, newSite);
                 }
             );
     },
 
     /**
-     * Atualiza um parceiro
+     * Atualiza os dados de um site
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        ParceiroModel
+        SiteModel
             .update(
                 {
-                    _id: req.params.id,
-                    site: req.app.site._id
+                    _id: req.params.id
                 },
                 {
-                    nome    : striptags(req.body.nome),
-                    atuacao : striptags(req.body.atuacao),
-                    url     : req.body.url,
-                    imagem  : req.body.imagem,
-                    cadastro: req.body.cadastro,
-                    site    : req.app.site._id
-                },
-                function (err, data) {
+                    nome        : striptags(req.body.nome),
+                    dominio     : req.body.dominio,
+                    emails      : req.body.emails,
+                    enderecos   : req.body.enderecos,
+                    telefones   : req.body.telefones,
+                    categorias  : req.body.categorias,
+                    config      : req.body.config
+                }, function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -177,20 +172,19 @@ var ParceiroController  = {
     },
 
     /**
-     * Remove um parceiro
+     * Remove os dados de um site
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        ParceiroModel
+        SiteModel
             .remove(
                 {
-                    _id: req.params.id,
-                    site: req.app.site._id
+                    _id: req.params.id
                 },
-                function (err, data) {
+                function (err, result) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -203,22 +197,22 @@ var ParceiroController  = {
                         res.status(204).json({
                             object: 'object',
                             has_more: false,
-                            data: data,
+                            data: result,
                             itemCount: 1,
                             pageCount: 1
                         });
                     }
 
-                    done(err, data);
+                    done(err, result);
                 }
             );
     }
 };
 
-router.get('/', ParceiroController.lista);
-router.get('/:id', ParceiroController.abre);
-router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ParceiroController.adiciona);
-router.put('/:id', ParceiroController.atualiza);
-router.delete('/:id', ParceiroController.apaga);
+router.get('/', SiteController.lista);
+router.get('/:id', SiteController.abre);
+router.post('/', SiteController.adiciona);
+router.put('/:id', SiteController.atualiza);
+router.delete('/:id', SiteController.apaga);
 
 module.exports = router;

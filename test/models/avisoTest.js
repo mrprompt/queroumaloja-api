@@ -1,6 +1,6 @@
 'use strict';
 
-var Aviso = require('../../src/models/aviso');
+var Aviso = require('../../models/aviso');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var should = require('should');

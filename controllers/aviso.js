@@ -1,45 +1,49 @@
 'use strict';
 
-var router          = require('express').Router();
 var paginate        = require('express-paginate');
+var router          = require('express').Router();
 var striptags       = require('striptags');
-var SiteModel       = require('../../src/models/site');
-var SiteController  = {
+var AvisoModel      = require('../../models/aviso');
+var AvisoController = {
     /**
-     * Lista os sites cadastrados
+     * Lista os avisos
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        SiteModel
+        AvisoModel
             .paginate(
-                {},
                 {
-                    page: req.query.page,
-                    limit: req.query.limit,
-                    sort: {cadastro : 'desc'}
+                    site    : req.app.site._id
+                },
+                {
+                    page    : req.query.page,
+                    limit   : req.query.limit,
+                    sort    : {
+                        cadastro : 'desc'
+                    }
                 },
                 function (err, data) {
                     if (err) {
                         res.status(500).json({
-                            object: 'error',
-                            has_more: false,
-                            data: err.message,
-                            itemCount: 1,
-                            pageCount: 1
+                            object      : 'error',
+                            has_more    : false,
+                            data        : err,
+                            itemCount   : 1,
+                            pageCount   : 1
                         });
                     } else {
                         var pageCount = data.pages;
                         var itemCount = data.total;
 
                         res.status(200).json({
-                            object: 'list',
-                            has_more: paginate.hasNextPages(req)(pageCount),
-                            data: data.docs,
-                            itemCount: itemCount,
-                            pageCount: pageCount
+                            object      : 'list',
+                            has_more    : paginate.hasNextPages(req)(pageCount),
+                            data        : data.docs,
+                            itemCount   : itemCount,
+                            pageCount   : pageCount
                         });
                     }
 
@@ -49,26 +53,29 @@ var SiteController  = {
     },
 
     /**
-     * Visualiza um site
+     * Visualiza um aviso
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        SiteModel
+        AvisoModel
             .findOne({
-                _id: req.params.id
+                _id: req.params.id,
+                site: req.app.site._id
             })
             .exec(function (err, data) {
                 if (err) {
-                    res.status(500).json({
+                    res.status(404).json({
                         object: 'error',
                         has_more: false,
-                        data: err.message,
+                        data: err,
                         itemCount: 1,
                         pageCount: 1
                     });
+
+                    done(err);
                 } else {
                     res.status(200).json({
                         object: 'object',
@@ -84,70 +91,70 @@ var SiteController  = {
     },
 
     /**
-     * Adiciona um site
+     * Cadastra um aviso
      *
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        SiteModel
+        AvisoModel
             .create(
                 {
-                    nome        : striptags(req.body.nome),
-                    dominio     : req.body.dominio,
-                    emails      : req.body.emails,
-                    enderecos   : req.body.enderecos,
-                    telefones   : req.body.telefones,
-                    categorias  : req.body.categorias,
-                    config      : req.body.config
+                    titulo   : striptags(req.body.titulo),
+                    conteudo : striptags(req.body.conteudo),
+                    cadastro : (new Date),
+                    tipo     : striptags(req.body.tipo),
+                    inicio   : new Date(req.body.inicio),
+                    fim      : new Date(req.body.fim),
+                    site     : req.app.site._id
                 },
-                function (err, newSite) {
+                function(err, data) {
                     if (err) {
                         res.status(500).json({
-                            object: 'error',
-                            has_more: false,
-                            data: err.message,
-                            itemCount: 1,
-                            pageCount: 1
+                            object      : 'error',
+                            has_more    : false,
+                            data        : err,
+                            itemCount   : 1,
+                            pageCount   : 1
                         });
                     } else {
                         res.status(201).json({
-                            object: 'object',
-                            has_more: false,
-                            data: newSite,
-                            itemCount: 1,
-                            pageCount: 1
+                            object      : 'object',
+                            has_more    : false,
+                            data        : data,
+                            itemCount   : 1,
+                            pageCount   : 1
                         });
                     }
 
-                    done(err, newSite);
-                }
-            );
+                    done(err, data);
+                });
     },
 
     /**
-     * Atualiza os dados de um site
+     * Atualiza um aviso
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        SiteModel
+        AvisoModel
             .update(
                 {
-                    _id: req.params.id
+                    _id: req.params.id,
+                    site: req.app.site._id
                 },
                 {
-                    nome        : striptags(req.body.nome),
-                    dominio     : req.body.dominio,
-                    emails      : req.body.emails,
-                    enderecos   : req.body.enderecos,
-                    telefones   : req.body.telefones,
-                    categorias  : req.body.categorias,
-                    config      : req.body.config
-                }, function (err, data) {
+                    titulo  : striptags(req.body.titulo),
+                    conteudo: striptags(req.body.conteudo),
+                    tipo    : striptags(req.body.tipo),
+                    inicio  : new Date(req.body.inicio),
+                    fim     : new Date(req.body.fim),
+                    ativo   : true
+                },
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -172,19 +179,20 @@ var SiteController  = {
     },
 
     /**
-     * Remove os dados de um site
+     * Apagar aviso
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        SiteModel
+        AvisoModel
             .remove(
                 {
-                    _id: req.params.id
+                    _id: req.params.id,
+                    site: req.app.site._id
                 },
-                function (err, result) {
+                function(err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -197,22 +205,22 @@ var SiteController  = {
                         res.status(204).json({
                             object: 'object',
                             has_more: false,
-                            data: result,
+                            data: data,
                             itemCount: 1,
                             pageCount: 1
                         });
                     }
 
-                    done(err, result);
+                    done(err, data);
                 }
             );
     }
 };
 
-router.get('/', SiteController.lista);
-router.get('/:id', SiteController.abre);
-router.post('/', SiteController.adiciona);
-router.put('/:id', SiteController.atualiza);
-router.delete('/:id', SiteController.apaga);
+router.get('/', AvisoController.lista);
+router.get('/:id', AvisoController.abre);
+router.post('/', AvisoController.adiciona);
+router.put('/:id', AvisoController.atualiza);
+router.delete('/:id', AvisoController.apaga);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 'use strict';
 
-var Token = require('../../src/models/token');
+var Token = require('../../models/token');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var should = require('should');
