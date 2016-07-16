@@ -27,6 +27,7 @@ var Usuario         = require('./controllers/usuario');
 var Login           = require('./controllers/login');
 var Logout          = require('./controllers/logout');
 var Senha           = require('./controllers/senha');
+var PagSeguro       = require('./controllers/pagseguro');
 var LocalWorker     = require('./workers/carrinho');
 
 /**
@@ -55,6 +56,7 @@ var Application = function () {
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
         self.app.use('/senha', cors, site, token, Senha);
+        self.app.use('/pagseguro', cors, site, PagSeguro);
     };
 
     /**
