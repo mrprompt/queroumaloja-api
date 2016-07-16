@@ -17,11 +17,11 @@ describe('Usuario Controller Tests', function () {
             }
         });
 
-        mockery.registerMock('../../providers/upload', function(req, res, end) {
+        mockery.registerMock('../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../models/usuario', {
+        mockery.registerMock('../models/usuario', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,

@@ -11,11 +11,11 @@ describe('Carrinho Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../events/carrinho', function(req, res, end) {
+        mockery.registerMock('../events/carrinho', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../models/carrinho', {
+        mockery.registerMock('../models/carrinho', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,

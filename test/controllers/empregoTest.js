@@ -11,7 +11,7 @@ describe('Emprego Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../models/emprego', {
+        mockery.registerMock('../models/emprego', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,

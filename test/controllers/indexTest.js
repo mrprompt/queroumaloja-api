@@ -11,7 +11,7 @@ describe('Index Controller Test', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../models/site', {
+        mockery.registerMock('../models/site', {
             findOne: function(x) {
                 return {
                     exec: function (end) {

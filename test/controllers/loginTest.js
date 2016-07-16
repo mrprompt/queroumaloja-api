@@ -29,7 +29,7 @@ describe('Login Controller', function () {
             }
         });
 
-        mockery.registerMock('../../models/usuario', {
+        mockery.registerMock('../models/usuario', {
             findOne: function(filter) {
                 if (filter.email === 'foo@bar.bar' && filter.password === '1234567890' && filter.site === 1) {
                     return {
@@ -58,7 +58,7 @@ describe('Login Controller', function () {
             }
         });
 
-        mockery.registerMock('../../models/token', {
+        mockery.registerMock('../models/token', {
             findOne: function(x) {
                 return {
                     populate: function() {

@@ -4,8 +4,8 @@ var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var multer              = require('multer');
 var striptags           = require('striptags');
-var UploadModule        = require('../../providers/upload');
-var EquipeModel         = require('../../models/equipe');
+var UploadModule        = require('../providers/upload');
+var EquipeModel         = require('../models/equipe');
 var EquipeController    = {
     /**
      * Lista os membros da equipe

@@ -3,7 +3,7 @@
 var router          = require('express').Router();
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
-var SiteModel       = require('../../models/site');
+var SiteModel       = require('../models/site');
 var SiteController  = {
     /**
      * Lista os sites cadastrados

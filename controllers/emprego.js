@@ -3,7 +3,7 @@
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var striptags           = require('striptags');
-var EmpregoModel        = require('../../models/emprego');
+var EmpregoModel        = require('../models/emprego');
 var EmpregoController   = {
     /**
      * Lista os empregos cadastrados

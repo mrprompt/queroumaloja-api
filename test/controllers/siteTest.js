@@ -11,11 +11,11 @@ describe('Site Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../providers/upload', function(req, res, end) {
+        mockery.registerMock('../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../models/site', {
+        mockery.registerMock('../models/site', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,

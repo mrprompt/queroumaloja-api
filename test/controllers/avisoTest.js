@@ -11,7 +11,7 @@ describe('Aviso Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../models/aviso', {
+        mockery.registerMock('../models/aviso', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,

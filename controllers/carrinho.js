@@ -2,7 +2,7 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var CarrinhoModel       = require('../../models/carrinho');
+var CarrinhoModel       = require('../models/carrinho');
 var CarrinhoController  = {
     /**
      * Lista todos os carrinhos

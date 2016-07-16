@@ -11,7 +11,7 @@ describe('Logout Controller Test', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../models/token', {
+        mockery.registerMock('../models/token', {
             findOne: function(x) {
                 return {
                     populate: function() {
