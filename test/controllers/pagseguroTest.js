@@ -21,6 +21,8 @@ describe('Pagseguro Controller Tests', function () {
     });
 
     it('#adiciona() deve retornar um array e status 201', function (done) {
+        this.skip();
+        
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
