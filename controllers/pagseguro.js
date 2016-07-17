@@ -36,7 +36,7 @@ var PagseguroController  = {
 
         compra.checkout(function(err, response, body) {
             if (err) {
-                res.status(500).json({
+                    res.status(500).json({
                     object: 'error',
                     has_more: false,
                     data: err.message,
@@ -44,7 +44,7 @@ var PagseguroController  = {
                     pageCount: 1
                 });
             } else {
-                res.status(201).json({
+                res.status(response.statusCode).json({
                     object: 'object',
                     has_more: false,
                     data: body,
