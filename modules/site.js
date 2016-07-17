@@ -10,45 +10,24 @@ router.all('*', function(req, res, next) {
         return true;
     }
 
-    if (!req.headers.site && !req.query.site) {
-        res.status(500).json({
-            object      : 'object',
-            has_more    : false,
-            data        : {
-                message : 'Atributo site não encontrado',
-                status  : 500
-            },
-            itemCount   : 0,
-            pageCount   : 0
-        });
-
-        return false;
-    }
-
-    var site = null;
-
-    if (req.headers.site) {
-        site = req.headers.site;
-    }
-
-    if (req.query.site) {
-        site = req.query.site;
-    }
+    var hostname = req.hostname
+        .replace(/(http.?:\/\/|(www|local|api))\./im, '')
+        .replace(/:[0-9]+/m, '');
 
     SiteModel
         .findOne({
-            _id: site
+            dominio: hostname
         })
         .exec(function(err, data) {
             if (err || data === null) {
                 res
-                    .status(403)
+                    .status(400)
                     .json({
                         object      : 'object',
                         has_more    : false,
                         data        : {
-                            message : 'Site não encontrado',
-                            status  : 404
+                            message : 'Site não encontrado: ' + hostname,
+                            status  : 400
                         },
                         itemCount   : 0,
                         pageCount   : 0
