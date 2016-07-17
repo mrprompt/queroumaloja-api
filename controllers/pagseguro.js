@@ -24,7 +24,7 @@ var PagseguroController  = {
         req.body.items.forEach(function(item) {
             compra.product.add({
                 'id': item.produto._id,
-                'description': item.produto.descricao,
+                'description': item.produto.titulo,
                 'amount': item.produto.valor[0].valor,
                 'quantity': item.quantidade
             });
