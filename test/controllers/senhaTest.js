@@ -23,7 +23,7 @@ describe('Senha Controller', function () {
             return '1234567890';
         });
 
-        mockery.registerMock('../../src/models/usuario', {
+        mockery.registerMock('../models/usuario', {
             findOneAndUpdate: function(filter, update, options, done) {
                 return done(null, {
                     _id: parseInt(Math.random()),
@@ -32,7 +32,7 @@ describe('Senha Controller', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/senha');
+        this.controller = require('../../controllers/senha');
     });
 
     after(function() {

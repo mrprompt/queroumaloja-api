@@ -1,7 +1,7 @@
 'use strict';
 
 var router           = require('express').Router();
-var TokenModel       = require('../../src/models/token');
+var TokenModel       = require('../models/token');
 var LogoutController = {
     /**
      * Logout

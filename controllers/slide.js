@@ -4,8 +4,8 @@ var router          = require('express').Router();
 var paginate        = require('express-paginate');
 var striptags       = require('striptags');
 var multer          = require('multer');
-var upload          = require('../../src/providers/upload');
-var SlideModel      = require('../../src/models/slide');
+var upload          = require('../providers/upload');
+var SlideModel      = require('../models/slide');
 var SlideController = {
     /**
      * Lista os slides

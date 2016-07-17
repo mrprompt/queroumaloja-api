@@ -2,20 +2,18 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var multer              = require('multer');
 var striptags           = require('striptags');
-var upload              = require('../../src/providers/upload');
-var ParceiroModel       = require('../../src/models/parceiro');
-var ParceiroController  = {
+var EmpregoModel        = require('../models/emprego');
+var EmpregoController   = {
     /**
-     * Lista os parceiros
+     * Lista os empregos cadastrados
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        ParceiroModel
+        EmpregoModel
             .paginate(
                 {
                     site: req.app.site._id
@@ -53,14 +51,14 @@ var ParceiroController  = {
     },
 
     /**
-     * Visualiza um parceiro
+     * Visualiza um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        ParceiroModel
+        EmpregoModel
             .findOne({
                 _id: req.params.id,
                 site: req.app.site._id
@@ -89,22 +87,22 @@ var ParceiroController  = {
     },
 
     /**
-     * Adiciona um parceiro
+     * Adiciona um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        ParceiroModel
+        EmpregoModel
             .create(
                 {
-                    nome    : striptags(req.body.nome),
-                    atuacao : striptags(req.body.atuacao),
-                    imagem  : req.body.imagem,
-                    url     : req.body.url,
-                    cadastro: req.body.cadastro,
-                    site    : req.app.site._id
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    cadastro    : (new Date()),
+                    tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
+                    salario     : req.body.salario,
+                    site        : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -131,26 +129,24 @@ var ParceiroController  = {
     },
 
     /**
-     * Atualiza um parceiro
+     * Atualiza um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        ParceiroModel
+        EmpregoModel
             .update(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
                 },
                 {
-                    nome    : striptags(req.body.nome),
-                    atuacao : striptags(req.body.atuacao),
-                    url     : req.body.url,
-                    imagem  : req.body.imagem,
-                    cadastro: req.body.cadastro,
-                    site    : req.app.site._id
+                    titulo      : striptags(req.body.titulo),
+                    descricao   : striptags(req.body.descricao),
+                    tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
+                    salario     : req.body.salario
                 },
                 function (err, data) {
                     if (err) {
@@ -177,14 +173,14 @@ var ParceiroController  = {
     },
 
     /**
-     * Remove um parceiro
+     * Remove um emprego
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        ParceiroModel
+        EmpregoModel
             .remove(
                 {
                     _id: req.params.id,
@@ -215,10 +211,10 @@ var ParceiroController  = {
     }
 };
 
-router.get('/', ParceiroController.lista);
-router.get('/:id', ParceiroController.abre);
-router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ParceiroController.adiciona);
-router.put('/:id', ParceiroController.atualiza);
-router.delete('/:id', ParceiroController.apaga);
+router.get('/', EmpregoController.lista);
+router.get('/:id', EmpregoController.abre);
+router.post('/', EmpregoController.adiciona);
+router.put('/:id', EmpregoController.atualiza);
+router.delete('/:id', EmpregoController.apaga);
 
 module.exports = router;

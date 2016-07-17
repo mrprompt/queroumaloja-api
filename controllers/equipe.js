@@ -2,18 +2,20 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
+var multer              = require('multer');
 var striptags           = require('striptags');
-var EmpregoModel        = require('../../src/models/emprego');
-var EmpregoController   = {
+var UploadModule        = require('../providers/upload');
+var EquipeModel         = require('../models/equipe');
+var EquipeController    = {
     /**
-     * Lista os empregos cadastrados
+     * Lista os membros da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        EmpregoModel
+        EquipeModel
             .paginate(
                 {
                     site: req.app.site._id
@@ -51,14 +53,14 @@ var EmpregoController   = {
     },
 
     /**
-     * Visualiza um emprego
+     * Visualiza um membro da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        EmpregoModel
+        EquipeModel
             .findOne({
                 _id: req.params.id,
                 site: req.app.site._id
@@ -87,22 +89,20 @@ var EmpregoController   = {
     },
 
     /**
-     * Adiciona um emprego
-     *
+     * Adiciona um membro na equipe
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        EmpregoModel
+        EquipeModel
             .create(
                 {
-                    titulo      : striptags(req.body.titulo),
-                    descricao   : striptags(req.body.descricao),
-                    cadastro    : (new Date()),
-                    tags        : striptags(req.body.tags ? req.body.tags.split(',') : ''),
-                    salario     : req.body.salario,
-                    site        : req.app.site._id
+                    nome    : striptags(req.body.nome),
+                    cargo   : striptags(req.body.cargo),
+                    email   : req.body.email,
+                    imagem  : req.body.imagem,
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -129,24 +129,25 @@ var EmpregoController   = {
     },
 
     /**
-     * Atualiza um emprego
+     * Atualiza os dados de um membro
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        EmpregoModel
+        EquipeModel
             .update(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
                 },
                 {
-                    titulo      : striptags(req.body.titulo),
-                    descricao   : striptags(req.body.descricao),
-                    tags        : striptags(req.body.tags ? req.body.tags.toString().split(',') : ''),
-                    salario     : req.body.salario
+                    nome    : striptags(req.body.nome),
+                    cargo   : striptags(req.body.cargo),
+                    email   : req.body.email,
+                    imagem  : req.body.imagem,
+                    site    : req.app.site._id
                 },
                 function (err, data) {
                     if (err) {
@@ -173,20 +174,19 @@ var EmpregoController   = {
     },
 
     /**
-     * Remove um emprego
+     * Remove um membro da equipe
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        EmpregoModel
+        EquipeModel
             .remove(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
-                },
-                function (err, data) {
+                }, function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -211,10 +211,10 @@ var EmpregoController   = {
     }
 };
 
-router.get('/', EmpregoController.lista);
-router.get('/:id', EmpregoController.abre);
-router.post('/', EmpregoController.adiciona);
-router.put('/:id', EmpregoController.atualiza);
-router.delete('/:id', EmpregoController.apaga);
+router.get('/', EquipeController.lista);
+router.get('/:id', EquipeController.abre);
+router.post('/', multer({dest: '/tmp/'}).single('imagem'), UploadModule, EquipeController.adiciona);
+router.put('/:id', EquipeController.atualiza);
+router.delete('/:id', EquipeController.apaga);
 
 module.exports = router;

@@ -11,7 +11,7 @@ describe('Aviso Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/models/aviso', {
+        mockery.registerMock('../models/aviso', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -37,7 +37,7 @@ describe('Aviso Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/aviso');
+        this.controller = require('../../controllers/aviso');
     });
 
     after(function() {

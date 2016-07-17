@@ -2,7 +2,7 @@
 
 var Produto, mongoose, ObjectId, should;
 
-Produto = require('../../src/models/produto');
+Produto = require('../../models/produto');
 mongoose = require('mongoose');
 ObjectId = mongoose.Types.ObjectId;
 should = require('should');

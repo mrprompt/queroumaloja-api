@@ -4,18 +4,18 @@ var router              = require('express').Router();
 var paginate            = require('express-paginate');
 var multer              = require('multer');
 var striptags           = require('striptags');
-var UploadModule        = require('../../src/providers/upload');
-var EquipeModel         = require('../../src/models/equipe');
-var EquipeController    = {
+var upload              = require('../providers/upload');
+var ParceiroModel       = require('../models/parceiro');
+var ParceiroController  = {
     /**
-     * Lista os membros da equipe
+     * Lista os parceiros
      *
      * @param req
      * @param res
      * @param done
      */
     lista: function (req, res, done) {
-        EquipeModel
+        ParceiroModel
             .paginate(
                 {
                     site: req.app.site._id
@@ -53,14 +53,14 @@ var EquipeController    = {
     },
 
     /**
-     * Visualiza um membro da equipe
+     * Visualiza um parceiro
      *
      * @param req
      * @param res
      * @param done
      */
     abre: function (req, res, done) {
-        EquipeModel
+        ParceiroModel
             .findOne({
                 _id: req.params.id,
                 site: req.app.site._id
@@ -89,19 +89,21 @@ var EquipeController    = {
     },
 
     /**
-     * Adiciona um membro na equipe
+     * Adiciona um parceiro
+     *
      * @param req
      * @param res
      * @param done
      */
     adiciona: function (req, res, done) {
-        EquipeModel
+        ParceiroModel
             .create(
                 {
                     nome    : striptags(req.body.nome),
-                    cargo   : striptags(req.body.cargo),
-                    email   : req.body.email,
+                    atuacao : striptags(req.body.atuacao),
                     imagem  : req.body.imagem,
+                    url     : req.body.url,
+                    cadastro: req.body.cadastro,
                     site    : req.app.site._id
                 },
                 function (err, data) {
@@ -129,14 +131,14 @@ var EquipeController    = {
     },
 
     /**
-     * Atualiza os dados de um membro
+     * Atualiza um parceiro
      *
      * @param req
      * @param res
      * @param done
      */
     atualiza: function (req, res, done) {
-        EquipeModel
+        ParceiroModel
             .update(
                 {
                     _id: req.params.id,
@@ -144,9 +146,10 @@ var EquipeController    = {
                 },
                 {
                     nome    : striptags(req.body.nome),
-                    cargo   : striptags(req.body.cargo),
-                    email   : req.body.email,
+                    atuacao : striptags(req.body.atuacao),
+                    url     : req.body.url,
                     imagem  : req.body.imagem,
+                    cadastro: req.body.cadastro,
                     site    : req.app.site._id
                 },
                 function (err, data) {
@@ -174,19 +177,20 @@ var EquipeController    = {
     },
 
     /**
-     * Remove um membro da equipe
+     * Remove um parceiro
      *
      * @param req
      * @param res
      * @param done
      */
     apaga: function (req, res, done) {
-        EquipeModel
+        ParceiroModel
             .remove(
                 {
                     _id: req.params.id,
                     site: req.app.site._id
-                }, function (err, data) {
+                },
+                function (err, data) {
                     if (err) {
                         res.status(500).json({
                             object: 'error',
@@ -211,10 +215,10 @@ var EquipeController    = {
     }
 };
 
-router.get('/', EquipeController.lista);
-router.get('/:id', EquipeController.abre);
-router.post('/', multer({dest: '/tmp/'}).single('imagem'), UploadModule, EquipeController.adiciona);
-router.put('/:id', EquipeController.atualiza);
-router.delete('/:id', EquipeController.apaga);
+router.get('/', ParceiroController.lista);
+router.get('/:id', ParceiroController.abre);
+router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ParceiroController.adiciona);
+router.put('/:id', ParceiroController.atualiza);
+router.delete('/:id', ParceiroController.apaga);
 
 module.exports = router;

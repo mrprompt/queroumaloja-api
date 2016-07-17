@@ -11,11 +11,11 @@ describe('Slide Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
+        mockery.registerMock('../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../src/models/slide', {
+        mockery.registerMock('../models/slide', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -41,7 +41,7 @@ describe('Slide Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/slide');
+        this.controller = require('../../controllers/slide');
     });
 
     after(function() {

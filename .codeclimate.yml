@@ -1,14 +1,21 @@
 engines:
   eslint:
     enabled: true
+
   duplication:
-    enabled: false
+    enabled: true
     config:
       languages:
       - javascript
+
 ratings:
   paths:
-  - src/**
+  - controllers/**
+  - models/**
+  - modules/**
+  - providers/**
+  - workers/**
+
 exclude_paths:
 - node_modules/**/*
-- tests/**
+- test/**

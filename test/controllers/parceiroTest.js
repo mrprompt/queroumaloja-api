@@ -11,11 +11,11 @@ describe('Parceiro Controller Tests', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../../src/providers/upload', function(req, res, end) {
+        mockery.registerMock('../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../../src/models/parceiro', {
+        mockery.registerMock('../models/parceiro', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -41,7 +41,7 @@ describe('Parceiro Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../src/controllers/parceiro');
+        this.controller = require('../../controllers/parceiro');
     });
 
     after(function() {

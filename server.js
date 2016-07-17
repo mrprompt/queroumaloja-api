@@ -10,24 +10,25 @@ var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
-var connection      = require('./src/modules/connection');
-var cors            = require('./src/modules/cors');
-var site            = require('./src/modules/site');
-var token           = require('./src/modules/token');
-var Index           = require('./src/controllers/index');
-var Aviso           = require('./src/controllers/aviso');
-var Carrinho        = require('./src/controllers/carrinho');
-var Emprego         = require('./src/controllers/emprego');
-var Equipe          = require('./src/controllers/equipe');
-var Parceiro        = require('./src/controllers/parceiro');
-var Produto         = require('./src/controllers/produto');
-var Site            = require('./src/controllers/site');
-var Slide           = require('./src/controllers/slide');
-var Usuario         = require('./src/controllers/usuario');
-var Login           = require('./src/controllers/login');
-var Logout          = require('./src/controllers/logout');
-var Senha           = require('./src/controllers/senha');
-var LocalWorker     = require('./src/workers/carrinho');
+var connection      = require('./modules/connection');
+var cors            = require('./modules/cors');
+var site            = require('./modules/site');
+var token           = require('./modules/token');
+var Index           = require('./controllers/index');
+var Aviso           = require('./controllers/aviso');
+var Carrinho        = require('./controllers/carrinho');
+var Emprego         = require('./controllers/emprego');
+var Equipe          = require('./controllers/equipe');
+var Parceiro        = require('./controllers/parceiro');
+var Produto         = require('./controllers/produto');
+var Site            = require('./controllers/site');
+var Slide           = require('./controllers/slide');
+var Usuario         = require('./controllers/usuario');
+var Login           = require('./controllers/login');
+var Logout          = require('./controllers/logout');
+var Senha           = require('./controllers/senha');
+var PagSeguro       = require('./controllers/pagseguro');
+var LocalWorker     = require('./workers/carrinho');
 
 /**
  *  Define the application.
@@ -55,6 +56,7 @@ var Application = function () {
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
         self.app.use('/senha', cors, site, token, Senha);
+        self.app.use('/pagseguro', cors, site, PagSeguro);
     };
 
     /**

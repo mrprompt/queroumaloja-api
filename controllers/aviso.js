@@ -3,7 +3,7 @@
 var paginate        = require('express-paginate');
 var router          = require('express').Router();
 var striptags       = require('striptags');
-var AvisoModel      = require('../../src/models/aviso');
+var AvisoModel      = require('../models/aviso');
 var AvisoController = {
     /**
      * Lista os avisos
