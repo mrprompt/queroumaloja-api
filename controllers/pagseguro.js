@@ -3,7 +3,6 @@
 var router              = require('express').Router();
 var Pagseguro           = require('pagseguro.js');
 var PagseguroController  = {
-
     /**
      * Inicia uma transação na api do pagseguro
      *

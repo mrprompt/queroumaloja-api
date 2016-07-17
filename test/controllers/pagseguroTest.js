@@ -11,7 +11,27 @@ describe('Pagseguro Controller Tests', function () {
             warnOnReplace: false
         });
 
-        process.env.PAGSEGURO_TEST =  true;
+        // mockery.registerMock('pagseguro.js', {
+        //     product: [],
+        //     sender: function(x) {
+        //         return {
+        //             set: function(end) {
+        //                 end(null, {});
+        //             }
+        //         }
+        //     },
+        //     shipping: function(x) {
+        //         return {
+        //             set: function(end) {
+        //                 end(null, {});
+        //             }
+        //         }
+        //     },
+        //     checkout: function(x) {
+        //         // console.log(x);
+        //         return {}
+        //     }
+        // });
 
         this.controller = require('../../controllers/pagseguro');
     });
@@ -53,7 +73,7 @@ describe('Pagseguro Controller Tests', function () {
                 site: {
                     config: {
                         pagseguro: {
-                            name: 'lojamodelo',
+                            name: 'CIA DA CRIANÇA',
                             email: 'financeiro@ciadacrianca.ind.br',
                             token: '6DF879901F854EBABB94416360875DAE'
                         }
