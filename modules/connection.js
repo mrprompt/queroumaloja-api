@@ -10,4 +10,6 @@ var dbUri  = dbUser + ":" + dbPass + "@" + dbHost + ':' + dbPort + '/' + dbName;
 var mongoose = require('mongoose');
     mongoose.connect(dbUri);
 
+mongoose.Promise = global.Promise;
+
 exports.mongoose = mongoose;
