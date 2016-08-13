@@ -11,6 +11,27 @@ describe('Pagseguro Controller Tests', function () {
             warnOnReplace: false
         });
 
+        mockery.registerMock('Pagseguro', {
+            sender: function() {
+                return {
+                    set: function() {
+                        return true;
+                    }
+                }
+            },
+            shipping: function() {
+                return {
+                    set: function() {
+                        return true;
+                    }
+                }
+            },
+            product: [],
+            checkout: function(dsds) {
+                console.log(dsds);
+            }
+        });
+
         this.controller = require('../../controllers/pagseguro');
     });
 
@@ -20,9 +41,7 @@ describe('Pagseguro Controller Tests', function () {
         process.env.PAGSEGURO_TEST =  null;
     });
 
-    it('#adiciona() deve retornar um array e status 201', function (done) {
-        this.skip();
-        
+    it('#adiciona() deve retornar um array e status 200', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
@@ -33,6 +52,7 @@ describe('Pagseguro Controller Tests', function () {
                         produto: {
                             _id: 1,
                             descricao: 'foo',
+                            titulo: 'Fooo',
                             valor: [
                                 {
                                     valor: 100
@@ -62,18 +82,10 @@ describe('Pagseguro Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {
+        this.controller.handle(request, response, {});
 
-        });
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 201);
+        should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
 
         done();
     });

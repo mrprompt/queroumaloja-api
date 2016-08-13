@@ -4,8 +4,6 @@ var router          = require('express').Router();
 var UsuarioModel    = require('../models/usuario');
 var TokenModel      = require('../models/token');
 var TokenAdapter    = require('token');
-var bcrypt          = require('bcrypt');
-var salt            = process.env.PASSWORD_SALT;
 var LoginController = {
     /**
      * Efetua um login e adquire um token de acesso
@@ -16,9 +14,9 @@ var LoginController = {
      */
     adiciona: function (req, res, done) {
         var filter = {
-            email   : (req.body.email),
-            password: (bcrypt.hashSync(req.body.password, salt)),
-            site    : (req.app.site._id)
+            email   : req.body.email,
+            password: req.body.password,
+            site    : req.app.site._id
         };
 
         TokenAdapter.defaults.secret   = 'AAB';

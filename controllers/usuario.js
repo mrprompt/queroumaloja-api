@@ -2,8 +2,6 @@
 
 var router              = require('express').Router();
 var paginate            = require('express-paginate');
-var bcrypt              = require('bcrypt');
-var salt                = process.env.PASSWORD_SALT;
 var UsuarioModel        = require('../models/usuario');
 var UsuarioController   = {
     /**
@@ -21,7 +19,10 @@ var UsuarioController   = {
             {
                 page: req.query.page,
                 limit: req.query.limit,
-                sort: {'nome' : 'asc', cadastro : 'desc'}
+                sort: {
+                    nome: 'asc',
+                    cadastro: 'desc'
+                }
             },
             function (err, data) {
                 if (err) {
@@ -104,7 +105,7 @@ var UsuarioController   = {
                     site: req.app.site._id,
                     nome: req.body.nome,
                     email: req.body.email,
-                    password: bcrypt.hashSync(req.body.password, salt),
+                    password: req.body.password,
                     localidade: {
                         uf: req.body.uf,
                         estado: req.body.estado,

@@ -31,7 +31,6 @@ var PagseguroController  = {
         });
 
         compra.sender.set(req.body.sender);
-
         compra.shipping.set(req.body.shipping);
 
         compra.checkout(function(err, response, body) {

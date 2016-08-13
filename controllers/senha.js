@@ -2,9 +2,7 @@
 
 var router          = require('express').Router();
 var UsuarioModel    = require('../models/usuario');
-var bcrypt          = require('bcrypt');
 var uniqid          = require('uniqid');
-var salt            = process.env.PASSWORD_SALT;
 var SenhaController = {
     /**
      * Atualiza a senha do usuário
@@ -22,7 +20,7 @@ var SenhaController = {
                 },
                 {
                     $set: {
-                        password: (bcrypt.hashSync(req.body.password, salt))
+                        password: req.body.password
                     }
                 },
                 {
@@ -63,7 +61,6 @@ var SenhaController = {
      */
     adiciona: function (req, res, done) {
         var senhaLimpa = uniqid();
-        var novaSenha = bcrypt.hashSync(senhaLimpa, salt);
 
         UsuarioModel
             .findOneAndUpdate(
@@ -73,7 +70,7 @@ var SenhaController = {
                 },
                 {
                     $set: {
-                        password: novaSenha
+                        password: senhaLimpa
                     }
                 },
                 {
