@@ -15,14 +15,9 @@ var cors            = require('./modules/cors');
 var site            = require('./modules/site');
 var token           = require('./modules/token');
 var Index           = require('./controllers/index');
-var Aviso           = require('./controllers/aviso');
 var Carrinho        = require('./controllers/carrinho');
-var Emprego         = require('./controllers/emprego');
-var Equipe          = require('./controllers/equipe');
-var Parceiro        = require('./controllers/parceiro');
 var Produto         = require('./controllers/produto');
 var Site            = require('./controllers/site');
-var Slide           = require('./controllers/slide');
 var Usuario         = require('./controllers/usuario');
 var Login           = require('./controllers/login');
 var Logout          = require('./controllers/logout');
@@ -44,14 +39,9 @@ var Application = function () {
      */
     self.createRoutes = function () {
         self.app.use('/', cors, site, token, Index);
-        self.app.use('/aviso', cors, site, token, Aviso);
         self.app.use('/carrinho', cors, site, token, Carrinho);
-        self.app.use('/emprego', cors, site, token, Emprego);
-        self.app.use('/equipe', cors, site, token, Equipe);
-        self.app.use('/parceiro', cors, site, token, Parceiro);
         self.app.use('/produto', cors, site, token, Produto);
         self.app.use('/site', cors, site, token, Site);
-        self.app.use('/slide', cors, site, token, Slide);
         self.app.use('/usuario', cors, site, token, Usuario);
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
