@@ -11,12 +11,13 @@ var IndexController = {
      * @returns {*}
      */
     lista: function (req, res, done) {
-        var data = req.app.site;
-
         res.status(200).json({
             object: 'object',
             has_more: false,
-            data: data,
+            data: {
+                name: req.app.site.nome + ' API',
+                last_update: new Date()
+            },
             itemCount: 1,
             pageCount: 1
         });
