@@ -1,6 +1,6 @@
 # Quero Uma Loja - API
 
-[![Build Status for Master](https://travis-ci.org/QueroUmaLoja/api-server.svg?branch=master)](https://travis-ci.org/QueroUmaLoja/api-server)
+[![Build Status for Master](https://travis-ci.org/QueroUmaLoja/api-server.svg)](https://travis-ci.org/QueroUmaLoja/api-server)
 [![Code Climate](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/gpa.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
 [![Test Coverage](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/coverage.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server/coverage)
 [![Issue Count](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/issue_count.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
