@@ -27,7 +27,7 @@ DB_HOST (127.0.0.1)
 DB_PORT (27017)
 DB_NAME (test)
 PASSWORD_SALT
-``` 
+```
 
 Logo após tudo configurado, basta instalar as dependências
 
@@ -57,8 +57,8 @@ npm test
 
 
 ### Garantia
-Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização 
-desta. Você tem total liberdade de instalá-la em seu próprio servidor e utilizar para quaisquer fins, com ou sem 
+Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização
+desta. Você tem total liberdade de instalá-la em seu próprio servidor e utilizar para quaisquer fins, com ou sem
 modificações na mesma.
 
 ### Contribuindo
