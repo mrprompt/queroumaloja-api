@@ -4,7 +4,6 @@
 [![Code Climate](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/gpa.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
 [![Test Coverage](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/coverage.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server/coverage)
 [![Issue Count](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/issue_count.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
-
 [![GitHub issues](https://img.shields.io/github/issues/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/issues)
 [![GitHub stars](https://img.shields.io/github/stars/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/QueroUmaLoja/api-server/master/LICENSE)
