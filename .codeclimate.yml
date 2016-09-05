@@ -13,6 +13,7 @@ ratings:
   - controllers/**
   - models/**
   - modules/**
+  - routers/**
   - workers/**
 
 exclude_paths:
