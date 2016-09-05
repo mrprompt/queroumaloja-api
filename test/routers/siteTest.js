@@ -11,36 +11,6 @@ describe('Site Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../providers/upload', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/site', {
-            paginate: function(x, y, end) {
-                end(null, {
-                    pages: 0,
-                    total: 0,
-                    docs: []
-                });
-            },
-            findOne: function(x) {
-                return {
-                    exec: function (end) {
-                        end(null, {});
-                    }
-                }
-            },
-            create: function(x, end) {
-                end(null, {});
-            },
-            update: function(x, y, end) {
-                end(null, {});
-            },
-            remove: function(x, end) {
-                end(null, {});
-            }
-        });
-
         this.controller = require('../../routers/site');
     });
 

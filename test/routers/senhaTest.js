@@ -11,27 +11,6 @@ describe('Senha Router', function () {
             warnOnReplace: false
         });
 
-        process.env.PASSWORD_SALT = 'foo';
-
-        mockery.registerMock('bcrypt', {
-            hashSync: function(x, y) {
-                return '1234567890';
-            }
-        });
-
-        mockery.registerMock('uniqid', function() {
-            return '1234567890';
-        });
-
-        mockery.registerMock('../models/usuario', {
-            findOneAndUpdate: function(filter, update, options, done) {
-                return done(null, {
-                    _id: parseInt(Math.random()),
-                    email: filter.email
-                });
-            }
-        });
-
         this.controller = require('../../routers/senha');
     });
 

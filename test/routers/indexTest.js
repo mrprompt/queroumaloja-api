@@ -11,16 +11,6 @@ describe('Index Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/site', {
-            findOne: function(x) {
-                return {
-                    exec: function (end) {
-                        end(null, {});
-                    }
-                }
-            }
-        });
-
         this.controller = require('../../routers/index');
     });
 

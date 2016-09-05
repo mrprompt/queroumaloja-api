@@ -11,40 +11,6 @@ describe('Carrinho Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../events/carrinho', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/carrinho', {
-            paginate: function(x, y, end) {
-                end(null, {
-                    pages: 0,
-                    total: 0,
-                    docs: []
-                });
-            },
-            findOne: function(x) {
-                return {
-                    populate: function() {
-                        return {
-                            exec: function (end) {
-                                end(null, {});
-                            }
-                        }
-                    }
-                }
-            },
-            create: function(x, end) {
-                end(null, {});
-            },
-            update: function(x, y, end) {
-                end(null, {});
-            },
-            remove: function(x, end) {
-                end(null, {});
-            }
-        });
-
         this.controller = require('../../routers/carrinho');
     });
 

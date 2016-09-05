@@ -11,48 +11,6 @@ describe('Login Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/usuario', {
-            findOne: function(filter) {
-                if (filter.email === 'foo@bar.bar' && filter.password === '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW' && filter.site === 1) {
-                    return {
-                        populate: function () {
-                            return {
-                                exec: function (end) {
-                                    end(null, {
-                                        _id: parseInt(Math.random()),
-                                        email: filter.email
-                                    });
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    return {
-                        populate: function () {
-                            return {
-                                exec: function (end) {
-                                    end(null, null);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        mockery.registerMock('../models/token', {
-            findOne: function(x) {
-                return {
-                    populate: function() {
-                        return []
-                    }
-                }
-            },
-            create: function(x, end) {
-                end(null, {});
-            }
-        });
-
         this.controller = require('../../routers/login');
     });
 

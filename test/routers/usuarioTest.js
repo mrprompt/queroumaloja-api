@@ -11,38 +11,6 @@ describe('Usuario Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('bcrypt', {
-            hashSync: function() {
-                return true;
-            }
-        });
-
-        mockery.registerMock('../providers/upload', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/usuario', {
-            paginate: function(x, y, end) {
-                end(null, {
-                    pages: 0,
-                    total: 0,
-                    docs: []
-                });
-            },
-            findOne: function(x, end) {
-                end(null, {});
-            },
-            create: function(x, end) {
-                end(null, {});
-            },
-            update: function(x, y, end) {
-                end(null, {});
-            },
-            remove: function(x, end) {
-                end(null, {});
-            }
-        });
-
         this.controller = require('../../routers/usuario');
     });
 
