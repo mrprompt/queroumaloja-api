@@ -1,10 +1,10 @@
 'use strict';
 
-var paginate          = require('express-paginate');
-var slugify           = require('slugify');
-var striptags         = require('striptags');
-var ProdutoModel      = require('../models/produto');
-var ProdutoController = function () {};
+var paginate = require('express-paginate'),
+  slugify = require('slugify'),
+  striptags = require('striptags'),
+  ProdutoModel = require('../models/produto'),
+  ProdutoController = function () {};
 
 /**
  * Lista os produtos

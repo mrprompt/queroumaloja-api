@@ -1,8 +1,8 @@
 'use strict';
 
-var paginate            = require('express-paginate');
-var UsuarioModel        = require('../models/usuario');
-var UsuarioController   = function () {};
+var paginate = require('express-paginate'),
+  UsuarioModel = require('../models/usuario'),
+  UsuarioController = function () {};
 
 /**
  * Lista os usuários

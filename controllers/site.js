@@ -1,9 +1,9 @@
 'use strict';
 
-var paginate        = require('express-paginate');
-var striptags       = require('striptags');
-var SiteModel       = require('../models/site');
-var SiteController  = function() {};
+var paginate = require('express-paginate'),
+  striptags = require('striptags'),
+  SiteModel = require('../models/site'),
+  SiteController  = function() {};
 
 /**
  * Lista os sites cadastrados
