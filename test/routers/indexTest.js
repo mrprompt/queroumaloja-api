@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Index Controller', function () {
+describe('Index Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
@@ -21,7 +21,7 @@ describe('Index Controller', function () {
             }
         });
 
-        this.controller = require('../../controllers/index');
+        this.controller = require('../../routers/index');
     });
 
     after(function() {
@@ -46,7 +46,7 @@ describe('Index Controller', function () {
             }
         });
 
-        this.controller.lista(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

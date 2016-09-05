@@ -4,18 +4,18 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Carrinho Controller', function () {
+describe('Produto Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../events/carrinho', function(req, res, end) {
+        mockery.registerMock('../modules/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../models/carrinho', {
+        mockery.registerMock('../models/produto', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -25,12 +25,8 @@ describe('Carrinho Controller', function () {
             },
             findOne: function(x) {
                 return {
-                    populate: function() {
-                        return {
-                            exec: function (end) {
-                                end(null, {});
-                            }
-                        }
+                    exec: function (end) {
+                        end(null, {});
                     }
                 }
             },
@@ -40,12 +36,15 @@ describe('Carrinho Controller', function () {
             update: function(x, y, end) {
                 end(null, {});
             },
+            findOneAndUpdate: function(x, y, z, end) {
+                end(null, {});
+            },
             remove: function(x, end) {
                 end(null, {});
             }
         });
 
-        this.controller = require('../../controllers/carrinho');
+        this.controller = require('../../routers/produto');
     });
 
     after(function() {
@@ -69,7 +68,7 @@ describe('Carrinho Controller', function () {
             }
         });
 
-        this.controller.lista(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -103,7 +102,7 @@ describe('Carrinho Controller', function () {
             }
         });
 
-        this.controller.abre(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -123,22 +122,29 @@ describe('Carrinho Controller', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             body: {
-                token: 'foo',
-                valor: 'bar',
-                tipo: 'foo'
+                titulo: 'foo',
+                descricao: 'bar bar bar',
+                imagem: {},
+                codigo: 0,
+                valor: 1.00,
+                categoria: {
+                    titulo: 'foo',
+                    uri: 'foo',
+                    categoria: {
+                        titulo: 'bar',
+                        uri: 'bar'
+                    }
+                }
             },
             url: '/',
             app: {
-                usuario: {
-                    id: 1
-                },
                 site: {
-                    id: 1
+                    _id: 1
                 }
-            }
+            },
         });
 
-        this.controller.adiciona(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -162,22 +168,43 @@ describe('Carrinho Controller', function () {
                 id: 1
             },
             body: {
-                titulo      : 'foo',
-                descricao   : 'bar',
-                tags        : 'foo, bar',
-                salario     : '100'
+                titulo: 'foo',
+                descricao: 'bar bar bar',
+                imagem: {
+
+                },
+                codigo: 0,
+                valor: {
+                    valor: 1.00
+                },
+                categoria: {
+                    titulo: 'foo',
+                    uri: 'foo',
+                    categoria: {
+                        titulo: 'bar',
+                        uri: 'bar'
+                    }
+                },
+                dimensoes: {
+                    altura: 0,
+                    lartura: 0,
+                    comprimento: 0,
+                    unidade: 'cm'
+                },
+                peso: {
+                    total: 0,
+                    unidade: 'kg'
+                },
+                estoque: 100
             },
             app: {
-                usuario: {
-                    id: 1
-                },
                 site: {
                     _id: 1
                 }
-            }
+            },
         });
 
-        this.controller.atualiza(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -200,20 +227,14 @@ describe('Carrinho Controller', function () {
             params: {
                 id: 1
             },
-            headers: {
-                site: 1
-            },
             app: {
-                usuario: {
-                    id: 1
-                },
                 site: {
                     _id: 1
                 }
             }
         });
 
-        this.controller.apaga(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -223,6 +244,37 @@ describe('Carrinho Controller', function () {
         should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#busca() deve retornar um array e status 200', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'GET',
+            url: '/busca/foo',
+            app: {
+                site: {
+                    _id: 1
+                }
+            },
+            query: {
+                page: 1,
+                limit: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 200);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'list');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 0);
+        should.equal(data.pageCount, 0);
 
         done();
     });

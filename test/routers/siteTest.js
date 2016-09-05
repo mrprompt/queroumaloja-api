@@ -4,18 +4,18 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Carrinho Controller', function () {
+describe('Site Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../events/carrinho', function(req, res, end) {
+        mockery.registerMock('../providers/upload', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../models/carrinho', {
+        mockery.registerMock('../models/site', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -25,12 +25,8 @@ describe('Carrinho Controller', function () {
             },
             findOne: function(x) {
                 return {
-                    populate: function() {
-                        return {
-                            exec: function (end) {
-                                end(null, {});
-                            }
-                        }
+                    exec: function (end) {
+                        end(null, {});
                     }
                 }
             },
@@ -45,7 +41,7 @@ describe('Carrinho Controller', function () {
             }
         });
 
-        this.controller = require('../../controllers/carrinho');
+        this.controller = require('../../routers/site');
     });
 
     after(function() {
@@ -58,10 +54,8 @@ describe('Carrinho Controller', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            app: {
-                site: {
-                    _id: 1
-                }
+            headers: {
+                site: 1
             },
             query: {
                 page: 1,
@@ -69,7 +63,7 @@ describe('Carrinho Controller', function () {
             }
         });
 
-        this.controller.lista(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -92,10 +86,8 @@ describe('Carrinho Controller', function () {
             params: {
                 id: 1
             },
-            app: {
-                site: {
-                    _id: 1
-                }
+            headers: {
+                site: 1
             },
             query: {
                 page: 1,
@@ -103,7 +95,7 @@ describe('Carrinho Controller', function () {
             }
         });
 
-        this.controller.abre(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -123,22 +115,59 @@ describe('Carrinho Controller', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             body: {
-                token: 'foo',
-                valor: 'bar',
-                tipo: 'foo'
+                nome: 'foo',
+                dominio: 'localhost.localdomain',
+                emails: [],
+                enderecos: [],
+                telefones: [],
+                categorias: [],
+                config: {}
             },
             url: '/',
-            app: {
-                usuario: {
-                    id: 1
-                },
-                site: {
-                    id: 1
-                }
+            headers: {
+                site: 1
             }
         });
 
-        this.controller.adiciona(request, response, function() {});
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 201);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#adiciona() com categoria deve retornar um array e status 201', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'POST',
+            body: {
+                nome: 'foo',
+                dominio: 'localhost.localdomain',
+                emails: [],
+                enderecos: [],
+                telefones: [],
+                categorias: [
+                    {
+                        titulo: 'teste',
+                        urdi: 'teste'
+                    }
+                ]
+            },
+            url: '/',
+            headers: {
+                site: 1
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -162,22 +191,19 @@ describe('Carrinho Controller', function () {
                 id: 1
             },
             body: {
-                titulo      : 'foo',
-                descricao   : 'bar',
-                tags        : 'foo, bar',
-                salario     : '100'
+                nome: 'foo',
+                dominio: 'localhost.localdomain',
+                emails: [],
+                enderecos: [],
+                telefones: [],
+                categorias: []
             },
-            app: {
-                usuario: {
-                    id: 1
-                },
-                site: {
-                    _id: 1
-                }
+            headers: {
+                site: 1
             }
         });
 
-        this.controller.atualiza(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -202,18 +228,10 @@ describe('Carrinho Controller', function () {
             },
             headers: {
                 site: 1
-            },
-            app: {
-                usuario: {
-                    id: 1
-                },
-                site: {
-                    _id: 1
-                }
             }
         });
 
-        this.controller.apaga(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

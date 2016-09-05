@@ -14,15 +14,14 @@ var connection      = require('./modules/connection');
 var cors            = require('./modules/cors');
 var site            = require('./modules/site');
 var token           = require('./modules/token');
-var Index           = require('./controllers/index');
-var Carrinho        = require('./controllers/carrinho');
-var Produto         = require('./controllers/produto');
-var Site            = require('./controllers/site');
-var Usuario         = require('./controllers/usuario');
-var Login           = require('./controllers/login');
-var Logout          = require('./controllers/logout');
-var Senha           = require('./controllers/senha');
-var PagSeguro       = require('./controllers/pagseguro');
+var Index           = require('./routers/index');
+var Carrinho        = require('./routers/carrinho');
+var Produto         = require('./routers/produto');
+var Site            = require('./routers/site');
+var Usuario         = require('./routers/usuario');
+var Login           = require('./routers/login');
+var Logout          = require('./routers/logout');
+var Senha           = require('./routers/senha');
 var LocalWorker     = require('./workers/carrinho');
 
 /**
@@ -46,7 +45,6 @@ var Application = function () {
         self.app.use('/login', cors, site, token, Login);
         self.app.use('/logout', cors, site, token, Logout);
         self.app.use('/senha', cors, site, token, Senha);
-        self.app.use('/pagseguro', cors, site, PagSeguro);
     };
 
     /**

@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Logout Controller Test', function () {
+describe('Logout Controller', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
@@ -31,7 +31,7 @@ describe('Logout Controller Test', function () {
         mockery.disable()
     });
 
-    it('#adiciona() deve retornar um array e status 204', function (done) {
+    it('#logout() deve retornar um array e status 204', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
@@ -47,7 +47,7 @@ describe('Logout Controller Test', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.logout(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
