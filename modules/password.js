@@ -5,8 +5,9 @@ var bcrypt = require('bcrypt'),
   router = require('express').Router();
 
 router.all('*', function(req, res, done) {
-  // console.log(req.body);
   if ('password' in req.body === false) {
+    done();
+
     return;
   }
 
