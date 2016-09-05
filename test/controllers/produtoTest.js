@@ -4,14 +4,14 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Produto Controller Tests', function () {
+describe('Produto Controller', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../providers/upload', function(req, res, end) {
+        mockery.registerMock('../modules/upload', function(req, res, end) {
             end();
         });
 
@@ -68,7 +68,7 @@ describe('Produto Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.lista(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -102,7 +102,7 @@ describe('Produto Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.abre(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -144,7 +144,7 @@ describe('Produto Controller Tests', function () {
             },
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.adiciona(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -204,7 +204,7 @@ describe('Produto Controller Tests', function () {
             },
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.atualiza(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -234,7 +234,7 @@ describe('Produto Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.apaga(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -265,7 +265,7 @@ describe('Produto Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.busca(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

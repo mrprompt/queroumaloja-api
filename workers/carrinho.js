@@ -4,8 +4,8 @@ const INTERVAL      = process.env.CART_INTERVAL || 3600000;  // 1 hora
 
 var CarrinhoModel   = require('../models/carrinho'),
     ProdutoModel    = require('../models/produto'),
-    PagSeguro       = require('../providers/pagseguro'),
-    PagarMe         = require('../providers/pagarme');
+    PagSeguro       = require('../modules/pagseguro'),
+    PagarMe         = require('../modules/pagarme');
 
 var api = {
     /**

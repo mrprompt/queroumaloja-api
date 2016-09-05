@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Carrinho Controller Tests', function () {
+describe('Carrinho Controller', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
@@ -69,7 +69,7 @@ describe('Carrinho Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.lista(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -103,7 +103,7 @@ describe('Carrinho Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.abre(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -138,7 +138,7 @@ describe('Carrinho Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.adiciona(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -177,7 +177,7 @@ describe('Carrinho Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.atualiza(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -213,7 +213,7 @@ describe('Carrinho Controller Tests', function () {
             }
         });
 
-        this.controller.handle(request, response, function() {});
+        this.controller.apaga(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

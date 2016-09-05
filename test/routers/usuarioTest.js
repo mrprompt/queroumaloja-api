@@ -4,14 +4,24 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Emprego Controller Tests', function () {
+describe('Usuario Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/emprego', {
+        mockery.registerMock('bcrypt', {
+            hashSync: function() {
+                return true;
+            }
+        });
+
+        mockery.registerMock('../providers/upload', function(req, res, end) {
+            end();
+        });
+
+        mockery.registerMock('../models/usuario', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -19,12 +29,8 @@ describe('Emprego Controller Tests', function () {
                     docs: []
                 });
             },
-            findOne: function(x) {
-                return {
-                    exec: function(end) {
-                        end(null, {});
-                    }
-                }
+            findOne: function(x, end) {
+                end(null, {});
             },
             create: function(x, end) {
                 end(null, {});
@@ -37,7 +43,7 @@ describe('Emprego Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../controllers/emprego');
+        this.controller = require('../../routers/usuario');
     });
 
     after(function() {
@@ -50,17 +56,14 @@ describe('Emprego Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
-            },
-            query: {
-                page: 1,
-                limit: 1
-            },
             app: {
                 site: {
                     _id: 1
                 }
+            },
+            query: {
+                page: 1,
+                limit: 1
             }
         });
 
@@ -86,9 +89,6 @@ describe('Emprego Controller Tests', function () {
             url: '/1',
             params: {
                 id: 1
-            },
-            headers: {
-                site: 1
             },
             app: {
                 site: {
@@ -121,10 +121,14 @@ describe('Emprego Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             body: {
-                titulo      : 'foo',
-                descricao   : 'bar',
-                tags        : 'foo, bar',
-                salario     : '100'
+                nome: 'foo',
+                email: 'foo@bar.bar',
+                password: 'foo',
+                localidade: {
+                    uf: 'foo',
+                    estado: 'fooooo bar bar',
+                    cidade: 'foobarbarbar'
+                }
             },
             url: '/',
             app: {
@@ -158,13 +162,45 @@ describe('Emprego Controller Tests', function () {
                 id: 1
             },
             body: {
-                titulo      : 'foo',
-                descricao   : 'bar',
-                tags        : 'foo, bar',
-                salario     : '100'
+                titulo: 'foo',
+                descricao: 'bar bar bar',
+                imagem: {},
             },
-            headers: {
-                site: 1
+            app: {
+                site: {
+                    _id: 1
+                }
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 204);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'object');
+        should.equal(data.has_more, false);
+        should.equal(data.itemCount, 1);
+        should.equal(data.pageCount, 1);
+
+        done();
+    });
+
+    it('#atualiza() para outro nível deve retornar um objeto e status 204', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'PUT',
+            url: '/1',
+            params: {
+                id: 1
+            },
+            body: {
+                titulo: 'foo',
+                descricao: 'bar bar bar',
+                imagem: {},
+                nivel: 'administrador'
             },
             app: {
                 site: {
@@ -195,9 +231,6 @@ describe('Emprego Controller Tests', function () {
             url: '/1',
             params: {
                 id: 1
-            },
-            headers: {
-                site: 1
             },
             app: {
                 site: {

@@ -1,30 +1,30 @@
 'use strict';
 
-var router          = require('express').Router();
-var IndexController = {
-    /**
-     * Tela inicial
-     *
-     * @param req
-     * @param res
-     * @param done
-     * @returns {*}
-     */
-    lista: function (req, res, done) {
-        var data = req.app.site;
+var IndexController = function() {};
 
-        res.status(200).json({
-            object: 'object',
-            has_more: false,
-            data: data,
-            itemCount: 1,
-            pageCount: 1
-        });
+/**
+ * Tela inicial
+ *
+ * @param req
+ * @param res
+ * @param done
+ * @returns {*}
+ */
+IndexController.prototype.lista = function (req, res, done) {
+  var data = {
+      name: req.app.site.nome + ' API',
+      last_update: new Date()
+  };
 
-        done(null, data);
-    }
+  res.status(200).json({
+      object: 'object',
+      has_more: false,
+      data: data,
+      itemCount: 1,
+      pageCount: 1
+  });
+
+  done(null, data);
 };
 
-router.get('/', IndexController.lista);
-
-module.exports = router;
+module.exports = new IndexController;

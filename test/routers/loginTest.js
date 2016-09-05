@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Login Controller', function () {
+describe('Login Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
@@ -53,14 +53,14 @@ describe('Login Controller', function () {
             }
         });
 
-        this.controller = require('../../controllers/login');
+        this.controller = require('../../routers/login');
     });
 
     after(function() {
         mockery.disable()
     });
 
-    it('#adiciona() deve retornar um array e status 201', function (done) {
+    it('#adiciona() com usuário válido deve retornar um objeto e status 201', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
@@ -78,7 +78,7 @@ describe('Login Controller', function () {
             }
         });
 
-        this.controller.adiciona(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -110,7 +110,7 @@ describe('Login Controller', function () {
             }
         });
 
-        this.controller.adiciona(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

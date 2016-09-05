@@ -4,53 +4,54 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Index Controller', function () {
+describe('Logout Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/site', {
+        mockery.registerMock('../models/token', {
             findOne: function(x) {
                 return {
-                    exec: function (end) {
-                        end(null, {});
+                    populate: function() {
+                        return []
                     }
                 }
+            },
+            remove: function(x, end) {
+                end(null, {});
             }
         });
 
-        this.controller = require('../../controllers/index');
+        this.controller = require('../../routers/logout');
     });
 
     after(function() {
         mockery.disable()
     });
 
-    it('#lista() deve retornar um objeto e status 200', function (done) {
+    it('#adiciona() deve retornar um array e status 204', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
-            method: 'GET',
+            method: 'DELETE',
             url: '/',
             headers: {
                 site: 1
             },
-            query: {
-                page: 1,
-                limit: 1
-            },
             app: {
-                site: {}
+                usuario: {
+                    _id: 1
+                }
             }
         });
 
-        this.controller.lista(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
-        should.equal(response.statusCode, 200);
+        should.equal(response.statusCode, 204);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
         should.equal(data.has_more, false);

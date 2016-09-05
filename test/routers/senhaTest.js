@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Senha Controller', function () {
+describe('Senha Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
@@ -32,7 +32,7 @@ describe('Senha Controller', function () {
             }
         });
 
-        this.controller = require('../../controllers/senha');
+        this.controller = require('../../routers/senha');
     });
 
     after(function() {
@@ -61,7 +61,7 @@ describe('Senha Controller', function () {
             }
         });
 
-        this.controller.atualiza(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 
@@ -92,7 +92,7 @@ describe('Senha Controller', function () {
             }
         });
 
-        this.controller.adiciona(request, response, function() {});
+        this.controller.handle(request, response, function() {});
 
         var data = JSON.parse(response._getData());
 

@@ -4,18 +4,18 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 
-describe('Slide Controller Tests', function () {
+describe('Carrinho Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
         });
 
-        mockery.registerMock('../providers/upload', function(req, res, end) {
+        mockery.registerMock('../events/carrinho', function(req, res, end) {
             end();
         });
 
-        mockery.registerMock('../models/slide', {
+        mockery.registerMock('../models/carrinho', {
             paginate: function(x, y, end) {
                 end(null, {
                     pages: 0,
@@ -25,8 +25,12 @@ describe('Slide Controller Tests', function () {
             },
             findOne: function(x) {
                 return {
-                    exec: function (end) {
-                        end(null, {});
+                    populate: function() {
+                        return {
+                            exec: function (end) {
+                                end(null, {});
+                            }
+                        }
                     }
                 }
             },
@@ -41,7 +45,7 @@ describe('Slide Controller Tests', function () {
             }
         });
 
-        this.controller = require('../../controllers/slide');
+        this.controller = require('../../routers/carrinho');
     });
 
     after(function() {
@@ -119,14 +123,17 @@ describe('Slide Controller Tests', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             body: {
-                titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {},
+                token: 'foo',
+                valor: 'bar',
+                tipo: 'foo'
             },
             url: '/',
             app: {
+                usuario: {
+                    id: 1
+                },
                 site: {
-                    _id: 1
+                    id: 1
                 }
             }
         });
@@ -155,11 +162,15 @@ describe('Slide Controller Tests', function () {
                 id: 1
             },
             body: {
-                titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {}
+                titulo      : 'foo',
+                descricao   : 'bar',
+                tags        : 'foo, bar',
+                salario     : '100'
             },
             app: {
+                usuario: {
+                    id: 1
+                },
                 site: {
                     _id: 1
                 }
@@ -189,7 +200,13 @@ describe('Slide Controller Tests', function () {
             params: {
                 id: 1
             },
+            headers: {
+                site: 1
+            },
             app: {
+                usuario: {
+                    id: 1
+                },
                 site: {
                     _id: 1
                 }
