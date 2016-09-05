@@ -57,6 +57,7 @@
     "test": "mocha test",
     "prestart": "npm install",
     "start": "node server.js",
-    "coverage": "istanbul cover _mocha -- -R spec"
+    "coverage": "istanbul cover _mocha -- -R spec",
+    "worker": "node worker.js"
   }
 }

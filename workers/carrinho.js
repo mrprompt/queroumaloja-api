@@ -8,8 +8,6 @@ var CarrinhoModel   = require('../models/carrinho'),
     PagarMe         = require('../modules/pagarme');
 
 var api = {
-    var vm = this;
-
     /**
      * Inicia o timer de checagem dos carrinhos em processamento
      */
@@ -32,11 +30,11 @@ var api = {
                     carrinhos.forEach(function(carrinho) {
                         switch (carrinho.tipo) {
                             case 'pagseguro':
-                                PagSeguro.checaTransacao(carrinho, vm.atualizaProdutos);
+                                PagSeguro.checaTransacao(carrinho, api.atualizaProdutos);
                             break;
 
                             case 'pagarme':
-                                PagarMe.checaTransacao(carrinho, vm.atualizaProdutos);
+                                PagarMe.checaTransacao(carrinho, api.atualizaProdutos);
                             break;
 
                             case 'local':
@@ -46,6 +44,8 @@ var api = {
                     });
                 });
         }, INTERVAL);
+
+        console.log('Worker Initialized at %s', Date())
     },
 
     /**
