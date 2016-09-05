@@ -20,7 +20,7 @@ SenhaController.prototype.atualiza = function (req, res, done) {
             },
             {
                 $set: {
-                    password: req.body.password
+                    password: req.body.password_encrypted
                 }
             },
             {
@@ -28,8 +28,6 @@ SenhaController.prototype.atualiza = function (req, res, done) {
             },
             function (err, user) {
                 if (err) {
-                    console.log(err, user);
-
                     return res.status(500).json({
                         object: 'error',
                         has_more: false,
@@ -45,7 +43,7 @@ SenhaController.prototype.atualiza = function (req, res, done) {
                         itemCount: 1,
                         pageCount: 1
                     };
-                    
+
                     res.status(204).json(data);
 
                     return done(err, data);

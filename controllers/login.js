@@ -15,7 +15,7 @@ var LoginController = function() {};
 LoginController.prototype.adiciona = function (req, res, done) {
     var filter = {
         email   : req.body.email,
-        password: req.body.password,
+        password: req.body.password_encrypted,
         site    : req.app.site._id
     };
 

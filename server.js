@@ -14,6 +14,7 @@ var connection      = require('./modules/connection');
 var cors            = require('./modules/cors');
 var site            = require('./modules/site');
 var token           = require('./modules/token');
+var password        = require('./modules/password');
 var Index           = require('./routers/index');
 var Carrinho        = require('./routers/carrinho');
 var Produto         = require('./routers/produto');
@@ -41,10 +42,10 @@ var Application = function () {
         self.app.use('/carrinho', cors, site, token, Carrinho);
         self.app.use('/produto', cors, site, token, Produto);
         self.app.use('/site', cors, site, token, Site);
-        self.app.use('/usuario', cors, site, token, Usuario);
-        self.app.use('/login', cors, site, token, Login);
+        self.app.use('/usuario', cors, site, token, password, Usuario);
+        self.app.use('/login', cors, site, token, password, Login);
         self.app.use('/logout', cors, site, token, Logout);
-        self.app.use('/senha', cors, site, token, Senha);
+        self.app.use('/senha', cors, site, token, password, Senha);
     };
 
     /**

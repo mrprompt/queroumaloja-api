@@ -11,27 +11,9 @@ describe('Login Controller', function () {
             warnOnReplace: false
         });
 
-        process.env.PASSWORD_SALT = 'foo';
-
-        mockery.registerMock('token', {
-            defaults: {
-                secret: '',
-                timeSep: ''
-            },
-            generate: function(x, y) {
-                return true;
-            }
-        });
-
-        mockery.registerMock('bcrypt', {
-            hashSync: function(x, y) {
-                return '1234567890';
-            }
-        });
-
         mockery.registerMock('../models/usuario', {
             findOne: function(filter) {
-                if (filter.email === 'foo@bar.bar' && filter.password === '1234567890' && filter.site === 1) {
+                if (filter.email === 'foo@bar.bar' && filter.password === '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW' && filter.site === 1) {
                     return {
                         populate: function () {
                             return {
@@ -86,7 +68,8 @@ describe('Login Controller', function () {
             url: '/',
             body: {
                 email: 'foo@bar.bar',
-                password: '1234567890'
+                password: '1234567890',
+                password_encrypted: '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW'
             },
             app: {
                 site: {

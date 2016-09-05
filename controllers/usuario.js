@@ -105,7 +105,7 @@ UsuarioController.prototype.adiciona = function (req, res, done) {
                 site: req.app.site._id,
                 nome: req.body.nome,
                 email: req.body.email,
-                password: req.body.password,
+                password: req.body.password_encrypted,
                 localidade: {
                     uf: req.body.uf,
                     estado: req.body.estado,
@@ -114,8 +114,6 @@ UsuarioController.prototype.adiciona = function (req, res, done) {
             },
             function (err, user) {
                 if (err) {
-                    console.error(err);
-
                     res.status(500).json({
                         object: 'error',
                         has_more: false,
