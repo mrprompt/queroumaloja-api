@@ -12,6 +12,5 @@
   "/usuario|GET",
   "/usuario|PUT",
   "/usuario|DELETE",
-  "/logout|DELETE",
   "/senha|PUT"
 ]

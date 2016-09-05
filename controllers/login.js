@@ -1,9 +1,9 @@
 'use strict';
 
-var UsuarioModel    = require('../models/usuario');
-var TokenModel      = require('../models/token');
-var TokenAdapter    = require('token');
-var LoginController = function() {};
+var UsuarioModel = require('../models/usuario'),
+  TokenModel = require('../models/token'),
+  TokenAdapter = require('token'),
+  LoginController = function() {};
 
 /**
  * Efetua um login e adquire um token de acesso

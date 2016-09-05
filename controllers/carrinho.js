@@ -1,8 +1,8 @@
 'use strict';
 
-var paginate            = require('express-paginate');
-var CarrinhoModel       = require('../models/carrinho');
-var CarrinhoController = function() {};
+var paginate = require('express-paginate'),
+  CarrinhoModel = require('../models/carrinho'),
+  CarrinhoController = function() {};
 
 /**
  * Lista todos os carrinhos

@@ -1,8 +1,8 @@
 'use strict';
 
-var UsuarioModel    = require('../models/usuario');
-var uniqid          = require('uniqid');
-var SenhaController = function () {};
+var UsuarioModel = require('../models/usuario'),
+  uniqid = require('uniqid'),
+  SenhaController = function () {};
 
 /**
  * Atualiza a senha do usuário

@@ -15,35 +15,6 @@ describe('Produto Router', function () {
             end();
         });
 
-        mockery.registerMock('../models/produto', {
-            paginate: function(x, y, end) {
-                end(null, {
-                    pages: 0,
-                    total: 0,
-                    docs: []
-                });
-            },
-            findOne: function(x) {
-                return {
-                    exec: function (end) {
-                        end(null, {});
-                    }
-                }
-            },
-            create: function(x, end) {
-                end(null, {});
-            },
-            update: function(x, y, end) {
-                end(null, {});
-            },
-            findOneAndUpdate: function(x, y, z, end) {
-                end(null, {});
-            },
-            remove: function(x, end) {
-                end(null, {});
-            }
-        });
-
         this.controller = require('../../routers/produto');
     });
 
