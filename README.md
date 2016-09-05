@@ -29,7 +29,7 @@ DB_PASSWORD (admin)
 DB_HOST (127.0.0.1)
 DB_PORT (27017)
 DB_NAME (test)
-PASSWORD_SALT
+PASSWORD_SALT ($2a$10$MeVpoT66x6r2eNFZ8diZDe)
 ```
 
 Logo após tudo configurado, basta instalar as dependências
