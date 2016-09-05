@@ -21,15 +21,12 @@ var Produto         = require('./routers/produto');
 var Site            = require('./routers/site');
 var Usuario         = require('./routers/usuario');
 var Login           = require('./routers/login');
-var Logout          = require('./routers/logout');
 var Senha           = require('./routers/senha');
-var LocalWorker     = require('./workers/carrinho');
 
 /**
  *  Define the application.
  */
 var Application = function () {
-    //  Scope.
     var self    = this;
     var port    = process.env.PORT || '8080';
     var env     = process.env.ENV || 'production';
@@ -44,15 +41,7 @@ var Application = function () {
         self.app.use('/site', cors, site, token, Site);
         self.app.use('/usuario', cors, site, token, password, Usuario);
         self.app.use('/login', cors, site, token, password, Login);
-        self.app.use('/logout', cors, site, token, Logout);
         self.app.use('/senha', cors, site, token, password, Senha);
-    };
-
-    /**
-     * Load Workers
-     */
-    self.createWorkers = function () {
-        LocalWorker.start();
     };
 
     /**
@@ -68,13 +57,9 @@ var Application = function () {
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
         self.app.use(paginate.middleware(PAGINATION.MAX, PAGINATION.MAX));
-        self.app.use(cors);
 
         // load routes
         self.createRoutes();
-
-        // load workers
-        self.createWorkers();
 
         // start server
         self.app.listen(port, function () {
