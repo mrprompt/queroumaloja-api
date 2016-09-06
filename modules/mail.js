@@ -9,11 +9,16 @@ var mail     = {
      * @param done
      */
     avisoDeCompra: function (carrinho, done) {
-        if (site === null || carrinho.site.config.sendgrid === undefined || carrinho.status !== 'pago') {
+        if (carrinho.site.config.sendgrid === undefined || carrinho.status !== 'pago') {
+            done();
+
             return;
         }
 
-        var sender = new SendGrid(carrinho.site.config.sendgrid.token);
+        var config = carrinho.site.config.sendgrid;
+
+        var sender = new SendGrid(config.token);
+
         var email  = new sender.Email({
             to      : carrinho.site.emails,
             from    : carrinho.comprador.email,
@@ -25,7 +30,7 @@ var mail     = {
             'templates': {
                 'settings': {
                     'enable': 1,
-                    'template_id': carrinho.site.config.sendgrid.template.carrinho_adiciona
+                    'template_id': config.template.carrinho_adiciona
                 }
             }
         });
@@ -36,15 +41,7 @@ var mail     = {
         email.addSubstitution("%valor%", carrinho.valor);
         email.addSubstitution("%items%", carrinho.items.length);
 
-        sender.send(email, function (err, json) {
-            if (err) {
-                return console.error(err);
-            }
-
-            if (done) {
-                done(json);
-            }
-        });
+        sender.send(email, done);
     }
 };
 
