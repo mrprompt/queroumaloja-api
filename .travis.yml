@@ -14,7 +14,6 @@ addons:
     repo_token: 7999d3c546e18743012d67dab3536c4dbbed672b52fd39410458126e76809d07
 
 node_js:
-  - "5.1.1"
   - "6"
 
 script: npm run coverage
