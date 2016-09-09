@@ -93,16 +93,18 @@ SiteController.prototype.abre = function (req, res, done) {
  * @param done
  */
 SiteController.prototype.adiciona = function (req, res, done) {
+    var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
+
     SiteModel
         .create(
             {
-                nome        : striptags(req.body.nome),
-                dominio     : req.body.dominio,
-                emails      : req.body.emails,
-                enderecos   : req.body.enderecos,
-                telefones   : req.body.telefones,
-                categorias  : req.body.categorias,
-                config      : req.body.config
+                nome        : striptags(nome),
+                dominio     : dominio,
+                emails      : emails,
+                enderecos   : enderecos,
+                telefones   : telefones,
+                categorias  : categorias,
+                config      : config
             },
             function (err, newSite) {
                 if (err) {
