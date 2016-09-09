@@ -5,12 +5,12 @@ const PAGINATION = {
     MAX: 1000
 };
 
+var newrelic        = require('newrelic');
 var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
-var newrelic        = require('newrelic');
 var connection      = require('./modules/connection');
 var cors            = require('./modules/cors');
 var site            = require('./modules/site');
