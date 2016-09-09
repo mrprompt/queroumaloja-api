@@ -5,7 +5,9 @@ const PAGINATION = {
     MAX: 1000
 };
 
-var newrelic        = require('newrelic');
+require('dotenv').config()
+require('newrelic');
+
 var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
