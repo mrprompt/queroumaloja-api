@@ -5,7 +5,7 @@ const PAGINATION = {
     MAX: 1000
 };
 
-require('dotenv').config()
+require('dotenv').config({ silent: true });
 require('newrelic');
 
 var express         = require('express');
