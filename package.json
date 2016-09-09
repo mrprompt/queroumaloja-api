@@ -17,8 +17,8 @@
   },
   "homepage": "http://www.queroumaloja.net",
   "engines": {
-    "node": "^5.1.1",
-    "npm": "^3.5.4"
+    "node": ">=6.5.0",
+    "npm": ">=3.10.3"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
