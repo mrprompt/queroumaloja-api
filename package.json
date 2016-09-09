@@ -32,6 +32,7 @@
     "mongoose-unique-validator": "^0.4.1",
     "morgan": "^1.5.3",
     "multer": "^1.1.0",
+    "newrelic": "^1.30.1",
     "pagarmejs": "^1.0.6",
     "pagseguro.js": "^0.2.0",
     "sendgrid": "^1.9.2",
