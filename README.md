@@ -88,3 +88,11 @@ utilizar alguma das várias saídas geradas (você precisará dar um Ctrl+C para
 node node_modules/bcrypt/examples/forever_gen_salt.js
 ```
 
+### Documentação
+
+A documentação é gerada utilizando o utilitário apidoc:
+
+```
+./node_modules/.bin/apidoc -o apidoc -i routers/
+```
+

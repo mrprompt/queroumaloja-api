@@ -6,16 +6,16 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
+        - javascript
 
 ratings:
   paths:
-  - controllers/**
-  - models/**
-  - modules/**
-  - routers/**
-  - workers/**
+    - controllers/**
+    - models/**
+    - modules/**
+    - routers/**
+    - workers/**
 
 exclude_paths:
-- node_modules/**/*
-- test/**
+  - node_modules/**/*
+  - test/**
