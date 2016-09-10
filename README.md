@@ -32,6 +32,8 @@ DB_NAME (test)
 PASSWORD_SALT ($2a$10$MeVpoT66x6r2eNFZ8diZDe)
 ```
 
+Você pode criar um arquivo ".env" no diretório raiz do projeto com as variáveis de ambiente. O arquivo é ignorado pelo git.
+
 Logo após tudo configurado, basta instalar as dependências
 
 ```
@@ -50,7 +52,7 @@ npm start
 
 Para os testes unitários, é utilizado o Mocha.
 
-**ATENÇÃO**
+**AVTENÇÃO**
 Os testes utilizam as mesmas variáveis de ambiente da aplicação, então, para que não ocorra perda de dados, sempre
 sobrescreva as variáveis para configurar o ambiente o banco de dados correto ANTES de executar os testes.
 
@@ -58,6 +60,15 @@ sobrescreva as variáveis para configurar o ambiente o banco de dados correto AN
 npm test
 ```
 
+### New Relic
+
+A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar duas variáveis de ambiente:
+
+```
+APPLICATION_NAME
+NEW_RELIC_LICENSE_KEY
+NEW_RELIC_LOG
+```
 
 ### Garantia
 Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização
@@ -67,3 +78,13 @@ modificações na mesma.
 ### Contribuindo
 Esta é uma API de código aberto e livre, fique a vontade para fazer um fork e contribuir com qualquer melhoria ou solução
 de bugs que a mesma possua ou precise.
+
+### Gerando um password salt
+
+Para gerar um salt para o password, você pode executar o arquivo de exemplo da própria biblioteca [bcrypt](https://github.com/ncb000gt/node.bcrypt.js) e 
+utilizar alguma das várias saídas geradas (você precisará dar um Ctrl+C para finalizar o script). 
+
+```
+node node_modules/bcrypt/examples/forever_gen_salt.js
+```
+
