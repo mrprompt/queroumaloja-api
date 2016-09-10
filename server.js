@@ -59,7 +59,7 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
-        self.app.use(paginate.middleware(PAGINATION.MAX, PAGINATION.MAX));
+        self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
 
         // load routes
         self.createRoutes();
