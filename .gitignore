@@ -1,9 +1,0 @@
-apidoc
-coverage
-node_modules
-npm-debug.log
-.vagrant
-.DS_Store
-.idea
-.project
-.env
