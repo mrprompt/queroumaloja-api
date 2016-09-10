@@ -90,7 +90,7 @@ node node_modules/bcrypt/examples/forever_gen_salt.js
 
 ### Documentação
 
-A documentação é gerada utilizando o utilitário apidoc:
+A [documentação](http://queroumaloja.github.io/api-server/) é gerada utilizando o utilitário apidoc e você pode conferir [aqui](http://queroumaloja.github.io/api-server/):
 
 ```
 ./node_modules/.bin/apidoc -o apidoc -i routers/
