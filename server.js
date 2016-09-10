@@ -5,7 +5,9 @@ const PAGINATION = {
     MAX: 1000
 };
 
-var newrelic        = require('newrelic');
+require('dotenv').config({ silent: true });
+require('newrelic');
+
 var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
@@ -57,7 +59,7 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
-        self.app.use(paginate.middleware(PAGINATION.MAX, PAGINATION.MAX));
+        self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
 
         // load routes
         self.createRoutes();
