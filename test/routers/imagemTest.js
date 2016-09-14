@@ -13,20 +13,17 @@ describe('Imagem Router', function () {
         });
 
         mockery.registerMock('../modules/upload', function(req, res, end) {
+            req.body.imagem = {};
             end();
         });
 
         mockery.registerMock('../controllers/imagem', {
-            busca: function(site, palavra, done) {
-                if (palavra == 'teste') {
-                    done(null, {
-                        pages: 0,
-                        total: 0,
-                        docs: []
-                    });
-                } else {
-                    done(new Error('Nada encontrado'), null);
-                }
+            adiciona: function(produto, imagem, site, done) {
+                done(null, {
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
             }
         });
 
@@ -43,26 +40,14 @@ describe('Imagem Router', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             body: {
-                titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {},
-                codigo: 0,
-                valor: 1.00,
-                categoria: {
-                    titulo: 'foo',
-                    uri: 'foo',
-                    categoria: {
-                        titulo: 'bar',
-                        uri: 'bar'
-                    }
-                }
+                imagem: {}
             },
             url: '/1/album',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
                 }
-            },
+            }
         });
 
         this.route.handle(request, response, function() {});
@@ -96,9 +81,7 @@ describe('Imagem Router', function () {
 
         this.route.handle(request, response, function() {});
 
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
+        should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
 
         done();

@@ -41,6 +41,15 @@ Logo após tudo configurado, basta instalar as dependências
 npm install
 ```
 
+Após a instalação, é necessário criar a estrutura básica do banco, então, rode o comando de instalação:
+
+```
+node ./bin/install
+```
+
+Feito isso, você pode rodar a API e acessar o endereço com o mesmo nome do seu host - talvez seja necessário editar o registro no banco para 
+atualizar com o endereço correto. Bastando editar a coleção **sites**.
+
 
 ### Rodando
 
@@ -48,14 +57,9 @@ npm install
 npm start
 ```
 
-
 ### Testes
 
 Para os testes unitários, é utilizado o Mocha.
-
-**AVTENÇÃO**
-Os testes utilizam as mesmas variáveis de ambiente da aplicação, então, para que não ocorra perda de dados, sempre
-sobrescreva as variáveis para configurar o ambiente o banco de dados correto ANTES de executar os testes.
 
 ```
 npm test
@@ -72,11 +76,13 @@ NEW_RELIC_LOG
 ```
 
 ### Garantia
+
 Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização
 desta. Você tem total liberdade de instalá-la em seu próprio servidor e utilizar para quaisquer fins, com ou sem
 modificações na mesma.
 
 ### Contribuindo
+
 Esta é uma API de código aberto e livre, fique a vontade para fazer um fork e contribuir com qualquer melhoria ou solução
 de bugs que a mesma possua ou precise.
 

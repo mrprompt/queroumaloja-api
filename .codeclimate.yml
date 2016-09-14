@@ -11,11 +11,12 @@ engines:
 ratings:
   paths:
     - controllers/**
+    - dao/**
     - models/**
     - modules/**
     - routers/**
-    - workers/**
 
 exclude_paths:
+  - bin/**
   - node_modules/**/*
   - test/**

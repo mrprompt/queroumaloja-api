@@ -84,33 +84,29 @@ var router = require('express').Router(),
  *      }
  */
 router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
-  var err = null;
-  var data = {
-    pages: 1,
-    total: 1,
-    docs: []
-  };
+    var produto = req.params.id;
+    var site = req.app.site._id;
+    var params = req.body.imagem;
 
-  if (err) {
-      res.status(500).json({
-          object      : 'error',
-          data        : err,
-          itemCount   : 0,
-          pageCount   : 0
-      });
+    ImagemController.adiciona(produto, site, params, function (err, data) {
+        if (err) {
+            res.status(500).json({
+                object: 'error',
+                data: err,
+                itemCount: 0,
+                pageCount: 0
+            });
 
-      return;
-  }
+            return;
+        }
 
-  var pageCount = data.pages;
-  var itemCount = data.total;
-
-  res.status(201).json({
-      object: 'object',
-      data: data.docs,
-      itemCount: itemCount,
-      pageCount: pageCount
-  });
+        res.status(201).json({
+            object: 'object',
+            data: data,
+            itemCount: 1,
+            pageCount: 1
+        });
+    });
 });
 
 /**
@@ -125,20 +121,24 @@ router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, func
  *     HTTP/1.1 204 OK
  */
 router.delete('/:id/album/:img', function (req, res, done) {
-  var err = null;
-  
-  if (err) {
-      res.status(500).json({
-          object      : 'error',
-          data        : err,
-          itemCount   : 0,
-          pageCount   : 0
-      });
+    var produto = req.params.id;
+    var site = req.app.site._id;
+    var imagem = req.params.img;
 
-      return;
-  }
+    ImagemController.apaga(produto, site, imagem, function (err, data) {
+        if (err) {
+            res.status(500).json({
+                object: 'error',
+                data: err,
+                itemCount: 0,
+                pageCount: 0
+            });
 
-  res.status(204).json({});
+            return;
+        }
+
+        res.status(204).json({});
+    });
 });
 
 module.exports = router;
