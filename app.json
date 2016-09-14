@@ -4,9 +4,7 @@
   "repository": "https://github.com/QueroUmaLoja/api-server",
   "keywords": ["node", "express", "static"],
   "addons": [
-    "mongolab",
-    {
-      "plan": "mongolab:shared-single-small"
-    }
+    "newrelic",
+    "mongolab"
   ]
 }
