@@ -67,7 +67,7 @@ npm test
 
 ### New Relic
 
-A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar duas variáveis de ambiente:
+A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar as variáveis de ambiente:
 
 ```
 APPLICATION_NAME
