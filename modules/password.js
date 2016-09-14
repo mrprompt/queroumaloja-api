@@ -11,7 +11,6 @@ var router = function(req, res, done) {
   }
 
   var password = bcrypt.hashSync(req.body.password, salt);
-
   
   req.body.password_encrypted = password;
 

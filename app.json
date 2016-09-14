@@ -6,5 +6,8 @@
   "addons": [
     "newrelic",
     "mongolab"
-  ]
+  ],
+  "scripts": {
+    "postdeploy": "node ./bin/install.js"
+  }
 }
