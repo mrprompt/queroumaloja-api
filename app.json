@@ -2,15 +2,5 @@
   "name": "QueroUmaLoja API Server",
   "description": "API de produtos",
   "repository": "https://github.com/QueroUmaLoja/api-server",
-  "keywords": ["node", "express", "static"],
-  "addons": [
-    {
-      "plan": "mongolab:sandbox",
-      "as": "mongolab"
-    },
-    {
-      "plan": "newrelic:wayne",
-      "as": "newrelic"
-    }
-  ]
+  "keywords": ["node", "express", "static"]
 }
