@@ -1,8 +1,8 @@
 'use strict';
 
-var should = require('should'),
-    http_mocks = require('node-mocks-http'),
-    mockery = require('mockery');
+var mongoose = require('mongoose');
+var should = require('should');
+var mockery = require('mockery');
 
 describe('Usuario Controller', function () {
     before(function() {
@@ -11,35 +11,70 @@ describe('Usuario Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('bcrypt', {
-            hashSync: function() {
-                return true;
-            }
-        });
-
-        mockery.registerMock('../providers/upload', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/usuario', {
-            paginate: function(x, y, end) {
-                end(null, {
+        mockery.registerMock('../dao/usuario', {
+            lista: function(site, pagina, limite, done) {
+                done(null, {
+                    page: 0,
                     pages: 0,
                     total: 0,
                     docs: []
                 });
             },
-            findOne: function(x, end) {
-                end(null, {});
+            abre: function (id, site, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            create: function(x, end) {
-                end(null, {});
+            adiciona: function (site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            update: function(x, y, end) {
-                end(null, {});
+            atualiza: function (id, site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            remove: function(x, end) {
-                end(null, {});
+            apaga: function (id, site, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             }
         });
 
@@ -50,206 +85,84 @@ describe('Usuario Controller', function () {
         mockery.disable()
     });
 
-    it('#lista() deve retornar um array e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('#lista() deve retornar um objeto', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var pagina = 1;
+        var limite = 1;
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/',
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.lista(site, pagina, limite, function (error, result) {
+            result.should.have.property('docs');
+            result.should.have.property('total');
+            result.should.have.property('page');
+            result.should.have.property('pages');
+
+            done();
         });
-
-        this.controller.lista(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 0);
-        should.equal(data.pageCount, 0);
-
-        done();
     });
 
-    it('#abre() deve retornar um objeto e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('#abre() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.abre(id, site, function (error, result) {
+            should(error).is.be.null();
+            should(result).is.be.ok();
+
+            result.should.have.property('_id');
+
+            done();
         });
-
-        this.controller.abre(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#adiciona() deve retornar um array e status 201', function (done) {
-        var response = http_mocks.createResponse();
+    it('#adiciona() deve retornar um objeto', function (done) {
+        var site = new mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'POST',
-            body: {
-                nome: 'foo',
-                email: 'foo@bar.bar',
-                password: 'foo',
-                localidade: {
-                    uf: 'foo',
-                    estado: 'fooooo bar bar',
-                    cidade: 'foobarbarbar'
-                }
-            },
-            url: '/',
-            app: {
-                site: {
-                    _id: 1
-                }
-            }
+        var body = {
+            nome: 'foo',
+            email: 'foo@bar.bar',
+            password: 'foo',
+            site: mongoose.Schema.Types.ObjectId()
+        };
+
+        this.controller.adiciona(site, body, function (error, result) {
+            should(error).not.be.ok();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.adiciona(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 201);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#atualiza() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
+    it('#atualiza() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'PUT',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            body: {
-                titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {},
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            }
+        var body = {
+            nome: 'foo',
+            email: 'foo@bar.bar'
+        };
+
+        this.controller.atualiza(id, site, body, function (error, result) {
+            should(error).not.be.ok();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.atualiza(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#atualiza() para outro nível deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
+    it('#apaga() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'PUT',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            body: {
-                titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {},
-                nivel: 'administrador'
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            }
+        var body = {
+            nome: 'foo',
+            email: 'foo@bar.bar'
+        };
+
+        this.controller.apaga(id, site, function (error, result) {
+            should(error).not.be.ok();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.atualiza(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
-    });
-
-    it('#apaga() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'DELETE',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            }
-        });
-
-        this.controller.apaga(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 });

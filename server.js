@@ -6,25 +6,35 @@ const PAGINATION = {
 };
 
 require('dotenv').config({ silent: true });
-require('newrelic');
 
+// New Relic only necessary to production environment
+if (process.env.ENV === 'production') { 
+    require('newrelic');
+}
+
+// Main libraries
 var express         = require('express');
 var paginate        = require('express-paginate');
 var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
+var cors            = require('cors');
+
+// Modules
 var connection      = require('./modules/connection');
-var cors            = require('./modules/cors');
 var site            = require('./modules/site');
 var token           = require('./modules/token');
 var password        = require('./modules/password');
+
+// Routes
+var Busca           = require('./routers/busca');
+var Imagem          = require('./routers/imagem');
 var Index           = require('./routers/index');
-var Carrinho        = require('./routers/carrinho');
+var Login           = require('./routers/login');
 var Produto         = require('./routers/produto');
+var Senha           = require('./routers/senha');
 var Site            = require('./routers/site');
 var Usuario         = require('./routers/usuario');
-var Login           = require('./routers/login');
-var Senha           = require('./routers/senha');
 
 /**
  *  Define the application.
@@ -38,13 +48,14 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        self.app.use('/', cors, site, token, Index);
-        self.app.use('/carrinho', cors, site, token, Carrinho);
-        self.app.use('/produto', cors, site, token, Produto);
-        self.app.use('/site', cors, site, token, Site);
-        self.app.use('/usuario', cors, site, token, password, Usuario);
-        self.app.use('/login', cors, site, token, password, Login);
-        self.app.use('/senha', cors, site, token, password, Senha);
+        self.app.use('/', Index);
+        self.app.use('/produto', Produto);
+        self.app.use('/site', Site);
+        self.app.use('/usuario', password, Usuario);
+        self.app.use('/login', password, Login);
+        self.app.use('/senha', password, Senha);
+        self.app.use('/busca', Busca);
+        self.app.use('/imagem', Imagem);
     };
 
     /**
@@ -59,7 +70,10 @@ var Application = function () {
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());
         self.app.use(morgan('dev'));
+        self.app.use(cors());
         self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
+        self.app.use(site);
+        self.app.use(token);
 
         // load routes
         self.createRoutes();

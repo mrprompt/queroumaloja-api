@@ -1,7 +1,6 @@
 'use strict';
 
-var router = require('express').Router(),
-  index = require('../controllers/index');
+var router = require('express').Router();
 
 /**
  * @api {get} / Rota inicial
@@ -21,6 +20,18 @@ var router = require('express').Router(),
  *         "pageCount":1
  *      }
  */
-router.get('/', index.lista);
+router.get('/', function (req, res, done) {
+  var data = {
+      name: req.app.site.nome + ' API',
+      last_update: new Date()
+  };
+
+  res.status(200).json({
+      object: 'object',
+      data: data,
+      itemCount: 1,
+      pageCount: 1
+  });
+});
 
 module.exports = router;

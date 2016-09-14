@@ -51,6 +51,29 @@ var router = require('express').Router(),
  *          "pageCount": "1"
  *        }
  */
-router.post('/', login.adiciona);
+router.post('/', function (req, res, done) {
+  var { email, password_encrypted } = req.body;
+  var site = req.app.site._id;
+
+  login.adiciona(email, password_encrypted, site, function (err, result) {
+    if (err || !result) {
+      res.status(404).json({
+          object: 'error',
+          data: err.message,
+          itemCount: 0,
+          pageCount: 1
+      });
+
+      return;
+    }
+
+    res.status(201).json({
+        object: 'object',
+        data: result,
+        itemCount: 1,
+        pageCount: 1
+    });
+  });
+});
 
 module.exports = router;

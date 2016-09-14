@@ -1,12 +1,19 @@
 'use strict';
 
 var cloudinary  = require('cloudinary');
-var router      = require('express').Router();
 
-router.all('*', function(req, res, done) {
+var router = function(req, res, done) {
     var site = req.app.site;
 
     if (site === undefined || site.config.cloudinary === undefined) {
+        done();
+
+        return;
+    }
+
+    if (!req.file) {
+        done();
+
         return;
     }
 
@@ -23,6 +30,6 @@ router.all('*', function(req, res, done) {
 
         done();
     });
-});
+};
 
 module.exports = router;

@@ -3,12 +3,41 @@
 var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
+var mongoose = require('mongoose');
 
 describe('Site Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
+        });
+
+        mockery.registerMock('../controllers/site', {
+            lista: function(pagina, limite, done) {
+                done(null, {
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
+            },
+            abre: function(id, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            adiciona: function (params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            atualiza: function (id, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            apaga: function (id, params, done) {
+                done();
+            },
         });
 
         this.controller = require('../../routers/site');
@@ -24,9 +53,6 @@ describe('Site Router', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/',
-            headers: {
-                site: 1
-            },
             query: {
                 page: 1,
                 limit: 1
@@ -40,7 +66,6 @@ describe('Site Router', function () {
         should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 0);
         should.equal(data.pageCount, 0);
 
@@ -53,15 +78,10 @@ describe('Site Router', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/1',
-            params: {
-                id: 1
-            },
             headers: {
-                site: 1
-            },
-            query: {
-                page: 1,
-                limit: 1
+                site: {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                }
             }
         });
 
@@ -72,7 +92,6 @@ describe('Site Router', function () {
         should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
 
@@ -106,7 +125,6 @@ describe('Site Router', function () {
         should.equal(response.statusCode, 201);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
 
@@ -144,7 +162,6 @@ describe('Site Router', function () {
         should.equal(response.statusCode, 201);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
 
@@ -175,14 +192,7 @@ describe('Site Router', function () {
 
         this.controller.handle(request, response, function() {});
 
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
         should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
 
         done();
     });
@@ -192,25 +202,12 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            headers: {
-                site: 1
-            }
+            url: '/1'
         });
 
         this.controller.handle(request, response, function() {});
 
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
         should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
 
         done();
     });

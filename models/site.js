@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose    = require('mongoose');
-var SiteSchema  = new mongoose.Schema({
+var mongoose = require('mongoose');
+var SiteSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: true
@@ -36,7 +36,7 @@ var SiteSchema  = new mongoose.Schema({
             },
             numero: {
                 type: Number,
-                default:  0
+                default: 0
             },
             bairro: {
                 type: String,
@@ -104,44 +104,6 @@ var SiteSchema  = new mongoose.Schema({
                 required: true,
                 trim: true
             }
-        }),
-        sendgrid: mongoose.Schema({
-            token: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            template: mongoose.Schema({
-                carrinho_adiciona: {
-                    type: String,
-                    required: true,
-                    trim: true
-                }
-            })
-        }),
-        pagarme: mongoose.Schema({
-            token: {
-                type: String,
-                required: true,
-                trim: true
-            }
-        }),
-        pagseguro: mongoose.Schema({
-            token: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            nome: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            email: {
-                type: String,
-                required: true,
-                trim: true
-            }
         })
     }),
     categorias: [
@@ -193,7 +155,7 @@ var SiteSchema  = new mongoose.Schema({
     .plugin(require('mongoose-paginate'))
     .plugin(require('mongoose-unique-validator'))
     .set('toJSON', {
-        transform: function(doc, ret, options) {
+        transform: function (doc, ret, options) {
             delete ret.config;
             delete ret.ativo;
 

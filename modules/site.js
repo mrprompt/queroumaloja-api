@@ -1,45 +1,36 @@
 'use strict';
 
-var router      = require('express').Router();
-var SiteModel   = require('../models/site');
+var SiteDAO = require('../dao/site');
 
-router.all('*', function(req, res, next) {
+var router = function(req, res, done) {
     if (req.method === 'OPTIONS') {
-        next();
+        done();
 
-        return true;
+        return;
     }
 
-    var hostname = req.hostname
-        .replace(/(http.?:\/\/|(www|local|api))\./im, '')
-        .replace(/:[0-9]+/m, '');
+    SiteDAO.buscaPorDominio(req.hostname, function(err, data) {
+        if (err || data === null) {
+            res
+                .status(400)
+                .json({
+                    object      : 'object',
+                    has_more    : false,
+                    data        : {
+                        message : 'Site não encontrado',
+                        status  : 404
+                    },
+                    itemCount   : 0,
+                    pageCount   : 0
+                });
 
-    SiteModel
-        .findOne({
-            dominio: hostname
-        })
-        .exec(function(err, data) {
-            if (err || data === null) {
-                res
-                    .status(400)
-                    .json({
-                        object      : 'object',
-                        has_more    : false,
-                        data        : {
-                            message : 'Site não encontrado: ' + hostname,
-                            status  : 400
-                        },
-                        itemCount   : 0,
-                        pageCount   : 0
-                    });
+            return false;
+        }
 
-                return false;
-            }
+        req.app.site = data;
 
-            req.app.site = data;
-
-            next();
-        });
-});
+        done();
+    });
+};
 
 module.exports = router;

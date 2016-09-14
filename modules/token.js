@@ -1,13 +1,12 @@
 'use strict';
 
 var _           = require('underscore');
-var router      = require('express').Router();
 var TokenModel  = require('../models/token');
 var routes      = require('../config/firewall.json');
 
-router.all('*', function(req, res, next) {
+var router = function(req, res, done) {
     if (req.method === 'OPTIONS' || !_.contains(routes, req.baseUrl + '|' + req.method)) {
-        next();
+        done();
 
         return true;
     }
@@ -48,10 +47,10 @@ router.all('*', function(req, res, next) {
 
             req.app.usuario = data.usuario;
 
-            next();
+            done();
         });
 
     return false;
-});
+};
 
 module.exports = router;

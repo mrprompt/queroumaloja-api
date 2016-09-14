@@ -8,14 +8,13 @@
 [![GitHub stars](https://img.shields.io/github/stars/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/QueroUmaLoja/api-server/master/LICENSE)
 
-API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
+API de Produtos.
 
 ### Pré Requisitos
 
-- Sendgrid (Envio de e-mails de aviso)
-- Cloudinary (Armazenamento)
-- Pagar-me (Pagamentos) - opcional
-- PagSeguro (Pagamentos) - opcional
+- Nodejs 6
+- MongoDB
+- Cloudinary
 
 ### Instalação
 

@@ -3,12 +3,41 @@
 var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
+var mongoose = require('mongoose');
 
 describe('Produto Router', function () {
     before(function() {
         mockery.enable({
             warnOnUnregistered: false,
             warnOnReplace: false
+        });
+
+        mockery.registerMock('../controllers/produto', {
+            lista: function(site, {}, done) {
+                done(null, {
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
+            },
+            abre: function(id, site, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            adiciona: function (site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            atualiza: function (id, site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
+            },
+            apaga: function (id, site, params, done) {
+                done();
+            },
         });
 
         mockery.registerMock('../modules/upload', function(req, res, end) {
@@ -30,7 +59,7 @@ describe('Produto Router', function () {
             url: '/',
             app: {
                 site: {
-                    _id: 1
+                    _id: new mongoose.Schema.Types.ObjectId()
                 }
             },
             query: {
@@ -46,7 +75,6 @@ describe('Produto Router', function () {
         should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 0);
         should.equal(data.pageCount, 0);
 
@@ -59,17 +87,10 @@ describe('Produto Router', function () {
         var request  = http_mocks.createRequest({
             method: 'GET',
             url: '/1',
-            params: {
-                id: 1
-            },
             app: {
                 site: {
-                    _id: 1
+                    _id: new mongoose.Schema.Types.ObjectId()
                 }
-            },
-            query: {
-                page: 1,
-                limit: 1
             }
         });
 
@@ -80,7 +101,6 @@ describe('Produto Router', function () {
         should.equal(response.statusCode, 200);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
 
@@ -110,7 +130,7 @@ describe('Produto Router', function () {
             url: '/',
             app: {
                 site: {
-                    _id: 1
+                    _id: new mongoose.Schema.Types.ObjectId()
                 }
             },
         });
@@ -122,7 +142,6 @@ describe('Produto Router', function () {
         should.equal(response.statusCode, 201);
         should.equal(response.statusMessage, 'OK');
         should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
         should.equal(data.itemCount, 1);
         should.equal(data.pageCount, 1);
 
@@ -135,9 +154,6 @@ describe('Produto Router', function () {
         var request  = http_mocks.createRequest({
             method: 'PUT',
             url: '/1',
-            params: {
-                id: 1
-            },
             body: {
                 titulo: 'foo',
                 descricao: 'bar bar bar',
@@ -170,21 +186,14 @@ describe('Produto Router', function () {
             },
             app: {
                 site: {
-                    _id: 1
+                    _id: new mongoose.Schema.Types.ObjectId()
                 }
             },
         });
 
         this.controller.handle(request, response, function() {});
 
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
         should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
 
         done();
     });
@@ -195,57 +204,16 @@ describe('Produto Router', function () {
         var request  = http_mocks.createRequest({
             method: 'DELETE',
             url: '/1',
-            params: {
-                id: 1
-            },
             app: {
                 site: {
-                    _id: 1
+                    _id: new mongoose.Schema.Types.ObjectId()
                 }
             }
         });
 
         this.controller.handle(request, response, function() {});
 
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
         should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
-    });
-
-    it('#busca() deve retornar um array e status 200', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/busca/foo',
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
-        });
-
-        this.controller.handle(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 0);
-        should.equal(data.pageCount, 0);
 
         done();
     });

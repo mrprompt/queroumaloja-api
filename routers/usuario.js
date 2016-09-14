@@ -17,16 +17,8 @@ var router = require('express').Router(),
  *          {
  *            "_id": "543854a2436802348dfd75d6",
  *            "email": "contato@queroumaloja.com.br",
- *            "localidade": {
- *              "cidade": "Florianópolis",
- *              "estado": "Santa Catarina",
- *              "uf": "SC"
- *            },
  *            "nome": "queroumaloja Papelaria",
- *            "cadastro": "2016-09-05T12:32:17.148Z",
- *            "nivel": "comprador",
- *            "endereco": [
- *            ]
+ *            "cadastro": "2016-09-05T12:32:17.148Z"
  *          },
  *          ...
  *        ],
@@ -34,7 +26,34 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/', usuario.lista);
+router.get('/', function (req, res, done) {
+  var site = req.app.site._id;
+  var pagina = req.query.page;
+  var limite = req.query.limit;
+
+  usuario.lista(site, pagina, limite, function(err, data) {
+    if (err || !data) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 1,
+        pageCount: 1
+      });
+
+      return;
+    }
+
+    var pageCount = data.pages;
+    var itemCount = data.total;
+
+    res.status(200).json({
+        object: 'list',
+        data: data.docs,
+        itemCount: itemCount,
+        pageCount: pageCount
+    });
+  });
+});
 
 /**
  * @api {get} /usuario/:id Visualiza um usuario
@@ -51,22 +70,37 @@ router.get('/', usuario.lista);
  *        "data": {
  *            "_id": "543854a2436802348dfd75d6",
  *            "email": "contato@queroumaloja.com.br",
- *            "localidade": {
- *              "cidade": "Florianópolis",
- *              "estado": "Santa Catarina",
- *              "uf": "SC"
- *            },
  *            "nome": "queroumaloja Papelaria",
- *            "cadastro": "2016-09-05T12:32:17.148Z",
- *            "nivel": "comprador",
- *            "endereco": [
- *            ]
+ *            "cadastro": "2016-09-05T12:32:17.148Z"
  *          },
  *        "itemCount": "1",
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', usuario.abre);
+router.get('/:id', function (req, res, done) {
+  usuario.abre(req.params.id, req.app.site, function(err, user) {
+    if (err || !user) {
+      res.status(404).json({
+          object: 'error',
+          data: {
+              status: 404,
+              message: 'Usuário não encontrado'
+          },
+          itemCount: 1,
+          pageCount: 1
+      });
+
+      return;
+    }
+
+    res.status(200).json({
+        object: 'object',
+        data: user,
+        itemCount: 1,
+        pageCount: 1
+    });
+  })
+});
 
 /**
  * @api {post} /usuario Cadastra um usuário
@@ -86,22 +120,40 @@ router.get('/:id', usuario.abre);
  *        "data": {
  *            "_id": "543854a2436802348dfd75d6",
  *            "email": "contato@queroumaloja.com.br",
- *            "localidade": {
- *              "cidade": "Florianópolis",
- *              "estado": "Santa Catarina",
- *              "uf": "SC"
- *            },
  *            "nome": "queroumaloja Papelaria",
- *            "cadastro": "2016-09-05T12:32:17.148Z",
- *            "nivel": "comprador",
- *            "endereco": [
- *            ]
+ *            "cadastro": "2016-09-05T12:32:17.148Z"
  *          },
  *        "itemCount": "1",
  *        "pageCount": "1"
  *      }
  */
-router.post('/', usuario.adiciona);
+router.post('/', function (req, res, done) {
+  var site = req.app.site._id;
+  var params = req.body;
+  params.password = params.password_encrypted;
+
+  delete params.password_encrypted;
+
+  usuario.adiciona(site, params, function (err, user) {
+    if (err || !user) {
+        res.status(400).json({
+            object: 'error',
+            data: err.message,
+            itemCount: 1,
+            pageCount: 1
+        });
+
+        return;
+    }
+
+    res.status(201).json({
+        object: 'object',
+        data: user,
+        itemCount: 1,
+        pageCount: 1
+    });
+  });
+});
 
 /**
  * @api {put} /usuario/:id Atualiza um usuário
@@ -116,7 +168,34 @@ router.post('/', usuario.adiciona);
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', usuario.atualiza);
+router.put('/:id', function (req, res, done) {
+  if (req.params.id.toString() !== req.app.usuario._id.toString()) {
+    var err = new Error('Acesso negado');
+
+    res.status(403).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 1,
+        pageCount: 1
+    });
+
+    return;
+  }
+
+  usuario.atualiza(req.params.id, req.app.site, req.body, function (err, user) {
+    if (err || !user) {
+        res.status(400).json({
+            object: 'error',
+            data: err.message,
+            itemCount: 1,
+            pageCount: 1
+        });
+        return;
+    }
+
+    res.status(204).json({});
+  });
+});
 
 /**
  * @api {delete} /usuario/:id Apaga um usuário
@@ -128,6 +207,33 @@ router.put('/:id', usuario.atualiza);
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', usuario.apaga);
+router.delete('/:id', function (req, res, done) {
+  if (req.params.id.toString() !== req.app.usuario._id.toString()) {
+    var err = new Error('Acesso negado');
+
+    res.status(403).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 1,
+        pageCount: 1
+    });
+
+    return;
+  }
+
+  usuario.apaga(req.params.id, req.app.site, function (err, user) {
+    if (err || !user) {
+        res.status(400).json({
+            object: 'error',
+            data: err.message,
+            itemCount: 1,
+            pageCount: 1
+        });
+        return;
+    }
+
+    res.status(204).json({});
+  });
+});
 
 module.exports = router;

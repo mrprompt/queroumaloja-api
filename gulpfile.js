@@ -6,16 +6,10 @@
 
 'use strict';
 
-var fs = require('fs');
 var gulp = require('gulp');
+var ghPages = require('gulp-gh-pages');
 
-/**
- *  This will load all js or coffee files in the gulp directory
- *  in order to load all gulp tasks
- */
-fs.readdirSync('./gulp').filter(function(file) {
-  return (/\.(js|coffee)$/i).test(file);
-}).map(function(file) {
-  require('./gulp/' + file);
+gulp.task('deploy:site', function() {
+  return gulp.src('./apidoc/**/*')
+    .pipe(ghPages());
 });
-
