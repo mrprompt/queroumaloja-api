@@ -24,4 +24,15 @@ describe('Usuario Model', function () {
 
         done();
     });
+
+    it('converter para json', function (done) {
+        var produto = (new Usuario()).toJSON();
+
+        produto.should.have.property('_id');
+
+        should(produto.password).is.exactly(undefined);
+        should(produto.site).is.exactly(undefined);
+
+        done();
+    });
 });

@@ -12,6 +12,17 @@ describe('Token DAO', function () {
         mockery.registerMock('../models/token', {
             create: function(x, end) {
                 end(null, {});
+            },
+            findOne: function(x) {
+                return {
+                    populate: function(z) {
+                        return {
+                            exec: function (done) {
+                                done(null, {});
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -24,6 +35,12 @@ describe('Token DAO', function () {
 
     it('#adiciona', function (done) {
         this.dao.adiciona({}, function() {
+            done();
+        });
+    });
+
+    it('#buscaPorConteudo', function (done) {
+        this.dao.buscaPorConteudo('foo', 'barbar', function() {
             done();
         });
     });

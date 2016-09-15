@@ -29,7 +29,7 @@ describe('Imagem DAO', function () {
     });
 
     it('#apagaImagem', function (done) {
-        this.dao.adicionaImagem(1, 2, 3, function() {
+        this.dao.apagaImagem(1, 2, 3, function() {
             done();
         });
     });

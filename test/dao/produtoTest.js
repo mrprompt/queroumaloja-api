@@ -41,6 +41,18 @@ describe('Produto DAO', function () {
         });
     });
 
+    it('#lista com tipo', function (done) {
+        this.dao.lista(1, { tipo: 'foo' }, function() {
+            done();
+        });
+    });
+
+    it('#lista com tipo e categoria', function (done) {
+        this.dao.lista(1, { tipo: 'foo', categoria: 'barbar' }, function() {
+            done();
+        });
+    });
+
     it('#abre', function (done) {
         this.dao.abre(1, 2, function() {
             done();

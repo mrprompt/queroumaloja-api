@@ -83,4 +83,10 @@ describe('Usuario DAO', function () {
             done();
         });
     });
+
+    it('#atualizaSenha', function (done) {
+        this.dao.atualizaSenha(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', function() {
+            done();
+        });
+    });
 });

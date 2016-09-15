@@ -25,13 +25,9 @@ describe('Login Controller', function () {
 
         mockery.registerMock('../dao/token', {
             adiciona: function(usuario, done) {
-                if (usuario) {
-                    done(null, {
-                        _id: new mongoose.Schema.Types.ObjectId()
-                    });
-                } else {
-                    done(new Error('Nada encontrado'), null);
-                }
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                });
             }
         });
 

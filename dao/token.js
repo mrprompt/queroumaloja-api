@@ -28,4 +28,18 @@ TokenDAO.prototype.adiciona = function (user, done) {
     });
 };
 
+TokenDAO.prototype.buscaPorConteudo = function (conteudo, site, done) {
+    TokenModel.findOne(
+            {
+                conteudo: conteudo,
+                validade: {
+                    $lt: new Date()
+                },
+                site: site
+            }
+        )
+        .populate(['usuario'])
+        .exec(done);
+};
+
 module.exports = new TokenDAO;

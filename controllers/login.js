@@ -25,10 +25,6 @@ LoginController.prototype.adiciona = function (email, password, site, done) {
         },
         function (user, callback) {
             TokenDAO.adiciona(user, function (errorToken, dataToken) {
-                if (errorToken || !dataToken) {
-                    return done(new Error('Falha criando token'));
-                }
-                
                 callback(errorToken, dataToken);
             });
         }

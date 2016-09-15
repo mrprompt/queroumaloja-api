@@ -132,6 +132,54 @@ describe('Usuario Controller', function () {
         });
     });
 
+    it('#adiciona() sem nome deve retornar um Erro', function (done) {
+        var site = new mongoose.Schema.Types.ObjectId();
+
+        var body = {
+            email: 'foo@bar.bar',
+            password: 'foo',
+            site: mongoose.Schema.Types.ObjectId()
+        };
+
+        this.controller.adiciona(site, body, function (error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
+
+            done();
+        });
+    });
+
+    it('#adiciona() sem email deve retornar um Erro', function (done) {
+        var site = new mongoose.Schema.Types.ObjectId();
+
+        var body = {
+            nome: 'fooo',
+            password: 'foo',
+            site: mongoose.Schema.Types.ObjectId()
+        };
+
+        this.controller.adiciona(site, body, function (error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
+
+            done();
+        });
+    });
+
+    it('#adiciona() sem senha deve retornar um Erro', function (done) {
+        var site = new mongoose.Schema.Types.ObjectId();
+
+        var body = {
+            nome: 'fooo',
+            email: 'foo@bar.bar',
+            site: mongoose.Schema.Types.ObjectId()
+        };
+
+        this.controller.adiciona(site, body, function (error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
+
+            done();
+        });
+    });
+
     it('#atualiza() deve retornar um objeto', function (done) {
         var id = mongoose.Schema.Types.ObjectId();
         var site = mongoose.Schema.Types.ObjectId();
@@ -144,6 +192,23 @@ describe('Usuario Controller', function () {
         this.controller.atualiza(id, site, body, function (error, result) {
             should(error).not.be.ok();
             should(result).is.be.ok();
+
+            done();
+        });
+    });
+
+    it('#atualiza() sem nome deve retornar um Erro', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var site = new mongoose.Schema.Types.ObjectId();
+
+        var body = {
+            email: 'foo@bar.bar',
+            password: 'foo',
+            site: mongoose.Schema.Types.ObjectId()
+        };
+
+        this.controller.atualiza(id, site, body, function (error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
 
             done();
         });

@@ -26,4 +26,15 @@ describe('Site Model', function () {
 
         done();
     });
+
+    it('converter para json', function (done) {
+        var produto = (new Site()).toJSON();
+
+        produto.should.have.property('_id');
+
+        should(produto.config).is.exactly(undefined);
+        should(produto.ativo).is.exactly(undefined);
+
+        done();
+    });
 });
