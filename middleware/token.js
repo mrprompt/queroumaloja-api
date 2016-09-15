@@ -1,7 +1,7 @@
 'use strict';
 
 var _           = require('underscore');
-var TokenDAO    = require('../dao/token');
+var TokenDAO    = require('../models/token');
 var routes      = require('../config/firewall.json');
 
 var router = function(req, res, done) {

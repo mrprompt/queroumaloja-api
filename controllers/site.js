@@ -1,6 +1,6 @@
 'use strict';
 
-var SiteDAO = require('../dao/site'), SiteController  = function() {};
+var SiteModel = require('../models/site'), SiteController  = function() {};
 
 /**
  * Lista os sites cadastrados
@@ -10,7 +10,7 @@ var SiteDAO = require('../dao/site'), SiteController  = function() {};
  * @param done
  */
 SiteController.prototype.lista = function (page, limit, done) {
-    SiteDAO.lista(page, limit, done);
+    SiteModel.lista(page, limit, done);
 };
 
 /**
@@ -21,7 +21,7 @@ SiteController.prototype.lista = function (page, limit, done) {
  * @param done
  */
 SiteController.prototype.abre = function (id, done) {
-    SiteDAO.abre(id, done);
+    SiteModel.abre(id, done);
 };
 
 /**
@@ -32,7 +32,7 @@ SiteController.prototype.abre = function (id, done) {
  * @param done
  */
 SiteController.prototype.adiciona = function (params, done) {
-    SiteDAO.adiciona(params, done);
+    SiteModel.adiciona(params, done);
 };
 
 /**
@@ -43,7 +43,7 @@ SiteController.prototype.adiciona = function (params, done) {
  * @param done
  */
 SiteController.prototype.atualiza = function (id, params, done) {
-    SiteDAO.atualiza(id, params, done);
+    SiteModel.atualiza(id, params, done);
 };
 
 /**
@@ -54,7 +54,7 @@ SiteController.prototype.atualiza = function (id, params, done) {
  * @param done
  */
 SiteController.prototype.apaga = function (id, done) {
-    SiteDAO.apaga(id, done);
+    SiteModel.apaga(id, done);
 };
 
 module.exports = new SiteController;

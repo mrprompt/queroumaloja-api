@@ -11,7 +11,7 @@ describe('Site Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/site', {
+        mockery.registerMock('../models/site', {
             lista: function(pagina, limite, done) {
                 done(null, {
                     page: 0,

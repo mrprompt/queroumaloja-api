@@ -20,11 +20,11 @@ var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
 var cors            = require('cors');
 
-// Modules
-var connection      = require('./modules/connection');
-var site            = require('./modules/site');
-var token           = require('./modules/token');
-var password        = require('./modules/password');
+// middleware
+var connection      = require('./middleware/connection');
+var site            = require('./middleware/site');
+var token           = require('./middleware/token');
+var password        = require('./middleware/password');
 
 // Routes
 var Busca           = require('./routers/busca');
@@ -65,7 +65,7 @@ var Application = function () {
         // start ExpressJs
         self.app = express();
 
-        // load modules
+        // load middleware
         self.app.use(bodyParser.json());
         self.app.use(bodyParser.urlencoded({ extended: true }));
         self.app.use(methodOverride());

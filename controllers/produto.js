@@ -1,19 +1,19 @@
 'use strict';
 
-var ProdutoDAO = require('../dao/produto'), ProdutoController = function () {};
+var ProdutoModel = require('../models/produto'), ProdutoController = function () {};
 
 /**
  * Lista os produtos
  */
 ProdutoController.prototype.lista = function (site, params, done) {
-    ProdutoDAO.lista(site, params, done);
+    ProdutoModel.lista(site, params, done);
 };
 
 /**
  * Visualiza um produto
  */
 ProdutoController.prototype.abre = function (id, site, done) {
-    ProdutoDAO.abre(id, site, done);
+    ProdutoModel.abre(id, site, done);
 };
 
 /**
@@ -26,7 +26,7 @@ ProdutoController.prototype.adiciona = function (site, params, done) {
         return;
     }
 
-    ProdutoDAO.adiciona(site, params, done);
+    ProdutoModel.adiciona(site, params, done);
 };
 
 /**
@@ -39,14 +39,14 @@ ProdutoController.prototype.atualiza = function (id, site, params, done) {
         return;
     }
 
-    ProdutoDAO.atualiza(id, site, params, done);
+    ProdutoModel.atualiza(id, site, params, done);
 };
 
 /**
  * Remove um produto
  */
 ProdutoController.prototype.apaga = function (id, site, done) {
-    ProdutoDAO.apaga(id, site, done);
+    ProdutoModel.apaga(id, site, done);
 };
 
 module.exports = new ProdutoController;

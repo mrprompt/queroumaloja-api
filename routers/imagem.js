@@ -2,7 +2,7 @@
 
 var router = require('express').Router(),
   multer = require('multer'),
-  upload = require('../modules/upload'),
+  upload = require('../middleware/upload'),
   ImagemController = require('../controllers/imagem');
 
 /**

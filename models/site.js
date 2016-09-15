@@ -1,166 +1,62 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var SiteSchema = new mongoose.Schema({
-    nome: {
-        type: String,
-        required: true
-    },
-    dominio: {
-        type: String,
-        index: true,
-        required: true,
-        unique: true
-    },
-    emails: [
-        new mongoose.Schema({
-            nome: {
-                type: String,
-                required: true
-            },
-            endereco: {
-                type: String,
-                required: true
-            }
-        })
-    ],
-    enderecos: [
-        new mongoose.Schema({
-            logradouro: {
-                type: String,
-                required: true
-            },
-            complemento: {
-                type: String,
-                default: ''
-            },
-            numero: {
-                type: Number,
-                default: 0
-            },
-            bairro: {
-                type: String,
-                required: true
-            },
-            cep: {
-                type: String,
-                trim: true
-            },
-            cidade: {
-                type: String,
-                required: true
-            },
-            estado: {
-                type: String,
-                required: true
-            },
-            tipo: {
-                type: String,
-                enum: ['comercial', 'residencial'],
-                default: 'residencial'
-            }
-        })
-    ],
-    telefones: [
-        new mongoose.Schema({
-            nome: {
-                type: String,
-                required: true
-            },
-            numero: {
-                type: String,
-                required: true
-            },
-            tipo: {
-                type: String,
-                enum: ['comercial', 'residencial'],
-                default: 'comercial'
-            }
-        })
-    ],
-    config: mongoose.Schema({
-        cloudinary: mongoose.Schema({
-            upload_endpoint: {
-                type: String,
-                default: 'https://api.cloudinary.com/v1_1/'
-            },
-            cloud_name: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            upload_preset: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            api_key: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            api_secret: {
-                type: String,
-                required: true,
-                trim: true
-            }
-        })
-    }),
-    categorias: [
-        mongoose.Schema({
-            titulo: {
-                type: String,
-                required: true
-            },
-            uri: {
-                type: String,
-                required: true,
-                trim: true
-            },
-            categorias: [
-                mongoose.Schema({
-                    titulo: {
-                        type: String,
-                        required: true
-                    },
-                    uri: {
-                        type: String,
-                        required: true,
-                        trim: true
-                    }
-                })
-            ]
-        })
-    ],
-    entrega: [
-        mongoose.Schema({
-            modalidade: {
-                type: String,
-                required: true,
-                lowercase: true,
-                trim: true,
-                enum: ['pac', 'sedex', 'transportadora', 'moto', 'proprio', 'outro', 'nenhuma']
-            },
-            valor: {
-                type: Number,
-                default: 0.00
-            }
-        })
-    ],
-    ativo: {
-        type: Boolean,
-        default: false
-    }
-})
-    .plugin(require('mongoose-paginate'))
-    .plugin(require('mongoose-unique-validator'))
-    .set('toJSON', {
-        transform: function (doc, ret, options) {
-            delete ret.config;
-            delete ret.ativo;
+var SiteSchema = require('../schemas/site'),
+  SiteDAO  = function() {};
 
-            return ret;
-        }
-    });
+/**
+ * Lista os sites cadastrados
+ */
+SiteDAO.prototype.lista = function (page, limit, done) {
+    SiteSchema.paginate(
+        {},
+        {
+            page: page,
+            limit: limit,
+            sort: {
+                cadastro : 'desc'
+            }
+        },
+        done
+    );
+};
 
-module.exports = mongoose.model('Site', SiteSchema);
+/**
+ * Visualiza um site
+ */
+SiteDAO.prototype.abre = function (id, done) {
+    SiteSchema.findOne({ _id: id }, done);
+};
+
+/**
+ * Adiciona um site
+ */
+SiteDAO.prototype.adiciona = function (params, done) {
+    SiteSchema.create(params, done);
+};
+
+/**
+ * Atualiza os dados de um site
+ */
+SiteDAO.prototype.atualiza = function (id, params, done) {
+    SiteSchema.findOneAndUpdate({ _id: id }, params, { new: true, multi: true }, done);
+};
+
+/**
+ * Remove os dados de um site
+ */
+SiteDAO.prototype.apaga = function (id, done) {
+    SiteSchema.findOneAndUpdate({ _id: id }, { ativo: false }, { new: true, multi: true }, done);
+};
+
+/**
+ * Busca pelo dominio
+ */
+SiteDAO.prototype.buscaPorDominio = function (dominio, done) {
+    var hostname = dominio
+        .replace(/(http.?:\/\/|(www|local|api))\./im, '')
+        .replace(/:[0-9]+/m, '');
+
+    return SiteSchema.findOne({ dominio: hostname }, done);
+};
+
+module.exports = new SiteDAO;

@@ -1,40 +1,73 @@
 'use strict';
 
-var Site = require('../../models/site');
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Types.ObjectId;
-var should = require('should');
+var mockery = require('mockery');
 
-describe('Site Model', function () {
-    it('inicia sem erros', function (done) {
-        var site = new Site();
+describe('Site DAO', function () {
+    before(function() {
+        mockery.enable({
+            warnOnUnregistered: false,
+            warnOnReplace: false
+        });
 
-        should(site.isNew).is.exactly(true);
+        mockery.registerMock('../schemas/site', {
+            paginate: function(x, y, end) {
+                end(null, {
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
+            },
+            findOne: function(x, end) {
+                end(null, {});
+            },
+            create: function(x, end) {
+                end(null, {});
+            },
+            findOneAndUpdate: function(filter, params, options, end) {
+                end(null, {});
+            }
+        });
 
-        done();
+        this.dao = require('../../models/site');
     });
 
-    it('iniciando sem item e comprador deve retornar os atributos informados como parâmetros', function (done) {
-        var dados = {
-            nome: 'Foo'
-        };
-
-        var site = new Site(dados);
-            site.should.have.property('nome', dados.nome);
-
-        should(site.isNew).is.exactly(true);
-
-        done();
+    after(function() {
+        mockery.disable()
     });
 
-    it('converter para json', function (done) {
-        var produto = (new Site()).toJSON();
+    it('#lista', function (done) {
+        this.dao.lista(1, 10, function() {
+            done();
+        });
+    });
 
-        produto.should.have.property('_id');
+    it('#abre', function (done) {
+        this.dao.abre(1, function() {
+            done();
+        });
+    });
 
-        should(produto.config).is.exactly(undefined);
-        should(produto.ativo).is.exactly(undefined);
+    it('#adiciona', function (done) {
+        this.dao.adiciona({}, function() {
+            done();
+        });
+    });
 
-        done();
+    it('#atualiza', function (done) {
+        this.dao.atualiza(1, {}, function() {
+            done();
+        });
+    });
+
+    it('#apaga', function (done) {
+        this.dao.apaga(1, function() {
+            done();
+        });
+    });
+
+    it('#buscaPorDominio', function (done) {
+        this.dao.buscaPorDominio('http://www.google.com', function() {
+            done();
+        });
     });
 });

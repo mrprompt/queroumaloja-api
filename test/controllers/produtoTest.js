@@ -10,7 +10,7 @@ describe('Produto Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/produto', {
+        mockery.registerMock('../models/produto', {
             lista: function(site, filtro, done) {
                 done(null, {
                     page: 0,

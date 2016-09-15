@@ -1,6 +1,6 @@
 'use strict';
 
-var UsuarioDAO = require('../dao/usuario'),
+var UsuarioModel = require('../models/usuario'),
   UsuarioController = function () {};
 
 /**
@@ -11,7 +11,7 @@ var UsuarioDAO = require('../dao/usuario'),
  * @param done
  */
 UsuarioController.prototype.lista = function (site, pagina, limite, done) {
-    UsuarioDAO.lista(site, pagina, limite, done);
+    UsuarioModel.lista(site, pagina, limite, done);
 };
 
 /**
@@ -22,7 +22,7 @@ UsuarioController.prototype.lista = function (site, pagina, limite, done) {
  * @param done
  */
 UsuarioController.prototype.abre = function (id, site, done) {
-    UsuarioDAO.abre(id, site, done);
+    UsuarioModel.abre(id, site, done);
 };
 
 /**
@@ -48,7 +48,7 @@ UsuarioController.prototype.adiciona = function (site, params, done) {
         return;
     }
 
-    UsuarioDAO.adiciona(site, params, done);
+    UsuarioModel.adiciona(site, params, done);
 };
 
 /**
@@ -64,7 +64,7 @@ UsuarioController.prototype.atualiza = function (id, site, params, done) {
         return;
     }
 
-    UsuarioDAO.atualiza(id, site, params, done);
+    UsuarioModel.atualiza(id, site, params, done);
 };
 
 /**
@@ -75,7 +75,7 @@ UsuarioController.prototype.atualiza = function (id, site, params, done) {
  * @param done
  */
 UsuarioController.prototype.apaga = function (id, site, done) {
-    UsuarioDAO.apaga(id, site, done);
+    UsuarioModel.apaga(id, site, done);
 };
 
 module.exports = new UsuarioController;

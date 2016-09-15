@@ -1,13 +1,13 @@
 'use strict';
 
-var ProdutoModel = require('../models/produto'),
+var ProdutoSchema = require('../schemas/produto'),
   BuscaDAO = function () {};
 
 /**
  * Buscar por um produto
  */
 BuscaDAO.prototype.busca = function (site, palavra, page, limit, done) {
-    ProdutoModel.paginate(
+    ProdutoSchema.paginate(
         {
             site: site,
             ativo: true,

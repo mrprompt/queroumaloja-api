@@ -1,38 +1,92 @@
 'use strict';
 
-var Usuario = require('../../models/usuario');
-var should = require('should');
+var mongoose = require('mongoose');
+var mockery = require('mockery');
 
-describe('Usuario Model', function () {
-    it('inicia sem erros', function (done) {
-        var usuario = new Usuario();
+describe('Usuario DAO', function () {
+    before(function() {
+        mockery.enable({
+            warnOnUnregistered: false,
+            warnOnReplace: false
+        });
 
-        should(usuario.isNew).is.exactly(true);
+        mockery.registerMock('../schemas/usuario', {
+            paginate: function(x, y, end) {
+                end(null, {
+                    page: 0,
+                    pages: 0,
+                    total: 0,
+                    docs: []
+                });
+            },
+            findOne: function(x, end) {
+                end(null, {});
+            },
+            create: function(x, end) {
+                end(null, {});
+            },
+            update: function(x, y, end) {
+                end(null, {});
+            },
+            findOneAndUpdate: function(filter, params, end) {
+                end(null, {});
+            }
+        });
 
-        done();
+        this.dao = require('../../models/usuario');
     });
 
-    it('iniciando sem item e comprador deve retornar os atributos informados como parâmetros', function (done) {
-        var dados = {
-            cadastro: new Date()
-        };
-
-        var usuario = new Usuario(dados);
-            usuario.should.have.property('cadastro', dados.cadastro);
-
-        should(usuario.isNew).is.exactly(true);
-
-        done();
+    after(function() {
+        mockery.disable()
     });
 
-    it('converter para json', function (done) {
-        var produto = (new Usuario()).toJSON();
+    it('#lista', function (done) {
+        this.dao.lista(mongoose.Schema.Types.ObjectId(), 2, 3, function(err, result) {
+            result.should.have.property('docs');
+            result.should.have.property('total');
+            result.should.have.property('page');
+            result.should.have.property('pages');
 
-        produto.should.have.property('_id');
+            done();
+        });
+    });
 
-        should(produto.password).is.exactly(undefined);
-        should(produto.site).is.exactly(undefined);
+    it('#abre', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Schema.Types.ObjectId();
 
-        done();
+        this.dao.abre(id, site, function(err, result) {
+            done();
+        });
+    });
+
+    it('#adiciona', function (done) {
+        this.dao.adiciona(mongoose.Schema.Types.ObjectId(1), {}, function() {
+            done();
+        });
+    });
+
+    it('#atualiza', function (done) {
+        this.dao.atualiza(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), {}, function() {
+            done();
+        });
+    });
+
+    it('#apaga', function (done) {
+        this.dao.apaga(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), function() {
+            done();
+        });
+    });
+
+    it('#login', function (done) {
+        this.dao.login('foo@bar.bar', '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', mongoose.Schema.Types.ObjectId(1), function() {
+            done();
+        });
+    });
+
+    it('#atualizaSenha', function (done) {
+        this.dao.atualizaSenha(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', function() {
+            done();
+        });
     });
 });

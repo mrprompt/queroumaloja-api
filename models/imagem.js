@@ -1,13 +1,13 @@
 'use strict';
 
-var ProdutoModel = require('../models/produto'),
+var ProdutoSchema = require('../schemas/produto'),
   ImagemDAO = function () {};
 
 /**
  * Insere uma imagem no álbum do produto
  */
 ImagemDAO.prototype.adicionaImagem = function (id, site, imagem, done) {
-    ProdutoModel.findOneAndUpdate(
+    ProdutoSchema.findOneAndUpdate(
         {
             _id: id,
             site: site
@@ -31,7 +31,7 @@ ImagemDAO.prototype.adicionaImagem = function (id, site, imagem, done) {
  * Remove uma imagem do álbum do produto
  */
 ImagemDAO.prototype.apagaImagem = function (id, site, imagem, done) {
-    ProdutoModel.findOneAndUpdate(
+    ProdutoSchema.findOneAndUpdate(
         {
             _id: id,
             site: site

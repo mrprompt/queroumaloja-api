@@ -1,38 +1,47 @@
 'use strict';
 
-var Token = require('../../models/token');
-var mongoose = require('mongoose');
-var ObjectId = mongoose.Types.ObjectId;
-var should = require('should');
+var mockery = require('mockery');
 
-describe('Token Model', function () {
-    it('inicia sem erros', function (done) {
-        var token = new Token();
-            token.should.have.property('isNew', true);
-            token.should.have.property('errors', undefined);
+describe('Token DAO', function () {
+    before(function() {
+        mockery.enable({
+            warnOnUnregistered: false,
+            warnOnReplace: false
+        });
 
-        done();
+        mockery.registerMock('../schemas/token', {
+            create: function(x, end) {
+                end(null, {});
+            },
+            findOne: function(x) {
+                return {
+                    populate: function(z) {
+                        return {
+                            exec: function (done) {
+                                done(null, {});
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        this.dao = require('../../models/token');
     });
 
-    it('iniciando item deve retornar os atributos informados como parâmetros', function (done) {
-        var validade = new Date();
-            validade.setDate(validade.getDate() + 7);
+    after(function() {
+        mockery.disable()
+    });
 
-        var dados = {
-            cadastro: new Date(),
-            validade: validade,
-            conteudo: 'fooo',
-            usuario: new ObjectId()
-        };
+    it('#adiciona', function (done) {
+        this.dao.adiciona({}, function() {
+            done();
+        });
+    });
 
-        var token = new Token(dados);
-            token.should.have.property('cadastro', dados.cadastro);
-            token.should.have.property('validade', dados.validade);
-            token.should.have.property('conteudo', dados.conteudo);
-            token.should.have.property('usuario', dados.usuario);
-            token.should.have.property('isNew', true);
-            token.should.have.property('errors', undefined);
-
-        done();
+    it('#buscaPorConteudo', function (done) {
+        this.dao.buscaPorConteudo('foo', 'barbar', function() {
+            done();
+        });
     });
 });

@@ -9,7 +9,7 @@ describe('Busca DAO', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/produto', {
+        mockery.registerMock('../schemas/produto', {
             paginate: function(filtro, params, end) {
                 end(null, {
                     pages: 0,
@@ -19,7 +19,7 @@ describe('Busca DAO', function () {
             }
         });
 
-        this.dao = require('../../dao/busca');
+        this.dao = require('../../models/busca');
     });
 
     after(function() {

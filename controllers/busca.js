@@ -1,6 +1,6 @@
 'use strict';
 
-var ProdutoDAO = require('../dao/busca'), BuscaController = function () {};
+var ProdutoModel = require('../models/busca'), BuscaController = function () {};
 
 /**
  * Buscar por um produto
@@ -10,7 +10,7 @@ var ProdutoDAO = require('../dao/busca'), BuscaController = function () {};
  * @param done
  */
 BuscaController.prototype.busca = function (site, palavra = null, done = function () {}) {
-    ProdutoDAO.busca(site, palavra, 1, 100, done);
+    ProdutoModel.busca(site, palavra, 1, 100, done);
 };
 
 module.exports = new BuscaController;

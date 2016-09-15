@@ -1,6 +1,6 @@
 'use strict';
 
-var SiteDAO = require('../dao/site');
+var SiteDAO = require('../models/site');
 
 var router = function(req, res, done) {
     if (req.method === 'OPTIONS') {

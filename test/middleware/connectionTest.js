@@ -24,7 +24,7 @@ describe('Connection Module', function () {
     it('deve retornar uma objeto mongoose quando process.env.MONGODB_URI estiver definido', function (done) {
         process.env.MONGODB_URI = 'mongodb://foo:bar@127.0.0.1:21017/test';
 
-        var connection = require('../../modules/connection');
+        var connection = require('../../middleware/connection');
 
         connection.should.is.an.Object;
         connection.mongoose.should.is.an.Object;

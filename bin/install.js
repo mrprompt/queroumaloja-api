@@ -8,6 +8,7 @@ var bcrypt = require('bcrypt');
 var salt = process.env.PASSWORD_SALT || '$2a$10$MeVpoT66x6r2eNFZ8diZDe';
 var uniqid = require('uniqid');
 var os = require("os");
+var host = process.env.HEROKU_APP_NAME || os.hostname();
 
 async.waterfall(
     [
@@ -15,8 +16,8 @@ async.waterfall(
             console.log('Criando Site');
 
             var params = {
-                nome: os.hostname(),
-                dominio: os.hostname(),
+                nome: host,
+                dominio: host,
                 emails: [],
                 enderecos: [],
                 telefones: [],

@@ -10,7 +10,7 @@ describe('Produto Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/busca', {
+        mockery.registerMock('../models/busca', {
             busca: function(site, palavra, pagina, limite, done) {
                 if (palavra == 'test' || palavra == '') {
                     done(null, {

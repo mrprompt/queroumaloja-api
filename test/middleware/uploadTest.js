@@ -28,7 +28,7 @@ describe('Upload Module', function () {
             }
         });
 
-        this.module = require('../../modules/upload');
+        this.module = require('../../middleware/upload');
     });
 
     it('deve parar se não tiver um atributo file', function (done) {

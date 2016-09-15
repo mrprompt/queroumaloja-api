@@ -12,7 +12,7 @@ describe('Token Module', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/token', {
+        mockery.registerMock('../models/token', {
             buscaPorConteudo: function(conteudo, site, done) {
                 if (conteudo === '01ab02cd03de04f') {
                     done(null, {
@@ -33,7 +33,7 @@ describe('Token Module', function () {
             }
         });
 
-        this.module = require('../../modules/token');
+        this.module = require('../../middleware/token');
     });
 
     after(function() {
