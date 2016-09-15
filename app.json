@@ -10,5 +10,11 @@
   ],
   "scripts": {
     "postdeploy": "node ./bin/install.js"
+  },
+  "env": {
+    "ENV": {
+      "description": "Application environment",
+      "value": "production"
+    }
   }
 }
