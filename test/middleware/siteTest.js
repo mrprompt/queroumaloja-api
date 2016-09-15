@@ -11,7 +11,7 @@ describe('Site Module', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/site', {
+        mockery.registerMock('../models/site', {
             buscaPorDominio: function (dominio, done) {
                 if (dominio == 'local.queroumaloja.net') {
                     done(null, {
@@ -26,7 +26,7 @@ describe('Site Module', function () {
             }
         });
 
-        this.module = require('../../modules/site');
+        this.module = require('../../middleware/site');
     });
 
     it('Deve prosseguir em busca do site pelo dominio.', function (done) {

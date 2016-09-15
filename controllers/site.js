@@ -1,6 +1,6 @@
 'use strict';
 
-var SiteDAO = require('../dao/site'), SiteController  = function() {};
+var SiteDAO = require('../models/site'), SiteController  = function() {};
 
 /**
  * Lista os sites cadastrados

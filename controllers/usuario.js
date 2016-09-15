@@ -1,6 +1,6 @@
 'use strict';
 
-var UsuarioDAO = require('../dao/usuario'),
+var UsuarioDAO = require('../models/usuario'),
   UsuarioController = function () {};
 
 /**

@@ -11,7 +11,7 @@ describe('Senha Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/usuario', {
+        mockery.registerMock('../models/usuario', {
             atualizaSenha: function(id, site, password, done) {
                 if (password == '1234567890') {
                     done(null, {

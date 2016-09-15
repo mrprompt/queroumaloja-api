@@ -1,41 +1,110 @@
 'use strict';
 
-var mongoose        = require('mongoose');
-var UsuarioSchema   = new mongoose.Schema({
-    site: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Site',
-        required: true
-    },
-    nome: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        index: true,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        bcrypt: true
-    },
-    cadastro: {
-        type: Date,
-        default: Date.now
-    }
-})
-    .plugin(require('mongoose-paginate'))
-    .plugin(require('mongoose-unique-validator'))
-    .set('toJSON', {
-        transform: function(doc, ret, options) {
-            delete ret.password;
-            delete ret.site;
+var UsuarioModel = require('../schemas/usuario'),
+  UsuarioDAO = function () {};
 
-            return ret;
-        }
-    });
+/**
+ * Lista os usuários cadastrados
+ */
+UsuarioDAO.prototype.lista = function (site, page, limit, done) {
+    UsuarioModel.paginate(
+        {
+            site: site
+        },
+        {
+            page: page,
+            limit: limit,
+            sort: {
+                nome: 'asc',
+                cadastro: 'desc'
+            }
+        },
+        done
+    );
+};
 
-module.exports = mongoose.model('Usuario', UsuarioSchema);
+/**
+ * Abre um usuário para visualização
+ */
+UsuarioDAO.prototype.abre = function (id, site, done) {
+    UsuarioModel.findOne({ _id: id, site: site }, done);
+};
+
+/**
+ * Adiciona um usuario
+ */
+UsuarioDAO.prototype.adiciona = function (site, params, done) {
+    UsuarioModel.create(
+        {
+            site: site,
+            nome: params.nome,
+            email: params.email,
+            password: params.password
+        },
+        done
+    );
+};
+
+/**
+ * Atualiza os dados de um usuario
+ */
+UsuarioDAO.prototype.atualiza = function (id, site, params, done) {
+    UsuarioModel.update(
+        {
+            _id: id,
+            site: site
+        },
+        {
+            $set: {
+                nome: params.nome,
+                email: params.email
+            }
+        },
+        done
+    );
+};
+
+/**
+ * Remove um usuário
+ */
+UsuarioDAO.prototype.apaga = function (id, site, done) {
+    UsuarioModel.findOneAndUpdate(
+        {
+            _id: id,
+            site: site
+        },
+        {
+            $set: {
+                ativo: false
+            }
+        },
+        done
+    );
+};
+
+/**
+ * Busca um usuário pelo email e senha
+ */
+UsuarioDAO.prototype.login = function (email, senha, site, done) {
+    UsuarioModel.findOne({ email: email, password: senha, site: site }, done);
+};
+
+/**
+ * Atualiza a senha
+ */
+UsuarioDAO.prototype.atualizaSenha = function (id, site, senha, done) {
+    UsuarioModel.findOneAndUpdate(
+        {
+            _id: id,
+            site: site
+        },
+        {
+            $set: {
+                password: senha
+            }
+        },
+        done
+    );
+};
+
+module.exports = new UsuarioDAO;

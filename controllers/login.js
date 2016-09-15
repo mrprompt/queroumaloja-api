@@ -1,8 +1,8 @@
 'use strict';
 
 var async = require('async');
-var UsuarioDAO = require('../dao/usuario'), 
-    TokenDAO = require('../dao/token'),
+var UsuarioDAO = require('../models/usuario'),
+    TokenDAO = require('../models/token'),
     LoginController = function() {};
 
 /**

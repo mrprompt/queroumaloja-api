@@ -1,6 +1,6 @@
 'use strict';
 
-var ProdutoModel = require('../models/produto'),
+var ProdutoModel = require('../schemas/produto'),
   BuscaDAO = function () {};
 
 /**

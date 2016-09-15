@@ -12,7 +12,7 @@ describe('Imagem Router', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../modules/upload', function(req, res, end) {
+        mockery.registerMock('../middleware/upload', function(req, res, end) {
             end();
         });
 

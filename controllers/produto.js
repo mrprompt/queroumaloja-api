@@ -1,6 +1,6 @@
 'use strict';
 
-var ProdutoDAO = require('../dao/produto'), ProdutoController = function () {};
+var ProdutoDAO = require('../models/produto'), ProdutoController = function () {};
 
 /**
  * Lista os produtos

@@ -11,7 +11,7 @@ describe('Usuario Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/usuario', {
+        mockery.registerMock('../models/usuario', {
             lista: function(site, pagina, limite, done) {
                 done(null, {
                     page: 0,

@@ -11,7 +11,7 @@ describe('Login Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/usuario', {
+        mockery.registerMock('../models/usuario', {
             login: function(email, password, site, done) {
                 if (email == 'foo@bar.bar' || password == '$2a$10$MeVpoT66x6r2eNFZ8diZDxDvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW') {
                     done(null, {
@@ -23,7 +23,7 @@ describe('Login Controller', function () {
             }
         });
 
-        mockery.registerMock('../dao/token', {
+        mockery.registerMock('../models/token', {
             adiciona: function(usuario, done) {
                 done(null, {
                     _id: new mongoose.Schema.Types.ObjectId()

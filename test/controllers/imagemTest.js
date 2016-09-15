@@ -11,7 +11,7 @@ describe('Imagem Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../dao/imagem', {
+        mockery.registerMock('../models/imagem', {
             adicionaImagem: function(produto, site, params, done) {
                 done(null, {
                     _id: new mongoose.Schema.Types.ObjectId()

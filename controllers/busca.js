@@ -1,6 +1,6 @@
 'use strict';
 
-var ProdutoDAO = require('../dao/busca'), BuscaController = function () {};
+var ProdutoDAO = require('../models/busca'), BuscaController = function () {};
 
 /**
  * Buscar por um produto

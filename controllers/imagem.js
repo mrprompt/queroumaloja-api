@@ -1,6 +1,6 @@
 'use strict';
 
-var ImagemDAO = require('../dao/imagem'), ImagemController = function () {};
+var ImagemDAO = require('../models/imagem'), ImagemController = function () {};
 
 /**
  * Insere uma imagem no álbum do produto

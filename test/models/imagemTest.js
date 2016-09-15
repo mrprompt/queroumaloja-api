@@ -9,13 +9,13 @@ describe('Imagem DAO', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../models/produto', {
+        mockery.registerMock('../schemas/produto', {
             findOneAndUpdate: function(filter, params, options, end) {
                 end(null, {});
             }
         });
 
-        this.dao = require('../../dao/imagem');
+        this.dao = require('../../models/imagem');
     });
 
     after(function() {

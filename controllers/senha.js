@@ -1,6 +1,6 @@
 'use strict';
 
-var UsuarioDAO = require('../dao/usuario'), SenhaController = function () {};
+var UsuarioDAO = require('../models/usuario'), SenhaController = function () {};
 
 /**
  * Atualiza a senha do usuário

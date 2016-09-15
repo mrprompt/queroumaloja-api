@@ -22,7 +22,7 @@ describe('Password Module', function () {
             }
         });
 
-        this.module = require('../../modules/password');
+        this.module = require('../../middleware/password');
     });
 
     after(function() {

@@ -2,7 +2,7 @@
 
 var router = require('express').Router(),
   multer = require('multer'),
-  upload = require('../modules/upload'),
+  upload = require('../middleware/upload'),
   slugify = require('slugify'),
   striptags = require('striptags'),
   ProdutoController = require('../controllers/produto');
