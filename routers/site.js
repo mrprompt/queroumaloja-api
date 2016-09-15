@@ -77,12 +77,12 @@ router.get('/', function (req, res, done) {
   var { page, limit } = req.query;
 
   site.lista(page, limit, function (err, data) {
-    if (err || !data) {
+    if (err) {
       var data = {
           object: 'error',
           data: err.message,
-          itemCount: 1,
-          pageCount: 1
+          itemCount: 0,
+          pageCount: 0
       };
 
       res.status(500).json(data);
@@ -173,12 +173,12 @@ router.get('/', function (req, res, done) {
  */
 router.get('/:id', function (req, res, done) {
   site.abre(req.params.id, function (err, result) {
-      if (err || !result) {
+      if (err) {
           res.status(500).json({
               object: 'error',
               data: err.message,
-              itemCount: 1,
-              pageCount: 1
+              itemCount: 0,
+              pageCount: 0
           });
 
           return;
@@ -286,8 +286,8 @@ router.post('/', function (req, res, done) {
           res.status(500).json({
               object: 'error',
               data: err.message,
-              itemCount: 1,
-              pageCount: 1
+              itemCount: 0,
+              pageCount: 0
           });
 
           return;
@@ -321,19 +321,6 @@ router.post('/', function (req, res, done) {
  *     HTTP/1.1 204 OK
  */
 router.put('/:id', function (req, res, done) {
-  if (req.params.id.toString() !== req.app.site._id.toString()) {
-    var err = new Error('Acesso negado');
-
-    res.status(403).json({
-        object: 'error',
-        data: err.message,
-        itemCount: 1,
-        pageCount: 1
-    });
-
-    return;
-  }
-
   var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
   var params = {
       nome        : nome,
@@ -346,16 +333,16 @@ router.put('/:id', function (req, res, done) {
   };
 
   site.atualiza(req.params.id, params, function (err, data) {
-    if (err || !data) {
+    if (err) {
         res.status(500).json({
             object: 'error',
             data: err.message,
-            itemCount: 1,
-            pageCount: 1
+            itemCount: 0,
+            pageCount: 0
         });
 
         return;
-    };
+    }
 
     res.status(204).json({});
   });
@@ -372,30 +359,17 @@ router.put('/:id', function (req, res, done) {
  *     HTTP/1.1 204 OK
  */
 router.delete('/:id', function (req, res, done) {
-  if (req.params.id.toString() !== req.app.site._id.toString()) {
-    var err = new Error('Acesso negado');
-
-    res.status(403).json({
-        object: 'error',
-        data: err.message,
-        itemCount: 1,
-        pageCount: 1
-    });
-
-    return;
-  }
-
   site.apaga(req.params.id, function (err, data) {
-    if (err || !data) {
+    if (err) {
         res.status(500).json({
             object: 'error',
             data: err.message,
-            itemCount: 1,
-            pageCount: 1
+            itemCount: 0,
+            pageCount: 0
         });
 
         return;
-    };
+    }
 
     res.status(204).json({});
   });

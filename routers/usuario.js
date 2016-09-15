@@ -32,12 +32,12 @@ router.get('/', function (req, res, done) {
   var limite = req.query.limit;
 
   usuario.lista(site, pagina, limite, function(err, data) {
-    if (err || !data) {
+    if (err) {
       res.status(500).json({
         object: 'error',
         data: err.message,
-        itemCount: 1,
-        pageCount: 1
+        itemCount: 0,
+        pageCount: 0
       });
 
       return;
@@ -79,15 +79,15 @@ router.get('/', function (req, res, done) {
  */
 router.get('/:id', function (req, res, done) {
   usuario.abre(req.params.id, req.app.site, function(err, user) {
-    if (err || !user) {
+    if (err) {
       res.status(404).json({
           object: 'error',
           data: {
               status: 404,
               message: 'Usuário não encontrado'
           },
-          itemCount: 1,
-          pageCount: 1
+          itemCount: 0,
+          pageCount: 0
       });
 
       return;
@@ -135,12 +135,12 @@ router.post('/', function (req, res, done) {
   delete params.password_encrypted;
 
   usuario.adiciona(site, params, function (err, user) {
-    if (err || !user) {
+    if (err) {
         res.status(400).json({
             object: 'error',
             data: err.message,
-            itemCount: 1,
-            pageCount: 1
+            itemCount: 0,
+            pageCount: 0
         });
 
         return;
@@ -169,26 +169,13 @@ router.post('/', function (req, res, done) {
  *     HTTP/1.1 204 OK
  */
 router.put('/:id', function (req, res, done) {
-  if (req.params.id.toString() !== req.app.usuario._id.toString()) {
-    var err = new Error('Acesso negado');
-
-    res.status(403).json({
-        object: 'error',
-        data: err.message,
-        itemCount: 1,
-        pageCount: 1
-    });
-
-    return;
-  }
-
   usuario.atualiza(req.params.id, req.app.site, req.body, function (err, user) {
-    if (err || !user) {
+    if (err) {
         res.status(400).json({
             object: 'error',
             data: err.message,
-            itemCount: 1,
-            pageCount: 1
+            itemCount: 0,
+            pageCount: 0
         });
         return;
     }
@@ -208,26 +195,13 @@ router.put('/:id', function (req, res, done) {
  *     HTTP/1.1 204 OK
  */
 router.delete('/:id', function (req, res, done) {
-  if (req.params.id.toString() !== req.app.usuario._id.toString()) {
-    var err = new Error('Acesso negado');
-
-    res.status(403).json({
-        object: 'error',
-        data: err.message,
-        itemCount: 1,
-        pageCount: 1
-    });
-
-    return;
-  }
-
   usuario.apaga(req.params.id, req.app.site, function (err, user) {
-    if (err || !user) {
+    if (err) {
         res.status(400).json({
             object: 'error',
             data: err.message,
-            itemCount: 1,
-            pageCount: 1
+            itemCount: 0,
+            pageCount: 0
         });
         return;
     }
