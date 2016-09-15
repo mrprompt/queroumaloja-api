@@ -1,13 +1,13 @@
 'use strict';
 
-var UsuarioModel = require('../schemas/usuario'),
+var UsuarioSchema = require('../schemas/usuario'),
   UsuarioDAO = function () {};
 
 /**
  * Lista os usuários cadastrados
  */
 UsuarioDAO.prototype.lista = function (site, page, limit, done) {
-    UsuarioModel.paginate(
+    UsuarioSchema.paginate(
         {
             site: site
         },
@@ -27,14 +27,14 @@ UsuarioDAO.prototype.lista = function (site, page, limit, done) {
  * Abre um usuário para visualização
  */
 UsuarioDAO.prototype.abre = function (id, site, done) {
-    UsuarioModel.findOne({ _id: id, site: site }, done);
+    UsuarioSchema.findOne({ _id: id, site: site }, done);
 };
 
 /**
  * Adiciona um usuario
  */
 UsuarioDAO.prototype.adiciona = function (site, params, done) {
-    UsuarioModel.create(
+    UsuarioSchema.create(
         {
             site: site,
             nome: params.nome,
@@ -49,7 +49,7 @@ UsuarioDAO.prototype.adiciona = function (site, params, done) {
  * Atualiza os dados de um usuario
  */
 UsuarioDAO.prototype.atualiza = function (id, site, params, done) {
-    UsuarioModel.update(
+    UsuarioSchema.update(
         {
             _id: id,
             site: site
@@ -68,7 +68,7 @@ UsuarioDAO.prototype.atualiza = function (id, site, params, done) {
  * Remove um usuário
  */
 UsuarioDAO.prototype.apaga = function (id, site, done) {
-    UsuarioModel.findOneAndUpdate(
+    UsuarioSchema.findOneAndUpdate(
         {
             _id: id,
             site: site
@@ -86,14 +86,14 @@ UsuarioDAO.prototype.apaga = function (id, site, done) {
  * Busca um usuário pelo email e senha
  */
 UsuarioDAO.prototype.login = function (email, senha, site, done) {
-    UsuarioModel.findOne({ email: email, password: senha, site: site }, done);
+    UsuarioSchema.findOne({ email: email, password: senha, site: site }, done);
 };
 
 /**
  * Atualiza a senha
  */
 UsuarioDAO.prototype.atualizaSenha = function (id, site, senha, done) {
-    UsuarioModel.findOneAndUpdate(
+    UsuarioSchema.findOneAndUpdate(
         {
             _id: id,
             site: site

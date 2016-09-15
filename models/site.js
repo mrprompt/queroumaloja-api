@@ -1,13 +1,13 @@
 'use strict';
 
-var SiteModel = require('../schemas/site'),
+var SiteSchema = require('../schemas/site'),
   SiteDAO  = function() {};
 
 /**
  * Lista os sites cadastrados
  */
 SiteDAO.prototype.lista = function (page, limit, done) {
-    SiteModel.paginate(
+    SiteSchema.paginate(
         {},
         {
             page: page,
@@ -24,28 +24,28 @@ SiteDAO.prototype.lista = function (page, limit, done) {
  * Visualiza um site
  */
 SiteDAO.prototype.abre = function (id, done) {
-    SiteModel.findOne({ _id: id }, done);
+    SiteSchema.findOne({ _id: id }, done);
 };
 
 /**
  * Adiciona um site
  */
 SiteDAO.prototype.adiciona = function (params, done) {
-    SiteModel.create(params, done);
+    SiteSchema.create(params, done);
 };
 
 /**
  * Atualiza os dados de um site
  */
 SiteDAO.prototype.atualiza = function (id, params, done) {
-    SiteModel.findOneAndUpdate({ _id: id }, params, { new: true, multi: true }, done);
+    SiteSchema.findOneAndUpdate({ _id: id }, params, { new: true, multi: true }, done);
 };
 
 /**
  * Remove os dados de um site
  */
 SiteDAO.prototype.apaga = function (id, done) {
-    SiteModel.findOneAndUpdate({ _id: id }, { ativo: false }, { new: true, multi: true }, done);
+    SiteSchema.findOneAndUpdate({ _id: id }, { ativo: false }, { new: true, multi: true }, done);
 };
 
 /**
@@ -56,7 +56,7 @@ SiteDAO.prototype.buscaPorDominio = function (dominio, done) {
         .replace(/(http.?:\/\/|(www|local|api))\./im, '')
         .replace(/:[0-9]+/m, '');
 
-    return SiteModel.findOne({ dominio: hostname }, done);
+    return SiteSchema.findOne({ dominio: hostname }, done);
 };
 
 module.exports = new SiteDAO;

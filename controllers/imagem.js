@@ -1,6 +1,6 @@
 'use strict';
 
-var ImagemDAO = require('../models/imagem'), ImagemController = function () {};
+var ImagemModel = require('../models/imagem'), ImagemController = function () {};
 
 /**
  * Insere uma imagem no álbum do produto
@@ -10,7 +10,7 @@ var ImagemDAO = require('../models/imagem'), ImagemController = function () {};
  * @param done
  */
 ImagemController.prototype.adiciona = function (produto, site, params, done) {
-    ImagemDAO.adicionaImagem(produto, site, params, done);
+    ImagemModel.adicionaImagem(produto, site, params, done);
 };
 
 /**
@@ -21,7 +21,7 @@ ImagemController.prototype.adiciona = function (produto, site, params, done) {
  * @param done
  */
 ImagemController.prototype.apaga = function (id, site, imagem, done) {
-    ImagemDAO.apagaImagem(id, site, imagem, done);
+    ImagemModel.apagaImagem(id, site, imagem, done);
 };
 
 module.exports = new ImagemController;

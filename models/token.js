@@ -1,6 +1,6 @@
 'use strict';
 
-var TokenModel = require('../schemas/token'),
+var TokenSchema = require('../schemas/token'),
     TokenAdapter = require('token'),
     TokenDAO  = function() {};
 
@@ -18,7 +18,7 @@ TokenDAO.prototype.adiciona = function (user, done) {
     // Gerando conteúdo do token
     var content = TokenAdapter.generate(user._id + '|' + user.email);
 
-    TokenModel.create({
+    TokenSchema.create({
         usuario : user,
         cadastro: (new Date()),
         validade: validade,
@@ -29,7 +29,7 @@ TokenDAO.prototype.adiciona = function (user, done) {
 };
 
 TokenDAO.prototype.buscaPorConteudo = function (conteudo, site, done) {
-    TokenModel.findOne(
+    TokenSchema.findOne(
             {
                 conteudo: conteudo,
                 validade: {

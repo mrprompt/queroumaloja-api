@@ -1,6 +1,6 @@
 'use strict';
 
-var ProdutoModel = require('../schemas/produto'),
+var ProdutoSchema = require('../schemas/produto'),
   ProdutoDAO = function () {};
 
 /**
@@ -20,7 +20,7 @@ ProdutoDAO.prototype.lista = function (site, filtro = {}, done) {
         }
     }
 
-    ProdutoModel.paginate(
+    ProdutoSchema.paginate(
         filter, 
         { 
             page: filtro.page, 
@@ -37,28 +37,28 @@ ProdutoDAO.prototype.lista = function (site, filtro = {}, done) {
  * Visualiza um produto
  */
 ProdutoDAO.prototype.abre = function (id, site, done) {
-    ProdutoModel.findOne({ _id: id, site: site }, done);
+    ProdutoSchema.findOne({ _id: id, site: site }, done);
 };
 
 /**
  * Adiciona um produto
  */
 ProdutoDAO.prototype.adiciona = function (site, params, done) {
-    ProdutoModel.create(params, done);
+    ProdutoSchema.create(params, done);
 };
 
 /**
  * Atualiza os dados de um produto
  */
 ProdutoDAO.prototype.atualiza = function (id, site, params, done) {
-    ProdutoModel.findOneAndUpdate({ _id: id, site: site }, params, { new: true, multi: true }, done);
+    ProdutoSchema.findOneAndUpdate({ _id: id, site: site }, params, { new: true, multi: true }, done);
 };
 
 /**
  * Remove um produto
  */
 ProdutoDAO.prototype.apaga = function (id, site, done) {
-    ProdutoModel.findOneAndUpdate({ _id: id, site: site }, { ativo: false }, { new: true, multi: true }, done);
+    ProdutoSchema.findOneAndUpdate({ _id: id, site: site }, { ativo: false }, { new: true, multi: true }, done);
 };
 
 module.exports = new ProdutoDAO;

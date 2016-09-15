@@ -1,8 +1,8 @@
 'use strict';
 
 var async = require('async');
-var UsuarioDAO = require('../models/usuario'),
-    TokenDAO = require('../models/token'),
+var UsuarioModel = require('../models/usuario'),
+    TokenModel = require('../models/token'),
     LoginController = function() {};
 
 /**
@@ -15,7 +15,7 @@ var UsuarioDAO = require('../models/usuario'),
 LoginController.prototype.adiciona = function (email, password, site, done) {
   async.waterfall([
         function (callback) {
-            UsuarioDAO.login(email, password, site, function (err, user) {
+            UsuarioModel.login(email, password, site, function (err, user) {
                 if (err || !user) {
                     return done(new Error('Usuário/Senha inválidos'));
                 }
@@ -24,7 +24,7 @@ LoginController.prototype.adiciona = function (email, password, site, done) {
             });
         },
         function (user, callback) {
-            TokenDAO.adiciona(user, function (errorToken, dataToken) {
+            TokenModel.adiciona(user, function (errorToken, dataToken) {
                 callback(errorToken, dataToken);
             });
         }

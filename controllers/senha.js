@@ -1,6 +1,6 @@
 'use strict';
 
-var UsuarioDAO = require('../models/usuario'), SenhaController = function () {};
+var UsuarioModel = require('../models/usuario'), SenhaController = function () {};
 
 /**
  * Atualiza a senha do usuário
@@ -15,7 +15,7 @@ SenhaController.prototype.atualiza = function (id, site, password, done) {
         return;
     }
 
-    UsuarioDAO.atualizaSenha(id, site, password, done);
+    UsuarioModel.atualizaSenha(id, site, password, done);
 };
 
 module.exports = new SenhaController;
