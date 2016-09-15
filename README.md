@@ -8,14 +8,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/QueroUmaLoja/api-server/master/LICENSE)
 
-API de Produtos para empresas de pequeno e médio porte, que queiram uma forma simples de ter um site com vendas on-line.
+API de Produtos.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ### Pré Requisitos
 
-- Sendgrid (Envio de e-mails de aviso)
-- Cloudinary (Armazenamento)
-- Pagar-me (Pagamentos) - opcional
-- PagSeguro (Pagamentos) - opcional
+- [Nodejs 6](https://nodejs.org)
+- [MongoDB](https://www.mongodb.com)
+- [Cloudinary](https://cloudinary.com)
 
 ### Instalação
 
@@ -24,11 +25,8 @@ Antes de rodar aplicação, são necessárias configurações das variáveis de 
 ```
 NODE_IP (127.0.0.1)
 NODE_PORT (8080)
-DB_USERNAME (admin)
-DB_PASSWORD (admin)
-DB_HOST (127.0.0.1)
-DB_PORT (27017)
-DB_NAME (test)
+MONGODB_URI
+CLOUDINARY_URL
 PASSWORD_SALT ($2a$10$MeVpoT66x6r2eNFZ8diZDe)
 ```
 
@@ -40,6 +38,15 @@ Logo após tudo configurado, basta instalar as dependências
 npm install
 ```
 
+Após a instalação, é necessário criar a estrutura básica do banco, então, rode o comando de instalação:
+
+```
+node ./bin/install
+```
+
+Feito isso, você pode rodar a API e acessar o endereço com o mesmo nome do seu host - talvez seja necessário editar o registro no banco para 
+atualizar com o endereço correto. Bastando editar a coleção **sites**.
+
 
 ### Rodando
 
@@ -47,14 +54,9 @@ npm install
 npm start
 ```
 
-
 ### Testes
 
 Para os testes unitários, é utilizado o Mocha.
-
-**AVTENÇÃO**
-Os testes utilizam as mesmas variáveis de ambiente da aplicação, então, para que não ocorra perda de dados, sempre
-sobrescreva as variáveis para configurar o ambiente o banco de dados correto ANTES de executar os testes.
 
 ```
 npm test
@@ -62,7 +64,7 @@ npm test
 
 ### New Relic
 
-A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar duas variáveis de ambiente:
+A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar as variáveis de ambiente:
 
 ```
 APPLICATION_NAME
@@ -71,11 +73,13 @@ NEW_RELIC_LOG
 ```
 
 ### Garantia
+
 Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização
 desta. Você tem total liberdade de instalá-la em seu próprio servidor e utilizar para quaisquer fins, com ou sem
 modificações na mesma.
 
 ### Contribuindo
+
 Esta é uma API de código aberto e livre, fique a vontade para fazer um fork e contribuir com qualquer melhoria ou solução
 de bugs que a mesma possua ou precise.
 
@@ -90,7 +94,7 @@ node node_modules/bcrypt/examples/forever_gen_salt.js
 
 ### Documentação
 
-A documentação é gerada utilizando o utilitário apidoc:
+A [documentação](http://queroumaloja.github.io/api-server/) é gerada utilizando o utilitário apidoc e você pode conferir [aqui](http://queroumaloja.github.io/api-server/):
 
 ```
 ./node_modules/.bin/apidoc -o apidoc -i routers/

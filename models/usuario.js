@@ -22,50 +22,6 @@ var UsuarioSchema   = new mongoose.Schema({
         required: true,
         bcrypt: true
     },
-    endereco: [
-        new mongoose.Schema({
-            logradouro: {
-                type: String,
-                required: true
-            },
-            complemento: {
-                type: String,
-                default: ''
-            },
-            numero: {
-                type: Number,
-                default:  0
-            },
-            bairro: {
-                type: String,
-                required: true
-            },
-            cep: {
-                type: String,
-                trim: true
-            },
-            cidade: {
-                type: String,
-                required: true
-            },
-            estado: {
-                type: String,
-                required: true
-            },
-            tipo: {
-                type: String,
-                enum: ['comercial', 'residencial'],
-                default: 'residencial'
-            }
-        })
-    ],
-    nivel: {
-        type: String,
-        lowercase: true,
-        trim: true,
-        enum: ['administrador', 'editor', 'usuario', 'comprador'],
-        default: 'comprador'
-    },
     cadastro: {
         type: Date,
         default: Date.now

@@ -1,8 +1,8 @@
 'use strict';
 
-var should = require('should'),
-    http_mocks = require('node-mocks-http'),
-    mockery = require('mockery');
+var mongoose = require('mongoose');
+var should = require('should');
+var mockery = require('mockery');
 
 describe('Site Controller', function () {
     before(function() {
@@ -11,33 +11,49 @@ describe('Site Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../providers/upload', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/site', {
-            paginate: function(x, y, end) {
-                end(null, {
+        mockery.registerMock('../dao/site', {
+            lista: function(pagina, limite, done) {
+                done(null, {
+                    page: 0,
                     pages: 0,
                     total: 0,
                     docs: []
                 });
             },
-            findOne: function(x) {
-                return {
-                    exec: function (end) {
-                        end(null, {});
-                    }
-                }
+            abre: function (id, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    ativo: true
+                });
             },
-            create: function(x, end) {
-                end(null, {});
+            adiciona: function (params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    ativo: true
+                });
             },
-            update: function(x, y, end) {
-                end(null, {});
+            atualiza: function (id, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    ativo: true
+                });
             },
-            remove: function(x, end) {
-                end(null, {});
+            apaga: function (id, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    ativo: false
+                });
             }
         });
 
@@ -48,200 +64,78 @@ describe('Site Controller', function () {
         mockery.disable()
     });
 
-    it('#lista() deve retornar um array e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('#lista() deve retornar um array', function (done) {
+        var page = 1;
+        var limit = 1;
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/',
-            headers: {
-                site: 1
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.lista(page, limit, function (error, result) {
+            result.should.have.property('docs');
+            result.should.have.property('total');
+            result.should.have.property('page');
+            result.should.have.property('pages');
+
+            done();
         });
-
-        this.controller.lista(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 0);
-        should.equal(data.pageCount, 0);
-
-        done();
     });
 
-    it('#abre() deve retornar um objeto e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('#abre() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            headers: {
-                site: 1
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.abre(id, function(error, result) {
+            should(null).is.be.null();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.abre(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#adiciona() deve retornar um array e status 201', function (done) {
-        var response = http_mocks.createResponse();
+    it('#adiciona() deve retornar um array', function (done) {
+        var params = {
+            nome: 'foo',
+            dominio: 'localhost.localdomain',
+            emails: [],
+            enderecos: [],
+            telefones: [],
+            categorias: [],
+            config: {}
+        };
 
-        var request  = http_mocks.createRequest({
-            method: 'POST',
-            body: {
-                nome: 'foo',
-                dominio: 'localhost.localdomain',
-                emails: [],
-                enderecos: [],
-                telefones: [],
-                categorias: [],
-                config: {}
-            },
-            url: '/',
-            headers: {
-                site: 1
-            }
+        this.controller.adiciona(params, function(error, result) {
+            should(null).is.be.null();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.adiciona(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 201);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#adiciona() com categoria deve retornar um array e status 201', function (done) {
-        var response = http_mocks.createResponse();
+    it('#atualiza() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
+        var params = {
+            nome: 'foo',
+            dominio: 'localhost.localdomain',
+            emails: [],
+            enderecos: [],
+            telefones: [],
+            categorias: [],
+            config: {}
+        };
 
-        var request  = http_mocks.createRequest({
-            method: 'POST',
-            body: {
-                nome: 'foo',
-                dominio: 'localhost.localdomain',
-                emails: [],
-                enderecos: [],
-                telefones: [],
-                categorias: [
-                    {
-                        titulo: 'teste',
-                        urdi: 'teste'
-                    }
-                ]
-            },
-            url: '/',
-            headers: {
-                site: 1
-            }
+        this.controller.atualiza(id, params, function(error, result) {
+            should(null).is.be.null();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.adiciona(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 201);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#atualiza() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
+    it('#apaga() deve retornar um objeto', function (done) {
+        var id = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'PUT',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            body: {
-                nome: 'foo',
-                dominio: 'localhost.localdomain',
-                emails: [],
-                enderecos: [],
-                telefones: [],
-                categorias: []
-            },
-            headers: {
-                site: 1
-            }
+        this.controller.apaga(id, function(error, result) {
+            should(null).is.be.null();
+            should(result).is.be.ok();
+
+            done();
         });
-
-        this.controller.atualiza(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
-    });
-
-    it('#apaga() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'DELETE',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            headers: {
-                site: 1
-            }
-        });
-
-        this.controller.apaga(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 });

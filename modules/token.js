@@ -1,57 +1,33 @@
 'use strict';
 
 var _           = require('underscore');
-var router      = require('express').Router();
-var TokenModel  = require('../models/token');
+var TokenDAO    = require('../dao/token');
 var routes      = require('../config/firewall.json');
 
-router.all('*', function(req, res, next) {
+var router = function(req, res, done) {
     if (req.method === 'OPTIONS' || !_.contains(routes, req.baseUrl + '|' + req.method)) {
-        next();
+        done();
 
         return true;
     }
 
     if (!req.headers.authorization) {
-        return res.status(403).json({
-            object: 'object',
-            has_more: false,
-            data: {
-                message: 'Atributo authorization não encontrado no cabeçalho',
-                status: 403
-            },
-            itemCount: 0,
-            pageCount: 1
-        });
+        done(new Error('Atributo authorization não encontrado no cabeçalho'));
+
+        return;
     }
 
-    TokenModel
-        .findOne({
-            conteudo: req.headers.authorization
-        })
-        .populate(['usuario'])
-        .exec(function (err, data) {
-            if (err || !data || data.usuario.site.toString() !== req.app.site._id.toString() || data.validade < (new Date())) {
-                res.status(401).json({
-                    object: 'object',
-                    has_more: false,
-                    data: {
-                        message: 'Token não autorizado',
-                        status: 401
-                    },
-                    itemCount: 0,
-                    pageCount: 1
-                });
+    TokenDAO.buscaPorConteudo(req.headers.authorization, req.app.site._id, function (err, data) {
+        if (err || !data) {
+            done(new Error('Token não autorizado'));
 
-                return false;
-            }
+            return;
+        }
 
-            req.app.usuario = data.usuario;
+        req.app.usuario = data.usuario;
 
-            next();
-        });
-
-    return false;
-});
+        done(err, data);
+    });
+};
 
 module.exports = router;

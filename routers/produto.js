@@ -3,6 +3,8 @@
 var router = require('express').Router(),
   multer = require('multer'),
   upload = require('../modules/upload'),
+  slugify = require('slugify'),
+  striptags = require('striptags'),
   ProdutoController = require('../controllers/produto');
 
 /**
@@ -83,89 +85,43 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/', ProdutoController.lista);
+router.get('/', function (req, res, done) {
+  var filter = {
+      page: req.query.page,
+      limit: req.query.limit
+  };
 
-/**
- * @api {get} /produto/busca/:palavra Busca produtos por palavra chave
- * @apiName ProdutoBusca
- * @apiGroup Produto
- *
- * @apiParam {String} palavra Palavra chave a ser encontrada
- *
- * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *      {
- *        "object": "list",
- *        "has_more": true,
- *        "data": [
- *          {
- *            "_id": "5762bbb9b3081d1900b0acbe",
- *            "titulo": "A TRIBO, A ALDEIA E O SONO",
- *            "descricao": "A TRIBO, A ALDEIA E O SONO",
- *            "imagem": {
- *              "public_id": "p47d42m0ebagghhzdptt",
- *              "version": "1466088376",
- *              "signature": "05a243d289f44d8aa27851fa6a49c8476785ce8b",
- *              "width": "1810",
- *              "height": "2551",
- *              "format": "jpg",
- *              "resource_type": "image",
- *              "bytes": "2249274",
- *              "type": "upload",
- *              "etag": "d796793e655a4f4dd254ea2c6e317cb7",
- *              "url": "http://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
- *              "secure_url": "https://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
- *              "_id": "5762bbb9b3081d1900b0acc3",
- *              "tags": [
- *              ],
- *              "created_at": "2016-06-16T14:46:16.000Z"
- *            },
- *            "categoria": {
- *              "titulo": "Livros",
- *              "uri": "livros",
- *              "categoria": {
- *                "titulo": "Livros e Coleções",
- *                "uri": "livros-e-colecoes",
- *                "_id": "5762bbb9b3081d1900b0acc2"
- *              },
- *              "_id": "5762bbb9b3081d1900b0acc1"
- *            },
- *            "dimensoes": {
- *              "altura": "0.01",
- *              "largura": "0.01",
- *              "comprimento": "0.01",
- *              "unidade": "cm",
- *              "_id": "5762bbb9b3081d1900b0acc0"
- *            },
- *            "peso": {
- *              "total": "0.001",
- *              "unidade": "gr",
- *              "_id": "5762bbb9b3081d1900b0acbf"
- *            },
- *            "__v": "0",
- *            "atualizacao": "2016-06-16T14:46:17.319Z",
- *            "cadastro": "2016-06-16T14:46:17.319Z",
- *            "quantidade": "0",
- *            "vendas": "0",
- *            "album": [
- *            ],
- *            "valor": [
- *              {
- *                "_id": "5762bbb9b3081d1900b0acc4",
- *                "moeda": "R$",
- *                "nome": "default",
- *                "valor": "23.9"
- *              }
- *            ],
- *            "codigo": "VL"
- *          },
- *          ...
- *        ],
- *        "itemCount": "100",
- *        "pageCount": "2"
- *      }
- */
-router.get('/busca/:palavra', ProdutoController.busca);
+  if (req.query.tipo !== undefined) {
+      filter["categoria.uri"] = req.query.tipo.toLowerCase();
+
+      if (req.query.categoria !== undefined) {
+          filter["categoria.categoria.uri"] = req.query.categoria.toLowerCase();
+      }
+  }
+
+  ProdutoController.lista(req.app.site._id, filter, function (err, data) {
+      if (err) {
+          res.status(500).json({
+              object: 'error',
+              data: err.message,
+              itemCount: 0,
+              pageCount: 0
+          });
+
+          return;
+      }
+
+      var pageCount = data.pages;
+      var itemCount = data.total;
+
+      res.status(200).json({
+          object: 'list',
+          data: data.docs,
+          itemCount: itemCount,
+          pageCount: pageCount
+      });
+  });
+});
 
 /**
  * @api {get} /produto/:id Abre um produto para visualização
@@ -244,7 +200,30 @@ router.get('/busca/:palavra', ProdutoController.busca);
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', ProdutoController.abre);
+router.get('/:id', function (req, res, done) {
+    var id = req.params.id;
+    var site = req.app.site._id;
+
+    ProdutoController.abre(id, site, function (err, data) {
+        if (err) {
+            res.status(404).json({
+                object: 'error',
+                data: err.message,
+                itemCount: 0,
+                pageCount: 0
+            });
+
+            return;
+        }
+
+        res.status(200).json({
+            object: 'object',
+            data: data,
+            itemCount: 1,
+            pageCount: 1
+        });
+    });
+});
 
 /**
  * @api {post} /produto Cadastra um produto
@@ -334,7 +313,48 @@ router.get('/:id', ProdutoController.abre);
  *        "pageCount": "1"
  *      }
  */
-router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adiciona);
+router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
+    var site = req.app.site._id;
+    var params = {
+        titulo      : striptags(req.body.titulo),
+        descricao   : striptags(req.body.descricao),
+        codigo      : striptags(req.body.codigo),
+        valor       : striptags(req.body.valor),
+        imagem      : striptags(req.body.imagem),
+        categoria   : {
+            titulo      : striptags(req.body.categoria.titulo),
+            uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
+            categoria   : {
+                titulo  : striptags(req.body.categoria.categoria.titulo),
+                uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
+            }
+        },
+        estoque: striptags(req.body.estoque),
+        dimensoes: striptags(req.body.dimensoes),
+        peso: striptags(req.body.peso),
+        site: req.app.site._id
+    };
+
+    ProdutoController.adiciona(site, params, function (err, data) {
+        if (err || !data) {
+            res.status(500).json({
+                object: 'error',
+                data: err.message,
+                itemCount: 0,
+                pageCount: 0
+            });
+
+            return;
+        }
+
+        res.status(201).json({
+            object: 'object',
+            data: data,
+            itemCount: 1,
+            pageCount: 1
+        });
+    });
+});
 
 /**
  * @api {put} /produto/:id Atualiza os dados de um produto
@@ -358,7 +378,49 @@ router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoContro
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', ProdutoController.atualiza);
+router.put('/:id', function (req, res, done) {
+    var id = req.params.id;
+    var site = req.app.site._id;
+    var params = {
+        titulo      : striptags(req.body.titulo),
+        descricao   : striptags(req.body.descricao),
+        codigo      : striptags(req.body.codigo),
+        valor       : striptags(req.body.valor),
+        imagem      : striptags(req.body.imagem),
+        categoria   : {
+            titulo      : striptags(req.body.categoria.titulo),
+            uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
+            categoria   : {
+                titulo  : striptags(req.body.categoria.categoria.titulo),
+                uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
+            }
+        },
+        estoque: striptags(req.body.estoque),
+        dimensoes: striptags(req.body.dimensoes),
+        peso: striptags(req.body.peso),
+        site: req.app.site._id
+    };
+
+    ProdutoController.atualiza(id, site, params, function (err, data) {
+        if (err) {
+            res.status(500).json({
+                object: 'error',
+                data: err.message,
+                itemCount: 0,
+                pageCount: 0
+            });
+
+            return;
+        }
+
+        res.status(201).json({
+            object: 'object',
+            data: data,
+            itemCount: 1,
+            pageCount: 1
+        });
+    });
+});
 
 /**
  * @api {delete} /produto/:id Apagar produto
@@ -370,99 +432,24 @@ router.put('/:id', ProdutoController.atualiza);
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', ProdutoController.apaga);
+router.delete('/:id', function (req, res, done) {
+    var id = req.params.id;
+    var site = req.app.site._id;
 
-/**
- * @api {post} /produto/:id/album Adiciona uma imagem ao álbum do produto
- * @apiName ProdutoAlbumAdiciona
- * @apiGroup Produto
- *
- * @apiParam {String} id Produto unique ID.
- * @apiParam {Object} imagem Imagem do produto {url: string, secure_url: string}
- *
- * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 201 OK
- *      {
- *        "object": "object",
- *        "has_more": false,
- *        "data": {
- *            "_id": "5762bbb9b3081d1900b0acbe",
- *            "titulo": "A TRIBO, A ALDEIA E O SONO",
- *            "descricao": "A TRIBO, A ALDEIA E O SONO",
- *            "imagem": {
- *              "public_id": "p47d42m0ebagghhzdptt",
- *              "version": "1466088376",
- *              "signature": "05a243d289f44d8aa27851fa6a49c8476785ce8b",
- *              "width": "1810",
- *              "height": "2551",
- *              "format": "jpg",
- *              "resource_type": "image",
- *              "bytes": "2249274",
- *              "type": "upload",
- *              "etag": "d796793e655a4f4dd254ea2c6e317cb7",
- *              "url": "http://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
- *              "secure_url": "https://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
- *              "_id": "5762bbb9b3081d1900b0acc3",
- *              "tags": [
- *              ],
- *              "created_at": "2016-06-16T14:46:16.000Z"
- *            },
- *            "categoria": {
- *              "titulo": "Livros",
- *              "uri": "livros",
- *              "categoria": {
- *                "titulo": "Livros e Coleções",
- *                "uri": "livros-e-colecoes",
- *                "_id": "5762bbb9b3081d1900b0acc2"
- *              },
- *              "_id": "5762bbb9b3081d1900b0acc1"
- *            },
- *            "dimensoes": {
- *              "altura": "0.01",
- *              "largura": "0.01",
- *              "comprimento": "0.01",
- *              "unidade": "cm",
- *              "_id": "5762bbb9b3081d1900b0acc0"
- *            },
- *            "peso": {
- *              "total": "0.001",
- *              "unidade": "gr",
- *              "_id": "5762bbb9b3081d1900b0acbf"
- *            },
- *            "__v": "0",
- *            "atualizacao": "2016-06-16T14:46:17.319Z",
- *            "cadastro": "2016-06-16T14:46:17.319Z",
- *            "quantidade": "0",
- *            "vendas": "0",
- *            "album": [
- *            ],
- *            "valor": [
- *              {
- *                "_id": "5762bbb9b3081d1900b0acc4",
- *                "moeda": "R$",
- *                "nome": "default",
- *                "valor": "23.9"
- *              }
- *            ],
- *            "codigo": "VL"
- *        },
- *        "itemCount": "1",
- *        "pageCount": "1"
- *      }
- */
-router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, ProdutoController.adicionaImagem);
+    ProdutoController.apaga(id, site, function (err, data) {
+        if (err) {
+            res.status(500).json({
+                object: 'error',
+                data: err.message,
+                itemCount: 0,
+                pageCount: 0
+            });
 
-/**
- * @api {delete} /produto/:id/album/:img Apaga uma imagem do álbum do produto
- * @apiName ProdutoAlbumApagaImagem
- * @apiGroup Produto
- *
- * @apiParam {String} id Produto unique ID.
- * @apiParam {String} img Produto Imagem unique ID.
- *
- * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 204 OK
- */
-router.delete('/:id/album/:img', ProdutoController.apagaImagem);
+            return;
+        }
+
+        res.status(204).json({});
+    });
+});
 
 module.exports = router;

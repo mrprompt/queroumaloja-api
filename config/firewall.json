@@ -1,8 +1,4 @@
 [
-  "/carrinho|GET",
-  "/carrinho|POST",
-  "/carrinho|PUT",
-  "/carrinho|DELETE",
   "/produto|POST",
   "/produto|PUT",
   "/produto|DELETE",

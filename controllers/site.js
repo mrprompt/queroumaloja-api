@@ -1,9 +1,6 @@
 'use strict';
 
-var paginate = require('express-paginate'),
-  striptags = require('striptags'),
-  SiteModel = require('../models/site'),
-  SiteController  = function() {};
+var SiteDAO = require('../dao/site'), SiteController  = function() {};
 
 /**
  * Lista os sites cadastrados
@@ -12,42 +9,8 @@ var paginate = require('express-paginate'),
  * @param res
  * @param done
  */
-SiteController.prototype.lista = function (req, res, done) {
-    SiteModel
-        .paginate(
-            {},
-            {
-                page: req.query.page,
-                limit: req.query.limit,
-                sort: {cadastro : 'desc'}
-            },
-            function (err, data) {
-                if (err) {
-                    data = {
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    };
-
-                    res.status(500).json(data);
-                } else {
-                    var pageCount = data.pages;
-                    var itemCount = data.total;
-
-                    res.status(200).json({
-                        object: 'list',
-                        has_more: paginate.hasNextPages(req)(pageCount),
-                        data: data.docs,
-                        itemCount: itemCount,
-                        pageCount: pageCount
-                    });
-                }
-
-                done(err, data);
-            }
-        );
+SiteController.prototype.lista = function (page, limit, done) {
+    SiteDAO.lista(page, limit, done);
 };
 
 /**
@@ -57,32 +20,8 @@ SiteController.prototype.lista = function (req, res, done) {
  * @param res
  * @param done
  */
-SiteController.prototype.abre = function (req, res, done) {
-    SiteModel
-        .findOne({
-            _id: req.params.id
-        })
-        .exec(function (err, data) {
-            if (err) {
-                res.status(500).json({
-                    object: 'error',
-                    has_more: false,
-                    data: err.message,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            } else {
-                res.status(200).json({
-                    object: 'object',
-                    has_more: false,
-                    data: data,
-                    itemCount: 1,
-                    pageCount: 1
-                });
-            }
-
-            done(err, data);
-        });
+SiteController.prototype.abre = function (id, done) {
+    SiteDAO.abre(id, done);
 };
 
 /**
@@ -92,42 +31,8 @@ SiteController.prototype.abre = function (req, res, done) {
  * @param res
  * @param done
  */
-SiteController.prototype.adiciona = function (req, res, done) {
-    var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
-
-    SiteModel
-        .create(
-            {
-                nome        : striptags(nome),
-                dominio     : dominio,
-                emails      : emails,
-                enderecos   : enderecos,
-                telefones   : telefones,
-                categorias  : categorias,
-                config      : config
-            },
-            function (err, newSite) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(201).json({
-                        object: 'object',
-                        has_more: false,
-                        data: newSite,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
-
-                done(err, newSite);
-            }
-        );
+SiteController.prototype.adiciona = function (params, done) {
+    SiteDAO.adiciona(params, done);
 };
 
 /**
@@ -137,42 +42,8 @@ SiteController.prototype.adiciona = function (req, res, done) {
  * @param res
  * @param done
  */
-SiteController.prototype.atualiza = function (req, res, done) {
-    SiteModel
-        .update(
-            {
-                _id: req.params.id
-            },
-            {
-                nome        : striptags(req.body.nome),
-                dominio     : req.body.dominio,
-                emails      : req.body.emails,
-                enderecos   : req.body.enderecos,
-                telefones   : req.body.telefones,
-                categorias  : req.body.categorias,
-                config      : req.body.config
-            }, function (err, data) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: data,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
-
-                done(err, data);
-            }
-        );
+SiteController.prototype.atualiza = function (id, params, done) {
+    SiteDAO.atualiza(id, params, done);
 };
 
 /**
@@ -182,34 +53,8 @@ SiteController.prototype.atualiza = function (req, res, done) {
  * @param res
  * @param done
  */
-SiteController.prototype.apaga = function (req, res, done) {
-    SiteModel
-        .remove(
-            {
-                _id: req.params.id
-            },
-            function (err, result) {
-                if (err) {
-                    res.status(500).json({
-                        object: 'error',
-                        has_more: false,
-                        data: err.message,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                } else {
-                    res.status(204).json({
-                        object: 'object',
-                        has_more: false,
-                        data: result,
-                        itemCount: 1,
-                        pageCount: 1
-                    });
-                }
-
-                done(err, result);
-            }
-        );
+SiteController.prototype.apaga = function (id, done) {
+    SiteDAO.apaga(id, done);
 };
 
 module.exports = new SiteController;

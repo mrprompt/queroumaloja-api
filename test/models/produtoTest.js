@@ -285,4 +285,27 @@ describe('Produto Model', function () {
 
         done();
     });
+
+    it('converter para json', function (done) {
+        var produto = (new Produto()).toJSON();
+
+        should(produto).have.property('_id');
+        should(produto.codigo).is.exactly('');
+        should(produto.titulo).is.exactly(undefined);
+        should(produto.descricao).is.exactly(undefined);
+        should(produto.valor).is.a.Array();
+        should(produto.quantidade).is.exactly(0);
+        should(produto.categoria).is.exactly(undefined);
+        should(produto.imagem).is.exactly(undefined);
+        should(produto.album).is.a.Array();
+        should(produto.album.length).is.exactly(0);
+        should(produto.dimensoes).is.exactly(undefined);
+        should(produto.peso).is.exactly(undefined);
+        should(produto.cadastro).be.instanceOf(Date);
+        should(produto.atualizacao).be.instanceOf(Date);
+        should(produto.site).is.exactly(undefined);
+        should(produto.ativo).is.exactly(undefined);
+
+        done();
+    });
 });

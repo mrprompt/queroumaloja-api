@@ -73,7 +73,34 @@ var router = require('express').Router(),
  *        "pageCount": "4"
  *      }
  */
-router.get('/', site.lista);
+router.get('/', function (req, res, done) {
+  var { page, limit } = req.query;
+
+  site.lista(page, limit, function (err, data) {
+    if (err) {
+      var data = {
+          object: 'error',
+          data: err.message,
+          itemCount: 0,
+          pageCount: 0
+      };
+
+      res.status(500).json(data);
+
+      return;
+    } 
+
+    var pageCount = data.pages;
+    var itemCount = data.total;
+
+    res.status(200).json({
+        object: 'list',
+        data: data.docs,
+        itemCount: itemCount,
+        pageCount: pageCount
+    });
+  });
+});
 
 /**
  * @api {get} /site/:id Abre um site para visualização
@@ -144,7 +171,27 @@ router.get('/', site.lista);
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', site.abre);
+router.get('/:id', function (req, res, done) {
+  site.abre(req.params.id, function (err, result) {
+      if (err) {
+          res.status(500).json({
+              object: 'error',
+              data: err.message,
+              itemCount: 0,
+              pageCount: 0
+          });
+
+          return;
+      }
+
+      res.status(200).json({
+          object: 'object',
+          data: result,
+          itemCount: 1,
+          pageCount: 1
+      });
+  });
+});
 
 /**
  * @api {post} /site Cadastra um site.
@@ -222,7 +269,38 @@ router.get('/:id', site.abre);
  *        "pageCount": "1"
  *      }
  */
-router.post('/', site.adiciona);
+router.post('/', function (req, res, done) {
+    var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
+    var params = {
+        nome        : nome,
+        dominio     : dominio,
+        emails      : emails,
+        enderecos   : enderecos,
+        telefones   : telefones,
+        categorias  : categorias,
+        config      : config
+    };
+
+    site.adiciona(params, function (err, newSite) {
+      if (err) {
+          res.status(500).json({
+              object: 'error',
+              data: err.message,
+              itemCount: 0,
+              pageCount: 0
+          });
+
+          return;
+      }
+
+      res.status(201).json({
+          object: 'object',
+          data: newSite,
+          itemCount: 1,
+          pageCount: 1
+      });
+    });
+});
 
 /**
  * @api {put} /site/:id Atualiza um site.
@@ -242,7 +320,33 @@ router.post('/', site.adiciona);
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', site.atualiza);
+router.put('/:id', function (req, res, done) {
+  var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
+  var params = {
+      nome        : nome,
+      dominio     : dominio,
+      emails      : emails,
+      enderecos   : enderecos,
+      telefones   : telefones,
+      categorias  : categorias,
+      config      : config
+  };
+
+  site.atualiza(req.params.id, params, function (err, data) {
+    if (err) {
+        res.status(500).json({
+            object: 'error',
+            data: err.message,
+            itemCount: 0,
+            pageCount: 0
+        });
+
+        return;
+    }
+
+    res.status(204).json({});
+  });
+});
 
 /**
  * @api {delete} /site/:id Apaga um site.
@@ -254,6 +358,21 @@ router.put('/:id', site.atualiza);
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', site.apaga);
+router.delete('/:id', function (req, res, done) {
+  site.apaga(req.params.id, function (err, data) {
+    if (err) {
+        res.status(500).json({
+            object: 'error',
+            data: err.message,
+            itemCount: 0,
+            pageCount: 0
+        });
+
+        return;
+    }
+
+    res.status(204).json({});
+  });
+});
 
 module.exports = router;

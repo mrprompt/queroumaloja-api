@@ -1,8 +1,7 @@
 'use strict';
 
-var should = require('should'),
-    http_mocks = require('node-mocks-http'),
-    mockery = require('mockery');
+var mongoose = require('mongoose');
+var mockery = require('mockery');
 
 describe('Produto Controller', function () {
     before(function() {
@@ -11,36 +10,70 @@ describe('Produto Controller', function () {
             warnOnReplace: false
         });
 
-        mockery.registerMock('../modules/upload', function(req, res, end) {
-            end();
-        });
-
-        mockery.registerMock('../models/produto', {
-            paginate: function(x, y, end) {
-                end(null, {
+        mockery.registerMock('../dao/produto', {
+            lista: function(site, filtro, done) {
+                done(null, {
+                    page: 0,
                     pages: 0,
                     total: 0,
                     docs: []
                 });
             },
-            findOne: function(x) {
-                return {
-                    exec: function (end) {
-                        end(null, {});
-                    }
-                }
+            abre: function (id, site, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            create: function(x, end) {
-                end(null, {});
+            adiciona: function (site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            update: function(x, y, end) {
-                end(null, {});
+            atualiza: function (id, site, params, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             },
-            findOneAndUpdate: function(x, y, z, end) {
-                end(null, {});
-            },
-            remove: function(x, end) {
-                end(null, {});
+            apaga: function (id, site, done) {
+                done(null, {
+                    _id: new mongoose.Schema.Types.ObjectId(),
+                    site: new mongoose.Schema.Types.ObjectId(),
+                    atualizacao: new Date,
+                    cadastro: new Date,
+                    quantidade: 0,
+                    vendas: 0,
+                    album: [],
+                    ativo: true,
+                    valor: [],
+                    codigo: ''
+                });
             }
         });
 
@@ -51,231 +84,202 @@ describe('Produto Controller', function () {
         mockery.disable()
     });
 
-    it('#lista() deve retornar um array e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('método lista deve retornar um objeto', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var params = {
+            page: 1,
+            limit: 10
+        };
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/',
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.lista(site, params, function(error, result) {
+            result.should.have.property('docs');
+            result.should.have.property('total');
+            result.should.have.property('page');
+            result.should.have.property('pages');
+
+            done();
         });
-
-        this.controller.lista(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 0);
-        should.equal(data.pageCount, 0);
-
-        done();
     });
 
-    it('#abre() deve retornar um objeto e status 200', function (done) {
-        var response = http_mocks.createResponse();
+    it('método abre deve retornar um objeto do tipo Error', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Schema.Types.ObjectId();
 
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-            query: {
-                page: 1,
-                limit: 1
-            }
+        this.controller.abre(id, site, function(error, result) {
+            result.should.have.property('_id');
+            result.should.have.property('site');
+            result.should.have.property('atualizacao');
+            result.should.have.property('cadastro');
+            result.should.have.property('quantidade');
+            result.should.have.property('vendas');
+            result.should.have.property('album');
+            result.should.have.property('ativo');
+            result.should.have.property('valor');
+            result.should.have.property('codigo');
+
+            done();
         });
-
-        this.controller.abre(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#adiciona() deve retornar um array e status 201', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'POST',
-            body: {
+    it('#adiciona() deve retornar um objeto', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var request = {
+            titulo: 'foo',
+            descricao: 'bar bar bar',
+            imagem: {},
+            codigo: 0,
+            valor: [ 
+                {
+                    nome: 'unidade',
+                    valor: 1.00,
+                    moeda: 'R$'
+                }
+            ],
+            categoria: {
                 titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {},
-                codigo: 0,
-                valor: 1.00,
+                uri: 'foo',
                 categoria: {
-                    titulo: 'foo',
-                    uri: 'foo',
-                    categoria: {
-                        titulo: 'bar',
-                        uri: 'bar'
-                    }
+                    titulo: 'bar',
+                    uri: 'bar'
                 }
-            },
-            url: '/',
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
+            }
+        };
+
+        this.controller.adiciona(site, request, function(error, result) {
+            result.should.have.property('_id');
+            result.should.have.property('site');
+            result.should.have.property('atualizacao');
+            result.should.have.property('cadastro');
+            result.should.have.property('quantidade');
+            result.should.have.property('vendas');
+            result.should.have.property('album');
+            result.should.have.property('ativo');
+            result.should.have.property('valor');
+            result.should.have.property('codigo');
+
+            done();
         });
-
-        this.controller.adiciona(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 201);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#atualiza() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'PUT',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            body: {
+    it('#adiciona() sem titulo deve disparar um erro', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var request = {
+            descricao: 'bar bar bar',
+            imagem: {},
+            codigo: 0,
+            valor: [ 
+                {
+                    nome: 'unidade',
+                    valor: 1.00,
+                    moeda: 'R$'
+                }
+            ],
+            categoria: {
                 titulo: 'foo',
-                descricao: 'bar bar bar',
-                imagem: {
-
-                },
-                codigo: 0,
-                valor: {
-                    valor: 1.00
-                },
+                uri: 'foo',
                 categoria: {
-                    titulo: 'foo',
-                    uri: 'foo',
-                    categoria: {
-                        titulo: 'bar',
-                        uri: 'bar'
-                    }
-                },
-                dimensoes: {
-                    altura: 0,
-                    lartura: 0,
-                    comprimento: 0,
-                    unidade: 'cm'
-                },
-                peso: {
-                    total: 0,
-                    unidade: 'kg'
-                },
-                estoque: 100
-            },
-            app: {
-                site: {
-                    _id: 1
-                }
-            },
-        });
-
-        this.controller.atualiza(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
-    });
-
-    it('#apaga() deve retornar um objeto e status 204', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'DELETE',
-            url: '/1',
-            params: {
-                id: 1
-            },
-            app: {
-                site: {
-                    _id: 1
+                    titulo: 'bar',
+                    uri: 'bar'
                 }
             }
+        };
+
+        this.controller.adiciona(site, request, function(error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
+
+            done();
         });
-
-        this.controller.apaga(request, response, function() {});
-
-        var data = JSON.parse(response._getData());
-
-        should.equal(response.statusCode, 204);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'object');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 1);
-        should.equal(data.pageCount, 1);
-
-        done();
     });
 
-    it('#busca() deve retornar um array e status 200', function (done) {
-        var response = http_mocks.createResponse();
-
-        var request  = http_mocks.createRequest({
-            method: 'GET',
-            url: '/busca/foo',
-            app: {
-                site: {
-                    _id: 1
+    it('atualizar deve retornar objeto', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Schema.Types.ObjectId();
+        var request = {
+            titulo: 'foo',
+            descricao: 'bar bar bar',
+            imagem: {},
+            codigo: 0,
+            valor: [ 
+                {
+                    nome: 'unidade',
+                    valor: 1.00,
+                    moeda: 'R$'
                 }
-            },
-            query: {
-                page: 1,
-                limit: 1
+            ],
+            categoria: {
+                titulo: 'foo',
+                uri: 'foo',
+                categoria: {
+                    titulo: 'bar',
+                    uri: 'bar'
+                }
             }
+        };
+
+        this.controller.atualiza(id, site, request, function(error, result) {
+            result.should.have.property('_id');
+            result.should.have.property('site');
+            result.should.have.property('atualizacao');
+            result.should.have.property('cadastro');
+            result.should.have.property('quantidade');
+            result.should.have.property('vendas');
+            result.should.have.property('album');
+            result.should.have.property('ativo');
+            result.should.have.property('valor');
+            result.should.have.property('codigo');
+
+            done();
         });
+    });
 
-        this.controller.busca(request, response, function() {});
+    it('atualizar sem título deve retornar objeto do tipo Error', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Schema.Types.ObjectId();
+        var request = {
+            descricao: 'bar bar bar',
+            imagem: {},
+            codigo: 0,
+            valor: [ 
+                {
+                    nome: 'unidade',
+                    valor: 1.00,
+                    moeda: 'R$'
+                }
+            ],
+            categoria: {
+                titulo: 'foo',
+                uri: 'foo',
+                categoria: {
+                    titulo: 'bar',
+                    uri: 'bar'
+                }
+            }
+        };
 
-        var data = JSON.parse(response._getData());
+        this.controller.atualiza(id, site, request, function(error, result) {
+            error.should.be.an.instanceOf(Error).and.have.property('message');
 
-        should.equal(response.statusCode, 200);
-        should.equal(response.statusMessage, 'OK');
-        should.equal(data.object, 'list');
-        should.equal(data.has_more, false);
-        should.equal(data.itemCount, 0);
-        should.equal(data.pageCount, 0);
+            done();
+        });
+    });
 
-        done();
+    it('apagar com id válido dev retornar um objeto', function (done) {
+        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Schema.Types.ObjectId();
+
+        this.controller.apaga(id, site, function(error, result) {
+            result.should.have.property('_id');
+            result.should.have.property('site');
+            result.should.have.property('atualizacao');
+            result.should.have.property('cadastro');
+            result.should.have.property('quantidade');
+            result.should.have.property('vendas');
+            result.should.have.property('album');
+            result.should.have.property('ativo');
+            result.should.have.property('valor');
+            result.should.have.property('codigo');
+
+            done();
+        });
     });
 });

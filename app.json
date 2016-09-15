@@ -1,0 +1,20 @@
+{
+  "name": "QueroUmaLoja API Server",
+  "description": "API de produtos",
+  "repository": "https://github.com/QueroUmaLoja/api-server",
+  "keywords": ["node", "express", "static"],
+  "addons": [
+    "newrelic",
+    "mongolab",
+    "cloudinary"
+  ],
+  "scripts": {
+    "postdeploy": "node ./bin/install.js"
+  },
+  "env": {
+    "ENV": {
+      "description": "Application environment",
+      "value": "production"
+    }
+  }
+}
