@@ -1,10 +1,32 @@
 'use strict';
 
 var http_mocks = require('node-mocks-http');
+var mockery = require('mockery');
 
 describe('Password Module', function () {
     before(function() {
+        mockery.enable({
+            warnOnUnregistered: false,
+            warnOnReplace: false
+        });
+
+        mockery.registerMock('bcrypt', {
+            hashSync: function(content, salt) {
+                return '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW';
+            }
+        });
+
+        mockery.registerMock('underscore', {
+            contains: function(urls, url) {
+                return true;
+            }
+        });
+
         this.module = require('../../modules/password');
+    });
+
+    after(function() {
+        mockery.disable()
     });
 
     it('deve restornar com o campo password_encrypted quando possuir a chave password no corpo da requisição', function (done) {
