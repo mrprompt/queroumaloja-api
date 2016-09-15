@@ -5,7 +5,8 @@
   "keywords": ["node", "express", "static"],
   "addons": [
     "newrelic",
-    "mongolab"
+    "mongolab",
+    "cloudinary"
   ],
   "scripts": {
     "postdeploy": "node ./bin/install.js"
