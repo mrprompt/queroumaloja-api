@@ -36,20 +36,7 @@ describe('Upload Module', function () {
 
         var request  = http_mocks.createRequest({
             method: 'POST',
-            url: '/',
-            app: {
-                site: {
-                    _id: mongoose.Schema.Types.ObjectId(),
-                    config: {
-                        cloudinary: {
-                            upload_endpoint: 'https://api.cloudinary.com/v1_1/',
-                            api_key: 'fooo',
-                            api_secret: 'barbarbar',
-                            cloud_name: 'foo-barbarbar'
-                        }
-                    }
-                }
-            }
+            url: '/'
         });
 
         this.module(request, response, function() {});
@@ -66,19 +53,6 @@ describe('Upload Module', function () {
         var request  = http_mocks.createRequest({
             method: 'POST',
             url: '/',
-            app: {
-                site: {
-                    _id: mongoose.Schema.Types.ObjectId(),
-                    config: {
-                        cloudinary: {
-                            upload_endpoint: 'https://api.cloudinary.com/v1_1/',
-                            api_key: 'fooo',
-                            api_secret: 'barbarbar',
-                            cloud_name: 'foo-barbarbar'
-                        }
-                    }
-                }
-            },
             file: {
                 path: 'foo'
             }
