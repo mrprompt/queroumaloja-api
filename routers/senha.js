@@ -15,12 +15,12 @@ var router = require('express').Router(),
  */
 router.put('/', function (req, res, done) {
   senha.atualiza(req.app.usuario._id, req.app.site._id, req.body.password_encrypted, function (err, data) {
-    if (err || !data) {
+    if (err) {
       res.status(500).json({
         object: 'error',
         data: 'Não foi possível atualizar a senha',
         itemCount: 0,
-        pageCount: 1
+        pageCount: 0
       });
 
       return;

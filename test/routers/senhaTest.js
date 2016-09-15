@@ -54,4 +54,36 @@ describe('Senha Router', function () {
 
         done();
     });
+
+    it('#atualiza() com senha inválida deve retornar um Erro e status 500', function (done) {
+        var response = http_mocks.createResponse();
+
+        var request  = http_mocks.createRequest({
+            method: 'PUT',
+            url: '/',
+            body: {
+                password_encrypted: ''
+            },
+            app: {
+                site: {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                },
+                usuario: {
+                    _id: new mongoose.Schema.Types.ObjectId()
+                }
+            }
+        });
+
+        this.controller.handle(request, response, function() {});
+
+        var data = JSON.parse(response._getData());
+
+        should.equal(response.statusCode, 500);
+        should.equal(response.statusMessage, 'OK');
+        should.equal(data.object, 'error');
+        should.equal(data.itemCount, 0);
+        should.equal(data.pageCount, 0);
+
+        done();
+    });
 });

@@ -101,11 +101,11 @@ router.get('/', function (req, res, done) {
 
   ProdutoController.lista(req.app.site._id, filter, function (err, data) {
       if (err) {
-          res.status(404).json({
+          res.status(500).json({
               object: 'error',
               data: err.message,
               itemCount: 0,
-              pageCount: 1
+              pageCount: 0
           });
 
           return;
@@ -205,10 +205,10 @@ router.get('/:id', function (req, res, done) {
     var site = req.app.site._id;
 
     ProdutoController.abre(id, site, function (err, data) {
-        if (err || data === null) {
+        if (err) {
             res.status(404).json({
                 object: 'error',
-                data: 'Produto não encontrado',
+                data: err.message,
                 itemCount: 0,
                 pageCount: 0
             });
@@ -338,10 +338,10 @@ router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req
     ProdutoController.adiciona(site, params, function (err, data) {
         if (err || !data) {
             res.status(500).json({
-                object: 'object',
+                object: 'error',
                 data: err.message,
-                itemCount: 1,
-                pageCount: 1
+                itemCount: 0,
+                pageCount: 0
             });
 
             return;
@@ -402,12 +402,12 @@ router.put('/:id', function (req, res, done) {
     };
 
     ProdutoController.atualiza(id, site, params, function (err, data) {
-        if (err || !data) {
+        if (err) {
             res.status(500).json({
-                object: 'object',
+                object: 'error',
                 data: err.message,
-                itemCount: 1,
-                pageCount: 1
+                itemCount: 0,
+                pageCount: 0
             });
 
             return;
@@ -432,6 +432,24 @@ router.put('/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', ProdutoController.apaga);
+router.delete('/:id', function (req, res, done) {
+    var id = req.params.id;
+    var site = req.app.site._id;
+
+    ProdutoController.apaga(id, site, function (err, data) {
+        if (err) {
+            res.status(500).json({
+                object: 'error',
+                data: err.message,
+                itemCount: 0,
+                pageCount: 0
+            });
+
+            return;
+        }
+
+        res.status(204).json({});
+    });
+});
 
 module.exports = router;
