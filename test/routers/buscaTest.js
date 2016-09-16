@@ -63,7 +63,7 @@ describe('Busca Router', function () {
         done();
     });
 
-    it('#busca() sem palavra chave deve retornar um array e status 500', function (done) {
+    it('#busca() com palavra chave inexistente deve retornar um array e status 500', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({

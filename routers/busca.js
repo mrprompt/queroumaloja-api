@@ -80,7 +80,7 @@ var router = require('express').Router(), BuscaController = require('../controll
  *      }
  */
 router.get('/:palavra', function (req, res, done) {
-    BuscaController.busca(req.app.site._id, (req.params.palavra ? req.params.palavra.toLocaleString() : ''), function (err, data) {
+    BuscaController.busca(req.app.site._id, req.params.palavra.toLocaleString(), function (err, data) {
         if (err) {
             res.status(500).json({
                 object      : 'error',
