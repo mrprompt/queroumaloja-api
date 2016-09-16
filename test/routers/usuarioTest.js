@@ -82,7 +82,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/usuario/',
             app: {
                 site: {
                     _id: 1
@@ -112,7 +112,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/usuario/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -142,7 +142,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/1',
+            url: '/usuario/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -168,7 +168,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/0',
+            url: '/usuario/0',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -200,7 +200,7 @@ describe('Usuario Router', function () {
                 password: 'foo',
                 password_encrypted: 'fooooo'
             },
-            url: '/',
+            url: '/usuario/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -230,7 +230,7 @@ describe('Usuario Router', function () {
                 nome: 'foo',
                 email: 'foo@bar.bar',
             },
-            url: '/',
+            url: '/usuario/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -256,7 +256,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/1',
+            url: '/usuario/1',
             body: {
                 nome: 'foo',
                 email: 'fo.bar@bar.bar',
@@ -280,7 +280,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/0',
+            url: '/usuario/0',
             body: {
                 nome: 'foo',
                 email: 'fo.bar@bar.bar',
@@ -310,7 +310,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1',
+            url: '/usuario/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -330,7 +330,7 @@ describe('Usuario Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/0',
+            url: '/usuario/0',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

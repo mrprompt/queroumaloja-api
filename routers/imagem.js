@@ -83,7 +83,7 @@ var router = require('express').Router(),
  *        "pageCount": "1"
  *      }
  */
-router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
+router.post('/imagem/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
     var produto = req.params.id;
     var site = req.app.site._id;
     var params = req.body.imagem;
@@ -120,7 +120,7 @@ router.post('/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, func
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id/album/:img', function (req, res, done) {
+router.delete('/imagem/:id/album/:img', function (req, res, done) {
     var produto = req.params.id;
     var site = req.app.site._id;
     var imagem = req.params.img;

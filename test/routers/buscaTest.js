@@ -38,7 +38,7 @@ describe('Busca Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/teste',
+            url: '/busca/teste',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -68,7 +68,7 @@ describe('Busca Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/xublau',
+            url: '/busca/xublau',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

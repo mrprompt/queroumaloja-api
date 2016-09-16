@@ -73,7 +73,7 @@ var router = require('express').Router(),
  *        "pageCount": "4"
  *      }
  */
-router.get('/', function (req, res, done) {
+router.get('/site/', function (req, res, done) {
   var { page, limit } = req.query;
 
   site.lista(page, limit, function (err, data) {
@@ -171,7 +171,7 @@ router.get('/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', function (req, res, done) {
+router.get('/site/:id', function (req, res, done) {
   site.abre(req.params.id, function (err, result) {
       if (err) {
           res.status(500).json({
@@ -269,7 +269,7 @@ router.get('/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/', function (req, res, done) {
+router.post('/site/', function (req, res, done) {
     var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
     var params = {
         nome        : nome,
@@ -320,7 +320,7 @@ router.post('/', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', function (req, res, done) {
+router.put('/site/:id', function (req, res, done) {
   var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
   var params = {
       nome        : nome,
@@ -358,7 +358,7 @@ router.put('/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', function (req, res, done) {
+router.delete('/site/:id', function (req, res, done) {
   site.apaga(req.params.id, function (err, data) {
     if (err) {
         res.status(500).json({

@@ -85,7 +85,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/site/',
             query: {
                 page: 1,
                 limit: 1
@@ -110,7 +110,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/site/',
             query: {
                 page: 0,
                 limit: 0
@@ -135,7 +135,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/1',
+            url: '/site/1',
             headers: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -161,7 +161,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/0',
+            url: '/site/0',
             headers: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -196,7 +196,7 @@ describe('Site Router', function () {
                 categorias: [],
                 config: {}
             },
-            url: '/',
+            url: '/site/',
             headers: {
                 site: 1
             }
@@ -228,7 +228,7 @@ describe('Site Router', function () {
                 categorias: [],
                 config: {}
             },
-            url: '/',
+            url: '/site/',
             headers: {
                 site: 1
             }
@@ -265,7 +265,7 @@ describe('Site Router', function () {
                     }
                 ]
             },
-            url: '/',
+            url: '/site/',
             headers: {
                 site: 1
             }
@@ -289,7 +289,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/1',
+            url: '/site/1',
             body: {
                 nome: 'foo',
                 dominio: 'localhost.localdomain',
@@ -317,7 +317,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/0',
+            url: '/site/0',
             body: {
                 nome: 'foo',
                 dominio: 'localhost.localdomain',
@@ -351,7 +351,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1',
+            url: '/site/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -371,7 +371,7 @@ describe('Site Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/0',
+            url: '/site/0',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

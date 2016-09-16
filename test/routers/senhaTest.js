@@ -34,7 +34,7 @@ describe('Senha Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/',
+            url: '/senha/',
             body: {
                 password_encrypted: '1234567890'
             },
@@ -60,7 +60,7 @@ describe('Senha Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/',
+            url: '/senha/',
             body: {
                 password_encrypted: ''
             },

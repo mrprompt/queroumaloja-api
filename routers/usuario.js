@@ -26,7 +26,7 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/', function (req, res, done) {
+router.get('/usuario/', function (req, res, done) {
   var site = req.app.site._id;
   var pagina = req.query.page;
   var limite = req.query.limit;
@@ -77,7 +77,7 @@ router.get('/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', function (req, res, done) {
+router.get('/usuario/:id', function (req, res, done) {
   usuario.abre(req.params.id, req.app.site, function(err, user) {
     if (err) {
       res.status(404).json({
@@ -127,7 +127,7 @@ router.get('/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/', function (req, res, done) {
+router.post('/usuario/', function (req, res, done) {
   var site = req.app.site._id;
   var params = req.body;
   params.password = params.password_encrypted;
@@ -168,7 +168,7 @@ router.post('/', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', function (req, res, done) {
+router.put('/usuario/:id', function (req, res, done) {
   usuario.atualiza(req.params.id, req.app.site, req.body, function (err, user) {
     if (err) {
         res.status(400).json({
@@ -194,7 +194,7 @@ router.put('/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', function (req, res, done) {
+router.delete('/usuario/:id', function (req, res, done) {
   usuario.apaga(req.params.id, req.app.site, function (err, user) {
     if (err) {
         res.status(400).json({

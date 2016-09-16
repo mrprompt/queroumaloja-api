@@ -85,7 +85,7 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/', function (req, res, done) {
+router.get('/produto/', function (req, res, done) {
   var filter = {
       page: req.query.page,
       limit: req.query.limit
@@ -200,7 +200,7 @@ router.get('/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', function (req, res, done) {
+router.get('/produto/:id', function (req, res, done) {
     var id = req.params.id;
     var site = req.app.site._id;
 
@@ -313,7 +313,7 @@ router.get('/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
+router.post('/produto/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
     var site = req.app.site._id;
     var params = {
         titulo      : striptags(req.body.titulo),
@@ -378,7 +378,7 @@ router.post('/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', function (req, res, done) {
+router.put('/produto/:id', function (req, res, done) {
     var id = req.params.id;
     var site = req.app.site._id;
     var params = {
@@ -432,7 +432,7 @@ router.put('/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', function (req, res, done) {
+router.delete('/produto/:id', function (req, res, done) {
     var id = req.params.id;
     var site = req.app.site._id;
 

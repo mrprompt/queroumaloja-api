@@ -51,7 +51,7 @@ var router = require('express').Router(),
  *          "pageCount": "1"
  *        }
  */
-router.post('/', function (req, res, done) {
+router.post('/login/', function (req, res, done) {
   var { email, password_encrypted } = req.body;
   var site = req.app.site._id;
 

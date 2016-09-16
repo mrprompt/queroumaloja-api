@@ -80,7 +80,7 @@ var error = require('../middleware/error');
  *        "pageCount": "10"
  *      }
  */
-router.get('/:palavra', function (req, res) {
+router.get('/busca/:palavra', function (req, res) {
     var site = req.app.site._id;
     var palavra = req.params.palavra.toLocaleString();
 

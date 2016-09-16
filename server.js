@@ -19,22 +19,13 @@ var morgan          = require('morgan');
 var methodOverride  = require('method-override');
 var bodyParser      = require('body-parser');
 var cors            = require('cors');
+var fs              = require('fs');
 
 // middleware
 var connection      = require('./middleware/connection');
 var site            = require('./middleware/site');
 var token           = require('./middleware/token');
 var password        = require('./middleware/password');
-
-// Routes
-var Busca           = require('./routers/busca');
-var Imagem          = require('./routers/imagem');
-var Index           = require('./routers/index');
-var Login           = require('./routers/login');
-var Produto         = require('./routers/produto');
-var Senha           = require('./routers/senha');
-var Site            = require('./routers/site');
-var Usuario         = require('./routers/usuario');
 
 /**
  *  Define the application.
@@ -48,14 +39,11 @@ var Application = function () {
      *  Create the routing table entries + handlers for the application.
      */
     self.createRoutes = function () {
-        self.app.use('/', Index);
-        self.app.use('/produto', Produto);
-        self.app.use('/site', Site);
-        self.app.use('/usuario', password, Usuario);
-        self.app.use('/login', password, Login);
-        self.app.use('/senha', password, Senha);
-        self.app.use('/busca', Busca);
-        self.app.use('/imagem', Imagem);
+        fs.readdirSync('./routers').forEach(function(file) {
+            var route = require('./routers/' + file);
+
+            self.app.use(route);
+        });
     };
 
     /**
@@ -74,6 +62,7 @@ var Application = function () {
         self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
         self.app.use(site);
         self.app.use(token);
+        self.app.use(password);
 
         // load routes
         self.createRoutes();

@@ -58,7 +58,7 @@ describe('Imagem Router', function () {
                     url: 'http://localhost'
                 }
             },
-            url: '/1/album',
+            url: '/imagem/1/album',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -87,7 +87,7 @@ describe('Imagem Router', function () {
             body: {
                 imagem: {}
             },
-            url: '/1/album',
+            url: '/imagem/1/album',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -113,7 +113,7 @@ describe('Imagem Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1/album/1',
+            url: '/imagem/1/album/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -134,7 +134,7 @@ describe('Imagem Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1/album/2',
+            url: '/imagem/1/album/2',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

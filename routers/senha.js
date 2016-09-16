@@ -13,7 +13,7 @@ var router = require('express').Router(),
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/', function (req, res, done) {
+router.put('/senha/', function (req, res, done) {
   senha.atualiza(req.app.usuario._id, req.app.site._id, req.body.password_encrypted, function (err, data) {
     if (err) {
       res.status(500).json({
