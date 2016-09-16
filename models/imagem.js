@@ -1,12 +1,12 @@
 'use strict';
 
 var ProdutoSchema = require('../schemas/produto'),
-  ImagemDAO = function () {};
+  ImagemModel = function () {};
 
 /**
  * Insere uma imagem no álbum do produto
  */
-ImagemDAO.prototype.adicionaImagem = function (id, site, imagem, done) {
+ImagemModel.prototype.adicionaImagem = function (id, site, imagem, done) {
     ProdutoSchema.findOneAndUpdate(
         {
             _id: id,
@@ -30,7 +30,7 @@ ImagemDAO.prototype.adicionaImagem = function (id, site, imagem, done) {
 /**
  * Remove uma imagem do álbum do produto
  */
-ImagemDAO.prototype.apagaImagem = function (id, site, imagem, done) {
+ImagemModel.prototype.apagaImagem = function (id, site, imagem, done) {
     ProdutoSchema.findOneAndUpdate(
         {
             _id: id,
@@ -51,4 +51,4 @@ ImagemDAO.prototype.apagaImagem = function (id, site, imagem, done) {
     );
 };
 
-module.exports = new ImagemDAO;
+module.exports = new ImagemModel;

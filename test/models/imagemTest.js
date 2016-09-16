@@ -15,7 +15,7 @@ describe('Imagem DAO', function () {
             }
         });
 
-        this.dao = require('../../models/imagem');
+        this.model = require('../../models/imagem');
     });
 
     after(function() {
@@ -23,13 +23,13 @@ describe('Imagem DAO', function () {
     });
 
     it('#adicionaImagem', function (done) {
-        this.dao.adicionaImagem(1, 1, {}, function() {
+        this.model.adicionaImagem(1, 1, {}, function() {
             done();
         });
     });
 
     it('#apagaImagem', function (done) {
-        this.dao.apagaImagem(1, 2, 3, function() {
+        this.model.apagaImagem(1, 2, 3, function() {
             done();
         });
     });

@@ -21,7 +21,7 @@ describe('Busca Router', function () {
                         docs: []
                     });
                 } else {
-                    done(new Error('Nada encontrado'), null);
+                    done(new Error('Nada encontrado'));
                 }
             }
         });

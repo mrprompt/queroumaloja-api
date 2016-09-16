@@ -28,7 +28,7 @@ describe('Produto DAO', function () {
             }
         });
 
-        this.dao = require('../../models/produto');
+        this.model = require('../../models/produto');
     });
 
     after(function() {
@@ -36,43 +36,43 @@ describe('Produto DAO', function () {
     });
     
     it('#lista', function (done) {
-        this.dao.lista(1, {}, function() {
+        this.model.lista(1, {}, function() {
             done();
         });
     });
 
     it('#lista com tipo', function (done) {
-        this.dao.lista(1, { tipo: 'foo' }, function() {
+        this.model.lista(1, { tipo: 'foo' }, function() {
             done();
         });
     });
 
     it('#lista com tipo e categoria', function (done) {
-        this.dao.lista(1, { tipo: 'foo', categoria: 'barbar' }, function() {
+        this.model.lista(1, { tipo: 'foo', categoria: 'barbar' }, function() {
             done();
         });
     });
 
     it('#abre', function (done) {
-        this.dao.abre(1, 2, function() {
+        this.model.abre(1, 2, function() {
             done();
         });
     });
 
     it('#adiciona', function (done) {
-        this.dao.adiciona(1, {}, function() {
+        this.model.adiciona(1, {}, function() {
             done();
         });
     });
 
     it('#atualiza', function (done) {
-        this.dao.atualiza(1, 2, {}, function() {
+        this.model.atualiza(1, 2, {}, function() {
             done();
         });
     });
 
     it('#apaga', function (done) {
-        this.dao.apaga(1, 2, function() {
+        this.model.apaga(1, 2, function() {
             done();
         });
     });

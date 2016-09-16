@@ -1,12 +1,12 @@
 'use strict';
 
 var ProdutoSchema = require('../schemas/produto'),
-  BuscaDAO = function () {};
+  BuscaModel = function () {};
 
 /**
  * Buscar por um produto
  */
-BuscaDAO.prototype.busca = function (site, palavra, page, limit, done) {
+BuscaModel.prototype.busca = function (site, palavra, page, limit, done) {
     ProdutoSchema.paginate(
         {
             site: site,
@@ -26,4 +26,4 @@ BuscaDAO.prototype.busca = function (site, palavra, page, limit, done) {
     );
 };
 
-module.exports = new BuscaDAO;
+module.exports = new BuscaModel;

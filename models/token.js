@@ -2,12 +2,12 @@
 
 var TokenSchema = require('../schemas/token'),
     TokenAdapter = require('token'),
-    TokenDAO  = function() {};
+    TokenModel  = function() {};
 
 /**
  * Adiciona um token para o usuário
  */
-TokenDAO.prototype.adiciona = function (user, done) {
+TokenModel.prototype.adiciona = function (user, done) {
     TokenAdapter.defaults.secret   = 'AAB';
     TokenAdapter.defaults.timeStep = (24 * 60 * 60);
 
@@ -28,7 +28,7 @@ TokenDAO.prototype.adiciona = function (user, done) {
     });
 };
 
-TokenDAO.prototype.buscaPorConteudo = function (conteudo, site, done) {
+TokenModel.prototype.buscaPorConteudo = function (conteudo, site, done) {
     TokenSchema.findOne(
             {
                 conteudo: conteudo,
@@ -42,4 +42,4 @@ TokenDAO.prototype.buscaPorConteudo = function (conteudo, site, done) {
         .exec(done);
 };
 
-module.exports = new TokenDAO;
+module.exports = new TokenModel;

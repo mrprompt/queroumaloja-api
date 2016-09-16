@@ -5,10 +5,6 @@ var UsuarioModel = require('../models/usuario'),
 
 /**
  * Lista os usuários
- *
- * @param req
- * @param res
- * @param done
  */
 UsuarioController.prototype.lista = function (site, pagina, limite, done) {
     UsuarioModel.lista(site, pagina, limite, done);
@@ -16,10 +12,6 @@ UsuarioController.prototype.lista = function (site, pagina, limite, done) {
 
 /**
  * Visualiza um usuário
- *
- * @param req
- * @param res
- * @param done
  */
 UsuarioController.prototype.abre = function (id, site, done) {
     UsuarioModel.abre(id, site, done);
@@ -27,10 +19,6 @@ UsuarioController.prototype.abre = function (id, site, done) {
 
 /**
  * Adiciona um usuário
- *
- * @param req
- * @param res
- * @param done
  */
 UsuarioController.prototype.adiciona = function (site, params, done) {
     if (!params.nome) {
@@ -53,10 +41,6 @@ UsuarioController.prototype.adiciona = function (site, params, done) {
 
 /**
  * Atualiza um usuário
- *
- * @param req
- * @param res
- * @param done
  */
 UsuarioController.prototype.atualiza = function (id, site, params, done) {
     if (!params.nome) {
@@ -69,10 +53,6 @@ UsuarioController.prototype.atualiza = function (id, site, params, done) {
 
 /**
  * Remove um usuário
- *
- * @param req
- * @param res
- * @param done
  */
 UsuarioController.prototype.apaga = function (id, site, done) {
     UsuarioModel.apaga(id, site, done);

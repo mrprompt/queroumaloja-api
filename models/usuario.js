@@ -1,12 +1,12 @@
 'use strict';
 
 var UsuarioSchema = require('../schemas/usuario'),
-  UsuarioDAO = function () {};
+  UsuarioModel = function () {};
 
 /**
  * Lista os usuários cadastrados
  */
-UsuarioDAO.prototype.lista = function (site, page, limit, done) {
+UsuarioModel.prototype.lista = function (site, page, limit, done) {
     UsuarioSchema.paginate(
         {
             site: site
@@ -26,14 +26,14 @@ UsuarioDAO.prototype.lista = function (site, page, limit, done) {
 /**
  * Abre um usuário para visualização
  */
-UsuarioDAO.prototype.abre = function (id, site, done) {
+UsuarioModel.prototype.abre = function (id, site, done) {
     UsuarioSchema.findOne({ _id: id, site: site }, done);
 };
 
 /**
  * Adiciona um usuario
  */
-UsuarioDAO.prototype.adiciona = function (site, params, done) {
+UsuarioModel.prototype.adiciona = function (site, params, done) {
     UsuarioSchema.create(
         {
             site: site,
@@ -48,7 +48,7 @@ UsuarioDAO.prototype.adiciona = function (site, params, done) {
 /**
  * Atualiza os dados de um usuario
  */
-UsuarioDAO.prototype.atualiza = function (id, site, params, done) {
+UsuarioModel.prototype.atualiza = function (id, site, params, done) {
     UsuarioSchema.update(
         {
             _id: id,
@@ -67,7 +67,7 @@ UsuarioDAO.prototype.atualiza = function (id, site, params, done) {
 /**
  * Remove um usuário
  */
-UsuarioDAO.prototype.apaga = function (id, site, done) {
+UsuarioModel.prototype.apaga = function (id, site, done) {
     UsuarioSchema.findOneAndUpdate(
         {
             _id: id,
@@ -85,14 +85,14 @@ UsuarioDAO.prototype.apaga = function (id, site, done) {
 /**
  * Busca um usuário pelo email e senha
  */
-UsuarioDAO.prototype.login = function (email, senha, site, done) {
+UsuarioModel.prototype.login = function (email, senha, site, done) {
     UsuarioSchema.findOne({ email: email, password: senha, site: site }, done);
 };
 
 /**
  * Atualiza a senha
  */
-UsuarioDAO.prototype.atualizaSenha = function (id, site, senha, done) {
+UsuarioModel.prototype.atualizaSenha = function (id, site, senha, done) {
     UsuarioSchema.findOneAndUpdate(
         {
             _id: id,
@@ -107,4 +107,4 @@ UsuarioDAO.prototype.atualizaSenha = function (id, site, senha, done) {
     );
 };
 
-module.exports = new UsuarioDAO;
+module.exports = new UsuarioModel;

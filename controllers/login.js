@@ -7,10 +7,6 @@ var UsuarioModel = require('../models/usuario'),
 
 /**
  * Efetua um login e adquire um token de acesso
- *
- * @param req
- * @param res
- * @param done
  */
 LoginController.prototype.adiciona = function (email, password, site, done) {
   async.waterfall([

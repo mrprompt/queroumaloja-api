@@ -1,6 +1,6 @@
 'use strict';
 
-var SiteDAO = require('../models/site');
+var site = require('../models/site');
 
 var router = function(req, res, done) {
     if (req.method === 'OPTIONS') {
@@ -9,22 +9,13 @@ var router = function(req, res, done) {
         return;
     }
 
-    SiteDAO.buscaPorDominio(req.hostname, function(err, data) {
+    site.buscaPorDominio(req.hostname, function(err, data) {
         if (err || data === null) {
-            res
-                .status(400)
-                .json({
-                    object      : 'object',
-                    has_more    : false,
-                    data        : {
-                        message : 'Site não encontrado',
-                        status  : 404
-                    },
-                    itemCount   : 0,
-                    pageCount   : 0
-                });
+            res.status(404);
 
-            return false;
+            done(new Error('Site não encontrado'));
+
+            return;
         }
 
         req.app.site = data;

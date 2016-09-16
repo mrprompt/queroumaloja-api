@@ -19,7 +19,7 @@ describe('Busca DAO', function () {
             }
         });
 
-        this.dao = require('../../models/busca');
+        this.model = require('../../models/busca');
     });
 
     after(function() {
@@ -27,7 +27,7 @@ describe('Busca DAO', function () {
     });
 
     it('#busca', function (done) {
-        this.dao.busca(1, 'foo', 1, 10, function() {
+        this.model.busca(1, 'foo', 1, 10, function() {
             done();
         });
     });
