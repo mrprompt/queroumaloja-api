@@ -1,6 +1,6 @@
 'use strict';
 
-var connection = require('../modules/connection');
+var connection = require('../middleware/connection');
 var site = require('../controllers/site');
 var usuario = require('../controllers/usuario');
 var async = require('async');
