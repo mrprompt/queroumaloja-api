@@ -38,7 +38,7 @@ async.waterfall(
 
             usuario.adiciona(site._id, params, callback);
         }
-    ], 
+    ],
     function (err, done) {
         console.log('Site cadastrado com sucesso.');
         console.log('Suas credenciais são: admin@' + os.hostname() + ' - ' + os.hostname());

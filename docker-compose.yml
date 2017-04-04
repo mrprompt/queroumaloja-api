@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  db:
+    image: mongo
+    ports:
+      - "21017:21017"
+      - "28017:28017"
+    command: --smallfiles --rest --auth
+
+  api:
+    build: ./
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    links:
+      - db
+    working_dir: /app
+    command: "npm run start"
