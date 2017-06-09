@@ -1,6 +1,4 @@
-'use strict';
-
-var router = require('express').Router();
+const router = require('express').Router();
 
 /**
  * @api {get} / Rota inicial
@@ -20,17 +18,17 @@ var router = require('express').Router();
  *         "pageCount":1
  *      }
  */
-router.get('/', function (req, res, done) {
-  var data = {
-      name: req.app.site.nome + ' API',
-      last_update: new Date()
+router.get('/', (req, res) => {
+  const data = {
+    name: `${req.app.site.nome} API`,
+    last_update: new Date()
   };
 
   res.status(200).json({
-      object: 'object',
-      data: data,
-      itemCount: 1,
-      pageCount: 1
+    object: 'object',
+    data,
+    itemCount: 1,
+    pageCount: 1
   });
 });
 

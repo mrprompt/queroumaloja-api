@@ -1,7 +1,5 @@
-'use strict';
-
-var router = require('express').Router(),
-  site = require('../controllers/site');
+const router = require('express').Router();
+const site = require('../controllers/site');
 
 /**
  * @api {get} /site Lista os sites cadastrados
@@ -73,31 +71,31 @@ var router = require('express').Router(),
  *        "pageCount": "4"
  *      }
  */
-router.get('/site/', function (req, res, done) {
-  var { page, limit } = req.query;
+router.get('/site/', (req, res) => {
+  const { page, limit } = req.query;
 
-  site.lista(page, limit, function (err, data) {
+  site.lista(page, limit, (err, data) => {
     if (err) {
-      var data = {
-          object: 'error',
-          data: err.message,
-          itemCount: 0,
-          pageCount: 0
+      data = {
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
       };
 
       res.status(500).json(data);
 
       return;
-    } 
+    }
 
-    var pageCount = data.pages;
-    var itemCount = data.total;
+    const pageCount = data.pages;
+    const itemCount = data.total;
 
     res.status(200).json({
-        object: 'list',
-        data: data.docs,
-        itemCount: itemCount,
-        pageCount: pageCount
+      object: 'list',
+      data: data.docs,
+      itemCount,
+      pageCount
     });
   });
 });
@@ -171,25 +169,25 @@ router.get('/site/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/site/:id', function (req, res, done) {
-  site.abre(req.params.id, function (err, result) {
-      if (err) {
-          res.status(500).json({
-              object: 'error',
-              data: err.message,
-              itemCount: 0,
-              pageCount: 0
-          });
-
-          return;
-      }
-
-      res.status(200).json({
-          object: 'object',
-          data: result,
-          itemCount: 1,
-          pageCount: 1
+router.get('/site/:id', (req, res) => {
+  site.abre(req.params.id, (err, result) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
       });
+
+      return;
+    }
+
+    res.status(200).json({
+      object: 'object',
+      data: result,
+      itemCount: 1,
+      pageCount: 1
+    });
   });
 });
 
@@ -269,37 +267,37 @@ router.get('/site/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/site/', function (req, res, done) {
-    var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
-    var params = {
-        nome        : nome,
-        dominio     : dominio,
-        emails      : emails,
-        enderecos   : enderecos,
-        telefones   : telefones,
-        categorias  : categorias,
-        config      : config
-    };
+router.post('/site/', (req, res) => {
+  const { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
+  const params = {
+    nome,
+    dominio,
+    emails,
+    enderecos,
+    telefones,
+    categorias,
+    config
+  };
 
-    site.adiciona(params, function (err, newSite) {
-      if (err) {
-          res.status(500).json({
-              object: 'error',
-              data: err.message,
-              itemCount: 0,
-              pageCount: 0
-          });
-
-          return;
-      }
-
-      res.status(201).json({
-          object: 'object',
-          data: newSite,
-          itemCount: 1,
-          pageCount: 1
+  site.adiciona(params, (err, newSite) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
       });
+
+      return;
+    }
+
+    res.status(201).json({
+      object: 'object',
+      data: newSite,
+      itemCount: 1,
+      pageCount: 1
     });
+  });
 });
 
 /**
@@ -320,31 +318,31 @@ router.post('/site/', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/site/:id', function (req, res, done) {
-  var { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
-  var params = {
-      nome        : nome,
-      dominio     : dominio,
-      emails      : emails,
-      enderecos   : enderecos,
-      telefones   : telefones,
-      categorias  : categorias,
-      config      : config
+router.put('/site/:id', (req, res) => {
+  const { nome, dominio, emails, enderecos, telefones, categorias, config } = req.body;
+  const params = {
+    nome,
+    dominio,
+    emails,
+    enderecos,
+    telefones,
+    categorias,
+    config
   };
 
-  site.atualiza(req.params.id, params, function (err, data) {
+  site.atualiza(req.params.id, params, (err, data) => {
     if (err) {
-        res.status(500).json({
-            object: 'error',
-            data: err.message,
-            itemCount: 0,
-            pageCount: 0
-        });
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-        return;
+      return;
     }
 
-    res.status(204).json({});
+    res.status(204).json({ data });
   });
 });
 
@@ -358,20 +356,20 @@ router.put('/site/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/site/:id', function (req, res, done) {
-  site.apaga(req.params.id, function (err, data) {
+router.delete('/site/:id', (req, res) => {
+  site.apaga(req.params.id, (err, data) => {
     if (err) {
-        res.status(500).json({
-            object: 'error',
-            data: err.message,
-            itemCount: 0,
-            pageCount: 0
-        });
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-        return;
+      return;
     }
 
-    res.status(204).json({});
+    res.status(204).json({ data });
   });
 });
 

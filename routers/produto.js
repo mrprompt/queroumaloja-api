@@ -1,11 +1,9 @@
-'use strict';
-
-var router = require('express').Router(),
-  multer = require('multer'),
-  upload = require('../middleware/upload'),
-  slugify = require('slugify'),
-  striptags = require('striptags'),
-  ProdutoController = require('../controllers/produto');
+const router = require('express').Router();
+const multer = require('multer');
+const upload = require('../middleware/upload');
+const slugify = require('slugify');
+const striptags = require('striptags');
+const ProdutoController = require('../controllers/produto');
 
 /**
  * @api {get} /produto Lista os produtos cadastrados
@@ -85,41 +83,41 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/produto/', function (req, res, done) {
-  var filter = {
-      page: req.query.page,
-      limit: req.query.limit
+router.get('/produto/', (req, res) => {
+  const filter = {
+    page: req.query.page,
+    limit: req.query.limit
   };
 
   if (req.query.tipo !== undefined) {
-      filter["categoria.uri"] = req.query.tipo.toLowerCase();
+    filter['categoria.uri'] = req.query.tipo.toLowerCase();
 
-      if (req.query.categoria !== undefined) {
-          filter["categoria.categoria.uri"] = req.query.categoria.toLowerCase();
-      }
+    if (req.query.categoria !== undefined) {
+      filter['categoria.categoria.uri'] = req.query.categoria.toLowerCase();
+    }
   }
 
-  ProdutoController.lista(req.app.site._id, filter, function (err, data) {
-      if (err) {
-          res.status(500).json({
-              object: 'error',
-              data: err.message,
-              itemCount: 0,
-              pageCount: 0
-          });
-
-          return;
-      }
-
-      var pageCount = data.pages;
-      var itemCount = data.total;
-
-      res.status(200).json({
-          object: 'list',
-          data: data.docs,
-          itemCount: itemCount,
-          pageCount: pageCount
+  ProdutoController.lista(req.app.site._id, filter, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
       });
+
+      return;
+    }
+
+    const pageCount = data.pages;
+    const itemCount = data.total;
+
+    res.status(200).json({
+      object: 'list',
+      data: data.docs,
+      itemCount,
+      pageCount
+    });
   });
 });
 
@@ -200,29 +198,29 @@ router.get('/produto/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/produto/:id', function (req, res, done) {
-    var id = req.params.id;
-    var site = req.app.site._id;
+router.get('/produto/:id', (req, res) => {
+  const id = req.params.id;
+  const site = req.app.site._id;
 
-    ProdutoController.abre(id, site, function (err, data) {
-        if (err) {
-            res.status(404).json({
-                object: 'error',
-                data: err.message,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ProdutoController.abre(id, site, (err, data) => {
+    if (err) {
+      res.status(404).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(200).json({
-            object: 'object',
-            data: data,
-            itemCount: 1,
-            pageCount: 1
-        });
+    res.status(200).json({
+      object: 'object',
+      data,
+      itemCount: 1,
+      pageCount: 1
     });
+  });
 });
 
 /**
@@ -313,47 +311,47 @@ router.get('/produto/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/produto/', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
-    var site = req.app.site._id;
-    var params = {
-        titulo      : striptags(req.body.titulo),
-        descricao   : striptags(req.body.descricao),
-        codigo      : striptags(req.body.codigo),
-        valor       : striptags(req.body.valor),
-        imagem      : striptags(req.body.imagem),
-        categoria   : {
-            titulo      : striptags(req.body.categoria.titulo),
-            uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
-            categoria   : {
-                titulo  : striptags(req.body.categoria.categoria.titulo),
-                uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
-            }
-        },
-        estoque: striptags(req.body.estoque),
-        dimensoes: striptags(req.body.dimensoes),
-        peso: striptags(req.body.peso),
-        site: req.app.site._id
-    };
+router.post('/produto/', multer({ dest: '/tmp/' }).single('imagem'), upload, (req, res) => {
+  const site = req.app.site._id;
+  const params = {
+    titulo: striptags(req.body.titulo),
+    descricao: striptags(req.body.descricao),
+    codigo: striptags(req.body.codigo),
+    valor: striptags(req.body.valor),
+    imagem: striptags(req.body.imagem),
+    categoria: {
+      titulo: striptags(req.body.categoria.titulo),
+      uri: slugify(striptags(req.body.categoria.titulo.toLowerCase())),
+      categoria: {
+        titulo: striptags(req.body.categoria.categoria.titulo),
+        uri: slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
+      }
+    },
+    estoque: striptags(req.body.estoque),
+    dimensoes: striptags(req.body.dimensoes),
+    peso: striptags(req.body.peso),
+    site: req.app.site._id
+  };
 
-    ProdutoController.adiciona(site, params, function (err, data) {
-        if (err || !data) {
-            res.status(500).json({
-                object: 'error',
-                data: err.message,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ProdutoController.adiciona(site, params, (err, data) => {
+    if (err || !data) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(201).json({
-            object: 'object',
-            data: data,
-            itemCount: 1,
-            pageCount: 1
-        });
+    res.status(201).json({
+      object: 'object',
+      data,
+      itemCount: 1,
+      pageCount: 1
     });
+  });
 });
 
 /**
@@ -378,48 +376,48 @@ router.post('/produto/', multer({dest: '/tmp/'}).single('imagem'), upload, funct
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/produto/:id', function (req, res, done) {
-    var id = req.params.id;
-    var site = req.app.site._id;
-    var params = {
-        titulo      : striptags(req.body.titulo),
-        descricao   : striptags(req.body.descricao),
-        codigo      : striptags(req.body.codigo),
-        valor       : striptags(req.body.valor),
-        imagem      : striptags(req.body.imagem),
-        categoria   : {
-            titulo      : striptags(req.body.categoria.titulo),
-            uri         : slugify(striptags(req.body.categoria.titulo.toLowerCase())),
-            categoria   : {
-                titulo  : striptags(req.body.categoria.categoria.titulo),
-                uri     : slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
-            }
-        },
-        estoque: striptags(req.body.estoque),
-        dimensoes: striptags(req.body.dimensoes),
-        peso: striptags(req.body.peso),
-        site: req.app.site._id
-    };
+router.put('/produto/:id', (req, res) => {
+  const id = req.params.id;
+  const site = req.app.site._id;
+  const params = {
+    titulo: striptags(req.body.titulo),
+    descricao: striptags(req.body.descricao),
+    codigo: striptags(req.body.codigo),
+    valor: striptags(req.body.valor),
+    imagem: striptags(req.body.imagem),
+    categoria: {
+      titulo: striptags(req.body.categoria.titulo),
+      uri: slugify(striptags(req.body.categoria.titulo.toLowerCase())),
+      categoria: {
+        titulo: striptags(req.body.categoria.categoria.titulo),
+        uri: slugify(striptags(req.body.categoria.categoria.titulo.toLowerCase()))
+      }
+    },
+    estoque: striptags(req.body.estoque),
+    dimensoes: striptags(req.body.dimensoes),
+    peso: striptags(req.body.peso),
+    site: req.app.site._id
+  };
 
-    ProdutoController.atualiza(id, site, params, function (err, data) {
-        if (err) {
-            res.status(500).json({
-                object: 'error',
-                data: err.message,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ProdutoController.atualiza(id, site, params, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(201).json({
-            object: 'object',
-            data: data,
-            itemCount: 1,
-            pageCount: 1
-        });
+    res.status(201).json({
+      object: 'object',
+      data,
+      itemCount: 1,
+      pageCount: 1
     });
+  });
 });
 
 /**
@@ -432,24 +430,24 @@ router.put('/produto/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/produto/:id', function (req, res, done) {
-    var id = req.params.id;
-    var site = req.app.site._id;
+router.delete('/produto/:id', (req, res) => {
+  const id = req.params.id;
+  const site = req.app.site._id;
 
-    ProdutoController.apaga(id, site, function (err, data) {
-        if (err) {
-            res.status(500).json({
-                object: 'error',
-                data: err.message,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ProdutoController.apaga(id, site, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(204).json({});
-    });
+    res.status(204).json({ data });
+  });
 });
 
 module.exports = router;

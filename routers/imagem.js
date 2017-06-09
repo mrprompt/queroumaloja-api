@@ -1,9 +1,7 @@
-'use strict';
-
-var router = require('express').Router(),
-  multer = require('multer'),
-  upload = require('../middleware/upload'),
-  ImagemController = require('../controllers/imagem');
+const router = require('express').Router();
+const multer = require('multer');
+const upload = require('../middleware/upload');
+const ImagemController = require('../controllers/imagem');
 
 /**
  * @api {post} /produto/:id/album Adiciona uma imagem ao álbum do produto
@@ -33,8 +31,8 @@ var router = require('express').Router(),
  *              "bytes": "2249274",
  *              "type": "upload",
  *              "etag": "d796793e655a4f4dd254ea2c6e317cb7",
- *              "url": "http://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
- *              "secure_url": "https://res.cloudinary.com/queroumalojati-papelaria/image/upload/v1466088376/p47d42m0ebagghhzdptt.jpg",
+ *              "url": "http://res.cloudinary.com/queroumaloja...466088376/p47d42m0ebagghhzdptt.jpg",
+ *              "secure_url": "https://res.cloudinary.com/quer...376/p47d42m0ebagghhzdptt.jpg",
  *              "_id": "5762bbb9b3081d1900b0acc3",
  *              "tags": [
  *              ],
@@ -83,30 +81,30 @@ var router = require('express').Router(),
  *        "pageCount": "1"
  *      }
  */
-router.post('/imagem/:id/album', multer({dest: '/tmp/'}).single('imagem'), upload, function (req, res, done) {
-    var produto = req.params.id;
-    var site = req.app.site._id;
-    var params = req.body.imagem;
+router.post('/imagem/:id/album', multer({ dest: '/tmp/' }).single('imagem'), upload, (req, res) => {
+  const produto = req.params.id;
+  const site = req.app.site._id;
+  const params = req.body.imagem;
 
-    ImagemController.adiciona(produto, site, params, function (err, data) {
-        if (err) {
-            res.status(500).json({
-                object: 'error',
-                data: err,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ImagemController.adiciona(produto, site, params, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(201).json({
-            object: 'object',
-            data: data,
-            itemCount: 1,
-            pageCount: 1
-        });
+    res.status(201).json({
+      object: 'object',
+      data,
+      itemCount: 1,
+      pageCount: 1
     });
+  });
 });
 
 /**
@@ -120,25 +118,25 @@ router.post('/imagem/:id/album', multer({dest: '/tmp/'}).single('imagem'), uploa
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/imagem/:id/album/:img', function (req, res, done) {
-    var produto = req.params.id;
-    var site = req.app.site._id;
-    var imagem = req.params.img;
+router.delete('/imagem/:id/album/:img', (req, res) => {
+  var produto = req.params.id;
+  var site = req.app.site._id;
+  var imagem = req.params.img;
 
-    ImagemController.apaga(produto, site, imagem, function (err, data) {
-        if (err) {
-            res.status(500).json({
-                object: 'error',
-                data: err,
-                itemCount: 0,
-                pageCount: 0
-            });
+  ImagemController.apaga(produto, site, imagem, (err, data) => {
+    if (err) {
+      res.status(500).json({
+        object: 'error',
+        data: err,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-            return;
-        }
+      return;
+    }
 
-        res.status(204).json({});
-    });
+    res.status(204).json({ data });
+  });
 });
 
 module.exports = router;
