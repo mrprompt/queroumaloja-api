@@ -13,9 +13,9 @@
     "new-cap": 0,
     "no-underscore-dangle": 0,
     "global-require": 0,
-    "prefer-arrow-callback": 0,
+    "prefer-arrow-callback": 1,
     "func-names": 0,
-    "no-var": 0,
+    "no-var": 1,
     "no-param-reassign": 1,
     "vars-on-top": 0,
     "import/no-dynamic-require": 0,
@@ -23,6 +23,6 @@
     "camelcase": 0,
     "no-proto": 0,
     "class-methods-use-this": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 1
   }
 }

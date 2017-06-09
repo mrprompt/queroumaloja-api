@@ -1,20 +1,18 @@
-'use strict';
+const cloudinary = require('cloudinary');
 
-var cloudinary  = require('cloudinary');
+const router = (req, res, done) => {
+  if (!req.file) {
+    done();
 
-var router = function(req, res, done) {
-    if (!req.file) {
-        done();
+    return;
+  }
 
-        return;
-    }
+  cloudinary.config(process.env.CLOUDINARY_URL);
+  cloudinary.uploader.upload(`${req.file.path}`, (result) => {
+    req.body.imagem = result;
 
-    cloudinary.config(process.env.CLOUDINARY_URL);
-    cloudinary.uploader.upload(req.file.path + '', function(result) {
-        req.body.imagem = result;
-
-        done();
-    });
+    done();
+  });
 };
 
 module.exports = router;

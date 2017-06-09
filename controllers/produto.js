@@ -1,52 +1,52 @@
-'use strict';
+const ProdutoModel = require('../models/produto');
 
-var ProdutoModel = require('../models/produto'), ProdutoController = function () {};
+const ProdutoController = function () {};
 
 /**
  * Lista os produtos
  */
-ProdutoController.prototype.lista = function (site, params, done) {
-    ProdutoModel.lista(site, params, done);
+ProdutoController.prototype.lista = (site, params, done) => {
+  ProdutoModel.lista(site, params, done);
 };
 
 /**
  * Visualiza um produto
  */
-ProdutoController.prototype.abre = function (id, site, done) {
-    ProdutoModel.abre(id, site, done);
+ProdutoController.prototype.abre = (id, site, done) => {
+  ProdutoModel.abre(id, site, done);
 };
 
 /**
  * Adiciona um produto
  */
-ProdutoController.prototype.adiciona = function (site, params, done) {
-    if (!params.titulo) {
-        done(new Error('Título não informado'));
+ProdutoController.prototype.adiciona = (site, params, done) => {
+  if (!params.titulo) {
+    done(new Error('Título não informado'));
 
-        return;
-    }
+    return;
+  }
 
-    ProdutoModel.adiciona(site, params, done);
+  ProdutoModel.adiciona(site, params, done);
 };
 
 /**
  * Atualiza os dados de um produto
  */
-ProdutoController.prototype.atualiza = function (id, site, params, done) {
-    if (!params.titulo) {
-        done(new Error('Título não informado'));
+ProdutoController.prototype.atualiza = (id, site, params, done) => {
+  if (!params.titulo) {
+    done(new Error('Título não informado'));
 
-        return;
-    }
+    return;
+  }
 
-    ProdutoModel.atualiza(id, site, params, done);
+  ProdutoModel.atualiza(id, site, params, done);
 };
 
 /**
  * Remove um produto
  */
-ProdutoController.prototype.apaga = function (id, site, done) {
-    ProdutoModel.apaga(id, site, done);
+ProdutoController.prototype.apaga = (id, site, done) => {
+  ProdutoModel.apaga(id, site, done);
 };
 
-module.exports = new ProdutoController;
+module.exports = new ProdutoController();

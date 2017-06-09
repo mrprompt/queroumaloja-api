@@ -1,32 +1,31 @@
-'use strict';
+const async = require('async');
+const UsuarioModel = require('../models/usuario');
+const TokenModel = require('../models/token');
 
-var async = require('async');
-var UsuarioModel = require('../models/usuario'),
-    TokenModel = require('../models/token'),
-    LoginController = function() {};
+const LoginController = function() {};
 
 /**
  * Efetua um login e adquire um token de acesso
  */
-LoginController.prototype.adiciona = function (email, password, site, done) {
+LoginController.prototype.adiciona = (email, password, site, done) => {
   async.waterfall([
-        function (callback) {
-            UsuarioModel.login(email, password, site, function (err, user) {
-                if (err || !user) {
-                    return done(new Error('Usuário/Senha inválidos'));
-                }
-
-                callback(null, user);
-            });
-        },
-        function (user, callback) {
-            TokenModel.adiciona(user, function (errorToken, dataToken) {
-                callback(errorToken, dataToken);
-            });
+    function (callback) {
+      UsuarioModel.login(email, password, site, (err, user) => {
+        if (err || !user) {
+          return done(new Error('Usuário/Senha inválidos'));
         }
-    ], function(err, results) {
-        done(err, results);
-    });
+
+        return callback(null, user);
+      });
+    },
+    function (user, callback) {
+      TokenModel.adiciona(user, (errorToken, dataToken) => {
+        callback(errorToken, dataToken);
+      });
+    }
+  ], (err, results) => {
+    done(err, results);
+  });
 };
 
-module.exports = new LoginController;
+module.exports = new LoginController();

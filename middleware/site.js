@@ -1,27 +1,25 @@
-'use strict';
+const site = require('../models/site');
 
-var site = require('../models/site');
+const router = (req, res, done) => {
+  if (req.method === 'OPTIONS') {
+    done();
 
-var router = function(req, res, done) {
-    if (req.method === 'OPTIONS') {
-        done();
+    return;
+  }
 
-        return;
+  site.buscaPorDominio(req.hostname, (err, data) => {
+    if (err || data === null) {
+      res.status(404);
+
+      done(new Error('Site não encontrado'));
+
+      return;
     }
 
-    site.buscaPorDominio(req.hostname, function(err, data) {
-        if (err || data === null) {
-            res.status(404);
+    req.app.site = data;
 
-            done(new Error('Site não encontrado'));
-
-            return;
-        }
-
-        req.app.site = data;
-
-        done();
-    });
+    done();
+  });
 };
 
 module.exports = router;
