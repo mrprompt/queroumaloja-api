@@ -33,7 +33,7 @@ describe('Login Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'POST',
-            url: '/',
+            url: '/login/',
             body: {
                 email: 'foo@bar.bar',
                 password_encrypted: '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW'
@@ -64,7 +64,7 @@ describe('Login Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'POST',
-            url: '/',
+            url: '/login/',
             body: {
                 email: 'foo@bar.br',
                 password_encrypted: '12347890'

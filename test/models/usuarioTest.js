@@ -33,7 +33,7 @@ describe('Usuario DAO', function () {
             }
         });
 
-        this.dao = require('../../models/usuario');
+        this.model = require('../../models/usuario');
     });
 
     after(function() {
@@ -41,7 +41,7 @@ describe('Usuario DAO', function () {
     });
 
     it('#lista', function (done) {
-        this.dao.lista(mongoose.Schema.Types.ObjectId(), 2, 3, function(err, result) {
+        this.model.lista(mongoose.Schema.Types.ObjectId(), 2, 3, function(err, result) {
             result.should.have.property('docs');
             result.should.have.property('total');
             result.should.have.property('page');
@@ -55,37 +55,37 @@ describe('Usuario DAO', function () {
         var id = mongoose.Schema.Types.ObjectId();
         var site = mongoose.Schema.Types.ObjectId();
 
-        this.dao.abre(id, site, function(err, result) {
+        this.model.abre(id, site, function(err, result) {
             done();
         });
     });
 
     it('#adiciona', function (done) {
-        this.dao.adiciona(mongoose.Schema.Types.ObjectId(1), {}, function() {
+        this.model.adiciona(mongoose.Schema.Types.ObjectId(1), {}, function() {
             done();
         });
     });
 
     it('#atualiza', function (done) {
-        this.dao.atualiza(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), {}, function() {
+        this.model.atualiza(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), {}, function() {
             done();
         });
     });
 
     it('#apaga', function (done) {
-        this.dao.apaga(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), function() {
+        this.model.apaga(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), function() {
             done();
         });
     });
 
     it('#login', function (done) {
-        this.dao.login('foo@bar.bar', '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', mongoose.Schema.Types.ObjectId(1), function() {
+        this.model.login('foo@bar.bar', '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', mongoose.Schema.Types.ObjectId(1), function() {
             done();
         });
     });
 
     it('#atualizaSenha', function (done) {
-        this.dao.atualizaSenha(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', function() {
+        this.model.atualizaSenha(mongoose.Schema.Types.ObjectId(1), mongoose.Schema.Types.ObjectId(1), '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW', function() {
             done();
         });
     });

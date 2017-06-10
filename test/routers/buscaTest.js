@@ -21,7 +21,7 @@ describe('Busca Router', function () {
                         docs: []
                     });
                 } else {
-                    done(new Error('Nada encontrado'), null);
+                    done(new Error('Nada encontrado'));
                 }
             }
         });
@@ -38,7 +38,7 @@ describe('Busca Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/teste',
+            url: '/busca/teste',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -63,12 +63,12 @@ describe('Busca Router', function () {
         done();
     });
 
-    it('#busca() sem palavra chave deve retornar um array e status 500', function (done) {
+    it('#busca() com palavra chave inexistente deve retornar um array e status 500', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/xublau',
+            url: '/busca/xublau',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

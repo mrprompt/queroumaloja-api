@@ -1,6 +1,6 @@
-'use strict';
-
-var router = require('express').Router(), BuscaController = require('../controllers/busca');
+const router = require('express').Router();
+const BuscaController = require('../controllers/busca');
+const error = require('../middleware/error');
 
 /**
  * @api {get} /busca/:palavra Busca um produto pela palavra chave
@@ -79,29 +79,20 @@ var router = require('express').Router(), BuscaController = require('../controll
  *        "pageCount": "10"
  *      }
  */
-router.get('/:palavra', function (req, res, done) {
-    BuscaController.busca(req.app.site._id, (req.params.palavra ? req.params.palavra.toLocaleString() : ''), function (err, data) {
-        if (err) {
-            res.status(500).json({
-                object      : 'error',
-                data        : err,
-                itemCount   : 0,
-                pageCount   : 0
-            });
+router.get('/busca/:palavra', (req, res) => {
+  const site = req.app.site._id;
+  const palavra = req.params.palavra.toLocaleString();
 
-            return;
-        }
-
-        var pageCount = data.pages;
-        var itemCount = data.total;
-
-        res.status(200).json({
-            object: 'list',
-            data: data.docs,
-            itemCount: itemCount,
-            pageCount: pageCount
-        });
+  BuscaController.busca(site, palavra, (err, data) => {
+    error(err, res, data, (result) => {
+      res.json({
+        object: 'list',
+        data: result.docs,
+        itemCount: result.total,
+        pageCount: result.pages
+      });
     });
+  });
 });
 
 module.exports = router;

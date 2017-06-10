@@ -77,7 +77,7 @@ describe('Site Module', function () {
 
         this.module(request, response, function() {});
 
-        response.statusCode.should.equal(400);
+        response.statusCode.should.equal(404);
         response.statusMessage.should.equal('OK');
 
         done();

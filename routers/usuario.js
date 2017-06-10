@@ -1,7 +1,5 @@
-'use strict';
-
-var router = require('express').Router(),
-  usuario = require('../controllers/usuario');
+const router = require('express').Router();
+const usuario = require('../controllers/usuario');
 
 /**
  * @api {get} /usuario Lista usuários cadastrados
@@ -26,10 +24,10 @@ var router = require('express').Router(),
  *        "pageCount": "2"
  *      }
  */
-router.get('/', function (req, res, done) {
-  var site = req.app.site._id;
-  var pagina = req.query.page;
-  var limite = req.query.limit;
+router.get('/usuario/', (req, res) => {
+  const site = req.app.site._id;
+  const pagina = req.query.page;
+  const limite = req.query.limit;
 
   usuario.lista(site, pagina, limite, function(err, data) {
     if (err) {
@@ -43,14 +41,14 @@ router.get('/', function (req, res, done) {
       return;
     }
 
-    var pageCount = data.pages;
-    var itemCount = data.total;
+    const pageCount = data.pages;
+    const itemCount = data.total;
 
     res.status(200).json({
-        object: 'list',
-        data: data.docs,
-        itemCount: itemCount,
-        pageCount: pageCount
+      object: 'list',
+      data: data.docs,
+      itemCount,
+      pageCount
     });
   });
 });
@@ -77,29 +75,29 @@ router.get('/', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.get('/:id', function (req, res, done) {
+router.get('/usuario/:id', (req, res) => {
   usuario.abre(req.params.id, req.app.site, function(err, user) {
     if (err) {
       res.status(404).json({
-          object: 'error',
-          data: {
-              status: 404,
-              message: 'Usuário não encontrado'
-          },
-          itemCount: 0,
-          pageCount: 0
+        object: 'error',
+        data: {
+          status: 404,
+          message: 'Usuário não encontrado'
+        },
+        itemCount: 0,
+        pageCount: 0
       });
 
       return;
     }
 
     res.status(200).json({
-        object: 'object',
-        data: user,
-        itemCount: 1,
-        pageCount: 1
+      object: 'object',
+      data: user,
+      itemCount: 1,
+      pageCount: 1
     });
-  })
+  });
 });
 
 /**
@@ -127,30 +125,30 @@ router.get('/:id', function (req, res, done) {
  *        "pageCount": "1"
  *      }
  */
-router.post('/', function (req, res, done) {
-  var site = req.app.site._id;
-  var params = req.body;
+router.post('/usuario/', (req, res) => {
+  const site = req.app.site._id;
+  const params = req.body;
   params.password = params.password_encrypted;
 
   delete params.password_encrypted;
 
-  usuario.adiciona(site, params, function (err, user) {
+  usuario.adiciona(site, params, (err, user) => {
     if (err) {
-        res.status(400).json({
-            object: 'error',
-            data: err.message,
-            itemCount: 0,
-            pageCount: 0
-        });
+      res.status(400).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
 
-        return;
+      return;
     }
 
     res.status(201).json({
-        object: 'object',
-        data: user,
-        itemCount: 1,
-        pageCount: 1
+      object: 'object',
+      data: user,
+      itemCount: 1,
+      pageCount: 1
     });
   });
 });
@@ -168,19 +166,19 @@ router.post('/', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.put('/:id', function (req, res, done) {
-  usuario.atualiza(req.params.id, req.app.site, req.body, function (err, user) {
+router.put('/usuario/:id', (req, res) => {
+  usuario.atualiza(req.params.id, req.app.site, req.body, (err, user) => {
     if (err) {
-        res.status(400).json({
-            object: 'error',
-            data: err.message,
-            itemCount: 0,
-            pageCount: 0
-        });
-        return;
+      res.status(400).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
+      return;
     }
 
-    res.status(204).json({});
+    res.status(204).json({ user });
   });
 });
 
@@ -194,19 +192,19 @@ router.put('/:id', function (req, res, done) {
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 204 OK
  */
-router.delete('/:id', function (req, res, done) {
-  usuario.apaga(req.params.id, req.app.site, function (err, user) {
+router.delete('/usuario/:id', (req, res) => {
+  usuario.apaga(req.params.id, req.app.site, (err, user) => {
     if (err) {
-        res.status(400).json({
-            object: 'error',
-            data: err.message,
-            itemCount: 0,
-            pageCount: 0
-        });
-        return;
+      res.status(400).json({
+        object: 'error',
+        data: err.message,
+        itemCount: 0,
+        pageCount: 0
+      });
+      return;
     }
 
-    res.status(204).json({});
+    res.status(204).json({ user });
   });
 });
 

@@ -1,29 +1,29 @@
-'use strict';
+const ProdutoSchema = require('../schemas/produto');
 
-var ProdutoSchema = require('../schemas/produto'),
-  BuscaDAO = function () {};
+const BuscaModel = function () {
+};
 
 /**
  * Buscar por um produto
  */
-BuscaDAO.prototype.busca = function (site, palavra, page, limit, done) {
-    ProdutoSchema.paginate(
-        {
-            site: site,
-            ativo: true,
-            $text: {
-                $search: palavra
-            }
-        },
-        {
-            page    : page,
-            limit   : limit,
-            sort    : {
-                cadastro : 'desc'
-            }
-        },
-        done
-    );
+BuscaModel.prototype.busca = (site, palavra, page, limit, done) => {
+  ProdutoSchema.paginate(
+    {
+      site,
+      ativo: true,
+      $text: {
+        $search: palavra
+      }
+    },
+    {
+      page,
+      limit,
+      sort: {
+        cadastro: 'desc'
+      }
+    },
+    done
+  );
 };
 
-module.exports = new BuscaDAO;
+module.exports = new BuscaModel();

@@ -26,7 +26,7 @@ describe('Token DAO', function () {
             }
         });
 
-        this.dao = require('../../models/token');
+        this.model = require('../../models/token');
     });
 
     after(function() {
@@ -34,13 +34,13 @@ describe('Token DAO', function () {
     });
 
     it('#adiciona', function (done) {
-        this.dao.adiciona({}, function() {
+        this.model.adiciona({}, function() {
             done();
         });
     });
 
     it('#buscaPorConteudo', function (done) {
-        this.dao.buscaPorConteudo('foo', 'barbar', function() {
+        this.model.buscaPorConteudo('foo', 'barbar', function() {
             done();
         });
     });

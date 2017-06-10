@@ -28,7 +28,7 @@ describe('Site DAO', function () {
             }
         });
 
-        this.dao = require('../../models/site');
+        this.model = require('../../models/site');
     });
 
     after(function() {
@@ -36,37 +36,37 @@ describe('Site DAO', function () {
     });
 
     it('#lista', function (done) {
-        this.dao.lista(1, 10, function() {
+        this.model.lista(1, 10, function() {
             done();
         });
     });
 
     it('#abre', function (done) {
-        this.dao.abre(1, function() {
+        this.model.abre(1, function() {
             done();
         });
     });
 
     it('#adiciona', function (done) {
-        this.dao.adiciona({}, function() {
+        this.model.adiciona({}, function() {
             done();
         });
     });
 
     it('#atualiza', function (done) {
-        this.dao.atualiza(1, {}, function() {
+        this.model.atualiza(1, {}, function() {
             done();
         });
     });
 
     it('#apaga', function (done) {
-        this.dao.apaga(1, function() {
+        this.model.apaga(1, function() {
             done();
         });
     });
 
     it('#buscaPorDominio', function (done) {
-        this.dao.buscaPorDominio('http://www.google.com', function() {
+        this.model.buscaPorDominio('http://www.google.com', function() {
             done();
         });
     });

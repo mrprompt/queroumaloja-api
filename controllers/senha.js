@@ -1,21 +1,17 @@
-'use strict';
+const UsuarioModel = require('../models/usuario');
 
-var UsuarioModel = require('../models/usuario'), SenhaController = function () {};
+const SenhaController = function () {};
 
 /**
  * Atualiza a senha do usuário
- *
- * @param req
- * @param res
- * @param done
  */
-SenhaController.prototype.atualiza = function (id, site, password, done) {
-    if (!password) {
-        done(new Error('Nova senha não informada'));
-        return;
-    }
+SenhaController.prototype.atualiza = (id, site, password, done) => {
+  if (!password) {
+    done(new Error('Nova senha não informada'));
+    return;
+  }
 
-    UsuarioModel.atualizaSenha(id, site, password, done);
+  UsuarioModel.atualizaSenha(id, site, password, done);
 };
 
-module.exports = new SenhaController;
+module.exports = new SenhaController();

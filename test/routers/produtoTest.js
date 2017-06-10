@@ -86,7 +86,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -116,7 +116,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -147,7 +147,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -179,7 +179,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -209,7 +209,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/1',
+            url: '/produto/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -235,7 +235,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'GET',
-            url: '/0',
+            url: '/produto/0',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -276,7 +276,7 @@ describe('Produto Router', function () {
                     }
                 }
             },
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -316,7 +316,7 @@ describe('Produto Router', function () {
                     }
                 }
             },
-            url: '/',
+            url: '/produto/',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -342,7 +342,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/1',
+            url: '/produto/1',
             body: {
                 titulo: 'foo',
                 descricao: 'bar bar bar',
@@ -393,7 +393,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'PUT',
-            url: '/0',
+            url: '/produto/0',
             body: {
                 titulo: 'foo',
                 descricao: 'bar bar bar',
@@ -449,7 +449,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/1',
+            url: '/produto/1',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()
@@ -469,7 +469,7 @@ describe('Produto Router', function () {
 
         var request  = http_mocks.createRequest({
             method: 'DELETE',
-            url: '/0',
+            url: '/produto/0',
             app: {
                 site: {
                     _id: new mongoose.Schema.Types.ObjectId()

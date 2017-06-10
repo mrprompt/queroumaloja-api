@@ -1,12 +1,12 @@
 # Quero Uma Loja - API
 
-[![Build Status for Master](https://travis-ci.org/QueroUmaLoja/api-server.svg)](https://travis-ci.org/QueroUmaLoja/api-server)
-[![Code Climate](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/gpa.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
-[![Test Coverage](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/coverage.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server/coverage)
-[![Issue Count](https://codeclimate.com/github/QueroUmaLoja/api-server/badges/issue_count.svg)](https://codeclimate.com/github/QueroUmaLoja/api-server)
-[![GitHub issues](https://img.shields.io/github/issues/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/issues)
-[![GitHub stars](https://img.shields.io/github/stars/QueroUmaLoja/api-server.svg)](https://github.com/QueroUmaLoja/api-server/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/QueroUmaLoja/api-server/master/LICENSE)
+[![Build Status for Master](https://travis-ci.org/mrprompt/queroumaloja-api.svg)](https://travis-ci.org/mrprompt/queroumaloja-api)
+[![Code Climate](https://codeclimate.com/github/mrprompt/queroumaloja-api/badges/gpa.svg)](https://codeclimate.com/github/mrprompt/queroumaloja-api)
+[![Test Coverage](https://codeclimate.com/github/mrprompt/queroumaloja-api/badges/coverage.svg)](https://codeclimate.com/github/mrprompt/queroumaloja-api/coverage)
+[![Issue Count](https://codeclimate.com/github/mrprompt/queroumaloja-api/badges/issue_count.svg)](https://codeclimate.com/github/mrprompt/queroumaloja-api)
+[![GitHub issues](https://img.shields.io/github/issues/mrprompt/queroumaloja-api.svg)](https://github.com/mrprompt/queroumaloja-api/issues)
+[![GitHub stars](https://img.shields.io/github/stars/mrprompt/queroumaloja-api.svg)](https://github.com/mrprompt/queroumaloja-api/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/mrprompt/queroumaloja-api/master/LICENSE)
 
 API de Produtos.
 
@@ -94,7 +94,7 @@ node node_modules/bcrypt/examples/forever_gen_salt.js
 
 ### Documentação
 
-A [documentação](http://queroumaloja.github.io/api-server/) é gerada utilizando o utilitário apidoc e você pode conferir [aqui](http://queroumaloja.github.io/api-server/):
+A [documentação](http://mrprompt.github.io/queroumaloja-api/) é gerada utilizando o utilitário apidoc e você pode conferir [aqui](http://mrprompt.github.io/queroumaloja-api/):
 
 ```
 ./node_modules/.bin/apidoc -o apidoc -i routers/

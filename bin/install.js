@@ -1,48 +1,45 @@
-'use strict';
+const siteController = require('../controllers/site');
+const usuarioController = require('../controllers/usuario');
+const async = require('async');
+const bcrypt = require('bcrypt');
+const os = require('os');
 
-var connection = require('../modules/connection');
-var site = require('../controllers/site');
-var usuario = require('../controllers/usuario');
-var async = require('async');
-var bcrypt = require('bcrypt');
-var salt = process.env.PASSWORD_SALT || '$2a$10$MeVpoT66x6r2eNFZ8diZDe';
-var uniqid = require('uniqid');
-var os = require("os");
-var host = process.env.HEROKU_APP_NAME || os.hostname();
+const salt = process.env.PASSWORD_SALT || '$2a$10$MeVpoT66x6r2eNFZ8diZDe';
+const host = process.env.HEROKU_APP_NAME || os.hostname();
 
 async.waterfall(
-    [
-        function (callback) {
-            console.log('Criando Site');
+  [
+    function (callback) {
+      console.log('Criando Site');
 
-            var params = {
-                nome: host,
-                dominio: host,
-                emails: [],
-                enderecos: [],
-                telefones: [],
-                categorias: [],
-                config: {}
-            };
+      const params = {
+        nome: host,
+        dominio: host,
+        emails: [],
+        enderecos: [],
+        telefones: [],
+        categorias: [],
+        config: {}
+      };
 
-            site.adiciona(params, callback);
-        },
-        function (site, callback) {
-            console.log('Criando Usuário');
+      siteController.adiciona(params, callback);
+    },
+    function (site, callback) {
+      console.log('Criando Usuário');
 
-            var params = {
-                nome: 'Administrador',
-                email: 'admin@' + os.hostname(),
-                password: bcrypt.hashSync(os.hostname(), salt)
-            };
+      const params = {
+        nome: 'Administrador',
+        email: `admin@${os.hostname()}`,
+        password: bcrypt.hashSync(os.hostname(), salt)
+      };
 
-            usuario.adiciona(site._id, params, callback);
-        }
-    ], 
-    function (err, done) {
-        console.log('Site cadastrado com sucesso.');
-        console.log('Suas credenciais são: admin@' + os.hostname() + ' - ' + os.hostname());
+      usuarioController.adiciona(site._id, params, callback);
+    }
+  ],
+    (err, done) => {
+      console.log('Site cadastrado com sucesso.');
+      console.log(`Suas credenciais são: admin@${os.hostname()} - ${os.hostname()}`);
 
-        process.exit(0);
+      process.exit(0);
     }
 );
