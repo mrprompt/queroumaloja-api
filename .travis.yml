@@ -10,9 +10,6 @@ addons:
     packages:
       - g++-4.8
 
-  code_climate:
-    repo_token: 7999d3c546e18743012d67dab3536c4dbbed672b52fd39410458126e76809d07
-
 node_js:
   - "6"
 
