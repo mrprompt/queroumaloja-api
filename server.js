@@ -6,7 +6,7 @@ const PAGINATION = {
 require('dotenv').config({ silent: true });
 
 // New Relic only necessary to production environment
-if (process.env.ENV === 'production') {
+if (process.env.ENV === 'production' && !!process.env.NEW_RELIC_LICENSE_KEY) {
   require('newrelic');
 }
 
