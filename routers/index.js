@@ -32,4 +32,9 @@ router.get('/', (req, res) => {
   });
 });
 
+/* GET home page. */
+router.get('/_ah/health', (req, res) => {
+  res.send('OK');
+});
+
 module.exports = router;

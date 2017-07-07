@@ -50,10 +50,10 @@ const Application = function () {
      *  Initialize the server (express), create the routes and register the handlers.
      */
   self.initializeServer = function () {
-        // start ExpressJs
+      // start ExpressJs
     self.app = express();
 
-        // load middleware
+      // load middleware
     self.app.use(bodyParser.json());
     self.app.use(bodyParser.urlencoded({ extended: true }));
     self.app.use(methodOverride());

@@ -30,7 +30,7 @@ const UsuarioSchema = new mongoose.Schema({
   .set('toJSON', {
     transform(doc, ret) {
       delete ret.password;
-      delete ret.site;
+      // delete ret.site;
 
       return ret;
     }
