@@ -9,11 +9,7 @@ const router = (req, res, done) => {
 
   site.buscaPorDominio(req.hostname, (err, data) => {
     if (err || data === null) {
-      res.status(404);
-
-      done(new Error('Site não encontrado'));
-
-      return;
+      data = {};
     }
 
     req.app.site = data;

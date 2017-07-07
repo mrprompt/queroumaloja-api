@@ -65,7 +65,7 @@ describe('Site Module', function () {
         done();
     });
 
-    it('Deve parar se o site não for encontrado.', function (done) {
+    it('Deve prosseguir mesmo se o site não for encontrado.', function (done) {
         var response = http_mocks.createResponse();
 
         var request  = http_mocks.createRequest({
@@ -77,7 +77,7 @@ describe('Site Module', function () {
 
         this.module(request, response, function() {});
 
-        response.statusCode.should.equal(404);
+        response.statusCode.should.equal(200);
         response.statusMessage.should.equal('OK');
 
         done();
