@@ -35,9 +35,9 @@ const Application = function () {
   const port = process.env.PORT || '8080';
   const env = process.env.ENV || 'production';
 
-    /**
-     *  Create the routing table entries + handlers for the application.
-     */
+  /**
+   *  Create the routing table entries + handlers for the application.
+   */
   self.createRoutes = function () {
     fs.readdirSync('./routers').forEach((file) => {
       const route = require(`./routers/${file}`);
@@ -46,14 +46,14 @@ const Application = function () {
     });
   };
 
-    /**
-     *  Initialize the server (express), create the routes and register the handlers.
-     */
+  /**
+   *  Initialize the server (express), create the routes and register the handlers.
+   */
   self.initializeServer = function () {
-      // start ExpressJs
+    // start ExpressJs
     self.app = express();
 
-      // load middleware
+    // load middleware
     self.app.use(bodyParser.json());
     self.app.use(bodyParser.urlencoded({ extended: true }));
     self.app.use(methodOverride());
@@ -64,10 +64,10 @@ const Application = function () {
     self.app.use(token);
     self.app.use(password);
 
-        // load routes
+    // load routes
     self.createRoutes();
 
-        // start server
+    // start server
     self.app.listen(port, () => {
       console.log('Started on port %d in %s mode', port, env);
     });

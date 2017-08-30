@@ -26,6 +26,8 @@ const router = (req, res, done) => {
 
     done(err, data);
   });
+
+  return true;
 };
 
 module.exports = router;
