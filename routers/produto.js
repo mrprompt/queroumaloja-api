@@ -318,7 +318,7 @@ router.post('/produto/', multer({ dest: '/tmp/' }).single('imagem'), upload, (re
     descricao: striptags(req.body.descricao),
     codigo: striptags(req.body.codigo),
     valor: striptags(req.body.valor),
-    imagem: striptags(req.body.imagem),
+    imagem: req.body.imagem,
     categoria: {
       titulo: striptags(req.body.categoria.titulo),
       uri: slugify(striptags(req.body.categoria.titulo.toLowerCase())),

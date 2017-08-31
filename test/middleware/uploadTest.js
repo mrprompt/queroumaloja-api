@@ -55,6 +55,17 @@ describe('Upload Module', function () {
             url: '/',
             file: {
                 path: 'foo'
+            },
+            app: {
+              site: {
+                config: {
+                  cloudinary: {
+                    api_secret: 'foo',
+                    api_key: 'baar',
+                    cloud_name: 'foo_baar'
+                  }
+                }
+              }
             }
         });
 
