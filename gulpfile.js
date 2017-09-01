@@ -7,8 +7,5 @@
 const gulp = require('gulp');
 const ghPages = require('gulp-gh-pages');
 
-gulp.task('deploy:site', () => {
-  return gulp
-    .src('./apidoc/**/*')
-    .pipe(ghPages());
-});
+gulp.task('deploy:site', () => gulp.src('./apidoc/**/*')
+    .pipe(ghPages()));
