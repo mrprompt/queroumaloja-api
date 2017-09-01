@@ -9,7 +9,7 @@
     "comma-dangle": [2, "never"],
     "indent": ["error", 2],
     "prefer-template": 2,
-    "no-console": 1,
+    "no-console": 0,
     "new-cap": 0,
     "no-underscore-dangle": 0,
     "global-require": 0,
