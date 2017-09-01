@@ -4,7 +4,7 @@ const upload = require('../middleware/upload');
 const ImagemController = require('../controllers/imagem');
 
 /**
- * @api {post} /produto/:id/album Adiciona uma imagem ao álbum do produto
+ * @api {post} /imagem/:id/album Adiciona uma imagem ao álbum do produto
  * @apiName ProdutoAlbumAdiciona
  * @apiGroup Produto
  *
@@ -108,7 +108,7 @@ router.post('/imagem/:id/album', multer({ dest: '/tmp/' }).single('imagem'), upl
 });
 
 /**
- * @api {delete} /produto/:id/album/:img Apaga uma imagem do álbum do produto
+ * @api {delete} /imagem/:id/album/:img Apaga uma imagem do álbum do produto
  * @apiName ProdutoAlbumApagaImagem
  * @apiGroup Produto
  *
