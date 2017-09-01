@@ -25,8 +25,7 @@ Antes de rodar aplicação, são necessárias configurações das variáveis de 
 ```
 NODE_IP (127.0.0.1)
 NODE_PORT (8080)
-MONGODB_URI
-CLOUDINARY_URL
+MONGODB_URI (localhost:27017)
 PASSWORD_SALT ($2a$10$MeVpoT66x6r2eNFZ8diZDe)
 ```
 
