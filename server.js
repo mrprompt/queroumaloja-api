@@ -16,6 +16,7 @@ const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const compression = require('compression');
+const helmet = require('helmet');
 
 // middleware
 const fs = require('fs');
@@ -67,6 +68,7 @@ const Application = function () {
     self.app.use(cors());
     self.app.use(compression({ filter: shouldCompress }));
     self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
+    self.app.use(helmet());
     self.app.use(site);
     self.app.use(token);
     self.app.use(password);
