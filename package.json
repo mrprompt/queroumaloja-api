@@ -1,6 +1,6 @@
 {
   "name": "quero-uma-loja-api",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "API de Produtos",
   "private": true,
   "main": "server.js",
