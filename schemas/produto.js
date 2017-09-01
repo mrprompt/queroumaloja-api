@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const mongoose = require('mongoose');
 const ProdutoSchema = new mongoose.Schema({
   codigo: {
@@ -194,10 +195,7 @@ const ProdutoSchema = new mongoose.Schema({
     .plugin(require('mongoose-paginate'))
     .set('toJSON', {
       transform(doc, ret) {
-        delete ret.site;
-        delete ret.ativo;
-
-        return ret;
+        return _.omit(ret, ['site', 'ativo']);
       }
     })
     .index({ '$**': 'text' });

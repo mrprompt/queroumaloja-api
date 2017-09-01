@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const mongoose = require('mongoose');
 const SiteSchema = new mongoose.Schema({
   nome: {
@@ -154,10 +155,7 @@ const SiteSchema = new mongoose.Schema({
     .plugin(require('mongoose-unique-validator'))
     .set('toJSON', {
       transform (doc, ret) {
-        delete ret.config;
-        delete ret.ativo;
-
-        return ret;
+        return _.omit(ret, ['config', 'ativo']);
       }
     });
 

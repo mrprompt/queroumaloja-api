@@ -196,11 +196,11 @@ router.get('/site/:id', (req, res) => {
  *
  * @apiParam {String} nome
  * @apiParam {String} dominio
- * @apiParam {Object} emails [{nome, endereco}]
- * @apiParam {Object} endereco [{logradouro, complemento, numero, bairro, cep, cidade, estado, tipo (comercial, residencial)}]
- * @apiParam {Object} telefones [{nome, numero, tipo (residencial, comercial)}]
- * @apiParam {Object} categorias [{nome, uri, categorias: { nome, uri }}]
- * @apiParam {Object} entrega [{modalidade: ('pac', 'sedex', 'transportadora', 'moto', 'proprio', 'outro', 'nenhuma'), valor}]
+ * @apiParam {Object} emails
+ * @apiParam {Object} endereco
+ * @apiParam {Object} telefones
+ * @apiParam {Object} categorias
+ * @apiParam {Object} entrega
  * @apiParam {Boolean} ativo
  *
  * @apiSuccessExample {json} Success-Response:
@@ -306,11 +306,11 @@ router.post('/site/', (req, res) => {
  * @apiParam {String} id Site unique ID.
  * @apiParam {String} nome
  * @apiParam {String} dominio
- * @apiParam {Object} emails [{nome, endereco}]
- * @apiParam {Object} endereco [{logradouro, complemento, numero, bairro, cep, cidade, estado, tipo (comercial, residencial)}]
- * @apiParam {Object} telefones [{nome, numero, tipo (residencial, comercial)}]
- * @apiParam {Object} categorias [{nome, uri, categorias: { nome, uri }}]
- * @apiParam {Object} entrega [{modalidade: ('pac', 'sedex', 'transportadora', 'moto', 'proprio', 'outro', 'nenhuma'), valor}]
+ * @apiParam {Object} emails
+ * @apiParam {Object} endereco
+ * @apiParam {Object} telefones
+ * @apiParam {Object} categorias
+ * @apiParam {Object} entrega
  * @apiParam {Boolean} ativo
  *
  * @apiSuccessExample {json} Success-Response:

@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const mongoose = require('mongoose');
 const UsuarioSchema = new mongoose.Schema({
   site: {
@@ -29,10 +30,7 @@ const UsuarioSchema = new mongoose.Schema({
   .plugin(require('mongoose-unique-validator'))
   .set('toJSON', {
     transform(doc, ret) {
-      delete ret.password;
-      // delete ret.site;
-
-      return ret;
+      return _.omit(ret, ['password', 'site']);
     }
   });
 

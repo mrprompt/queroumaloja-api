@@ -232,7 +232,7 @@ router.get('/produto/:id', (req, res) => {
  * @apiParam {String} titulo Título do produto.
  * @apiParam {String} descricao Descrição do produto.
  * @apiParam {Object} valor Valor do produto {valor: number, nome: string, moeda: string} .
- * @apiParam {Object} categoria Categoria {titulo: string, uri: string, categoria: { titulo: string, uri: string}}.
+ * @apiParam {Object} categoria Categoria {titulo: string, uri: string}.
  * @apiParam {Boolean} ativo Produto (in)ativo.
  * @apiParam {Object} imagem Imagem de representação do produto {url: string, secure_url: string}
  * @apiParam {Object} album Álbum de imagens, array de {imagem}
@@ -364,7 +364,7 @@ router.post('/produto/', multer({ dest: '/tmp/' }).single('imagem'), upload, (re
  * @apiParam {String} titulo Título do produto.
  * @apiParam {String} descricao Descrição do produto.
  * @apiParam {Object} valor Valor do produto {valor: number, nome: string, moeda: string} .
- * @apiParam {Object} categoria Categoria {titulo: string, uri: string, categoria: { titulo: string, uri: string}}.
+ * @apiParam {Object} categoria Categoria {titulo: string, uri: string}.
  * @apiParam {Boolean} ativo Produto (in)ativo.
  * @apiParam {Object} imagem Imagem de representação do produto {url: string, secure_url: string}
  * @apiParam {Object} album Álbum de imagens, array de {imagem}
