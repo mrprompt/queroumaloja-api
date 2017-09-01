@@ -119,9 +119,9 @@ router.post('/imagem/:id/album', multer({ dest: '/tmp/' }).single('imagem'), upl
  *     HTTP/1.1 204 OK
  */
 router.delete('/imagem/:id/album/:img', (req, res) => {
-  var produto = req.params.id;
-  var site = req.app.site._id;
-  var imagem = req.params.img;
+  const produto = req.params.id;
+  const site = req.app.site._id;
+  const imagem = req.params.img;
 
   ImagemController.apaga(produto, site, imagem, (err, data) => {
     if (err) {

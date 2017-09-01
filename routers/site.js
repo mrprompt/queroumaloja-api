@@ -76,14 +76,12 @@ router.get('/site/', (req, res) => {
 
   site.lista(page, limit, (err, data) => {
     if (err) {
-      data = {
+      res.status(500).json({
         object: 'error',
         data: err.message,
         itemCount: 0,
         pageCount: 0
-      };
-
-      res.status(500).json(data);
+      });
 
       return;
     }

@@ -193,7 +193,7 @@ const ProdutoSchema = new mongoose.Schema({
 })
     .plugin(require('mongoose-paginate'))
     .set('toJSON', {
-      transform(doc, ret, options) {
+      transform(doc, ret) {
         delete ret.site;
         delete ret.ativo;
 

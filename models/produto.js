@@ -37,28 +37,42 @@ ProdutoModel.prototype.lista = (site, filtro = {}, done) => {
  * Visualiza um produto
  */
 ProdutoModel.prototype.abre = (id, site, done) => {
-  ProdutoSchema.findOne({ _id: id, site }, done);
+  ProdutoSchema
+    .findOne({ _id: id, site }, done);
 };
 
 /**
  * Adiciona um produto
  */
 ProdutoModel.prototype.adiciona = (site, params, done) => {
-  ProdutoSchema.create(params, done);
+  ProdutoSchema
+    .create(params, done);
 };
 
 /**
  * Atualiza os dados de um produto
  */
 ProdutoModel.prototype.atualiza = (id, site, params, done) => {
-  ProdutoSchema.findOneAndUpdate({ _id: id, site }, params, { new: true, multi: true }, done);
+  ProdutoSchema
+    .findOneAndUpdate(
+      { _id: id, site },
+      params,
+      { new: true, multi: true },
+      done
+    );
 };
 
 /**
  * Remove um produto
  */
 ProdutoModel.prototype.apaga = (id, site, done) => {
-  ProdutoSchema.findOneAndUpdate({ _id: id, site }, { ativo: false }, { new: true, multi: true }, done);
+  ProdutoSchema
+    .findOneAndUpdate(
+      { _id: id, site },
+      { ativo: false },
+      { new: true, multi: true },
+      done
+    );
 };
 
 module.exports = new ProdutoModel();

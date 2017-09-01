@@ -8,11 +8,7 @@ const router = (req, res, done) => {
   }
 
   site.buscaPorDominio(req.hostname, (err, data) => {
-    if (err || data === null) {
-      data = {};
-    }
-
-    req.app.site = data;
+    req.app.site = data || {};
 
     done();
   });

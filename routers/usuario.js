@@ -29,7 +29,7 @@ router.get('/usuario/', (req, res) => {
   const pagina = req.query.page;
   const limite = req.query.limit;
 
-  usuario.lista(site, pagina, limite, function(err, data) {
+  usuario.lista(site, pagina, limite, (err, data) => {
     if (err) {
       res.status(500).json({
         object: 'error',
@@ -76,7 +76,7 @@ router.get('/usuario/', (req, res) => {
  *      }
  */
 router.get('/usuario/:id', (req, res) => {
-  usuario.abre(req.params.id, req.app.site, function(err, user) {
+  usuario.abre(req.params.id, req.app.site, (err, user) => {
     if (err) {
       res.status(404).json({
         object: 'error',

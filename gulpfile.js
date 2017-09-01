@@ -4,12 +4,11 @@
  *  because putting it all here was too long
  */
 
-'use strict';
+const gulp = require('gulp');
+const ghPages = require('gulp-gh-pages');
 
-var gulp = require('gulp');
-var ghPages = require('gulp-gh-pages');
-
-gulp.task('deploy:site', function() {
-  return gulp.src('./apidoc/**/*')
+gulp.task('deploy:site', () => {
+  return gulp
+    .src('./apidoc/**/*')
     .pipe(ghPages());
 });
