@@ -22,8 +22,8 @@ describe('Usuario Controller', function () {
             },
             abre: function (id, site, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -36,8 +36,8 @@ describe('Usuario Controller', function () {
             },
             adiciona: function (site, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -50,8 +50,8 @@ describe('Usuario Controller', function () {
             },
             atualiza: function (id, site, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -64,8 +64,8 @@ describe('Usuario Controller', function () {
             },
             apaga: function (id, site, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -86,7 +86,7 @@ describe('Usuario Controller', function () {
     });
 
     it('#lista() deve retornar um objeto', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
         var pagina = 1;
         var limite = 1;
 
@@ -101,8 +101,8 @@ describe('Usuario Controller', function () {
     });
 
     it('#abre() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
-        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         this.controller.abre(id, site, function (error, result) {
             should(error).is.be.null();
@@ -115,13 +115,13 @@ describe('Usuario Controller', function () {
     });
 
     it('#adiciona() deve retornar um objeto', function (done) {
-        var site = new mongoose.Schema.Types.ObjectId();
+        var site = new mongoose.Types.ObjectId();
 
         var body = {
             nome: 'foo',
             email: 'foo@bar.bar',
             password: 'foo',
-            site: mongoose.Schema.Types.ObjectId()
+            site: mongoose.Types.ObjectId()
         };
 
         this.controller.adiciona(site, body, function (error, result) {
@@ -133,12 +133,12 @@ describe('Usuario Controller', function () {
     });
 
     it('#adiciona() sem nome deve retornar um Erro', function (done) {
-        var site = new mongoose.Schema.Types.ObjectId();
+        var site = new mongoose.Types.ObjectId();
 
         var body = {
             email: 'foo@bar.bar',
             password: 'foo',
-            site: mongoose.Schema.Types.ObjectId()
+            site: mongoose.Types.ObjectId()
         };
 
         this.controller.adiciona(site, body, function (error, result) {
@@ -149,12 +149,12 @@ describe('Usuario Controller', function () {
     });
 
     it('#adiciona() sem email deve retornar um Erro', function (done) {
-        var site = new mongoose.Schema.Types.ObjectId();
+        var site = new mongoose.Types.ObjectId();
 
         var body = {
             nome: 'fooo',
             password: 'foo',
-            site: mongoose.Schema.Types.ObjectId()
+            site: mongoose.Types.ObjectId()
         };
 
         this.controller.adiciona(site, body, function (error, result) {
@@ -165,12 +165,12 @@ describe('Usuario Controller', function () {
     });
 
     it('#adiciona() sem senha deve retornar um Erro', function (done) {
-        var site = new mongoose.Schema.Types.ObjectId();
+        var site = new mongoose.Types.ObjectId();
 
         var body = {
             nome: 'fooo',
             email: 'foo@bar.bar',
-            site: mongoose.Schema.Types.ObjectId()
+            site: mongoose.Types.ObjectId()
         };
 
         this.controller.adiciona(site, body, function (error, result) {
@@ -181,8 +181,8 @@ describe('Usuario Controller', function () {
     });
 
     it('#atualiza() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
-        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         var body = {
             nome: 'foo',
@@ -198,13 +198,13 @@ describe('Usuario Controller', function () {
     });
 
     it('#atualiza() sem nome deve retornar um Erro', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
-        var site = new mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
+        var site = new mongoose.Types.ObjectId();
 
         var body = {
             email: 'foo@bar.bar',
             password: 'foo',
-            site: mongoose.Schema.Types.ObjectId()
+            site: mongoose.Types.ObjectId()
         };
 
         this.controller.atualiza(id, site, body, function (error, result) {
@@ -215,8 +215,8 @@ describe('Usuario Controller', function () {
     });
 
     it('#apaga() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
-        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         var body = {
             nome: 'foo',

@@ -15,7 +15,7 @@ describe('Senha Controller', function () {
             atualizaSenha: function(id, site, password, done) {
                 if (password == '1234567890') {
                     done(null, {
-                        _id: new mongoose.Schema.Types.ObjectId()
+                        _id: new mongoose.Types.ObjectId()
                     });
                 } else {
                     done(new Error('Nada encontrado'), null);
@@ -31,8 +31,8 @@ describe('Senha Controller', function () {
     });
 
     it('atualizar senha deve retornar nulo', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
         var senha = 1234567890;
 
         this.controller.atualiza(id, site, senha, function(error, data) {
@@ -44,8 +44,8 @@ describe('Senha Controller', function () {
     });
 
     it('atualizar senha sem campo senha deve retornar um objeto Error', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
         var senha = null;
 
         this.controller.atualiza(id, site, senha, function(error, data) {

@@ -14,12 +14,12 @@ describe('Imagem Controller', function () {
         mockery.registerMock('../models/imagem', {
             adicionaImagem: function(produto, site, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             apagaImagem: function(id, site, imagem, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
         });
@@ -48,7 +48,7 @@ describe('Imagem Controller', function () {
             }
         };
 
-        this.controller.adiciona(mongoose.Schema.Types.ObjectId(), mongoose.Schema.Types.ObjectId(), {}, function(err, result) {
+        this.controller.adiciona(mongoose.Types.ObjectId(), mongoose.Types.ObjectId(), {}, function(err, result) {
             should(err).not.be.ok();
             should(result).is.be.ok();
 
@@ -60,7 +60,7 @@ describe('Imagem Controller', function () {
     });
 
     it('apaga deve retornar o objeto e status de sucesso.', function (done) {
-        this.controller.apaga(mongoose.Schema.Types.ObjectId(), mongoose.Schema.Types.ObjectId(), mongoose.Schema.Types.ObjectId(), function(err, result) {
+        this.controller.apaga(mongoose.Types.ObjectId(), mongoose.Types.ObjectId(), mongoose.Types.ObjectId(), function(err, result) {
             should(err).not.be.ok();
             should(result).is.be.ok();
 

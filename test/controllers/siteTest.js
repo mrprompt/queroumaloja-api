@@ -22,7 +22,7 @@ describe('Site Controller', function () {
             },
             abre: function (id, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     ativo: true
@@ -30,8 +30,8 @@ describe('Site Controller', function () {
             },
             adiciona: function (params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     ativo: true
@@ -39,8 +39,8 @@ describe('Site Controller', function () {
             },
             atualiza: function (id, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     ativo: true
@@ -48,8 +48,8 @@ describe('Site Controller', function () {
             },
             apaga: function (id, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     ativo: false
@@ -79,7 +79,7 @@ describe('Site Controller', function () {
     });
 
     it('#abre() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
 
         this.controller.abre(id, function(error, result) {
             should(null).is.be.null();
@@ -109,7 +109,7 @@ describe('Site Controller', function () {
     });
 
     it('#atualiza() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
         var params = {
             nome: 'foo',
             dominio: 'localhost.localdomain',
@@ -129,7 +129,7 @@ describe('Site Controller', function () {
     });
 
     it('#apaga() deve retornar um objeto', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
 
         this.controller.apaga(id, function(error, result) {
             should(null).is.be.null();

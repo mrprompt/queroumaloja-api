@@ -15,7 +15,7 @@ describe('Site Module', function () {
             buscaPorDominio: function (dominio, done) {
                 if (dominio == 'local.queroumaloja.net') {
                     done(null, {
-                        _id: new mongoose.Schema.Types.ObjectId(),
+                        _id: new mongoose.Types.ObjectId(),
                         atualizacao: new Date,
                         cadastro: new Date,
                         ativo: true

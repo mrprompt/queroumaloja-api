@@ -33,7 +33,7 @@ describe('Produto Controller', function () {
     });
 
     it('busca por palavra chave deve retornar um objeto com os atributos: docs, total, page e pages.', function (done) {
-        this.controller.busca(mongoose.Schema.Types.ObjectId(), 'test', function(err, result) {
+        this.controller.busca(mongoose.Types.ObjectId(), 'test', function(err, result) {
             result.should.have.property('docs');
             result.should.have.property('total');
             result.should.have.property('page');
@@ -44,7 +44,7 @@ describe('Produto Controller', function () {
     });
 
     it('busca com palavra chave vazia deve retornar um objeto com os atributos: docs, total, page e pages.', function (done) {
-        this.controller.busca(mongoose.Schema.Types.ObjectId(), '', function(err, result) {
+        this.controller.busca(mongoose.Types.ObjectId(), '', function(err, result) {
             result.should.have.property('docs');
             result.should.have.property('total');
             result.should.have.property('page');
@@ -55,7 +55,7 @@ describe('Produto Controller', function () {
     });
 
     it('busca com palavra chave nula deve retornar um objeto do tipo Error com o atributo message.', function (done) {
-        this.controller.busca(mongoose.Schema.Types.ObjectId(), null, function(error, result) {
+        this.controller.busca(mongoose.Types.ObjectId(), null, function(error, result) {
             error.should.be.an.instanceOf(Error).and.have.property('message');
 
             done();

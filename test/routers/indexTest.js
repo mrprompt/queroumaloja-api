@@ -16,7 +16,7 @@ describe('Index Router', function () {
             url: '/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -27,7 +27,7 @@ describe('Index Router', function () {
 
         response.statusCode.should.equal(200);
         response.statusMessage.should.equal('OK');
-        
+
         data.object.should.equal('object');
         data.itemCount.should.equal(1);
         data.pageCount.should.equal(1);

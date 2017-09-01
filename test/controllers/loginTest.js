@@ -15,7 +15,7 @@ describe('Login Controller', function () {
             login: function(email, password, site, done) {
                 if (email == 'foo@bar.bar' || password == '$2a$10$MeVpoT66x6r2eNFZ8diZDxDvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW') {
                     done(null, {
-                        _id: new mongoose.Schema.Types.ObjectId()
+                        _id: new mongoose.Types.ObjectId()
                     });
                 } else {
                     done(new Error('Nada encontrado'), null);
@@ -26,7 +26,7 @@ describe('Login Controller', function () {
         mockery.registerMock('../models/token', {
             adiciona: function(usuario, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             }
         });
@@ -41,7 +41,7 @@ describe('Login Controller', function () {
     it('usuário válido deve retornar um objeto e status de sucesso', function (done) {
         var email = 'foo@bar.bar';
         var password = '$2a$10$MeVpoT66x6r2eNFZ8diZDxDvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW';
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         this.controller.adiciona(email, password, site, function(error, result) {
             should(error).is.be.null();
@@ -54,7 +54,7 @@ describe('Login Controller', function () {
     it('usuário inválido deve retornar um objeto Error', function (done) {
         var email = 'foo@bars.bar';
         var password = '$2a$10$MeVpoT66x6r2eNFZ8diZDeBvj2vSjq/Hn6AUIHCKiV7mbU8dBR2OW';
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         this.controller.adiciona(email, password, site, function(error, result) {
             error.should.be.an.instanceOf(Error).and.have.property('message');

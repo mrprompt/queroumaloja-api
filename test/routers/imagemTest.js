@@ -61,7 +61,7 @@ describe('Imagem Router', function () {
             url: '/imagem/1/album',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -90,7 +90,7 @@ describe('Imagem Router', function () {
             url: '/imagem/1/album',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -116,7 +116,7 @@ describe('Imagem Router', function () {
             url: '/imagem/1/album/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -137,7 +137,7 @@ describe('Imagem Router', function () {
             url: '/imagem/1/album/2',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });

@@ -40,7 +40,7 @@ describe('Login Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -82,7 +82,7 @@ describe('Login Router', function () {
 
         response.statusCode.should.equal(404);
         response.statusMessage.should.equal('OK');
-        
+
         data.object.should.equal('error');
         data.itemCount.should.equal(0);
         data.pageCount.should.equal(1);

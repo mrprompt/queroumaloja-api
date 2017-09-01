@@ -34,7 +34,7 @@ describe('Produto Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             adiciona: function (site, params, done) {
@@ -45,7 +45,7 @@ describe('Produto Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             atualiza: function (id, site, params, done) {
@@ -56,7 +56,7 @@ describe('Produto Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             apaga: function (id, site, done) {
@@ -89,7 +89,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -119,7 +119,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -150,7 +150,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -182,7 +182,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -212,7 +212,7 @@ describe('Produto Router', function () {
             url: '/produto/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -238,7 +238,7 @@ describe('Produto Router', function () {
             url: '/produto/0',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -279,7 +279,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
         });
@@ -319,7 +319,7 @@ describe('Produto Router', function () {
             url: '/produto/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
         });
@@ -375,7 +375,7 @@ describe('Produto Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
         });
@@ -426,7 +426,7 @@ describe('Produto Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
         });
@@ -452,7 +452,7 @@ describe('Produto Router', function () {
             url: '/produto/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -472,7 +472,7 @@ describe('Produto Router', function () {
             url: '/produto/0',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });

@@ -21,8 +21,8 @@ describe('Produto Controller', function () {
             },
             abre: function (id, site, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -35,8 +35,8 @@ describe('Produto Controller', function () {
             },
             adiciona: function (site, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -49,8 +49,8 @@ describe('Produto Controller', function () {
             },
             atualiza: function (id, site, params, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -63,8 +63,8 @@ describe('Produto Controller', function () {
             },
             apaga: function (id, site, done) {
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId(),
-                    site: new mongoose.Schema.Types.ObjectId(),
+                    _id: new mongoose.Types.ObjectId(),
+                    site: new mongoose.Types.ObjectId(),
                     atualizacao: new Date,
                     cadastro: new Date,
                     quantidade: 0,
@@ -85,7 +85,7 @@ describe('Produto Controller', function () {
     });
 
     it('método lista deve retornar um objeto', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
         var params = {
             page: 1,
             limit: 10
@@ -102,8 +102,8 @@ describe('Produto Controller', function () {
     });
 
     it('método abre deve retornar um objeto do tipo Error', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
 
         this.controller.abre(id, site, function(error, result) {
             result.should.have.property('_id');
@@ -122,13 +122,13 @@ describe('Produto Controller', function () {
     });
 
     it('#adiciona() deve retornar um objeto', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
         var request = {
             titulo: 'foo',
             descricao: 'bar bar bar',
             imagem: {},
             codigo: 0,
-            valor: [ 
+            valor: [
                 {
                     nome: 'unidade',
                     valor: 1.00,
@@ -162,12 +162,12 @@ describe('Produto Controller', function () {
     });
 
     it('#adiciona() sem titulo deve disparar um erro', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
         var request = {
             descricao: 'bar bar bar',
             imagem: {},
             codigo: 0,
-            valor: [ 
+            valor: [
                 {
                     nome: 'unidade',
                     valor: 1.00,
@@ -192,14 +192,14 @@ describe('Produto Controller', function () {
     });
 
     it('atualizar deve retornar objeto', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
         var request = {
             titulo: 'foo',
             descricao: 'bar bar bar',
             imagem: {},
             codigo: 0,
-            valor: [ 
+            valor: [
                 {
                     nome: 'unidade',
                     valor: 1.00,
@@ -233,13 +233,13 @@ describe('Produto Controller', function () {
     });
 
     it('atualizar sem título deve retornar objeto do tipo Error', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
         var request = {
             descricao: 'bar bar bar',
             imagem: {},
             codigo: 0,
-            valor: [ 
+            valor: [
                 {
                     nome: 'unidade',
                     valor: 1.00,
@@ -264,8 +264,8 @@ describe('Produto Controller', function () {
     });
 
     it('apagar com id válido dev retornar um objeto', function (done) {
-        var site = mongoose.Schema.Types.ObjectId();
-        var id = mongoose.Schema.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
 
         this.controller.apaga(id, site, function(error, result) {
             result.should.have.property('_id');

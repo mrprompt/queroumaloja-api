@@ -4,7 +4,7 @@ var should = require('should'),
     http_mocks = require('node-mocks-http'),
     mockery = require('mockery');
 var mongoose = require('mongoose');
-    
+
 describe('Usuario Router', function () {
     before(function() {
         mockery.enable({
@@ -34,7 +34,7 @@ describe('Usuario Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             adiciona: function (site, params, done) {
@@ -45,7 +45,7 @@ describe('Usuario Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             atualiza: function (id, site, params, done) {
@@ -56,7 +56,7 @@ describe('Usuario Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             apaga: function (id, site, done) {
@@ -115,7 +115,7 @@ describe('Usuario Router', function () {
             url: '/usuario/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -145,7 +145,7 @@ describe('Usuario Router', function () {
             url: '/usuario/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -171,7 +171,7 @@ describe('Usuario Router', function () {
             url: '/usuario/0',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -203,7 +203,7 @@ describe('Usuario Router', function () {
             url: '/usuario/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -233,7 +233,7 @@ describe('Usuario Router', function () {
             url: '/usuario/',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -263,7 +263,7 @@ describe('Usuario Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -287,7 +287,7 @@ describe('Usuario Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -313,7 +313,7 @@ describe('Usuario Router', function () {
             url: '/usuario/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -333,7 +333,7 @@ describe('Usuario Router', function () {
             url: '/usuario/0',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });

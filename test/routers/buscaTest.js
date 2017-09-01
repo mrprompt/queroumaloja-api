@@ -41,7 +41,7 @@ describe('Busca Router', function () {
             url: '/busca/teste',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {
@@ -71,7 +71,7 @@ describe('Busca Router', function () {
             url: '/busca/xublau',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             },
             query: {

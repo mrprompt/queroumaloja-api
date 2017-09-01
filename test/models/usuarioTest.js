@@ -41,7 +41,7 @@ describe('Usuario DAO', function () {
     });
 
     it('#lista', function (done) {
-        this.model.lista(mongoose.Schema.Types.ObjectId(), 2, 3, function(err, result) {
+        this.model.lista(mongoose.Types.ObjectId(), 2, 3, function(err, result) {
             result.should.have.property('docs');
             result.should.have.property('total');
             result.should.have.property('page');
@@ -52,8 +52,8 @@ describe('Usuario DAO', function () {
     });
 
     it('#abre', function (done) {
-        var id = mongoose.Schema.Types.ObjectId();
-        var site = mongoose.Schema.Types.ObjectId();
+        var id = mongoose.Types.ObjectId();
+        var site = mongoose.Types.ObjectId();
 
         this.model.abre(id, site, function(err, result) {
             done();

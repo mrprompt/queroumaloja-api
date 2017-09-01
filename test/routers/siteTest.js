@@ -35,7 +35,7 @@ describe('Site Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             adiciona: function (params, done) {
@@ -46,7 +46,7 @@ describe('Site Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             atualiza: function (id, params, done) {
@@ -57,7 +57,7 @@ describe('Site Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
             apaga: function (id, done) {
@@ -68,7 +68,7 @@ describe('Site Router', function () {
                 }
 
                 done(null, {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 });
             },
         });
@@ -138,7 +138,7 @@ describe('Site Router', function () {
             url: '/site/1',
             headers: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -164,7 +164,7 @@ describe('Site Router', function () {
             url: '/site/0',
             headers: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -300,7 +300,7 @@ describe('Site Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -328,7 +328,7 @@ describe('Site Router', function () {
             },
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -354,7 +354,7 @@ describe('Site Router', function () {
             url: '/site/1',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });
@@ -374,7 +374,7 @@ describe('Site Router', function () {
             url: '/site/0',
             app: {
                 site: {
-                    _id: new mongoose.Schema.Types.ObjectId()
+                    _id: new mongoose.Types.ObjectId()
                 }
             }
         });

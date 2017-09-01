@@ -62,16 +62,6 @@ Para os testes unitários, é utilizado o Mocha.
 npm test
 ```
 
-### New Relic
-
-A api é possui integração com o [New Relic](https://www.newrelic.com), bastando você setar as variáveis de ambiente:
-
-```
-APPLICATION_NAME
-NEW_RELIC_LICENSE_KEY
-NEW_RELIC_LOG
-```
-
 ### Garantia
 
 Esta API é disponibilizada *como está*, o autor não é responsável por qualquer perda ou dano consequente da utilização

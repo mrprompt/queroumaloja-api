@@ -5,11 +5,6 @@ const PAGINATION = {
 
 require('dotenv').config({ silent: true });
 
-// New Relic only necessary to production environment
-if (process.env.ENV === 'production' && !!process.env.NEW_RELIC_LICENSE_KEY) {
-  require('newrelic');
-}
-
 // DB global connection
 require('./middleware/connection');
 
@@ -20,12 +15,23 @@ const morgan = require('morgan');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const compression = require('compression');
 
 // middleware
 const fs = require('fs');
 const site = require('./middleware/site');
 const token = require('./middleware/token');
 const password = require('./middleware/password');
+
+function shouldCompress (req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false;
+  }
+
+  // fallback to standard filter function
+  return compression.filter(req, res);
+}
 
 /**
  *  Define the application.
@@ -59,6 +65,7 @@ const Application = function () {
     self.app.use(methodOverride());
     self.app.use(morgan('dev'));
     self.app.use(cors());
+    self.app.use(compression({ filter: shouldCompress }));
     self.app.use(paginate.middleware(PAGINATION.MIN, PAGINATION.MAX));
     self.app.use(site);
     self.app.use(token);
