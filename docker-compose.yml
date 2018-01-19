@@ -13,8 +13,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./:/app
+      - ./:/home/app
     links:
       - db
-    working_dir: /app
+    working_dir: /home/app
     command: "npm run start"
