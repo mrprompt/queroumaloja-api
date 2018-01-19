@@ -62,5 +62,9 @@
   },
   "pre-commit": [
     "test"
-  ]
+  ],
+  "apidoc": {
+    "name": "Quero Uma Loja - API",
+    "description": "API de Produtos"
+  }
 }
