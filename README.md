@@ -7,6 +7,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/mrprompt/queroumaloja-api.svg)](https://github.com/mrprompt/queroumaloja-api/issues)
 [![GitHub stars](https://img.shields.io/github/stars/mrprompt/queroumaloja-api.svg)](https://github.com/mrprompt/queroumaloja-api/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/mrprompt/queroumaloja-api/master/LICENSE)
+[![Known Vulnerabilities](https://snyk.io/test/github/mrprompt/queroumaloja-api/badge.svg?targetFile=package.json)](https://snyk.io/test/github/mrprompt/queroumaloja-api?targetFile=package.json)
 
 API de Produtos.
 
