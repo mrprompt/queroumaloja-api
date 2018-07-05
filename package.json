@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "async": "^2.5.0",
-    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "cloudinary": "^1.9.0",
     "compression": "^1.7.0",
