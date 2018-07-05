@@ -1,7 +1,7 @@
 const siteController = require('../controllers/site');
 const usuarioController = require('../controllers/usuario');
 const async = require('async');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const os = require('os');
 
 const salt = process.env.PASSWORD_SALT || '$2a$10$MeVpoT66x6r2eNFZ8diZDe';
