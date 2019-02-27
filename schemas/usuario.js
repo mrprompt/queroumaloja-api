@@ -30,7 +30,7 @@ const UsuarioSchema = new mongoose.Schema({
   .plugin(require('mongoose-unique-validator'))
   .set('toJSON', {
     transform(doc, ret) {
-      return _.omit(ret, ['password', 'site']);
+      return _.omit(ret, ['password']);
     }
   });
 
